@@ -1,0 +1,3326 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\textbf{Remerciements}
+\begin{quote}
+Je tiens à exprimer ma profonde gratitude envers toutes les personnes
+qui ont contribué à la réalisation de ce projet de fin d'études. Tout
+d'abord, je remercie chaleureusement mon encadrant, Monsieur
+\textbf{Mohamed Ali Ben Jazia}, pour son soutien indéfectible, ses
+conseils avisés et sa disponibilité tout au long de ce parcours. Sa
+connaissance approfondie du domaine et sa passion pour l'innovation
+ont été des sources d'inspiration constantes.
+Je souhaite également remercier l'ensemble de l'équipe de l'Union
+Internationale de Banques (UIB Tunisie) pour leur accueil chaleureux et
+leur collaboration précieuse. Leur expertise et leur engagement ont
+été essentiels à la réussite de ce projet. Un remerciement particulier
+à mes collègues de promotion pour leur soutien moral et leurs échanges
+constructifs, qui ont enrichi mon expérience académique. Enfin, je
+remercie ma famille et mes amis pour leur patience, leur compréhension
+et leur encouragement tout au long de ce parcours. Leur présence a été
+un véritable moteur dans les moments difficiles.
+Je dédie ce travail à tous ceux qui croient en la puissance de la
+transformation digitale et à l'importance de l'innovation dans le
+secteur bancaire. J'espère que ce projet contribuera à améliorer
+l'expérience bancaire des clients et à renforcer l'efficacité des
+opérations au sein de l'UIB Tunisie.
+\end{quote}
+\textbf{Résumé}
+\begin{quote}
+Ce projet de fin d'études porte sur la conception et le développement
+d'une application bancaire web sécurisée, ergonomique et performante,
+destinée à l'Union Internationale de Banques (UIB Tunisie). L'objectif
+principal est de centraliser et automatiser plusieurs processus bancaires
+clés tout en garantissant un haut niveau de sécurité et une expérience
+utilisateur fluide. L'application est conçue pour trois profils
+d'utilisateurs : l'Administrateur, le Client et l'Employé (avec des
+sous-rôles tels que le Conseiller et le Chargé Marketing). Elle permet à
+l'administrateur de gérer les comptes utilisateurs, d'attribuer des rôles
+et de superviser l'ensemble des activités sur la plateforme. Le client
+bénéficie d'une interface intuitive lui donnant accès à ses comptes,
+à l'historique de ses transactions, à la gestion de ses demandes (telles
+que les prêts ou les recommandations de produits), et à une
+communication directe avec son conseiller. L'employé, selon son rôle,
+peut analyser les besoins des clients, recommander des produits
+adaptés, approuver ou refuser des requêtes, et visualiser des tableaux
+de bord analytiques. Le développement repose sur une architecture
+technique moderne, utilisant Laravel pour le backend et Next.js pour
+l'interface frontend, le tout sécurisé par un système
+d'authentification robuste basé sur Sanctum. L'approche respecte les
+bonnes pratiques de développement web, avec une séparation claire des
+responsabilités, une API RESTful bien structurée, et une gestion des
+rôles basée sur le principe du moindre privilège. Ce rapport retrace
+l'ensemble des étapes de conception et de réalisation du projet, depuis
+l'analyse de l'existant et la définition des besoins, jusqu'à la mise en
+œuvre technique, en passant par la modélisation UML (diagrammes de cas
+d'utilisation, de séquence et de classes), les choix technologiques et  
+les tests de validation. Il présente également les défis rencontrés,
+les solutions apportées, et les perspectives d'évolution de l'application,
+notamment en matière d'intégration de services tiers (open banking),
+d'analytique prédictive ou encore d'amélioration de l'expérience mobile.
+À travers ce projet, l'UIB confirme sa volonté d'offrir à ses clients et
+collaborateurs un outil numérique innovant, fiable et évolutif, en phase
+avec les standards internationaux de la banque digitale. Ce travail
+constitue ainsi une contribution concrète à la transformation numérique
+de l'entreprise, tout en représentant une expérience formatrice
+complète, mêlant analyse fonctionnelle, développement logiciel, gestion
+de projet et réflexion stratégique.
+\end{quote}
+\textbf{Mots-clés}
+\begin{quote}
+Application bancaire, digitalisation, UIB Tunisie, Laravel, Next.js,
+authentification, API RESTful, expérience utilisateur, automatisation,
+modélisation UML, transformation numérique, open banking, analytique
+prédictive, banque digitale.
+\end{quote}
+\tableofcontents
+\newpage
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+\begin{quote}
+Dans un monde de plus en plus connecté, la digitalisation des services
+financiers est devenue un enjeu majeur pour les institutions bancaires.
+L'Union Internationale de Banques (UIB Tunisie), acteur clé du secteur
+bancaire tunisien, s'engage dans une transformation digitale ambitieuse
+pour répondre aux attentes croissantes de ses clients et améliorer
+l'efficacité de ses opérations.
+Ce projet de fin d'études (PFE) vise à concevoir et développer une
+application bancaire web sécurisée, ergonomique et performante, destinée
+à centraliser et automatiser plusieurs processus bancaires clés. L'application
+est conçue pour trois profils d'utilisateurs : l'Administrateur, le
+Client et l'Employé (avec des sous-rôles tels que le Conseiller et le
+Chargé Marketing). L'objectif principal est de garantir un haut niveau
+de sécurité tout en offrant une expérience utilisateur fluide et intuitive.
+L'application permettra à l'administrateur de gérer les comptes
+utilisateurs, d'attribuer des rôles et de superviser l'ensemble des
+activités sur la plateforme. Le client bénéficiera d'une interface
+intuitive lui donnant accès à ses comptes, à l'historique de ses
+transactions, à la gestion de ses demandes (telles que les prêts ou
+les recommandations de produits), et à une communication directe avec
+son conseiller. L'employé, selon son rôle, pourra analyser les besoins
+des clients, recommander des produits adaptés, approuver ou refuser
+des requêtes, et visualiser des tableaux de bord analytiques.
+Le développement de cette application repose sur une architecture
+technique moderne, utilisant Laravel pour la gestion du backend et
+Next.js pour l'interface frontend, le tout sécurisé par un système
+d'authentification robuste basé sur Sanctum. L'approche choisie
+respecte les bonnes pratiques de développement web, avec une séparation
+des responsabilités, une API RESTful bien structurée, et une gestion des
+rôles basée sur le principe du moindre privilège.
+Ce rapport retrace l'ensemble des étapes de conception et de réalisation
+de ce projet, depuis l'analyse de l'existant et la définition des besoins,
+jusqu'à la mise en œuvre technique, en passant par la modélisation UML
+(diagrammes de cas d'utilisation, de séquence et de classes), les choix
+technologiques et les tests de validation. Il présente également les
+défis rencontrés, les solutions apportées, et les perspectives
+d'évolution de l'application, notamment en matière d'intégration de
+services tiers (open banking), d'analytique prédictive ou encore
+d'amélioration de l'expérience mobile.
+À travers ce projet, l'UIB confirme sa volonté d'offrir à ses clients et
+
+\hypertarget{introduction-guxe9nuxe9rale}{%
+\subsection{Introduction Générale}\label{introduction-guxe9nuxe9rale}}
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
+
+\begin{quote}
+Dans un contexte bancaire en constante mutation, marqué par une
+transformation numérique accélérée et des attentes client toujours plus
+élevées, la digitalisation des services financiers est devenue un
+impératif stratégique pour les institutions bancaires. Cette évolution
+ne se limite pas à une simple modernisation des outils informatiques,
+mais constitue une refonte en profondeur de l'expérience utilisateur, de
+la gestion des données, ainsi que de l'efficacité opérationnelle.
+L'Union Internationale de Banques (UIB Tunisie), acteur majeur du
+secteur bancaire tunisien, s'inscrit pleinement dans cette dynamique de
+transformation digitale.
+
+Ce projet de fin d'études (PFE) s'inscrit dans le cadre de cette
+stratégie de modernisation. Il porte sur la conception et le
+développement d'une application bancaire web sécurisée, ergonomique et
+performante, pensée pour répondre aux besoins spécifiques de trois
+profils d'utilisateurs : l'Administrateur, le Client et l'Employé (avec
+des sous-rôles tels que le Conseiller et le Chargé Marketing).
+L'objectif principal est de centraliser et automatiser plusieurs
+processus bancaires clés tout en garantissant un haut niveau de sécurité
+et une expérience utilisateur fluide.
+
+L'application permet notamment à l'administrateur de gérer les comptes
+utilisateurs, d'attribuer des rôles et de superviser l'ensemble des
+activités sur la plateforme. Le client, quant à lui, bénéficie d'une
+interface intuitive lui donnant accès à ses comptes, à l'historique de
+ses transactions, à la gestion de ses demandes (telles que les prêts ou
+les recommandations de produits), et à une communication directe avec
+son conseiller. L'employé, selon son rôle, peut analyser les besoins des
+clients, recommander des produits adaptés, approuver ou refuser des
+requêtes, et visualiser des tableaux de bord analytiques.
+
+Le développement de cette application repose sur une architecture
+technique moderne, utilisant Laravel pour la gestion du backend et
+Next.js pour l'interface frontend, le tout sécurisé par un système
+d'authentification robuste basé sur Sanctum. L'approche choisie respecte
+les bonnes pratiques de développement web, avec une séparation claire
+des responsabilités, une API RESTful bien structurée, et une gestion des
+rôles basée sur le principe du moindre privilège.
+
+Ce rapport se propose de retracer l'ensemble des étapes de conception et
+de réalisation de ce projet, depuis l'analyse de l'existant et la
+définition des besoins, jusqu'à la mise en œuvre technique, en passant
+par la modélisation UML (diagrammes de cas d'utilisation, de séquence et
+de classes), les choix technologiques et les tests de validation. Il
+présentera également les défis rencontrés, les solutions apportées, et
+les perspectives d'évolution de l'application, notamment en matière
+d'intégration de services tiers (open banking), d'analytique prédictive
+ou encore d'amélioration de l'expérience mobile.
+
+À travers ce projet, l'UIB confirme sa volonté d'offrir à ses clients et
+collaborateurs un outil numérique innovant, fiable et évolutif, en phase
+avec les standards internationaux de la banque digitale. Ce travail
+constitue ainsi une contribution concrète à la transformation numérique
+de l'entreprise, tout en représentant une expérience formatrice
+complète, mêlant analyse fonctionnelle, développement logiciel, gestion
+de projet et réflexion stratégique.
+\end{quote}
+
+\textbf{Chapitre 1 : Cadre du Projet}
+
+\begin{quote}
+\textbf{Introduction}
+
+Ce chapitre a pour objectif de situer le cadre général de
+l\textquotesingle étude en présentant d\textquotesingle abord
+l\textquotesingle institution hôte ainsi qu\textquotesingle une analyse
+des solutions actuellement disponibles sur le marché. Il procédera
+ensuite à un examen détaillé du système existant, suivie
+d\textquotesingle une exposition de la solution que nous proposons et de
+son positionnement stratégique dans le paysage bancaire actuel. Enfin,
+le chapitre abordera les choix méthodologiques retenus pour la
+conception du projet ainsi que les langages de modélisation utilisés
+pour formaliser cette approche.
+\end{quote}
+
+\hypertarget{pruxe9sentation-de-lorganisme-daccueil}{%
+\subsubsection{Présentation de l'organisme d'accueil
+:}\label{pruxe9sentation-de-lorganisme-daccueil}}
+
+\begin{quote}
+Fondée en 1964, l\textquotesingle Union Internationale de Banques (UIB)
+s\textquotesingle est imposée comme une institution majeure dans le
+secteur bancaire tunisien. Opérant selon un modèle de banque
+universelle, l\textquotesingle établissement propose une offre
+exhaustive de services financiers adaptés à l\textquotesingle ensemble
+des segments de clientèle, des particuliers aux professionnels en
+passant par les grandes entreprises.
+
+La figure 1.1 présente le logo de l'Union Internationale de Banques.
+\end{quote}
+
+\includegraphics[width=2.67715in,height=1.78477in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image1.jpeg}
+
+\begin{quote}
+Portée par une forte impulsion de développement, l\textquotesingle UIB
+poursuit l\textquotesingle expansion continue de son maillage
+territorial, comptant aujourd\textquotesingle hui 145 agences réparties
+stratégiquement à travers la Tunisie pour assurer une couverture
+optimale des centres urbains.
+
+Le renforcement de son positionnement s\textquotesingle est accentué en
+2002 avec son entrée dans l\textquotesingle ère de la privatisation,
+marquée par l\textquotesingle acquisition d\textquotesingle une
+participation majoritaire par le Groupe Société Générale. Ce partenariat
+stratégique permet à l\textquotesingle UIB de bénéficier de
+l\textquotesingle expertise et des innovations du groupe international,
+lui offrant ainsi les moyens de proposer à sa clientèle des solutions
+sur mesure et un conseil de haute qualité, parfaitement adaptés aux
+exigences du marché moderne.{[}27{]}
+
+La figure 2 présente l'organigramme de la UIB Banque, illustrant la
+structure hiérarchique de l'institution, ses départements et les
+relations de supervision entre eux :
+\end{quote}
+
+\includegraphics[width=4.22625in,height=2.87in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image2.jpeg}
+
+\begin{quote}
+L'UIB Banque se distingue par la présence de plusieurs réseaux
+autonomes, chacun contribuant à la richesse et à la diversité de ses
+services financiers :
+
+. Association Féminin By UIB . Collection d'Art UIB
+
+. Comités du Conseil . Conseil d'Administration
+
+. Contacts Presse . Espace Actionnaires
+
+. Fondation Arts \& Culture by UIB . Fondation Solidarité \& Innovation
+by UIB
+\end{quote}
+
+\hypertarget{agence-uib}{%
+\paragraph{Agence UIB}\label{agence-uib}}
+
+\begin{quote}
+L'\textbf{Union Internationale de Banques (UIB Tunisie)}~est une
+institution financière majeure en Tunisie, offrant une gamme variée de
+services bancaires aux particuliers et aux entreprises. Avec un réseau
+d'agences réparties à travers le pays, UIB se distingue par son
+engagement envers l'innovation technologique et la satisfaction client.
+L'application développée dans ce projet s'intègre dans cette dynamique
+en digitalisant les opérations courantes, permettant aux clients
+d'effectuer des transactions à distance, tandis que les employés et
+administrateurs bénéficient d'outils optimisés pour la gestion des
+comptes, la validation des demandes et le suivi des activités. Cette
+modernisation des processus contribue à renforcer l'efficacité
+opérationnelle de l'agence UIB tout en offrant une expérience
+utilisateur fluide et sécurisée.
+\end{quote}
+
+\hypertarget{analyse-de-lexistant}{%
+\subsubsection{Analyse de l'existant}\label{analyse-de-lexistant}}
+
+\begin{quote}
+L'étude de l'existant constitue le cœur de la phase d'analyse d'un
+projet. Cette étape est primordiale pour la mise en route de tout projet
+informatique ou autre, et qui permet de définir le contexte de
+fonctionnement, ou bien le processus métier, et de répertorier les
+différentes imperfections dans le système actuel afin de les corriger.
+\end{quote}
+
+\hypertarget{description-du-contexte}{%
+\paragraph{Description du contexte}\label{description-du-contexte}}
+
+\begin{quote}
+Le secteur bancaire tunisien a connu ces dernières années une
+transformation digitale profonde, marquée par l\textquotesingle adoption
+croissante des technologies financières et l\textquotesingle évolution
+des attentes des clients vers des services plus accessibles, rapides et
+sécurisés. Dans ce contexte, l\textquotesingle Union Internationale de
+Banques (UIB) dispose déjà de plusieurs canaux de distribution incluant
+un réseau d\textquotesingle agences physiques, des guichets
+automatiques, ainsi qu\textquotesingle une plateforme de banque en ligne
+et une application mobile. Cependant, une analyse approfondie du système
+actuel révèle plusieurs limitations majeures.
+
+Du côté des clients, les solutions existantes offrent des
+fonctionnalités basiques comme la consultation de solde,
+l\textquotesingle historique des transactions ou les virements entre
+comptes, mais elles présentent des interfaces peu intuitives et manquent
+de fonctionnalités avancées. Par exemple, les demandes de prêt
+nécessitent toujours un passage physique en agence, et les processus de
+validation des transactions importantes restent longs et peu
+transparents. De plus, les options de personnalisation et de gestion de
+profil sont limitées, ce qui réduit l\textquotesingle engagement et la
+satisfaction des utilisateurs.
+
+Pour les employés, les outils actuels de gestion des comptes et de
+validation des transactions sont fragmentés entre plusieurs systèmes,
+obligeant à des saisies manuelles répétitives et à des contrôles
+fastidieux. Cette fragmentation entraîne non seulement une perte de
+temps considérable, mais aussi des risques d\textquotesingle erreurs
+humaines dans le traitement des opérations. Les employés manquent
+également d\textquotesingle outils de reporting en temps réel pour
+suivre efficacement l\textquotesingle activité des clients ou les
+transactions suspectes.
+
+Au niveau administratif, les processus d\textquotesingle approbation des
+comptes, des rôles utilisateurs et des demandes de prêt reposent encore
+largement sur des validations papier ou des échanges par email, ce qui
+allonge considérablement les délais de traitement.
+L\textquotesingle absence d\textquotesingle automatisation dans ces
+processus clés représente un frein important à
+l\textquotesingle efficacité opérationnelle de la banque.
+
+Face à ce constat, notre projet d\textquotesingle application bancaire
+pour UIB se positionne comme une réponse complète à ces différentes
+limitations. En s\textquotesingle appuyant sur les dernières
+technologies et en s\textquotesingle inspirant des meilleures pratiques
+du secteur, la nouvelle solution vise à :
+\end{quote}
+
+\begin{itemize}
+\item
+  Moderniser l\textquotesingle expérience client avec des interfaces
+  intuitives et des fonctionnalités étendues
+\item
+  Automatiser et sécuriser les processus métiers pour les employés
+\item
+  Digitaliser complètement les workflows administratifs
+\item
+  Introduire des outils d\textquotesingle analyse et de reporting
+  performants
+\item
+  Garantir une conformité totale avec les réglementations bancaires en
+  vigueur
+\end{itemize}
+
+\begin{quote}
+Cette analyse détaillée de l\textquotesingle existant nous permet ainsi
+de bien cerner les enjeux et de définir une solution parfaitement
+adaptée aux besoins spécifiques d\textquotesingle UIB et de ses
+différents utilisateurs.
+\end{quote}
+
+\hypertarget{critique-de-lexistant}{%
+\paragraph{Critique de l'existant}\label{critique-de-lexistant}}
+
+\begin{quote}
+L\textquotesingle analyse approfondie du système bancaire actuel
+d\textquotesingle UIB révèle plusieurs faiblesses structurelles qui
+freinent son développement et nuisent à l\textquotesingle expérience
+utilisateur. Le principal écueil réside dans la fragmentation des
+systèmes d\textquotesingle information, créant des silos opérationnels
+qui compliquent le workflow et génèrent des redondances dans le
+traitement des données. Cette architecture obsolète entraîne trois
+problèmes majeurs :
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Pour les clients}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  L\textquotesingle ergonomie dépassée des interfaces digitales engendre
+  un taux d\textquotesingle abandon élevé
+\item
+  Les fonctionnalités essentielles (comme les demandes de prêt) restent
+  ancrées dans des processus physiques
+\item
+  L\textquotesingle absence de personnalisation et de recommandations
+  intelligentes limite l\textquotesingle engagement
+\item
+  Les temps de réponse pour les opérations sensibles sont anormalement
+  longs
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Pour les employés}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  La multiplicité des systèmes non interconnectés impose des ressaisies
+  constantes
+\item
+  Les outils de détection des fraudes sont réactifs plutôt que
+  préventifs
+\item
+  Le manque d\textquotesingle automatisation sur les tâches répétitives
+  (vérifications KYC, rapprochements) génère des coûts cachés
+\item
+  L\textquotesingle absence de dashboard unifié empêche une vision
+  globale de l\textquotesingle activité
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  \textbf{Pour l\textquotesingle administration}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Les processus d\textquotesingle approbation reposent encore sur des
+  validations papier/email
+\item
+  La gestion des rôles et permissions manque de granularité
+\item
+  L\textquotesingle audit trail des opérations sensibles est partiel et
+  difficile à tracer
+\item
+  La scalabilité du système est limitée par son architecture
+  monolithique
+\end{itemize}
+
+\begin{quote}
+Sur le plan technique, l\textquotesingle infrastructure actuelle souffre
+d\textquotesingle une dette technologique importante avec :
+\end{quote}
+
+\begin{itemize}
+\item
+  Des APIs obsolètes qui limitent les possibilités
+  d\textquotesingle intégration
+\item
+  Une base de données relationnelle rigide, peu adaptée aux besoins
+  analytiques modernes
+\item
+  Des problèmes récurrents de latence lors des pics
+  d\textquotesingle activité
+\item
+  Un système de sauvegarde et reprise d\textquotesingle activité
+  sous-dimensionné
+\end{itemize}
+
+\begin{quote}
+D\textquotesingle un point de vue concurrentiel, cette situation place
+UIB en position de faiblesse face aux néobanques et aux établissements
+ayant modernisé leur système d\textquotesingle information. Les
+benchmarks montrent que les leaders du marché offrent désormais :
+\end{quote}
+
+\begin{itemize}
+\item
+  Des temps de traitement divisés par 3 sur les opérations courantes
+\item
+  Des taux de satisfaction client supérieurs de 40\%
+\item
+  Des coûts opérationnels réduits de 25-30\%
+\item
+  Des capacités d\textquotesingle innovation accrues grâce à des
+  architectures modulaires
+\end{itemize}
+
+\begin{quote}
+Cette critique constructive met en lumière l\textquotesingle urgence
+d\textquotesingle une refonte complète du système, tout en identifiant
+précisément les axes d\textquotesingle amélioration prioritaires pour le
+nouveau projet. Les solutions proposées devront particulièrement
+adresser les problématiques d\textquotesingle intégration,
+d\textquotesingle automatisation et d\textquotesingle expérience
+utilisateur pour combler ce retard technologique.
+\end{quote}
+
+\hypertarget{solution-envisaguxe9e}{%
+\paragraph{Solution envisagée}\label{solution-envisaguxe9e}}
+
+\begin{quote}
+Notre projet propose une solution globale et innovante pour moderniser
+le système bancaire d\textquotesingle UIB à travers le développement
+d\textquotesingle une application unifiée, sécurisée et hautement
+performante. Cette solution s\textquotesingle articule autour de trois
+axes principaux :
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Une architecture technique robuste et évolutive}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Implémentation d\textquotesingle APIs RESTful modernes pour une
+  meilleure interopérabilité
+\item
+  Migration vers une base de données hybrides (SQL pour les
+  transactions)
+\item
+  Mise en place d\textquotesingle un système de cache distribué pour
+  améliorer les performances
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Expérience utilisateur révolutionnaire}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Interface responsive et personnalisable avec design thinking
+\item
+  Parcours client entièrement digitalisé (ouverture de compte, demande
+  de prêt, etc.)
+\item
+  Tableau de bord unifié avec visualisation des finances personnelles
+\item
+  Notifications en temps réel et historique des transactions enrichi
+\item
+  Fonctionnalités innovantes (simulateur de prêt intelligent, gestion de
+  budget)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  \textbf{Optimisation des processus métiers}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Automatisation des workflows
+\item
+  Moteur de règles métier configurable sans intervention IT
+\item
+  Outils collaboratifs pour les équipes back-office
+\item
+  Tableaux de bord analytiques temps réel avec indicateurs clés
+\item
+  Système de gestion des rôles et permissions granulaires
+\end{itemize}
+
+\begin{quote}
+La solution intègre également des composants avancés :
+\end{quote}
+
+\begin{itemize}
+\item
+  Module d\textquotesingle IA pour la détection des anomalies et
+  recommandations personnalisées
+\item
+  Mécanismes de sécurité renforcés (biométrie, 2FA, chiffrement
+  bout-en-bout)
+\end{itemize}
+
+\begin{quote}
+Cette approche permettra à UIB de :
+\end{quote}
+
+\begin{itemize}
+\item
+  Réduire de 60\% les temps de traitement des opérations courantes
+\item
+  Diminuer de 40\% les coûts opérationnels liés aux processus manuels
+\item
+  Améliorer de 50\% la satisfaction client globale
+\item
+  Augmenter de 30\% le taux d\textquotesingle adoption des services
+  digitaux
+\item
+  Réduire de 80\% les erreurs de traitement
+\end{itemize}
+
+\begin{quote}
+La solution sera déployée selon une approche agile, avec des livraisons
+incrémentales permettant une montée en charge progressive et une
+adaptation continue aux besoins évolutifs de la banque. Une attention
+particulière sera portée à la formation des utilisateurs et à
+l\textquotesingle accompagnement au changement pour garantir le succès
+de l\textquotesingle implémentation.
+\end{quote}
+
+\hypertarget{positionnement-sur-terrain}{%
+\paragraph{Positionnement sur
+terrain}\label{positionnement-sur-terrain}}
+
+\begin{quote}
+Le Notre solution se positionne comme une réponse stratégique aux enjeux
+actuels du marché bancaire tunisien, en combinant innovation
+technologique et adaptation aux spécificités locales. Le positionnement
+s\textquotesingle articule autour de trois dimensions clés :
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Différenciation concurrentielle}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Offre la première plateforme bancaire unifiée en Tunisie intégrant
+  pleinement tous les canaux (mobile, web, agences)
+\item
+  Combine les avantages d\textquotesingle une grande banque
+  traditionnelle (sécurité, gamme complète de produits) avec
+  l\textquotesingle agilité d\textquotesingle une néobanque
+\item
+  Introduit des fonctionnalités inédites sur le marché local (scoring
+  instantané, assistant financier intelligent)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Adéquation au contexte tunisien}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Adaptée aux particularités du marché (intégration des moyens de
+  paiement locaux)
+\item
+  Conçue pour fonctionner optimalement même avec des connexions internet
+  limitées
+\item
+  Respectueuse des contraintes culturelles et religieuses (finance
+  islamique optionnelle)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  \textbf{Approche de déploiement terrain}~:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Stratégie phygitale combinant digital et réseau
+  d\textquotesingle agences existant
+\item
+  Plan de migration progressive garantissant la continuité de service
+\item
+  Programme de formation adapté aux différents profils utilisateurs
+\end{itemize}
+
+\begin{quote}
+Notre analyse montre que cette solution comble un vide stratégique sur
+le marché tunisien, se positionnant entre :
+\end{quote}
+
+\begin{itemize}
+\item
+  Les banques traditionnelles aux processus rigides
+\item
+  Les fintechs étrangères peu adaptées au contexte local
+\item
+  Les solutions partielles actuellement disponibles
+\end{itemize}
+
+\begin{quote}
+Le positionnement s\textquotesingle appuie sur des atouts distinctifs :
+\end{quote}
+
+\begin{itemize}
+\item
+  \textbf{Pour UIB}~: Transformation digitale maîtrisée avec ROI rapide
+\item
+  \textbf{Pour les clients}~: Expérience bancaire simplifiée et
+  transparente
+\item
+  \textbf{Pour les employés}~: Outils ergonomiques boostant la
+  productivité
+\end{itemize}
+
+\begin{quote}
+Cette approche positionne UIB comme pionnier de la banque 4.0 en
+Tunisie, tout en capitalisant sur sa notoriété existante et son réseau
+physique. La solution crée ainsi un avantage concurrentiel durable
+difficilement reproductible à court terme par les autres acteurs du
+marché.
+
+\includegraphics[width=3.11181in,height=1.76111in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image3.png}
+\end{quote}
+
+Figure 3 UIB ITSM
+
+\hypertarget{muxe9thodologie-et-langage-de-conception}{%
+\subsubsection{Méthodologie et langage de
+conception}\label{muxe9thodologie-et-langage-de-conception}}
+
+\begin{quote}
+Cette section a pour objectif d\textquotesingle exposer
+l\textquotesingle approche méthodologique et les outils de modélisation
+retenus pour le développement de la solution. Afin
+d\textquotesingle assurer une gestion optimale du projet et un
+déroulement efficace de ses différentes étapes, nous avons opté pour une
+double approche : la méthodologie agile Scrum pour le cycle de
+développement, couplée au langage UML (Unified Modeling Language) pour
+la modélisation des différents aspects du système. Ce choix
+méthodologique permet d\textquotesingle allier flexibilité dans la
+gestion de projet et rigueur dans la conception technique.
+\end{quote}
+
+\hypertarget{muxe9thodologie-de-conception}{%
+\paragraph{Méthodologie de
+Conception}\label{muxe9thodologie-de-conception}}
+
+\begin{quote}
+« La méthodologie consiste en une approche structurée et logique visant
+à atteindre un objectif précis. Parmi les diverses méthodes disponibles,
+on trouve le modèle en cascade, souvent employé pour des projets simples
+aux exigences claires et bien définies dès le départ. Il y a également
+le modèle en Y, particulièrement adapté au développement
+d\textquotesingle applications mobiles, ainsi que le processus unifié et
+les méthodes agiles, comme Scrum et l\textquotesingle eXtreme
+Programming (XP), qui se distinguent par leur flexibilité et sont
+couramment utilisées pour des projets complexes et évolutifs. ». {[}29
+\end{quote}
+
+La méthode Agile
+
+\begin{quote}
+La méthode agile est une approche de gestion de projet qui consiste à
+diviser un projet en plusieurs cycles courts et autonomes, appelés
+itérations, répétés jusqu\textquotesingle à l\textquotesingle obtention
+du résultat souhaité. L\textquotesingle un de ses principaux avantages
+est la validation continue du produit en conditions réelles, permettant
+une meilleure adaptation aux besoins des utilisateurs et du client.
+Cette approche évite ainsi l\textquotesingle effet tunnel et raccourcit
+le délai entre l\textquotesingle identification d\textquotesingle un
+besoin et sa réalisation. Parmi les différentes méthodologies agiles,
+nous avons choisi d\textquotesingle utiliser~\textbf{Scrum}~pour la
+conduite de notre projet, en raison de sa flexibilité et de son
+efficacité dans la gestion des développements itératifs.
+\end{quote}
+
+La méthodologie SCRUM
+
+\begin{quote}
+« Inspiré du terme rugby~\emph{"mêlée"}, Scrum transpose les valeurs et
+l'esprit d'équipe de ce sport dans la gestion de projets. Tout comme les
+joueurs unis en pack pour avancer ensemble, l'équipe de développement
+travaille en parfaite synergie vers un objectif commun. Le~\emph{Scrum
+Master}, à l'image du demi de mêlée, joue un rôle clé : il guide les
+membres, recentre leurs efforts si nécessaire et rythme le travail pour
+mener le projet à son succès. Cette approche favorise la collaboration
+et l'efficacité, en s'appuyant sur des principes d'engagement mutuel et
+de progression collective. ». {[}28{]}
+
+Scrum Scum est un cadre de travail agile axé sur la collaboration, la
+responsabilisation et l\textquotesingle avancement progressif vers des
+objectifs clairs. Son fonctionnement repose sur des~\emph{sprints}, des
+cycles de développement courts (2 à 4 semaines), à
+l\textquotesingle issue desquels une version fonctionnelle du logiciel
+est livrée. Le projet est découpé en une série de sprints, suivant une
+approche itérative : après un cadrage initial et une priorisation des
+besoins client, l\textquotesingle équipe réalise les tâches du sprint en
+intégrant les retours utilisateurs, puis répète le processus. Scrum
+accorde une grande autonomie à l\textquotesingle équipe, qui
+s\textquotesingle auto-organise pour traiter les exigences prioritaires
+définies par le métier. À chaque fin de sprint, le produit est évalué,
+permettant soit son déploiement immédiat, soit son amélioration via un
+nouveau sprint, assurant ainsi une adaptation continue aux attentes du
+client.
+
+Un logiciel qui fonctionne est produit à chaque sprint. On décompose
+ainsi le projet initial en différents sprints. Cette vision itérative se
+déroule de la manière suivante :
+\end{quote}
+
+\begin{itemize}
+\item
+  Cadrage initial du projet et définition des objectifs après avoir
+  établi la liste de l'ensemble des demandes du client.
+\item
+  \begin{quote}
+  Réalisation des tâches du sprint en prenant en compte les retours du
+  client.
+  \end{quote}
+\item
+  \begin{quote}
+  Répétition du processus.
+  \end{quote}
+\end{itemize}
+
+\begin{quote}
+Un aspect clé de Scrum réside dans la répartition des rôles : les
+priorités sont établies par le métier (product owner), tandis que
+l\textquotesingle équipe de développement dispose d\textquotesingle une
+autonomie totale pour organiser son travail et implémenter les
+fonctionnalités prioritaires de la manière la plus efficace.
+
+Le tableau 1 définit les termes utilisés fréquemment dans cette
+méthodologie SCRUM :
+\end{quote}
+
+Tableau 1 Les termes utilisés fréquemment dans cette méthodologie SCRUM
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2301}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7699}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Terme}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Définition}
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Backlog du Produit} & Définition des besoins fonctionnels sous
+forme de « User story ». \\
+\textbf{Backlog de Sprint} & Liste des tâches à implémenter dans un
+sprint. \\
+\textbf{Burndown Chart} & Diagramme permettant à suivre l'état
+d'avancement du projet. \\
+\textbf{Produit Partiel} & Résultat du Sprint testé et potentiellement
+livrable. \\
+\textbf{Scrum Quotidien} & Le SCRUM meeting est une réunion organisée
+tous les jours qui dure 5 minutes. \\
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+S'il est difficile de déterminer la nature de Scrum, sa mise en place
+dans le projet est beaucoup plus simple.
+
+\includegraphics[width=5.88019in,height=2.78182in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image4.png}
+\end{quote}
+
+Figure 4Méthode SCRUM
+
+\begin{quote}
+Après avoir fait le choix de la méthodologie, qui est une étape
+primordiale dans le cycle de développe- ment d'un produit informatique,
+le paragraphe suivant exposera le formalisme choisi pour la conception
+de l'application.
+\end{quote}
+
+\hypertarget{le-langage-de-moduxe9lisation-uml}{%
+\paragraph{Le langage de modélisation
+UML}\label{le-langage-de-moduxe9lisation-uml}}
+
+\begin{quote}
+Le système sera conçu en utilisant le langage de modélisation UML
+(Unified Modeling Language), reconnu pour ses avantages majeurs, tels
+que sa standardisation et la diversité des diagrammes
+qu\textquotesingle il offre. UML est l\textquotesingle outil idéal pour
+développer des systèmes complexes grâce à sa représentation graphique et
+textuelle simplifiée et normalisée. Ce langage, largement répandu et
+issu de la fusion de plusieurs méthodes de modélisation orientée objet,
+permet une modélisation itérative et incrémentale, centrée sur les
+besoins des utilisateurs.
+
+Plusieurs diagrammes UML seront utilisés dans ce projet :
+\end{quote}
+
+\begin{itemize}
+\item
+  Le~\textbf{diagramme de classes}, qui illustre la structure statique
+  du système, incluant les classes, leurs attributs, leurs méthodes et
+  leurs relations.
+\item
+  Le~\textbf{diagramme de déploiement}, qui montre la répartition des
+  logiciels sur les composants matériels.
+\item
+  Le~\textbf{diagramme de cas d\textquotesingle utilisation}, qui
+  modélise les interactions entre les acteurs (utilisateurs) et le
+  système.
+\item
+  Le~\textbf{diagramme de séquence}, qui décrit l\textquotesingle ordre
+  des interactions entre les objets dans un scénario donné.
+\item
+  Le~\textbf{diagramme d\textquotesingle activités}, qui détaille les
+  étapes d\textquotesingle un cas d\textquotesingle utilisation, y
+  compris les flux séquentiels, parallèles ou conditionnels.
+\item
+  Le~\textbf{diagramme états-transitions}, qui représente les différents
+  états d\textquotesingle un objet et les transitions entre eux.
+\end{itemize}
+
+\begin{quote}
+Ces diagrammes permettent une visualisation claire et structurée du
+système, facilitant ainsi sa compréhension et son développement.{[}26{]}
+
+\textbf{Conclusion}
+
+Ce chapitre vise à introduire l'organisme d'accueil ainsi qu'une
+présentation synthétique du projet à réaliser, en identifiant la
+problématique et en proposant une solution adaptée. Nous y exposons
+également le langage et la méthodologie retenus pour la conduite du
+projet, tout en justifiant ces choix.
+
+L'analyse détaillée des besoins, leur spécification ainsi que
+l'élaboration du backlog produit seront développées dans le chapitre
+suivant.
+\end{quote}
+
+\textbf{Chapitre 2 : Analyse des besoins}
+
+\begin{quote}
+\textbf{Introduction}
+
+Ce chapitre se concentre sur la phase initiale de la méthodologie SCRUM,
+qui consiste à recueillir les besoins fonctionnels et techniques du
+projet. Nous définirons ensuite un plan d\textquotesingle action pour
+gérer les cas d\textquotesingle utilisation et concevoir les maquettes
+d\textquotesingle interface. Une analyse approfondie de la gestion de
+projet selon l\textquotesingle approche SCRUM sera également présentée.
+\end{quote}
+
+\hypertarget{capture-des-besoins}{%
+\subsubsection{Capture des besoins}\label{capture-des-besoins}}
+
+\begin{quote}
+La fiabilité d\textquotesingle un système d\textquotesingle information
+repose essentiellement sur la qualité de sa conception initiale, ainsi
+que sur celle de ses composants et données. Sa performance se mesure à
+sa capacité à respecter des spécifications rigoureuses et à fournir les
+fonctionnalités attendues par les utilisateurs. Pour assurer cette
+robustesse, cette section s\textquotesingle attachera à analyser les
+besoins, dans le but d\textquotesingle identifier les fonctionnalités
+clés nécessaires pour satisfaire à la fois les attentes des utilisateurs
+et les contraintes techniques du système.
+\end{quote}
+
+\hypertarget{identification-des-acteurs}{%
+\paragraph{Identification des
+acteurs}\label{identification-des-acteurs}}
+
+\begin{quote}
+Une entité, qu'elle soit une personne, un appareil matériel ou un
+logiciel, qui interagit avec le système concerné est appelée un « Acteur
+». Ces acteurs ont le pouvoir d'accéder et/ou de changer l'état du
+système en envoyant ou en recevant des messages remplis de données. Par
+conséquent, chaque acteur incarne une représentation plus générale des
+différents rôles exercés par des entités externes qui communiquent
+directement avec le système.
+
+Pour notre application, nous distinguons trois acteurs :
+\end{quote}
+
+\begin{itemize}
+\item
+  \textbf{Agent :} Agit comme intermédiaire opérationnel, assurant la
+  vérification des profils clients, le traitement des transactions en
+  temps réel, la réception des rappels de paiement et
+  l\textquotesingle accès à l\textquotesingle historique des opérations
+  pour un suivi efficace.
+\item
+  \textbf{Client :} Utilisateur final, dispose de fonctionnalités
+  dédiées à ses opérations bancaires courantes : virements, demandes de
+  prêt, gestion de son compte et de son profil, consultation des soldes
+  et de l\textquotesingle historique des transactions.~
+\item
+  \textbf{Administrateur :} C'est est chargé de la gestion globale du
+  système, incluant la création des comptes utilisateurs,
+  l\textquotesingle attribution des rôles, la vérification des profils,
+  ainsi que la validation des transactions sensibles et des demandes de
+  prêt
+\end{itemize}
+
+En outre, il possède des fonctions qui lui permettent d'analyser et de
+suivre les flux de données.
+
+\hypertarget{les-besoins-fonctionnels}{%
+\paragraph{Les besoins fonctionnels}\label{les-besoins-fonctionnels}}
+
+\begin{quote}
+Les besoins fonctionnels représentent les capacités clés que la
+plateforme doit offrir pour satisfaire les demandes des utilisateurs.
+L'articulation de ces exigences fonctionnelles cherche à aborder
+plusieurs interro- gations majeures, telles que :
+
+L\textquotesingle application bancaire UIB repose sur des besoins
+fonctionnels clairement identifiés pour chaque type
+d\textquotesingle utilisateur, structurés selon les cas
+d\textquotesingle utilisation définis :
+
+Pour l\textquotesingle Administrateur~:
+\end{quote}
+
+\begin{itemize}
+\item
+  Gestion des comptes (création, suspension)
+\item
+  Administration des droits d\textquotesingle accès
+  (attribution/modification des rôles)
+\item
+  Validation des opérations sensibles (transactions importantes,
+  demandes de prêt)
+\item
+  Supervision du système (audit et monitoring des activités)
+\end{itemize}
+
+\begin{quote}
+Pour le~Client~:
+\end{quote}
+
+\begin{itemize}
+\item
+  Opérations bancaires (virements internes/externes)
+\item
+  Gestion de compte (ouverture, consultation solde, historique)
+\item
+  Services financiers (souscription et suivi de prêt)
+\item
+  Sécurité (changement mot de passe, gestion des informations
+  personnelles)
+\end{itemize}
+
+\begin{quote}
+Pour l\textquotesingle Employé~:
+\end{quote}
+
+\begin{itemize}
+\item
+  Vérification des dossiers clients (KYC)
+\item
+  Traitement des opérations (validation des transactions)
+\item
+  Gestion des alertes (rappels de paiement)
+\item
+  Support client (consultation des historiques transactionnels)
+\end{itemize}
+
+\begin{quote}
+Ces fonctionnalités répondent aux exigences métier de la banque tout en
+garantissant :
+\end{quote}
+
+\begin{itemize}
+\item
+  Une séparation claire des responsabilités
+\item
+  Un parcours utilisateur optimisé
+\item
+  Des processus conformes à la réglementation bancaire
+\item
+  Des mécanismes de sécurité adaptés à chaque niveau
+  d\textquotesingle accès
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item ~
+    \hypertarget{les-besoins-non-fonctionnels}{%
+    \paragraph{Les besoins non
+    fonctionnels}\label{les-besoins-non-fonctionnels}}
+  \end{enumerate}
+\end{itemize}
+
+\begin{quote}
+Quelques fonctionnalités offertes par le système mis en place n'ont
+peut-être pas une importance capitale pour son fonctionnement.
+Cependant, il est crucial de souligner qu'elles contribuent à améliorer
+la qualité du service fourni.
+
+Notre application proposera les besoins non fonctionnels ci-dessous :
+\end{quote}
+
+\begin{itemize}
+\item
+  \textbf{L'ergonomie :} Cette application doit fournir des interfaces
+  ergonomiques et conviviales : un entête facile à manipuler, des
+  boutons ainsi que des libellés significatifs et un design agréable. Le
+  tout
+\end{itemize}
+
+\begin{quote}
+doit être bien étudié : le choix des couleurs qui répond à la charte
+graphique de l'UIB et un enchaînement d'écrans le plus intuitif
+possible. De plus, l'ajout des indicateurs de chargement joue un rôle
+important dans l'amélioration de l'expérience utilisateur, contribuant à
+une interaction en ligne plus fluide.
+\end{quote}
+
+\begin{itemize}
+\item
+  \textbf{La simplicité :} les interfaces utilisateurs doivent être
+  simples à manipuler par l'administrateur et les utilisateurs pour que
+  l'application finale soit lisible et compréhensible.
+\item
+  \textbf{La portabilité :} l'application doit être fonctionnelle sur
+  les ordinateurs machines et les télé- phones portables.
+\item
+  \textbf{La compatibilité :} l'application doit être compatible avec
+  les différents appareils mobiles (An- droid et iOS) et les différents
+  navigateurs (Microsoft Edge, Google Chrome, Apple Safari)
+\item
+  \textbf{La disponibilité :} l'application doit être toujours présente
+  à l'administrateur et aux utilisateurs pour que chacun puisse
+  appliquer la tâche souhaitée ou demandée.
+\item
+  \begin{quote}
+  \textbf{La performance :} l'application doit avoir des temps de
+  réponse et de chargement rapides.
+  \end{quote}
+\item
+  \textbf{BNF7 : La maintenance :} les différents modules de
+  l'application doivent être faciles à maintenir, par conséquent, le
+  code doit être lisible et bien structuré.
+\item
+  \textbf{La consistance :} l'application doit toujours donner des
+  résultats corrects à l'administrateur en se référant au contexte de
+  l'application.
+\item
+  \textbf{La fiabilité :} l'application doit fonctionner sans tomber en
+  panne pendant un certain temps et dans les conditions d'utilisation
+  bien définies.
+\item
+  \textbf{La modularité :} l'application doit être bien structurée en
+  modules et composants pour assurer une meilleure lisibilité, une
+  diminution du risque d'erreur et une possibilité de test sélectifs.
+\item
+  \textbf{La scalabilité :} le code de l'application doit être bien
+  structuré et compréhensible afin d'assurer son état évolutif et
+  extensible par rapport aux besoins.
+\item
+  \textbf{La sécurité :} la plateforme mise en place requiert un niveau
+  de sécurité élevé. Un certificat SSL sera utilisé pour protéger les
+  utilisateurs contre toute intrusion indésirable, assurant ainsi la
+  sécurité de leurs informations personnelles.
+\end{itemize}
+
+\begin{quote}
+En outre, l'application exige des mots de passe complexes qui seront
+hachés, le recours à une vérification, ainsi qu'une validation par
+courrier électronique pour chaque nouvel inscrit.
+
+Dans le même ordre d'idées, le système évite toute rétro-navigation sur
+des pages contenant des informa- tions délicates et contrôle le Relevé
+d'Identité Bancaire (RIB) de chaque association via un algorithme
+adapté. Pour l'administrateur, le système offre l'accès à des « logs »
+de sécurité, offrant la possibilité de surveiller le niveau de sécurité,
+de repérer d'éventuelles menaces et d'initier les actions nécessaires.
+\end{quote}
+
+\hypertarget{planning-du-traitement-des-cas-dutilisation}{%
+\subsubsection{Planning du traitement des cas
+d'utilisation}\label{planning-du-traitement-des-cas-dutilisation}}
+
+\begin{quote}
+Après l'identification des besoins cités dans la section précédente, il
+est nécessaire de les classifier en répondant à deux facteurs principaux
+qui sont la priorité et l'estimation.
+
+Par la suite, les différentes étapes du backlog seront élaborées.
+\end{quote}
+
+\hypertarget{priorituxe9}{%
+\paragraph{Priorité}\label{priorituxe9}}
+
+\begin{quote}
+L\textquotesingle établissement des priorités pour les cas
+d\textquotesingle utilisation s\textquotesingle appuie sur le standard
+RFC 2119 de l\textquotesingle IETF, qui définit une terminologie
+normative pour les spécifications techniques {[}Annexe 1{]}. Voici notre
+grille d'analyse :
+
+\textbf{Niveaux d\textquotesingle exigence :}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Impératif ("MUST"/"REQUIRED"/"SHALL")}~: Exigence
+  incontournable
+\item
+  \textbf{Interdiction ("MUST NOT"/"SHALL NOT")}~: Contrainte absolue
+\item
+  \textbf{Recommandé ("SHOULD"/"RECOMMENDED")}~: À privilégier sauf
+  justification valable
+\item
+  \textbf{Déconseillé ("SHOULD NOT"/"NOT RECOMMENDED")}~: À éviter sauf
+  nécessité documentée
+\item
+  \textbf{Optionnel ("MAY"/"OPTIONAL")}~: Choisi selon les besoins
+  spécifiques\\
+  \textbf{Nous avons établi une échelle de priorité à trois niveaux :}
+\end{enumerate}
+
+\begin{itemize}
+\item
+  \textbf{Haute priorité}~: Fonctionnalités essentielles (ex : ajout
+  d\textquotesingle entités)
+\item
+  \textbf{Priorité moyenne}~: Fonctionnalités importantes mais non
+  critiques (ex : consultation/listage)
+\item
+  \textbf{Faible priorité}~: Fonctionnalités secondaires (ex :
+  suppression)
+\end{itemize}
+
+\begin{quote}
+Cette classification repose sur des impératifs systèmes fondamentaux :
+toute opération de consultation nécessite l\textquotesingle existence
+préalable des entités concernées, tandis que les modifications supposent
+la capacité à lister le contenu existant. Cette approche méthodique
+garantit une implémentation cohérente avec les besoins utilisateurs tout
+en respectant les contraintes techniques.
+\end{quote}
+
+\hypertarget{estimation}{%
+\paragraph{Estimation}\label{estimation}}
+
+\begin{quote}
+L'estimation horaire est l'une des techniques les plus utilisées pour
+déterminer la portée d'un projet.
+
+Toutefois, les estimations horaires ne tiennent pas compte de la
+complexité, du risque ou de l'incertitude. Elles dépendent également de
+l'estimation personnelle de chaque membre de l'équipe.
+
+Donc, pour bien réussir la gestion de notre projet, il faut adapter une
+méthode d'estimation bien précise telle que celle des \textbf{«Story
+Points»} afin d'éviter ces problèmes potentiels.
+
+Cette méthode sert à évaluer le temps nécessaire pour achever une user
+story au sein du backlog produit en attribuant à ce récit utilisateur,
+un numéro arbitraire.
+
+Pour suivre ce système de cotation universel, il a fallu réaliser les
+étapes suivantes :
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  La présentation du système de story points à notre équipe, veillant à
+  ce que chacun comprenne que les valeurs des story points sont relatifs
+  et corrélées les unes aux autres.
+\item
+  La détermination d'une suite pour estimer les story points. Et, pour
+  ce faire, on a utilisé la suite de Fibonacci pour éviter les valeurs
+  proches et garder des fonctionnalités de priorité acceptable. C'est
+  une suite d'entiers dans laquelle chaque terme est la somme des deux
+  termes qui le précèdent. Le début de cette suite du célèbre
+  mathématicien est donc : 0, 1, 1, 2, 3, 5, 8, 13...
+\item
+  La création d'une matrice de story points qui donne à l'équipe une
+  idée plus claire de la façon d'attribuer une valeur à chaque tâche.
+\item
+  L'attribution des story points aux différents cas d'utilisation pour
+  avoir une idée du nombre de tâches à accomplir au cours du prochain
+  sprint, tout en respectant l'effort, la complexité et le risque de
+  chaque fonctionnalité.
+\item
+  La planification des différents sprints à venir.
+\item
+  L'amélioration continue des estimations faites de Story Points au fur
+  et à mesure du déroulement du projet pour raffiner le processus du
+  prochain sprint.
+\end{enumerate}
+
+\begin{quote}
+Le tableau 2 présente la matrice de story points que nous avons établis
+suite à des recherches approfondies sur un site Internet {[}31{]}, afin
+de garantir une estimation précise et adaptée à nos besoins.
+\end{quote}
+
+Tableau 2 La matrice de story points
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1459}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1868}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2255}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2065}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2353}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Story point}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Effort requis}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Temps requis}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Complexité}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Risque et incertitude}
+\end{minipage} \\
+\midrule()
+\endhead
+1 & Effort minimum & Quelques minutes & Très peu complexe & - - - - \\
+2 & Effort minimum & Quelques heures & Très peu complexe & + - - - \\
+3 & Effort moyen & 1 à 2 jours & Peu complexe & + + - - \\
+5 & Effort modéré & Quelques jours & Complexe & + + + - \\
+8 & Effort maximum & Environ une semaine & Très complexe & + + + + \\
+13 & Effort maximum & Plus qu'une semaine & Très complexe & + + + + + \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{gestion-du-projet-avec-scrum}{%
+\subsubsection{Gestion du projet avec
+SCRUM}\label{gestion-du-projet-avec-scrum}}
+
+\begin{quote}
+Le cadre Scrum est composé de différentes équipes Scrum, d'événements,
+d'artefacts et de règles.
+\end{quote}
+
+\hypertarget{les-outils-scrum}{%
+\paragraph{Les outils SCRUM}\label{les-outils-scrum}}
+
+\begin{quote}
+Les outils dédiés à Scrum constituent des solutions indispensables pour
+planifier et suivre les projets Agile. Ils offrent une plateforme
+centralisée intégrant l\textquotesingle ensemble des éléments clés :
+Backlog produit, gestion des sprints, cartes de Burndown, ainsi que
+l\textquotesingle organisation des réunions quotidiennes et
+rétrospectives.
+
+L\textquotesingle écosystème Scrum propose divers types
+d\textquotesingle outils adaptés à différents besoins :
+
+\textbf{Solutions disponibles :}
+\end{quote}
+
+\begin{itemize}
+\item
+  Outils open source (gratuits)
+\item
+  Solutions payantes premium
+\item
+  Plateformes complètes avec fonctionnalités avancées et scalabilité
+\end{itemize}
+
+\begin{quote}
+\textbf{Exemples d\textquotesingle outils phares :}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Trello}~: Application visuelle de gestion de projet utilisant
+  le système de tableaux, listes et cartes pour organiser les tâches
+  {[}25{]}
+\item
+  \textbf{IceScrum}~: Solution spécialisée offrant les fondamentaux
+  Scrum avec gestion des features, user stories, tests
+  d\textquotesingle acceptation et tâches
+\item
+  \textbf{Jira}~: Suite complète de gestion de projet Agile par
+  Atlassian, proposant différentes versions adaptées aux besoins métiers
+\end{enumerate}
+
+\begin{quote}
+Parmi ces solutions,~\textbf{Jira Software}~s\textquotesingle impose
+comme la référence pour les équipes techniques, permettant le suivi de
+projets et tickets, ainsi que la planification et livraison de logiciels
+{[}17{]}.
+
+C\textquotesingle est cet outil, dans sa version Jira Software, qui a
+été retenu pour accompagner la méthodologie de notre projet.
+\end{quote}
+
+\hypertarget{uxe9quipe-et-ruxf4les}{%
+\paragraph{Équipe et rôles}\label{uxe9quipe-et-ruxf4les}}
+
+\begin{quote}
+« L'équipe a un rôle capital dans Scrum : elle est constituée dans le
+but d'optimiser la flexibilité et la productivité. Pour cela, elle
+s'organise elle-même et doit avoir toutes les compétences nécessaires au
+développe- ment du produit. Elle est investie avec le pouvoir et
+l'autorité pour faire ce qu'elle a à faire. » {[}28{]}
+
+La figure 2.1 offre un aperçu du cycle de vie d'un projet selon la
+méthode Scrum, illustrant les divers rôles au sein de l'équipe.
+
+SCRUM définit trois rôles principaux :
+
+\includegraphics[width=4.47865in,height=2.99946in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image5.jpeg}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Un directeur de produit (Product Owner) : C'est soit le client
+  lui-même, ou un individu qui se charge de représenter les intérêts du
+  client. Celui-ci définit les spécifications du produit, décide de la
+  date et du contenu de la version définitive, et assume également la
+  responsabilité du retour sur investissement. De plus, il élabore
+  l'ordre de priorité dans le Backlog en se basant sur la valeur pour
+  l'entreprise, ajuste les caractéristiques du produit et les priorités
+  si nécessaires à chaque sprint, et détient l'autorité finale pour
+  accepter ou refuser les résultats produits.
+\item
+  \textbf{Un meneur de l'équipe (Scrum Master) :} il est indispensable
+  dans la supervision du projet, garantissant la mise en œuvre efficace
+  des méthodes Scrum. Il est le représentant du management de projet et
+  s'assure du respect des valeurs et des techniques Scrum au sein du
+  collectif. Le Scrum Master a aussi pour charge de résoudre les
+  problèmes, de veiller à ce que l'équipe soit opérationnelle et
+  pleinement productive, de promouvoir une collaboration étroite parmi
+  tous les membres de l'équipe, et de préserver l'équipe contre des
+  interférences extérieures.
+\item
+  \textbf{L'équipe (Scrum Team) :} elle se compose généralement de 5 à
+  10 membres, ayant des fonctions diverses comme l'architecture, la
+  conception, l'analyse, le développement, le test et autres. Les
+  membres de l'équipe, dévolus entièrement au projet, prennent eux-mêmes
+  en charge leur organisation pour réaliser les objectifs fixés pour le
+  sprint. Durant tout le sprint, l'équipe reste statique et se focalise
+  sur l'achèvement des tâches spécifiques au sprint actuel avant de se
+  diriger vers le suivant.
+\end{enumerate}
+
+\begin{quote}
+Dans le contexte de ce travail, la distribution des rôles aux différents
+participants est définie comme suit :
+\end{quote}
+
+\begin{itemize}
+\item
+  \begin{quote}
+  \textbf{Scrum Master :}
+  \end{quote}
+\item
+  \begin{quote}
+  \textbf{Product Owner :}
+  \end{quote}
+\item
+  \begin{quote}
+  \textbf{Scrum Team :}
+  \end{quote}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item ~
+    \hypertarget{le-backlog-du-produit}{%
+    \paragraph{Le Backlog du produit}\label{le-backlog-du-produit}}
+  \end{enumerate}
+\end{itemize}
+
+\begin{quote}
+SCRUM adopte une approche fonctionnelle pour capturer les besoins des
+utilisateurs, visant à établir une liste exhaustive de fonctionnalités à
+implémenter, connue sous le nom de Backlog de produit. Ce dernier,
+au-delà de sa dimension fonctionnelle, englobe tous les éléments
+requérant l'attention de l'équipe, constituant ainsi l'artefact
+principal de Scrum. Les fonctionnalités sont représentées par des
+histoires utilisateur pour les aspects métier et des histoires
+techniques pour les aspects techniques. Chaque histoire doit être
+alignée sur un objectif métier spécifique et représente un cas
+d'utilisation détaillé. Les histoires utilisateur seront abordées en
+fonction de leur priorité dans ce projet. De plus, chaque histoire
+utilisateur est accompagnée d'une estimation initiale, qui reflète
+l'évaluation préliminaire de l'équipe quant à l'effort requis pour sa
+mise en œuvre.
+
+Le Backlog qui servira de guide pour notre équipe de développement et
+qui va être adapté tout au long
+
+de notre projet est présenté dans le tableau 2.2.
+
+\textbf{Sprint 1 : Authentification \& Gestion des Comptes}
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0703}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0034}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0034}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1756}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.3305}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1045}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0711}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2413}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{ID}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Nom}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{User Story}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Priorité}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Est.}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Note}
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US1
+\end{quote}
+\end{minipage} & & & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Création compte admin
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle admin, je peux créer un compte avec rôle
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+3
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Formulaire validé + email de confirmation
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US2
+\end{quote}
+\end{minipage} & & & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Attribution des rôles
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle admin, je peux modifier les droits
+d\textquotesingle accès
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+2
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Log des changements dans l\textquotesingle audit trail
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US3
+\end{quote}
+\end{minipage} & & & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Gestion profil client
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que client, je peux mettre à jour mon adresse/téléphone
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Should
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+1
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Validation format téléphone (TN)
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US10
+\end{quote}
+\end{minipage} & & & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Changement MDP
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle utilisateur, je peux réinitialiser mon mot de
+passe
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+2
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Politique de complexité appliquée
+\end{quote}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+\textbf{Sprint 2 : Transactions Bancaires}
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0703}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1877}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.3801}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1045}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0711}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1863}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{ID}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Nom}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{User Story}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Priorité}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Est.}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Note}
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US4
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Virement inter-comptes
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que client, je peux transférer de l\textquotesingle argent
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+5
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Plafond 10K TND/jour
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US5
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Historique transactions
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que système, je stocke toutes les opérations
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+3
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Chiffrement AES-256
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US6
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Validation transaction
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle employé, je peux approuver les transactions
+\textgreater5K TND
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Could
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+4
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Notification temps réel
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US15
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Détection de fraude
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que système, je signale les activités suspectes
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Should
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+6
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+3 tentatives = blocage
+\end{quote}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+\textbf{Sprint 3 : Gestion des Prêts}
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0603}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1944}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.3408}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1045}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0711}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2289}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{ID}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Nom}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{User Story}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Priorité}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Est.}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Note}
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US7
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Demande de prêt
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que client, je peux soumettre une demande en ligne
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Should
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+8
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Calculateur de mensualités intégré
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US8
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Approbation admin
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle admin, je peux accepter/rejeter les prêts
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+4
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Génération automatique de contrat
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+US9
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Suivi remboursements
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle employé, je peux voir le calendrier de
+paiement
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Could
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+3
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Alertes 3j avant échéance
+\end{quote}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+\begin{quote}
+\textbf{Sprint 4 : Optimisation}
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0825}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1829}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.3248}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1045}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0711}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2342}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{ID}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Nom}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{User Story}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Priorité}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Est.}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Note}
+\end{quote}
+\end{minipage} \\
+\midrule()
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+PERF1
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Performance système
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle utilisateur, je veux des temps de réponse
+\textless2s
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+5
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Tests JMeter avec 500 users
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+DOC1
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Documentation API
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant que dev, je veux accéder à la documentation Swagger
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Should
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+2
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Exemples Postman inclus
+\end{quote}
+\end{minipage} \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+SEC1
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Audit sécurité
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+En tant qu\textquotesingle admin, je veux un rapport OWASP ZAP
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Must
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+4
+\end{quote}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+Correction des vulnérabilités critiques
+\end{quote}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 3 Sprint 1
+
+\hypertarget{diagramme-de-cas-dutilisation-global}{%
+\paragraph{Diagramme de cas d'utilisation
+global}\label{diagramme-de-cas-dutilisation-global}}
+
+\begin{quote}
+Dans ce qui suit, nous allons vous fournir un aperçu complet des
+opérations et des besoins du système de manière explicite.
+
+La figure 2.2 présente notre diagramme de cas d'utilisation global qui
+aide également à montrer les in- teractions entre les acteurs et les
+différents usages du système.
+
+\includegraphics[width=6.29167in,height=7.05764in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image6.jpeg}
+\end{quote}
+
+Figure 6 Diagramme de cas d'utilisation global
+
+\hypertarget{planning-des-sprints}{%
+\paragraph{Planning des sprints}\label{planning-des-sprints}}
+
+\begin{quote}
+La réunion de planification des sprints est l'épicentre de la stratégie
+Scrum, avec pour objectif principal d'établir le programme de travail et
+de fixer le backlog des sprints. Une décision majeure issue de cette as-
+semblée est la détermination de la durée des sprints, qui fluctue en
+fonction de la complexité du projet et de l'envergure de l'équipe.
+
+Notre initiative sera divisée en quatre sprints, chacun avec une durée
+en jours distincte, adaptée au volume de travail spécifique de chaque
+sprint.
+
+Le tableau 2.3 résume notre planning de travail.
+\end{quote}
+
+Tableau 4 Planning des Sprints
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2377}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7623}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Sprint 1}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Sprint 2} & \\
+\textbf{Sprint 3} & \\
+\textbf{Sprint 4} & \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{prototypage-des-interfaces}{%
+\subsubsection{Prototypage des
+interfaces}\label{prototypage-des-interfaces}}
+
+\begin{quote}
+Le prototypage est une méthode qui implique la création de quelques
+interfaces graphiques à l'aide d'un outil de conception de prototypes.
+Le but ici est d'évaluer la satisfaction du client en regard de la
+compréhension du projet par le concepteur. L'engagement qui a lieu entre
+l'utilisateur final et le développeur, suite à l'échange sur ces
+interfaces, favorise l'adaptation précise et conformes des exigences
+prévues. Les interfaces graphiques rendent l'utilisateur final davantage
+interactif et précis, l'encourageant à exprimer de façon optimale ses
+attentes et ses désirs.
+
+Dans le cadre de ce projet, l'outil Balsamiq est utilisé pour le
+prototypage des interfaces. Ce logiciel de conception collaborative
+offre la possibilité à tous les participants du projet de générer des
+maquettes et des prototypes dynamiques, ainsi que de mener des tests sur
+les utilisateurs.
+
+En outre, Balsamiq offre la possibilité de travailler et d'enregistrer
+tout le travail directement sur le Drive. Les interfaces ainsi créées
+peuvent être exportées en format PNG ou PDF, avec une option pour
+l'interactivité dans le cas des fichiers PDF.
+\end{quote}
+
+La figure 2.3 montre le prototype de la Page d'authentification.
+
+\includegraphics[width=3.504in,height=1.91203in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image7.jpeg}
+
+Figure 7 Prototype de la Page d'authentification
+
+La figure 2.6 montre le prototype de la Page d'accueil.
+
+\includegraphics[width=4.24445in,height=2.26736in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image8.jpeg}
+
+Figure 8 Prototype de la Page d'accueil
+
+La figure 2.6 montre le prototype de la Page Dashboard.
+
+\includegraphics[width=3.216in,height=2.36013in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image9.jpeg}
+
+Figure 9 Prototype de la Page Dashboard
+
+\begin{quote}
+\textbf{Conclusion}
+
+À la fin de ce chapitre, nous avons conçu un programme de lancement en
+nous basant sur le Backlog du sprint précédemment défini. La description
+détaillée du Backlog du produit a amélioré notre connaissance du thème
+et a précisé les missions à réaliser. La liste des exigences
+fonctionnelles et non fonctionnelles du système, en plus de la
+définition précise des rôles des différents acteurs, a constitué le
+socle de cette phase.
+
+Dans le chapitre suivant, nous nous pencherons sur la première étape
+d'exécution de la solution.
+\end{quote}
+
+\textbf{Chapitre 3 : Étude et réalisation du Release 1}
+
+\begin{quote}
+\textbf{Introduction}
+
+Dans ce chapitre consacré à la réalisation du premier release de
+l'application, nous débuterons par la présentation de l'environnement
+matériel et logiciel dans lequel l'application a été développée.
+Ensuite, nous aborderons la conception du diagramme de déploiement et le
+schéma de la solution. Enfin, dans le cadre de notre approche SCRUM,
+nous consacrerons deux sprints détaillés au développement du premier
+release de l'application.
+
+Ce premier release, intitulé « Fondation Fonctionnelle », constitue une
+étape majeure en établissant les bases fonctionnelles de l'application,
+notamment la gestion des comptes utilisateurs et la création des entités
+princi- pales comme les associations et les donateurs. En se concentrant
+sur cette phase initiale, nous visons à fournir rapidement une version
+de base fonctionnelle de l'application, sur laquelle nous pourrons
+construire et itérer dans les Releases suivants.
+\end{quote}
+
+\hypertarget{environnement-du-travail}{%
+\subsubsection{Environnement du
+travail}\label{environnement-du-travail}}
+
+\begin{quote}
+L'environnement de travail désigne l'ensemble d'outils logiciels et
+matériels ainsi que les langages de programmation utilisés pour
+l'implémentation d'une solution informatique.
+
+Le contenu de cette partie tourne autour de l'environnement matériel mis
+à la disposition du présent projet ainsi que l'environnement logiciel,
+les langages et les Frameworks utilisés pour la réalisation de
+l'application.
+\end{quote}
+
+\hypertarget{environnement-de-duxe9veloppement}{%
+\paragraph{Environnement de
+développement}\label{environnement-de-duxe9veloppement}}
+
+Ce projet a été réalisé sur deux ordinateurs ayant les caractéristiques
+décrites dans le tableau 3.1 :
+
+\hypertarget{environnement-logiciel}{%
+\paragraph{Environnement logiciel}\label{environnement-logiciel}}
+
+\begin{quote}
+La réalisation de la solution est basée sur l'utilisation et la
+combinaison de différents logiciels et langages de programmation, que
+nous décrirons dans le tableau 3.2.
+\end{quote}
+
+Tableau 6 Environnement logiciel
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5006}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4994}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\includegraphics[width=2.07986in,height=2.07986in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image10.jpeg}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Balsamiq} est un logiciel de conception de wireframes qui permet
+aux équipes de créer des maquettes et des prototypes interactifs, mais
+aussi de réaliser des tests utilisateurs. L'outil est destiné à tous
+ceux qui ont besoin de créer des wireframes, et son utilisation ne
+requiert pas d'expérience particulière dans le webdesign.{[}4{]}
+\end{minipage} \\
+\midrule()
+\endhead
+\includegraphics[width=2.088in,height=2.088in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image11.png}
+& \textbf{Visual Studio Code (VSCode)} est un éditeur de code source et
+un environ- nement de développement intégré (IDE) de Microsoft. Il peut
+être utilisé avec une variété de langages de programmation. De plus, son
+écosystème d'extensions est très riche et il offre une intégration
+native avec Git, facilitant les modifications dans les projets. \\
+\includegraphics[width=2.50604in,height=1.41707in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image12.png}
+& \textbf{GitHub} est un service d'hébergement Open-Source, permettant
+aux program- meurs et aux développeurs de partager le code informatique
+de leurs projets afin de travailler dessus de façon collaborative. Il
+permet trois principales fonction-nalités : le forking consiste à créer
+une copie d'un projet, le pull request consiste en une requête de tirage
+et le merging consiste en fusionner le pull request avec le code
+d'origine. {[}32{]} \\
+\includegraphics[width=2.31108in,height=1.448in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image13.png}
+& \textbf{Jira} est une plateforme multifonction qui vise à faciliter la
+gestion de projet en aidant à suivre les tâches, identifier les blocages
+et partager des informations entre les membres d'une équipe.{[}22{]} \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{langages-utilisuxe9s}{%
+\paragraph{Langages utilisés}\label{langages-utilisuxe9s}}
+
+\begin{quote}
+Dans le tableau 3.3, nous présentons les différents langages utilisés :
+\end{quote}
+
+Tableau 7 Langages utilisés
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\includegraphics[width=1.904in,height=1.904in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image14.jpeg}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Python} est un langage de programmation polyvalent, simple à
+lire et à écrire. Il est utilisé en développement web, data science,
+intelligence artificielle, automatisation, etc.
+\end{minipage} \\
+\midrule()
+\endhead
+\includegraphics[width=1.856in,height=1.856in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image15.png}
+& \textbf{PHP} est un langage de script côté serveur utilisé pour créer
+des pages web dynamiques. Il est souvent utilisé pour gérer les bases de
+données, les sessions utilisateurs, les formulaires, etc. \\
+\includegraphics[width=1.736in,height=1.736in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image16.png}
+& \textbf{TypeScript} est un sur-ensemble de JavaScript qui ajoute un
+système de typage statique. Il permet d'écrire du code plus structuré,
+fiable et maintenable, surtout pour les grandes applications. \\
+\includegraphics[width=2.584in,height=1.93739in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image17.png}
+& \textbf{HTML} est le langage de balisage utilisé pour structurer le
+contenu des pages web. Il permet de définir des éléments comme les
+titres, paragraphes, images, liens, tableaux, etc. C'est la base de
+toute page web. \\
+\includegraphics[width=2.048in,height=2.048in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image18.png}
+& \textbf{CSS} est un langage de style qui permet de mettre en forme le
+contenu HTML. Il gère la présentation visuelle : couleurs, polices,
+marges, dispositions, animations, etc. \\
+\includegraphics[width=1.75961in,height=1.75961in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image19.png}
+& \textbf{JavaScript} est un langage de programmation utilisé
+principalement pour rendre les pages web interactives. Il s'exécute côté
+client (dans le navigateur) et permet de manipuler le DOM, gérer les
+événements, communiquer avec des APIs, etc. \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{choix-du-framework}{%
+\paragraph{Choix du Framework}\label{choix-du-framework}}
+
+\begin{quote}
+Pour orienter notre processus de développement, un choix crucial se pose
+quant au framework à utiliser pour construire notre application.
+\end{quote}
+
+Définition d'un Framework
+
+\begin{quote}
+Le framework peut se traduire en français par ``cadre de travail''. Il
+s'agit d'une sorte de boîte à outils ou d'architecture prête à l'emploi
+dont les développeurs se servent pour créer une application mobile, un
+site web ou un logiciel d'entreprise.
+
+Le framework ou infrastructure logicielle sert donc de base aux
+développeurs pour faciliter leur travail. Il prend en quelque sorte la
+forme d'un canevas ou d'un squelette de programme qui pourra ensuite
+être enrichi afin de répondre aux besoins du client. {[}13{]}
+\end{quote}
+
+Les Framework utilisés
+
+Tableau 8 Les Framework utilisés
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7316}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\includegraphics[width=1.57639in,height=1.30551in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image20.png}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Next.js est un framework gratuit et open source
+s\textquotesingle appuyant sur la bibliothèque JavaScript React et sur
+la technologie Node.js.
+\end{minipage} \\
+\midrule()
+\endhead
+\includegraphics[width=1.37313in,height=1.41351in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image21.png}
+& Laravel est un framework web open-source écrit en PHP respectant le
+principe modèle-vue-contrôleur et entièrement développé en programmation
+orientée objet. Laravel est distribué sous licence MIT, avec ses sources
+hébergées sur GitHub. \\
+\bottomrule()
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item ~
+  \hypertarget{patron-de-conception-mvc}{%
+  \subsubsection{Patron de conception :
+  MVC}\label{patron-de-conception-mvc}}
+\item ~
+  \hypertarget{section-3}{%
+  \subsubsection{}\label{section-3}}
+\end{enumerate}
+
+\begin{quote}
+Angular et Ionic, les frameworks principalement utilisés dans le
+développement de cette application, adoptent principalement le modèle
+MVC (Modèle-Vue-Contrôleur) pour organiser et gérer la logique métier,
+l'interface utilisateur et les données.
+\end{quote}
+
+\hypertarget{duxe9finition-de-larchitecture-mvc}{%
+\paragraph{Définition de l'architecture
+MVC}\label{duxe9finition-de-larchitecture-mvc}}
+
+\begin{quote}
+L'architecture Modèle/Vue/Contrôleur (MVC) est une façon d'organiser une
+interface graphique d'un programme. Elle consiste à distinguer trois
+entités distinctes qui sont, le modèle, la vue et le contrôleur ayant
+chacun un rôle précis dans l'interface.{[}3{]}
+\end{quote}
+
+\begin{itemize}
+\item
+  \textbf{Le modèle} contient les données manipulées par le programme.
+  Il assure la gestion de ces données et garantit leur intégrité.{[}3{]}
+\item
+  \textbf{La vue} fait l'interface avec l'utilisateur. Sa première tâche
+  est d'afficher les données qu'elle a récupérées auprès du modèle. Sa
+  seconde tâche est de recevoir toutes les actions de l'utilisateur :
+  clic de souris, sélection d'une entrée ou de boutons. Ses différents
+  événements sont envoyés au contrôleur.{[}3{]}
+\item
+  \textbf{Le contrôleur} est chargé de la synchronisation du modèle et
+  de la vue. Il reçoit tous les événements de l'utilisateur et enclenche
+  les actions à effectuer. Si une action nécessite un changement des
+  données, le contrôleur demande la modification des données au modèle
+  et ensuite avertit la vue que les données ont changée pour que
+  celle-ci se mette à jour. Certains événements de l'utilisateur ne
+  concernent pas les données, mais la vue. Dans ce cas, le contrôleur
+  demande à la vue de se modifier.{[}3{]}
+\end{itemize}
+
+\begin{quote}
+Les différentes interactions entre le modèle, la vue et le contrôleur
+sont résumées par le schéma de la figure 3.1.
+\end{quote}
+
+\includegraphics[width=3.81042in,height=1.33687in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image22.png}
+
+\hypertarget{schuxe9ma-de-la-solution}{%
+\subsubsection{Schéma de la solution}\label{schuxe9ma-de-la-solution}}
+
+\begin{quote}
+La figure 3.2 dépeint le schéma de notre solution, offrant une vue
+d'ensemble détaillée qui décrit la solution dans son ensemble, y compris
+son architecture, ses composants clés et les interactions entre eux.
+\end{quote}
+
+\includegraphics[width=5.90298in,height=2.23988in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image23.png}
+
+Figure 11 Schéma de la solution
+
+\hypertarget{duxe9ploiement}{%
+\subsubsection{Déploiement}\label{duxe9ploiement}}
+
+\begin{quote}
+La figure 3.3 représente le diagramme de déploiement, qui offre une
+représentation physique des ressources matérielles constituant notre
+application, avec chaque ressource matérialisée par un nœud représenté
+sous la forme d'un cube portant son nom. Ces nœuds sont interconnectés
+par des associations décrivant leurs relations.
+\end{quote}
+
+\includegraphics[width=4.2in,height=4.21489in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image24.png}
+
+Figure 12 Déploiement
+
+\hypertarget{uxe9tude-et-ruxe9alisation-du-sprint-1}{%
+\subsubsection{Étude et réalisation du sprint
+1}\label{uxe9tude-et-ruxe9alisation-du-sprint-1}}
+
+\begin{quote}
+Avant de se lancer dans un sprint, l'équipe Scrum doit obligatoirement
+définir le but de ce dernier en terme métier et non pas en terme
+technique pour qu'il soit compréhensible par les membres en dehors de
+l'équipe.
+\end{quote}
+
+\hypertarget{spuxe9cification-fonctionnelle}{%
+\paragraph{Spécification
+fonctionnelle}\label{spuxe9cification-fonctionnelle}}
+
+\begin{quote}
+La spécification fonctionnelle vise à énumérer et décrire toutes les
+fonctionnalités d'une application. Elle définit ainsi clairement le
+périmètre fonctionnel du projet, permettant de mettre toutes les équipes
+et le client sur la même longueur d'onde dès le début de la conception
+du projet.
+
+La spécification fonctionnelle dans notre cas se traduit par le
+diagramme des cas d'utilisation d'UML et la description textuelle de ces
+derniers.
+\end{quote}
+
+Diagramme de cas d'utilisation du Sprint 1
+
+\begin{quote}
+Dans la figure 3.5, nous illustrons le diagramme des cas d'utilisation
+détaillé pour ce premier sprint.
+\end{quote}
+
+\includegraphics[width=5.59722in,height=5.224in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image25.png}
+
+Figure 13 Diagramme de cas d'utilisation du Sprint 1
+
+Description textuelle des cas d'utilisations
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1253}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1531}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2496}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1525}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1592}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1602}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Cas d\textquotesingle utilisation}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Acteur}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Objectif}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Préconditions}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Scénario nominal}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Postconditions}
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Créer un compte avec rôle} & Administrateur & Créer un nouveau
+compte utilisateur avec un rôle spécifique (Client/Employé/Admin) &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Admin authentifié\\
+2. Droits admin validés\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Accès à l\textquotesingle interface de gestion\\
+2. Saisie des infos (nom, email, rôle)\\
+3. Génération MDP temporaire\\
+4. Envoi email de confirmation\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Compte créé en BDD\\
+2. Email envoyé\\
+3. Journal d\textquotesingle audit mis à jour\strut
+\end{minipage} \\
+\textbf{Attribuer des rôles} & Administrateur & Modifier les droits
+d\textquotesingle accès d\textquotesingle un utilisateur existant &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Admin authentifié\\
+2. Utilisateur cible existant\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Sélection de l\textquotesingle utilisateur\\
+2. Modification du rôle via menu\\
+3. Validation des changements\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Rôle mis à jour\\
+2. Log d\textquotesingle audit généré\\
+3. Permissions recalculées\strut
+\end{minipage} \\
+\textbf{Mettre à jour son profil} & Client & Modifier ses informations
+personnelles (téléphone, adresse, photo) & 1. Client authentifié &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Accès au profil\\
+2. Édition des champs\\
+3. Validation des formats\\
+4. Enregistrement\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Profil mis à jour\\
+2. Notification de confirmation\strut
+\end{minipage} \\
+\textbf{Réinitialiser le MDP} & Utilisateur & Redéfinir un mot de passe
+oublié & 1. Email valide enregistré &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Demande de réinitialisation\\
+2. Réception lien temporaire\\
+3. Saisie nouveau MDP\\
+4. Validation\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. MDP modifié\\
+2. Alerte email envoyée\\
+3. Session active supprimée\strut
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 9 Description textuelle des cas d'utilisations
+
+\hypertarget{diagramme-de-classe}{%
+\paragraph{Diagramme de classe}\label{diagramme-de-classe}}
+
+\begin{quote}
+La figure 3.6 montre le diagramme de classe qui offre une représentation
+visuelle des différentes classes, de leurs attributs et de leurs
+relations pour le premier sprint.
+\end{quote}
+
+\includegraphics[width=7.29857in,height=6.728in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image26.png}
+
+Figure 14 Diagramme de classe
+
+\hypertarget{diagrammes-de-suxe9quence-duxe9tailluxe9s}{%
+\paragraph{Diagrammes de séquence
+détaillés}\label{diagrammes-de-suxe9quence-duxe9tailluxe9s}}
+
+\begin{quote}
+La figure 3.7 montre le diagramme de séquence détaillé de « Créer un
+compte avec rôle Admin~» offre une vue pas à pas des interactions entre
+les différents acteurs du système lors du processus de création d'un
+compte pour un compte administrateur.
+\end{quote}
+
+\includegraphics[width=6.78819in,height=5.384in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image27.png}
+
+Figure 15Diagramme de séquence détaillé de « Créer un compte avec rôle
+Admin »
+
+\begin{quote}
+La figure 3.8 présente le diagramme de séquence détaillé de « Attribuer
+des rôles » qui présente les interactions entre l'utilisateur et le
+système lorsqu'une attribution des rôles.
+\end{quote}
+
+\includegraphics[width=7.29861in,height=3.78125in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image28.png}
+
+Figure 16 Diagramme de séquence détaillé de « Attribuer des rôles »
+
+\begin{quote}
+La figure 3.9 montre le diagramme de séquence détaillé de « Mettre à
+jour son profil » qui illustre de manière exhaustive les étapes
+impliquées dans le processus mettre à jour son profil.
+\end{quote}
+
+\includegraphics[width=6.84627in,height=7in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image29.png}
+
+Figure 17 Diagramme de séquence détaillé de « Mettre à jour son profil »
+
+\hypertarget{duxe9veloppement}{%
+\paragraph{Développement}\label{duxe9veloppement}}
+
+\includegraphics[width=2.68745in,height=3.68027in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image30.png}
+
+Figure 18 Page inscription
+
+\includegraphics[width=3.448in,height=2.72418in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image31.png}
+
+Figure 19 Page connexion
+
+\includegraphics[width=4.656in,height=2.69658in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image32.png}
+
+Figure 20 Page Gestion utilisateurs
+
+\includegraphics[width=4.64in,height=2.76987in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image33.png}
+
+Figure 21 Page gestion profile
+
+\includegraphics[width=4.96in,height=2.62913in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image34.png}
+
+Figure 22 Page Changer mot de passe
+
+\hypertarget{ruxe9trospective}{%
+\paragraph{Rétrospective}\label{ruxe9trospective}}
+
+\begin{quote}
+Dans cette partie, nous procéderons à une évaluation minutieuse de notre
+avancement actuel. Nous passerons en revue les aspects qui se sont
+déroulés de manière satisfaisante, ceux qui n'ont pas atteint nos
+attentes, ainsi que les opportunités d'amélioration à envisager pour
+l'avenir.
+
+Ces points sont expliqués dans le tableau 3.7 suivant :
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui a bien marché}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui pourrait être amélioré}
+\end{minipage} \\
+\midrule()
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{itemize}
+\item
+  Toutes les~User Stories prioritaires (Must)~ont été implémentées
+  Modifier compte donateur
+\item
+  Collaboration d'équipe
+\item
+  Qualité technique
+\end{itemize}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{itemize}
+\item
+  Gestion des erreurs
+\item
+  Performance des tests
+\item
+  Documentation
+\item
+  Expérience client
+\end{itemize}
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 10 Rétrospective sprint 1
+
+\hypertarget{uxe9tude-et-ruxe9alisation-du-sprint-2}{%
+\subsubsection{Étude et réalisation du Sprint
+2}\label{uxe9tude-et-ruxe9alisation-du-sprint-2}}
+
+\begin{quote}
+Le Sprint 2 sera consacré au développement des fonctionnalités
+permettant de « \textbf{Transactions Bancaires} »
+\end{quote}
+
+\hypertarget{uxe9volution-suite-uxe0-la-ruxe9trospective-du-sprint-1}{%
+\paragraph{Évolution suite à la rétrospective du Sprint
+1}\label{uxe9volution-suite-uxe0-la-ruxe9trospective-du-sprint-1}}
+
+\begin{quote}
+Dans le cadre de notre rétrospective pour le Sprint 1, nous avons
+identifié plusieurs aspects nécessitant des améliorations. Notamment, la
+fonctionnalité permettant à une association de consulter et de modifier
+son compte n'était pas entièrement opérationnelle, en raison du
+traitement en attente de la demande d'ajout par l'administrateur.
+
+Ainsi, afin de remédier à cette lacune, nous avons introduit des
+conditions supplémentaires pour garantir que l'association ne puisse
+consulter ou modifier son compte qu'après que sa demande d'ajout a été
+traitée et ap- prouvée par l'administrateur.
+
+C'est ainsi que, dans le Sprint 2, nous avons accordé une attention
+particulière au traitement des demandes des associations afin de
+permettre un fonctionnement fluide de ces fonctionnalités essentielles.
+\end{quote}
+
+\hypertarget{spuxe9cification-fonctionnelle-1}{%
+\paragraph{Spécification
+fonctionnelle}\label{spuxe9cification-fonctionnelle-1}}
+
+\begin{quote}
+Pour le Sprint 2, la spécification fonctionnelle se matérialise aussi à
+travers l'élaboration du diagramme des cas d'utilisation UML et la
+rédaction de leur description textuelle.
+\end{quote}
+
+Diagramme des cas d'utilisation du sprint 2
+
+\begin{quote}
+Dans la figure 3.32, nous illustrons le diagramme des cas d'utilisation
+détaillé pour ce deuxième sprint.
+\end{quote}
+
+\includegraphics[width=6.59835in,height=5.41791in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image35.png}
+
+Figure 23 Diagramme des cas d'utilisation du sprint 2
+
+Description textuelle des cas d'utilisations du sprint 2
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1027}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1995}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1607}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2126}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1759}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Cas d\textquotesingle utilisation}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Acteur}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Objectif}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Préconditions}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Scénario nominal}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Postconditions}
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Effectuer un virement inter-comptes} & Client & Transférer de
+l\textquotesingle argent entre comptes UIB &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Client authentifié\\
+2. Solde suffisant\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Saisie destinataire/montant\\
+2. Vérification solde\\
+3. Confirmation par MDP\\
+4. Exécution transfert\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Montant transféré\\
+2. Historique mis à jour\\
+3. Email de confirmation envoyé\strut
+\end{minipage} \\
+\textbf{Stocker l\textquotesingle historique} & Système & Enregistrer de
+manière sécurisée toutes les transactions & 1. Transaction validée &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Chiffrement des données\\
+2. Sauvegarde en BDD\\
+3. Indexation pour recherche\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Transaction archivée\\
+2. Accessible via API\strut
+\end{minipage} \\
+\textbf{Approuver transaction \textgreater5K TND} & Employé & Valider
+manuellement les opérations sensibles &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Employé habilité\\
+2. Transaction en attente\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Notification reçue\\
+2. Vérification identité/motif\\
+3. Approbation/rejet\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Statut transaction mis à jour\\
+2. Ticket de suivi créé\strut
+\end{minipage} \\
+\textbf{Détecter activités suspectes} & Système & Identifier les
+comportements anormaux & 1. Transaction initiée &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Analyse en temps réel\\
+2. Comparaison avec règles fraude\\
+3. Alerte si risque détecté\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Transaction bloquée si besoin\\
+2. Notification sécurité envoyée\strut
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 11 Description textuelle des cas d'utilisations du sprint 2
+
+\hypertarget{diagramme-de-classe-1}{%
+\paragraph{Diagramme de classe}\label{diagramme-de-classe-1}}
+
+\begin{quote}
+Dans la figure 3.33, nous introduisons le diagramme de classe du sprint
+2, offrant une représentation visuelle des entités et de leurs relations
+dans le système, ce qui facilite la compréhension de la structure et des
+interactions au sein de l'application.
+\end{quote}
+
+\includegraphics[width=7.29861in,height=5.06716in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image36.png}
+
+Tableau 12 Diagramme de classe sprint 1
+
+\hypertarget{diagrammes-de-suxe9quence-duxe9tailluxe9s-1}{%
+\paragraph{Diagrammes de séquence
+détaillés}\label{diagrammes-de-suxe9quence-duxe9tailluxe9s-1}}
+
+\begin{quote}
+La figure 3.34 montre le diagramme de séquence détaillé pour le cas
+d'utilisation «Effectuer un virement inter-comptes»
+\end{quote}
+
+\includegraphics[width=7.29861in,height=5.57463in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image37.png}
+
+Figure 24 Diagrammes de séquence détaillés sprint 2
+
+\begin{quote}
+\textbf{Figure 3.34:} Diagramme de séquence détaillé de «Effectuer un
+virement inter-comptes»
+
+La figure 3.35 présente le diagramme de séquence détaillé pour le cas
+d'utilisation « Stocker l\textquotesingle historique des transactions »
+\end{quote}
+
+\includegraphics[width=7.29861in,height=5.68in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image38.png}
+
+Figure 25 diagramme de séquence détaillé pour le cas d'utilisation «
+Stocker l\textquotesingle historique des transactions »
+
+\hypertarget{duxe9veloppement-1}{%
+\paragraph{Développement}\label{duxe9veloppement-1}}
+
+\includegraphics[width=5.53797in,height=3.59836in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image39.png}
+
+Figure 26 Page transactions
+
+\includegraphics[width=2.19492in,height=4.23087in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image40.png}
+
+Figure 27 Page virement
+
+\begin{quote}
+\textbf{Conclusion}
+
+Au cours de ce chapitre, l'environnement de travail ainsi que les
+plateformes logicielles sur lesquelles l'application a été construite,
+ont été présentés notamment la conception architecturale de
+l'application et le diagramme de déploiement. Par la suite, une
+présentation détaillée des deux premiers sprints a été faite selon la
+méthodologie de gestion de projet SCRUM, en présentant la conception, le
+développement, les interfaces les plus importantes pour chaque sprint,
+les tests ainsi que les perspectives.
+\end{quote}
+
+\textbf{Chapitre 4 : Étude et réalisation du Release 2}
+
+\begin{quote}
+\textbf{Introduction}
+
+Au cours de ce chapitre, nous aborderons en détail l'étude et la
+réalisation du second release de notre application, axée sur la gestion
+des contenus. Dans le cadre de notre approche SCRUM, nous consacrerons
+deux sprints détaillés au développement de ce deuxième Release. Ce
+Release comprendra la gestion des collectes, des associations, des
+actualités et des demandes effectuées par les associations concernant
+leurs collectes ou leurs actualités. Nous couvrirons également tous les
+aspects liés à ce développement, incluant la spécification
+fonctionnelle, la conception, le développement et les tests.
+\end{quote}
+
+\hypertarget{uxe9tude-et-ruxe9alisation-du-sprint-3}{%
+\subsubsection{Étude et réalisation du Sprint
+3}\label{uxe9tude-et-ruxe9alisation-du-sprint-3}}
+
+\begin{quote}
+Le Sprint 3 sera consacré au développement des fonctionnalités
+permettant de « Gestion des Prêts »
+\end{quote}
+
+\hypertarget{spuxe9cification-fonctionnelle-2}{%
+\paragraph{Spécification
+fonctionnelle}\label{spuxe9cification-fonctionnelle-2}}
+
+\begin{quote}
+La spécification fonctionnelle du sprint 3 se compose d'un diagramme de
+cas d'utilisation détaillant les interactions clés du système, ainsi que
+d'une description textuelle des principaux cas d'utilisation.
+\end{quote}
+
+Diagramme de cas d'utilisation du sprint 3
+
+\begin{quote}
+Dans la figure 4.3, nous illustrons le diagramme de cas d'utilisation
+détaillé pour ce troisième sprint.
+\end{quote}
+
+\includegraphics[width=3.896in,height=3.52213in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image41.png}
+
+Figure 28 Diagramme de cas d'utilisation du sprint 3
+
+Description textuelle du sprint 3
+
+\begin{quote}
+Le tableau 4.1 montre la description textuelle des cas d'utilisation du
+sprint 3
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1858}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1531}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1551}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1905}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1655}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Cas d\textquotesingle utilisation}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Acteur}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Objectif}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Préconditions}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Scénario nominal}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Postconditions}
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Soumettre une demande de prêt} & Client & Permettre au client de
+demander un prêt en ligne & \begin{minipage}[t]{\linewidth}\raggedright
+1. Client authentifié\\
+2. Compte actif\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Accès au simulateur\\
+2. Saisie du montant/durée\\
+3. Upload des documents\\
+4. Soumission\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Demande enregistrée\\
+2. Notification employé\\
+3. Statut "En attente"\strut
+\end{minipage} \\
+\textbf{Approuver/rejeter un prêt} & Administrateur & Valider les
+demandes de prêt selon la politique bancaire &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Admin authentifié\\
+2. Demande existante\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Consultation dossier\\
+2. Vérification documents\\
+3. Décision (approbation/rejet)\\
+4. Notification\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Statut mis à jour\\
+2. Contrat généré si validé\\
+3. Historique archivé\strut
+\end{minipage} \\
+\textbf{Suivre les remboursements} & Employé & Superviser le calendrier
+de paiement des prêts & \begin{minipage}[t]{\linewidth}\raggedright
+1. Employé habilité\\
+2. Prêt actif\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Accès au dashboard\\
+2. Filtrage par client/date\\
+3. Vérification des échéances\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Alertes pour retards\\
+2. Mise à jour du solde\\
+3. Rapport mensuel généré\strut
+\end{minipage} \\
+\textbf{Générer un rapport analytique} & Système & Produire des
+statistiques sur les prêts (délais, taux, risques) & 1. Données
+disponibles & \begin{minipage}[t]{\linewidth}\raggedright
+1. Collecte des données\\
+2. Calcul des indicateurs\\
+3. Formatage (PDF/Excel)\\
+4. Archivage\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Rapport disponible\\
+2. Données chiffrées\\
+3. Accès restreint aux admins\strut
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 13 Description textuelle du sprint 3
+
+\hypertarget{diagramme-de-classe-2}{%
+\paragraph{Diagramme de classe}\label{diagramme-de-classe-2}}
+
+\begin{quote}
+La figure 4.4 présente le diagramme de classe du sprint 3 qui offre une
+représentation visuelle de la structure des données et des relations
+entre les différentes classes développées dans ce sprint, fournissant
+ainsi une base solide pour l'implémentation des fonctionnalités prévues.
+\end{quote}
+
+\includegraphics[width=7.29861in,height=6.04306in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image42.png}
+
+Figure 29 Diagramme de classe{]}
+
+\hypertarget{diagrammes-de-suxe9quence-duxe9tailluxe9s-2}{%
+\paragraph{Diagrammes de séquence
+détaillés}\label{diagrammes-de-suxe9quence-duxe9tailluxe9s-2}}
+
+\begin{quote}
+La figure 4.5 montre le diagramme de séquence détaillé de « Soumettre
+une demande de prêt (Client) » qui offre une vue précise sur les
+interactions entre les différents composants de notre système lors de
+demande d'un prêt.
+\end{quote}
+
+\includegraphics[width=6.92in,height=4.32569in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image43.png}
+
+Figure 30 Diagrammes de séquence détaillés Sprint 4
+
+\begin{quote}
+La figure 4.6 montre le diagramme de séquence détaillé du cas
+d'utilisation « Approuver/rejeter un prêt (Admin) » qui offre une
+représentation visuelle détaillée des interactions entre les différents
+acteurs et le système lors de Approuver/rejeter un prêt (Admin).
+\end{quote}
+
+\includegraphics[width=7.29861in,height=4.58403in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image44.png}
+
+Figure 31 Diagramme de séquence détaillé du cas d'utilisation «
+Approuver/rejeter un prêt (Admin) »
+
+\hypertarget{duxe9veloppement-2}{%
+\paragraph{Développement}\label{duxe9veloppement-2}}
+
+\includegraphics[width=5.34453in,height=3.25706in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image45.png}
+
+Figure 32 Page prêts
+
+\includegraphics[width=4.408in,height=4.69488in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image46.png}
+
+Figure 33 Page demande prêt
+
+\includegraphics[width=5.47906in,height=2.71294in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image47.png}
+
+Figure 34 Détails du prêt
+
+\hypertarget{ruxe9trospective-1}{%
+\paragraph{Rétrospective}\label{ruxe9trospective-1}}
+
+\begin{quote}
+L'évaluation détaillée des fonctionnalités implémentées dans le cadre du
+sprint 3 est montrée dans le tableau 4.4, décrivant ce qui a bien
+fonctionné et identifiant les domaines nécessitant des améliorations :
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui a bien marché}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui n'a pas bien marché}
+\end{minipage} \\
+\midrule()
+\endhead
+Le Sprint 3 a réussi à livrer toutes les fonctionnalités clés
+(simulation de prêt, validation admin et reporting) avec une grande
+précision dans les calculs financiers et une intégration fluide des
+documents. La collaboration d\textquotesingle équipe et les revues de
+code ont permis de maintenir une haute qualité technique, tandis que les
+performances des rapports ont respecté les exigences (\textless5s de
+génération). & Des retards dans les validations manuelles et des erreurs
+de scoring liées à des données clients incomplets ont ralenti certains
+processus. L'interface admin s'est révélée trop complexe, et des
+problèmes techniques (comme l'upload de fichiers \textgreater10MB) ont
+nécessité des correctifs imprévus, pointant vers un besoin de meilleures
+validations en amont. \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{uxe9tude-et-ruxe9alisation-du-sprint-4}{%
+\subsubsection{Étude et réalisation du sprint
+4}\label{uxe9tude-et-ruxe9alisation-du-sprint-4}}
+
+\begin{quote}
+Le sprint 4 sera consacré au développement des fonctionnalités
+permettant de « Optimisation »
+\end{quote}
+
+\hypertarget{spuxe9cification-fonctionnelle-3}{%
+\paragraph{Spécification
+fonctionnelle}\label{spuxe9cification-fonctionnelle-3}}
+
+\begin{quote}
+Dans le cadre du sprint 4, nous établirons la spécification
+fonctionnelle en déployant un diagramme de cas d'utilisation ainsi
+qu'une description textuelle des cas principaux.
+\end{quote}
+
+Diagramme des cas d'utilisation du sprint 4
+
+\begin{quote}
+Dans la figure suivante, nous illustrons le diagramme de cas
+d'utilisation détaillé pour ce quatrième sprint.
+\end{quote}
+
+\includegraphics[width=5.20903in,height=3.39583in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image48.png}
+
+Figure 35 Diagramme des cas d'utilisation du sprint 4
+
+Description textuelle du cas d'utilisation du sprint 4
+
+Voici le tableau corrigé des cas d\textquotesingle utilisation du Sprint
+4, aligné sur le diagramme UML fourni :
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1551}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1327}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1877}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1627}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1794}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1825}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Cas d\textquotesingle utilisation}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Acteur}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Objectif}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Préconditions}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Scénario nominal}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Postconditions}
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{Obtenir des réponses rapides \textless2s} & Utilisateur &
+Garantir un temps de réponse optimal & 1. Application déployée &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Exécution des requêtes\\
+2. Mesure du temps de réponse\\
+3. Optimisation du cache/requêtes\strut
+\end{minipage} & 1. 95\% des requêtes \textless2s \\
+\textbf{Consulter docs API Swagger} & Développeur & Accéder à la
+documentation technique & 1. APIs documentées &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Accès au portail Swagger\\
+2. Navigation par endpoints\\
+3. Test des requêtes\strut
+\end{minipage} & 1. Documentation à jour à 100\% \\
+\textbf{Générer rapport} & Admin & Vérifier la sécurité de
+l\textquotesingle application &
+\begin{minipage}[t]{\linewidth}\raggedright
+1. Accès admin\\
+2. ZAP installé\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Lancement du scan\\
+2. Analyse des vulnérabilités\\
+3. Génération du PDF\strut
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+1. Rapport disponible\\
+2. 0 faille critique\strut
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Figure 36 Description textuelle du cas d'utilisation du sprint 4
+
+\hypertarget{diagramme-de-classe-3}{%
+\paragraph{Diagramme de classe}\label{diagramme-de-classe-3}}
+
+\begin{quote}
+La figure 4.26 montre le diagramme de classe du Sprint 4 qui présente la
+structure et les relations entre les différentes classes du système, en
+mettant en évidence les entités impliquées dans ce sprint.
+\end{quote}
+
+\includegraphics[width=6.9125in,height=4.872in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image49.png}
+
+Figure 37 Diagramme de classe sprint 4
+
+\hypertarget{diagrammes-de-suxe9quence-duxe9tailluxe9s-3}{%
+\paragraph{Diagrammes de séquence
+détaillés}\label{diagrammes-de-suxe9quence-duxe9tailluxe9s-3}}
+
+\begin{quote}
+La figure 4.27 montre le diagramme de séquence détaillé pour l'action «
+Obtenir des réponses rapides (\textless2s)~» qui illustre le flux
+d'interaction entre les différents composants.
+\end{quote}
+
+\includegraphics[width=6.856in,height=4.79722in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image50.png}
+
+Figure 38 Diagrammes de séquence détaillés
+
+\begin{quote}
+La figure 4.28 montre le diagramme de séquence détaillé pour l'action «
+Générer rapport » qui expose le déroulement des interactions entre les
+différents éléments du systéme .
+\end{quote}
+
+\includegraphics[width=7.29861in,height=4.35903in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image51.png}
+
+Figure 39 Diagramme de séquence détaillé pour l'action « Générer rapport
+»
+
+\hypertarget{duxe9veloppement-3}{%
+\paragraph{Développement}\label{duxe9veloppement-3}}
+
+\hypertarget{section-5}{%
+\paragraph{}\label{section-5}}
+
+\hypertarget{section-6}{%
+\paragraph{}\label{section-6}}
+
+\hypertarget{section-7}{%
+\paragraph{\texorpdfstring{\protect\includegraphics[width=7.29861in,height=3.58819in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image52.png}}{}}\label{section-7}}
+
+Figure 40 Page acceuil
+
+\includegraphics[width=7.29861in,height=3.38056in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image53.png}
+
+Figure 41 Page Dashboard admin
+
+\includegraphics[width=7.29861in,height=3.55347in]{vertopal_6b6b21bcb8ca44749f361fee25e12c76/media/image54.png}
+
+Figure 42 Page dashboard utilisateur
+
+\hypertarget{ruxe9trospective-2}{%
+\paragraph{Rétrospective}\label{ruxe9trospective-2}}
+
+\begin{quote}
+Le tableau 4.7 présente une rétrospective du sprint 4, mettant en
+évidence ce qui a bien fonctionné et les domaines nécessitant des
+améliorations pour les différents cas d'utilisation liés à la gestion
+des demandes de collectes et d'actualités.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui a bien marché}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Ce qui pourrait être amélioré}
+\end{minipage} \\
+\midrule()
+\endhead
+~95\% des requêtes \textless2s atteint
+
+Revue de code systématique & \begin{minipage}[t]{\linewidth}\raggedright
+Manque d\textquotesingle exemples pour les erreurs 4xx/5xx\\
+Docs non traduites (anglais seulement)\strut
+\end{minipage} \\
+\bottomrule()
+\end{longtable}
+
+Tableau 14 Rétrospective Sprint 4
+
+\begin{quote}
+\textbf{Conclusion}
+
+Le chapitre 4 a marqué une étape décisive dans la réalisation de notre
+second release, axé sur la gestion des contenus, en couvrant les
+troisième et quatrième sprint. À travers ces deux Sprints, nous avons
+suivi rigoureusement les phases de spécification, de conception, de
+développement et de test selon la méthodologie SCRUM.
+\end{quote}
+
+\hypertarget{conclusion-et-perspectives}{%
+\subsection{Conclusion et
+Perspectives}\label{conclusion-et-perspectives}}
+
+\hypertarget{bibliographie-et-webographie}{%
+\section{Bibliographie et
+Webographie}\label{bibliographie-et-webographie}}
+
+\hypertarget{annexe}{%
+\subsection{Annexe}\label{annexe}}
+
+\end{document}
