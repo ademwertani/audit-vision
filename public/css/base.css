@@ -14,3 +14,16 @@
 /* Keep page content separate from the header */
 .header-aisla{ position:relative; z-index:50; }
 main, .page-content, .hero, .page-hero{ position:relative; z-index:1; }
+
+/* Loading spinner overlay */
+#spinner {
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .5s ease-out, visibility 0s linear .5s;
+  z-index:9999;
+}
+#spinner.show {
+  visibility:visible;
+  opacity:1;
+  transition:opacity .5s ease-out;
+}
