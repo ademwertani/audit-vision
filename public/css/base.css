@@ -1,0 +1,16 @@
+/* =============================================
+   Base variables and global layout
+   ============================================= */
+
+/* ===== Palette ===== */
+:root{
+  --indigo:#222d74;   /* deep indigo used for hero/backgrounds, not the header */
+  --sky:#36A9E1;      /* top bar + active item */
+  --accent:#E75A2A;   /* orange CTA */
+  --ink:#203a56;      /* nav link color */
+  --card-bd:#EEF2FF;  /* light borders */
+}
+
+/* Keep page content separate from the header */
+.header-aisla{ position:relative; z-index:50; }
+main, .page-content, .hero, .page-hero{ position:relative; z-index:1; }

@@ -1,0 +1,46 @@
+/* =========================================================
+   TOPBAR (Sky blue like the reference)
+   ========================================================= */
+.topbar-aisla{
+  background:var(--sky);
+  color:#fff;
+  padding:.6rem 0;
+  font-size:.95rem;
+}
+.topbar-aisla .topbar-row{
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+
+/* Socials (left) */
+.topbar-aisla .topbar-social{
+  display:flex; align-items:center; gap:28px;
+}
+.topbar-aisla .topbar-social a{
+  display:inline-flex; align-items:center; gap:10px;
+  color:#fff; text-decoration:none; font-weight:600;
+  transition:opacity .2s ease, transform .2s ease;
+}
+.topbar-aisla .topbar-social a i{ font-size:16px; line-height:1; }
+.topbar-aisla .topbar-social a:hover{ opacity:.9; transform:translateY(-1px); }
+
+/* Contact (right) */
+.topbar-aisla .topbar-info{
+  display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+}
+.topbar-aisla .info-item{ display:inline-flex; align-items:center; gap:10px; white-space:nowrap; }
+.topbar-aisla .badge-icon{
+  width:34px; height:34px; border-radius:50%;
+  background:var(--accent); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 34px;
+  box-shadow:0 2px 0 rgba(0,0,0,.08) inset;
+}
+.topbar-aisla .badge-icon i{ font-size:14px; line-height:1; }
+.topbar-aisla .info-text{ color:#fff; font-weight:500; }
+
+/* Mobile tidy */
+@media (max-width:992px){
+  .topbar-aisla{ padding:.5rem 0; }
+  .topbar-aisla .topbar-row{ gap:16px; }
+  .topbar-aisla .topbar-social{ gap:18px; }
+  .topbar-aisla .topbar-info{ gap:18px; }
+}
