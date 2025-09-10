@@ -78,57 +78,60 @@
     <!-- Fact End -->
 
 
-   <!-- About Start -->
-    <div class="container-fluid py-5 my-5">
-        <div class="container pt-5">
-            <div class="row g-5">
-                <div class="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".3s">
-                    <div class="h-100 position-relative">
-                        @if($about->logo)
-                            <img src="{{ asset('storage/' . $about->logo) }}" class="img-fluid w-75 rounded" alt="À propos" style="margin-bottom: 25%;">
-                            <div class="position-absolute w-75" style="top: 25%; left: 25%;">
-                            </div>
-                        @else
-                            <img src="{{ asset('img/about-1.jpg') }}" class="img-fluid w-75 rounded" alt="Image par défaut À propos" style="margin-bottom: 25%;">
-                            <div class="position-absolute w-75" style="top: 25%; left: 25%;">
-                                <img src="{{ asset('img/about-2.jpg') }}" class="img-fluid w-100 rounded" alt="Image secondaire À propos">
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
-                    <h5 class="text-primary">À propos de nous</h5>
-                    @if($about->heading)
-                        <h1 class="mb-4">{{ $about->heading }}</h1>
-                    @else
-                        <h1 class="mb-4">À propos de l'agence EcoCall et de ses solutions IT innovantes</h1>
-                    @endif
-                    
-                    @if($about->summary)
-                        <p>{{ $about->summary }}</p>
-                    @else
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies tincidunt.</p>
-                    @endif
-                    
-                    
-                    <div class="mb-4">
-                        @if($about->location)
-                            <p><i class="fas fa-map-marker-alt text-primary me-2"></i> {{ $about->location }}</p>
-                        @endif
-                        @if($about->phone)
-                            <p><i class="fas fa-phone-alt text-primary me-2"></i> {{ $about->phone }}</p>
-                        @endif
-                        @if($about->email)
-                            <p><i class="fas fa-envelope text-primary me-2"></i> {{ $about->email }}</p>
-                        @endif
-                    </div>
-                    
-                    <a href="#" class="btn btn-secondary rounded-pill px-5 py-3 text-white">Plus de détails</a>
-                </div>
-            </div>
+<!-- About (Aisla Nova / Donut style) -->
+<section class="about-aisla py-5 my-5">
+  <div class="container pt-4 pt-lg-5">
+    <div class="row g-5 align-items-center">
+
+      {{-- LEFT: Big donut visual --}}
+      <div class="col-lg-6">
+        <div class="about-donut-wrap">
+          <div class="about-donut">
+            {{-- Inner disc (kept gray like the reference) --}}
+            <div class="about-donut__inner"></div>
+          </div>
         </div>
+      </div>
+
+      {{-- RIGHT: Copy --}}
+      <div class="col-lg-6">
+        {{-- eyebrow + small rule --}}
+        <div class="eyebrow">
+          <span>Welcome to Aisla Nova</span>
+          <i aria-hidden="true"></i>
+        </div>
+
+        <h1 class="display-5 fw-bold mb-3">
+          {{ $about->heading ?: 'Energize Society<br>Reliable Energy' }}
+        </h1>
+
+        <p class="lead text-muted mb-4">
+          {{ $about->summary ?: "Leading renewable energy solutions provider that is revolutionising and redefining the way sustainable energy sources are harnessed across the world. Present in 18 countries across Asia, Australia, Europe, Africa and the Americas." }}
+        </p>
+
+        {{-- Contact bits (optional) --}}
+        <ul class="about-list list-unstyled mb-4">
+          @if(!empty($about->location))
+            <li><i class="fas fa-map-marker-alt"></i> {{ $about->location }}</li>
+          @endif
+          @if(!empty($about->phone))
+            <li><i class="fas fa-phone-alt"></i> {{ $about->phone }}</li>
+          @endif
+          @if(!empty($about->email))
+            <li><i class="fas fa-envelope"></i> {{ $about->email }}</li>
+          @endif
+        </ul>
+
+        <a href="#" class="btn btn-success rounded-pill px-4 py-3 fw-semibold">
+          Plus de détails
+        </a>
+      </div>
+
     </div>
-    <!-- About End -->
+  </div>
+</section>
+<!-- /About -->
+
 
 
     <!-- Services Start -->
