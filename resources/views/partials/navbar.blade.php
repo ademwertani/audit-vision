@@ -1,77 +1,100 @@
+{{-- ================== HEADER (TOPBAR + NAVBAR) ================== --}}
 @php
-use Illuminate\Support\Str;
+  $about  = $about  ?? (object)[];
+  $social = $social ?? (object)[];
 @endphp
 
-<div class="container-fluid bg-primary">
+<header class="header-aisla">
+  {{-- SKY BLUE TOP BAR --}}
+  <div class="topbar-aisla d-none d-md-block">
     <div class="container">
-        <nav class="navbar navbar-dark navbar-expand-lg py-0">
-            <a href="{{ url('/') }}" class="navbar-brand">
-                @if($about && $about->logo)
-             <img src="{{ asset('storage/about/' . basename($about->logo)) }}" alt="EcoCall Logo" style="height: 100px;">
-                @else
-                    <h1 class="text-white fw-bold d-block">Eco<span class="text-secondary">Call</span></h1>
-                @endif
-            </a>
-            <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse bg-transparent" id="navbarCollapse">
-                <div class="navbar-nav ms-auto mx-xl-auto p-0">
-                    <!-- Home -->
-                    <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Accueil</a>
+      <div class="topbar-row">
+        {{-- Socials --}}
+        <div class="topbar-social">
+          @if(!empty($social->facebook))
+            <a href="{{ $social->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+          @endif
+          @if(!empty($social->twitter))
+            <a href="{{ $social->twitter }}" target="_blank"><i class="fab fa-twitter"></i><span>Twitter</span></a>
+          @endif
+          @if(!empty($social->linkedin))
+            <a href="{{ $social->linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i><span>Linked In</span></a>
+          @endif
+        </div>
 
-                    <!-- About -->
-                    <a href="{{ url('/about') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">À propos</a>
-
-                    <!-- Services -->
-                    <div class="nav-item dropdown">
-                        <a href="{{ url('/services') }}" class="nav-link dropdown-toggle {{ Request::is('services') || Request::is('services/*') ? 'active' : '' }}" data-bs-toggle="dropdown">Services</a>
-                        <div class="dropdown-menu rounded">
-                            @foreach($services as $service)
-                                <a href="{{ route('services.show', $service->id) }}" class="dropdown-item {{ Request::is('services/'.$service->id) ? 'active' : '' }}">
-                                    {{ $service->name }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- Projects -->
-                    <a href="{{ route('projects.index') }}" class="nav-item nav-link {{ Request::is('projects') || Request::is('projects/*') ? 'active' : '' }}">Projets</a>
-
-                    <!-- Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ Request::is('blog') || Request::is('team') || Request::is('testimonials') || Request::is('404') ? 'active' : '' }}" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu rounded">
-                            <a href="{{ url('/blog') }}" class="dropdown-item {{ Request::is('blog') ? 'active' : '' }}">Notre Blog</a>
-                            <a href="{{ url('/team') }}" class="dropdown-item {{ Request::is('team') ? 'active' : '' }}">Notre Équipe</a>
-                            <a href="{{ url('/testimonials') }}" class="dropdown-item {{ Request::is('testimonials') ? 'active' : '' }}">Témoignages</a>
-                            <a href="{{ url('/404') }}" class="dropdown-item {{ Request::is('404') ? 'active' : '' }}">Page 404</a>
-                        </div>
-                    </div>
-
-                    <!-- Contact -->
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
-                </div>
-            </div>
-
-            <!-- Additional Info -->
-            <div class="d-none d-xl-flex flex-shrink-0">
-                <div id="phone-tada" class="d-flex align-items-center justify-content-center me-4">
-                    <a href="tel:{{ $about->phone ?? '' }}" class="position-relative animated tada infinite">
-                        <i class="fa fa-phone-alt text-white fa-2x"></i>
-                        <div class="position-absolute" style="top: -7px; left: 20px;">
-                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex flex-column pe-4 border-end">
-                    <span class="text-white-50">Des questions&nbsp;?</span>
-                    <span class="text-secondary">
-                        Appelez&nbsp;: {{ $about->phone ?? '+ 0123 456 7890' }}
-                    </span>
-                </div>
-                
-            </div>
-        </nav>
+        {{-- Contact info --}}
+        <div class="topbar-info">
+          @if(!empty($about->email))
+            <span class="info-item">
+              <span class="badge-icon"><i class="far fa-envelope"></i></span>
+              <span class="info-text">{{ $about->email }}</span>
+            </span>
+          @endif
+          @if(!empty($about->location))
+            <span class="info-item">
+              <span class="badge-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <span class="info-text">{{ $about->location }}</span>
+            </span>
+          @endif
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+
+  {{-- SKY BAND + WHITE PILL NAV --}}
+  <div class="navband-aisla">
+    <div class="container">
+      <div class="nav-pill nav-pill-bar">
+        <nav class="navbar navbar-expand-lg navbar-aisla p-0">
+          {{-- Brand --}}
+          <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center gap-2">
+            @if(!empty($about->logo))
+              <img src="{{ asset('storage/' . ltrim($about->logo, '/')) }}" alt="Aisla Nova">
+            @else
+              <img src="{{ asset('img/logo-aisla.png') }}" alt="Aisla Nova">
+            @endif
+          </a>
+
+          {{-- Toggler --}}
+          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarCollapseNew" aria-controls="navbarCollapseNew"
+                  aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          {{-- Links --}}
+          <div class="collapse navbar-collapse" id="navbarCollapseNew">
+            <div class="navbar-nav ms-auto mx-xl-auto p-0 align-items-lg-center">
+              <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
+              <a href="{{ url('/about') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">About</a>
+              <a href="{{ route('projects.index') }}" class="nav-item nav-link {{ Request::is('projects') || Request::is('projects/*') ? 'active' : '' }}">Projects</a>
+              <span class="nav-divider d-none d-lg-block"></span>
+              <div class="nav-item dropdown">
+                <a href="{{ url('/services') }}" class="nav-link dropdown-toggle {{ Request::is('services') || Request::is('services/*') ? 'active' : '' }}" data-bs-toggle="dropdown">Services</a>
+                <div class="dropdown-menu">
+                  @foreach(($services ?? []) as $service)
+                    <a href="{{ route('services.show', $service->id) }}" class="dropdown-item {{ Request::is('services/'.$service->id) ? 'active' : '' }}">{{ $service->name }}</a>
+                  @endforeach
+                </div>
+              </div>
+              <a href="{{ url('/blog') }}" class="nav-item nav-link {{ Request::is('blog') ? 'active' : '' }}">Blog</a>
+              <a href="{{ url('/contact') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
+            </div>
+
+            {{-- Right rail --}}
+            <div class="d-flex align-items-center right-rail ms-lg-2">
+              <button class="search-btn me-2" type="button" aria-label="Search">
+                <i class="fas fa-search"></i>
+              </button>
+              <a href="{{ url('/contact') }}" class="btn cta-btn">Request a Quote</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  {{-- SKY APRON BELOW NAV PILL --}}
+  <div class="sky-apron" aria-hidden="true"></div>
+</header>
+{{-- ================== /HEADER ================== --}}

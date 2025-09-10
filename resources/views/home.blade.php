@@ -4,69 +4,48 @@
 
 @section('content')
 
-    <!-- Carousel Start -->
-    <div class="container-fluid px-0" style="height: 760px; overflow: hidden;">
-        <div id="bannerCarousel" class="carousel slide h-100" data-bs-ride="carousel">
-            @if($banners->count() > 1)
-                <ol class="carousel-indicators">
-                    @foreach($banners as $key => $banner)
-                        <li data-bs-target="#bannerCarousel" data-bs-slide-to="{{ $key }}" class="{{ $key === 0 ? 'active' : '' }}" aria-label="Slide {{ $key + 1 }}"></li>
-                    @endforeach
-                </ol>
-            @endif
-            
-            <div class="carousel-inner h-100" role="listbox">
-                @foreach($banners as $key => $banner)
-                    <div class="carousel-item h-100 {{ $key === 0 ? 'active' : '' }}">
-                        @if($banner->image)
-                            <img src="{{ asset('storage/' . $banner->image) }}" 
-                                class="img-fluid w-100 h-100 object-fit-cover" 
-                                alt="{{ $banner->title }}"
-                                style="width: 1350px; height: 760px; object-fit: cover;">
-                        @else
-                            <img src="{{ asset('img/default-banner.jpg') }}"
-                                class="img-fluid w-100 h-100 object-fit-cover"
-                                alt="Bannière par défaut"
-                                style="width: 1350px; height: 760px; object-fit: cover;">
-                        @endif
-                        <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
-                            <div class="container carousel-content text-center" style="max-width: 1350px;">
-                                @if($banner->title)
-                                    <h6 class="text-secondary h4 animated fadeInUp">Eco-Call</h6>
-                                    <h1 class="text-white display-1 mb-4 animated fadeInRight">{{ $banner->title }}</h1>
-                                @endif
-                                @if($banner->summary)
-                                    <p class="mb-4 text-white fs-5 animated fadeInDown">{{ $banner->summary }}</p>
-                                @endif
-                                <div class="d-flex justify-content-center">
-                               
-                                    <a href="#" class="ms-2">
-                                        <button type="button" class="px-4 py-sm-3 px-sm-5 btn btn-secondary rounded-pill carousel-content-btn2 animated fadeInRight">Contactez-nous</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+    {{-- =============== HERO (Aisla Nova style, dynamic) =============== --}}
+    @php
+    $hero = optional($banners)->first();
+    $heroTitle = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
+    $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
+    $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
+    @endphp
+
+    <div class="hero-aisla">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+        {{-- Left copy --}}
+        <div class="col-lg-6">
+            <div class="hero-copy">
+            <span class="tag text-accent fw-bold d-inline-block mb-2">Aisla Nova</span>
+            <h1 class="hero-title">{!! nl2br(e($heroTitle)) !!}</h1>
+            <p class="hero-lead">{{ $heroSummary }}</p>
+            <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">Request a Quote</a>
+
+            {{-- Static dots for the look --}}
+            <div class="hero-dots mt-4" aria-hidden="true">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </div>
-            
-            @if($banners->count() > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Précédent</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Suivant</span>
-                </button>
-            @endif
+            </div>
+        </div>
+
+        {{-- Right donut visual; the image is applied inline to avoid CSS-var issues --}}
+        <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+            <div class="hero-donut" data-index="0" data-banners='@json($banners)'>
+            <div class="donut-arc"></div>
+            <div class="donut-image"></div>
+            <button class="hero-nav prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="hero-nav next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
         </div>
     </div>
-    <!-- Carousel End -->
-
+    </div>
+    {{-- =============== /HERO =============== --}}
 
     <!-- Fact Start -->
-    <div class="container-fluid bg-secondary py-5">
+    <!-- <div class="container-fluid bg-secondary py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
@@ -95,7 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Fact End -->
 
 
@@ -555,4 +534,36 @@
         </div>
     </div>
     <!-- Contact End -->
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const donut = document.querySelector(".hero-donut");
+    const imageDiv = donut.querySelector(".donut-image");
+    const banners = JSON.parse(donut.dataset.banners || "[]");
+
+    let index = 0;
+
+    function updateBanner() {
+        if (banners.length > 0) {
+        const banner = banners[index];
+        imageDiv.style.backgroundImage = `url('/storage/${banner.image}')`;
+        // on pourrait aussi mettre à jour le texte titre / résumé ici
+        }
+    }
+
+    donut.querySelector(".hero-nav.prev").addEventListener("click", () => {
+        index = (index - 1 + banners.length) % banners.length;
+        updateBanner();
+    });
+
+    donut.querySelector(".hero-nav.next").addEventListener("click", () => {
+        index = (index + 1) % banners.length;
+        updateBanner();
+    });
+
+    updateBanner();
+    });
+    </script>
+
+
 @endsection

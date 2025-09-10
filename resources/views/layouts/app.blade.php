@@ -30,7 +30,6 @@
 
 <body>
 @include('partials.spinner')
-@include('partials.topbar')
 @include('partials.navbar')
 
 <main>
