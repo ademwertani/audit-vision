@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\SocialController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Pages publiques
-Route::get('/about', fn () => view('pages.about'))->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
@@ -52,12 +53,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('blogs', AdminBlogController::class);
     Route::get('/social', [\App\Http\Controllers\Admin\SocialController::class, 'edit'])
         ->name('social.edit');
-    Route::get('/about', [\App\Http\Controllers\Admin\AboutController::class, 'edit'])
+    Route::get('/about', [AdminAboutController::class, 'edit'])
         ->name('about.edit');
     Route::put('/social', [\App\Http\Controllers\Admin\SocialController::class, 'update'])
         ->name('social.update');
     Route::resource('teams', TeamController::class);
-    Route::put('/about', [AboutController::class, 'update'])->name('about.update');
+    Route::put('/about', [AdminAboutController::class, 'update'])->name('about.update');
     Route::resource('categories', CategoryController::class);
     Route::resource('banners', BannerController::class);
 });

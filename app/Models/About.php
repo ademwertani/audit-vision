@@ -17,4 +17,4 @@ class About extends Model
         'email',
         'logo',
     ];
-}    
+}
