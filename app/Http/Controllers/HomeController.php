@@ -8,7 +8,6 @@ use App\Models\Service;
 use App\Models\Project;
 use App\Models\About;
 use App\Models\Social;
-use App\Models\Team;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 
@@ -22,7 +21,6 @@ class HomeController extends Controller
         $projects = Project::latest()->take(4)->get();
         $about = About::first();
         $social = Social::first();
-        $team = Team::latest()->take(6)->get();
         $blogs = Blog::latest('published_at')->take(3)->get();
 
         return view('home', compact(
@@ -31,7 +29,6 @@ class HomeController extends Controller
             'projects',
             'about',
             'social',
-            'team',
             'blogs'
         ));
     }
