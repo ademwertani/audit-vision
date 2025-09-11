@@ -1,49 +1,48 @@
-{{-- ================== HEADER (TOPBAR + NAVBAR) ================== --}}
+{{-- ================== UNIFIED HEADER ================== --}}
 @php
   $about  = $about  ?? (object)[];
   $social = $social ?? (object)[];
 @endphp
 
 <header class="header-aisla">
-  {{-- SKY BLUE TOP BAR --}}
-  <div class="topbar-aisla d-none d-md-block">
+  {{-- Unified header with light blue background containing both topbar and navbar --}}
+  <div class="unified-header">
     <div class="container">
-      <div class="topbar-row">
-        {{-- Socials --}}
-        <div class="topbar-social">
-          @if(!empty($social->facebook))
-            <a href="{{ $social->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
-          @endif
-          @if(!empty($social->twitter))
-            <a href="{{ $social->twitter }}" target="_blank"><i class="fab fa-twitter"></i><span>Twitter</span></a>
-          @endif
-          @if(!empty($social->linkedin))
-            <a href="{{ $social->linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i><span>Linked In</span></a>
-          @endif
-        </div>
+      {{-- Top section with social links and contact info --}}
+      <div class="topbar-section d-none d-md-block">
+        <div class="topbar-row">
+          {{-- Socials --}}
+          <div class="topbar-social">
+            @if(!empty($social->facebook))
+              <a href="{{ $social->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+            @endif
+            @if(!empty($social->twitter))
+              <a href="{{ $social->twitter }}" target="_blank"><i class="fab fa-twitter"></i><span>Twitter</span></a>
+            @endif
+            @if(!empty($social->linkedin))
+              <a href="{{ $social->linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i><span>Linked In</span></a>
+            @endif
+          </div>
 
-        {{-- Contact info --}}
-        <div class="topbar-info">
-          @if(!empty($about->email))
-            <span class="info-item">
-              <span class="badge-icon"><i class="far fa-envelope"></i></span>
-              <span class="info-text">{{ $about->email }}</span>
-            </span>
-          @endif
-          @if(!empty($about->location))
-            <span class="info-item">
-              <span class="badge-icon"><i class="fas fa-map-marker-alt"></i></span>
-              <span class="info-text">{{ $about->location }}</span>
-            </span>
-          @endif
+          {{-- Contact info --}}
+          <div class="topbar-info">
+            @if(!empty($about->email))
+              <span class="info-item">
+                <span class="badge-icon"><i class="far fa-envelope"></i></span>
+                <span class="info-text">{{ $about->email }}</span>
+              </span>
+            @endif
+            @if(!empty($about->location))
+              <span class="info-item">
+                <span class="badge-icon"><i class="fas fa-map-marker-alt"></i></span>
+                <span class="info-text">{{ $about->location }}</span>
+              </span>
+            @endif
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  {{-- SKY BAND + WHITE PILL NAV --}}
-  <div class="navband-aisla">
-    <div class="container">
+      {{-- White pill navigation --}}
       <div class="nav-pill nav-pill-bar">
         <nav class="navbar navbar-expand-lg navbar-aisla p-0">
           {{-- Brand --}}
@@ -94,7 +93,6 @@
     </div>
   </div>
 
-  {{-- SKY APRON BELOW NAV PILL --}}
-  <div class="sky-apron" aria-hidden="true"></div>
+  {{-- Removed separate sky apron as it's now part of unified header --}}
 </header>
 {{-- ================== /HEADER ================== --}}

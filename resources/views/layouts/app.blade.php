@@ -3,18 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', 'Eco Call - Centre de Formation & Services')</title>
+    <title>@yield('title', 'Aisla Nova - Energize Society Reliable Energy')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="keywords" content="formation, call center, service client, téléconseiller">
-    <meta name="description" content="Eco Call est un centre de formation et de services spécialisé dans les métiers du call center.">
+    <meta name="keywords" content="renewable energy, solar, electrical services, energy solutions">
+    <meta name="description" content="Aisla Nova - Leading renewable energy solutions provider revolutionizing sustainable energy sources worldwide.">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Saira:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -42,8 +42,6 @@
 
 @include('partials.footer')
 
-<!-- Back to Top -->
-<a href="#" class="btn btn-secondary btn-square rounded-circle back-to-top"><i class="fa fa-arrow-up text-white"></i></a>
 
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

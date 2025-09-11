@@ -1,154 +1,188 @@
 @extends('layouts.app')
 
-@section('title', 'Contactez-nous')
+@section('title', 'Contact Us')
 
 @section('content')
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5">
-        <div class="container text-center py-5">
-            <h1 class="display-2 text-white mb-4 animated slideInDown">Contactez-nous</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item" aria-current="page">Contact</li>
-                </ol>
-            </nav>
-        </div>
+<style>
+/* =========================================================
+   Aisla Nova – Contact (matches your first screenshot)
+   All styles are scoped to avoid leaking to other pages.
+   ========================================================= */
+.contact-page{--navy:#2f3582;--navyDark:#1d2760;--sky:#31b4eb;--accent:#ff6b35;--ink:#0f172a;--muted:#6b7280;--field:#f5f7fb;--ring:#dbe6ff;--card:#ffffff;--shadow:0 20px 40px rgba(16,24,40,.08)}
+.contact-page *{box-sizing:border-box}
+
+/* ---------- HERO (left-aligned text + big pill breadcrumb) ---------- */
+.cp-hero{
+  background:var(--navy);
+  color:#fff;
+  padding:78px 0 92px;
+  position:relative;
+}
+.cp-hero .cp-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
+.cp-hero h1,
+.cp-hero .cp-title,
+.cp-hero p,
+.cp-hero .cp-sub{
+  color:#fff !important;   /* force white */
+}
+@media (max-width:768px){.cp-title{font-size:40px}}
+.cp-sub{
+  max-width:560px;
+  font-size:15px;
+  line-height:1.7;
+  margin:0;
+  opacity:.95;
+}
+
+/* Long rounded breadcrumb bar that sits at the bottom edge like the mock */
+.cp-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
+.cp-bread{
+  width:min(1180px, calc(100% - 48px));
+  background:var(--sky);
+  color:#083049;
+  height:46px; border-radius:9999px;
+  display:flex;align-items:center;gap:18px;
+  padding:0 22px; font-weight:700; box-shadow:0 10px 18px rgba(3,102,140,.12);
+}
+.cp-bread a{color:#083049;text-decoration:none}
+.cp-bread .sep{opacity:.55}
+.cp-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#1aa7df;color:#fff;font-size:12px}
+
+/* ---------- SECTION HEAD ---------- */
+.cp-wrap{padding:70px 0 40px}
+.cp-head{max-width:820px;margin:0 auto 8px;text-align:center}
+.cp-kicker{color:var(--sky);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+.cp-h1{color:var(--ink);font-weight:800;line-height:1.14;margin:8px 0 0}
+
+/* ---------- GRID ---------- */
+.cp-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:28px;align-items:start;margin-top:26px}
+@media (max-width: 991.98px){.cp-grid{grid-template-columns:1fr}}
+
+/* ---------- FORM CARD ---------- */
+.cp-card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:28px}
+.cp-form .form-control{background:var(--field)!important;border:1px solid #e6e9f5!important;border-radius:12px!important;padding:14px 16px!important;font-size:1rem}
+.cp-form .form-control:focus{background:#fff!important;border-color:var(--ring)!important;box-shadow:none!important}
+.cp-form textarea.form-control{min-height:160px;resize:vertical}
+.cp-btn{background:var(--accent);border:none;color:#fff;font-weight:800;padding:14px 22px;border-radius:14px;box-shadow:0 10px 18px rgba(255,107,53,.2);transition:.2s}
+.cp-btn:hover{transform:translateY(-1px);filter:brightness(.98)}
+.contact-page .alert-success{border-radius:12px}
+
+/* ---------- INFO CARDS (right column) ---------- */
+.cp-aside{display:flex;flex-direction:column;gap:18px}
+.cp-info{background:#242e77;color:#fff;border-radius:18px;box-shadow:0 8px 18px rgba(0,0,0,.08);padding:22px;display:flex;gap:16px;align-items:flex-start}
+.cp-ico{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-size:22px;flex-shrink:0}
+.cp-info h5{margin:0 0 6px;font-weight:800;font-size:1rem}
+.cp-info a{color:#d8e6ff;text-decoration:none;font-weight:600}
+.cp-info a:hover{text-decoration:underline}
+
+/* ---------- MAP ---------- */
+.cp-map{margin-top:34px;background:#f4f7ff;border-radius:20px;box-shadow:0 8px 18px rgba(0,0,0,.06);padding:10px}
+.cp-map iframe{width:100%;height:440px;border:0;border-radius:12px}
+</style>
+
+<section class="contact-page">
+
+  {{-- HERO (left aligned like screenshot 1) --}}
+  <header class="cp-hero">
+    <div class="cp-hgroup container">
+      <h1 class="cp-title">Contact Us</h1>
+      <p class="cp-sub">Practical renewable energy technology that reduces costs and helps the environment</p>
     </div>
-    <!-- Page Header End -->
 
-
-    <!-- Fact Start -->
-    <div class="container-fluid bg-secondary py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
-                    <div class="d-flex counter">
-                        <h1 class="me-3 text-primary counter-value">99</h1>
-                        <h5 class="text-white mt-1">Clients satisfaits</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 wow fadeIn" data-wow-delay=".3s">
-                    <div class="d-flex counter">
-                        <h1 class="me-3 text-primary counter-value">25</h1>
-                        <h5 class="text-white mt-1">Des milliers d'entreprises prospères</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 wow fadeIn" data-wow-delay=".5s">
-                    <div class="d-flex counter">
-                        <h1 class="me-3 text-primary counter-value">120</h1>
-                        <h5 class="text-white mt-1">Clients qui aiment EcoCall</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 wow fadeIn" data-wow-delay=".7s">
-                    <div class="d-flex counter">
-                        <h1 class="me-3 text-primary counter-value">5</h1>
-                        <h5 class="text-white mt-1">Avis 5 étoiles donnés par des clients satisfaits</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {{-- long rounded breadcrumb bar --}}
+    <div class="cp-bread-wrap">
+      <div class="cp-bread">
+        <span class="home-ico"><i class="fa fa-home"></i></span>
+        <a href="{{ url('/') }}">Home</a>
+        <span class="sep">|</span>
+        <span>Contact Us</span>
+      </div>
     </div>
-    <!-- Fact End -->
+  </header>
 
+  {{-- CONTENT --}}
+  <div class="cp-wrap">
+    <div class="container">
 
-    <!-- Contact Start -->
-    <div class="container-fluid py-5 mt-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Prenez contact</h5>
-                <h1 class="mb-3">Contactez-nous pour toute question</h1>
-                @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-                @endif
+      <div class="cp-head">
+        <div class="cp-kicker">Request a quote</div>
+        <h2 class="cp-h1">Talk About How We Can Help<br> You <span style="color:var(--sky)">Reduce Your Energy</span></h2>
+
+        @if(session('success'))
+          <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        @endif
+      </div>
+
+      <div class="cp-grid">
+
+        {{-- LEFT: FORM (keep backend fields only) --}}
+        <div class="cp-card">
+          <form method="POST" action="{{ route('contact.store') }}" class="cp-form">
+            @csrf
+            <div class="mb-3">
+              <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Complete Name" required>
+              @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-            <div class="contact-detail position-relative p-5">
-                <div class="row g-5 mb-5 justify-content-center">
-                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s">
-                        <div class="d-flex bg-light p-3 rounded">
-                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle" style="width: 64px; height: 64px;">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h4 class="text-primary">Adresse</h4>
-                                <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" class="h5">171 route de bezons 78420 carrières sur Seine</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                        <div class="d-flex bg-light p-3 rounded">
-                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle" style="width: 64px; height: 64px;">
-                                <i class="fa fa-phone text-white"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h4 class="text-primary">Appelez-nous</h4>
-                                <a class="h5" href="tel:+330948160487" target="_blank">+33 0948160487</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".7s">
-                        <div class="d-flex bg-light p-3 rounded">
-                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle" style="width: 64px; height: 64px;">
-                                <i class="fa fa-envelope text-white"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h4 class="text-primary">Envoyez-nous un e-mail</h4>
-                                <a class="h5" href="mailto:commercial@eco-call.fr" target="_blank">commercial@eco-call.fr</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5">
-                    <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
-                        <div class="p-5 h-100 rounded contact-map">
-                                <iframe class="rounded w-100 h-100"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.102419139038!2d2.1990053!3d48.9134409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa5cd521a7a2aeb3%3A0x53a81c81da566b1a!2sEco%20Call!5e0!3m2!1sfr!2stn!4v1753705033700!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                        <form method="POST" action="{{ route('contact.store') }}" class="p-5 rounded contact-form">
-                            @csrf
-                            <div class="mb-4">
-                                <input type="text" class="form-control border-0 py-3 @error('name') is-invalid @enderror" 
-                                       name="name" value="{{ old('name') }}" placeholder="Votre nom" required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-4">
-                                <input type="email" class="form-control border-0 py-3 @error('email') is-invalid @enderror" 
-                                       name="email" value="{{ old('email') }}" placeholder="Votre e-mail" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-4">
-                                <input type="text" class="form-control border-0 py-3 @error('subject') is-invalid @enderror" 
-                                       name="subject" value="{{ old('subject') }}" placeholder="Sujet" required>
-                                @error('subject')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-4">
-                                <textarea class="w-100 form-control border-0 py-3 @error('message') is-invalid @enderror" 
-                                          name="message" rows="6" placeholder="Message" required>{{ old('message') }}</textarea>
-                                @error('message')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="text-start">
-                                <button class="btn bg-primary text-white py-3 px-5" type="submit">
-                                    <i class="fas fa-paper-plane me-2"></i> Envoyer le message
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="mb-3">
+              <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Email Address" required>
+              @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
+            <div class="mb-3">
+              <input type="text" name="subject" value="{{ old('subject') }}" class="form-control @error('subject') is-invalid @enderror" placeholder="Subject" required>
+              @error('subject') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="form-control @error('message') is-invalid @enderror" rows="6" placeholder="Your Message" required>{{ old('message') }}</textarea>
+              @error('message') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+            <button type="submit" class="cp-btn">
+              <i class="fas fa-paper-plane me-2"></i> Send Message
+            </button>
+          </form>
         </div>
+
+        {{-- RIGHT: INFO CARDS --}}
+        <aside class="cp-aside">
+          <div class="cp-info">
+            <div class="cp-ico"><i class="fa fa-phone"></i></div>
+            <div>
+              <h5>Phone No:</h5>
+              <a href="tel:+330948160487">+33 09 48 16 04 87</a>
+            </div>
+          </div>
+
+          <div class="cp-info">
+            <div class="cp-ico"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h5>Location:</h5>
+              <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" rel="noopener">
+                171 route de Bezons, 78420 Carrières-sur-Seine, France
+              </a>
+            </div>
+          </div>
+
+          <div class="cp-info">
+            <div class="cp-ico"><i class="fa fa-envelope"></i></div>
+            <div>
+              <h5>Email Address:</h5>
+              <a href="mailto:commercial@eco-call.fr">commercial@eco-call.fr</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {{-- MAP --}}
+      <div class="cp-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.102419139038!2d2.1990053!3d48.9134409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa5cd521a7a2aeb3%3A0x53a81c81da566b1a!2sEco%20Call!5e0!3m2!1sfr!2stn!4v1753705033700!5m2!1sfr!2stn"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+
     </div>
-    <!-- Contact End -->
+  </div>
+
+</section>
 @endsection

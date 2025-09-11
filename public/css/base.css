@@ -1,29 +1,89 @@
 /* =============================================
-   Base variables and global layout
+   Base variables and global layout - Updated with Figma colors
    ============================================= */
 
-/* ===== Palette ===== */
-:root{
-  --indigo:#222d74;   /* deep indigo used for hero/backgrounds, not the header */
-  --sky:#36A9E1;      /* top bar + active item */
-  --accent:#E75A2A;   /* orange CTA */
-  --ink:#203a56;      /* nav link color */
-  --card-bd:#EEF2FF;  /* light borders */
+/* ===== Updated Palette with Figma Colors ===== */
+:root {
+  --primary: #2d3281; /* Deep blue from Figma */
+  --secondary: #37a7df; /* Light blue from Figma */
+  --accent: #e84e23; /* Orange accent from Figma */
+  --warning: #f1a601; /* Yellow from Figma */
+  --danger: #fe5716; /* Red-orange from Figma */
+  --dark: #333333; /* Dark gray from Figma */
+  --light: #fafafa; /* Light background from Figma */
+  --muted: #666666; /* Muted text from Figma */
+  --border: #dadada; /* Light borders from Figma */
+  --surface: #f1f1f1; /* Surface color from Figma */
+  --text-muted: #949494; /* Muted text from Figma */
+
+  /* Legacy variables for compatibility */
+  --indigo: #2d3281; /* Updated to Figma primary */
+  --sky: #37a7df; /* Updated to Figma secondary */
+  --ink: #333333; /* Updated to Figma dark */
+  --card-bd: #dadada; /* Updated to Figma border */
+}
+
+/* Added proper font family and improved global layout */
+body {
+  color: var(--dark);
+  background-color: #ffffff;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Improved container widths to reduce excessive side spacing */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-fluid {
+  padding: 0 20px;
 }
 
 /* Keep page content separate from the header */
-.header-aisla{ position:relative; z-index:50; }
-main, .page-content, .hero, .page-hero{ position:relative; z-index:1; }
+.header-aisla {
+  position: relative;
+  z-index: 50;
+}
+main,
+.page-content,
+.hero,
+.page-hero {
+  position: relative;
+  z-index: 1;
+}
 
 /* Loading spinner overlay */
 #spinner {
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .5s ease-out, visibility 0s linear .5s;
-  z-index:9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease-out, visibility 0s linear .5s;
+  z-index: 9999;
 }
 #spinner.show {
-  visibility:visible;
-  opacity:1;
-  transition:opacity .5s ease-out;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .5s ease-out;
+}
+
+/* Updated global text colors to use Figma palette */
+.text-primary {
+  color: var(--primary) !important;
+}
+.text-secondary {
+  color: var(--secondary) !important;
+}
+.text-muted {
+  color: var(--muted) !important;
+}
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+.bg-light {
+  background-color: var(--light) !important;
 }
