@@ -245,100 +245,25 @@
                 <h5 class="text-primary">Notre blog</h5>
                 <h1>Derniers articles et actualités</h1>
             </div>
-            <div class="row g-5 justify-content-center">
-                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".3s">
-                    <div class="blog-item position-relative bg-light rounded">
-                        <img src="img/blog-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded" style="top: -28px; right: 20px;">Web Design</span>
-                        <div class="blog-btn d-flex justify-content-between position-relative px-3" style="margin-top: -75px;">
-                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
-                                <a href="" class="btn text-white">En savoir plus</a>
+            <div class="row g-4 justify-content-center">
+                @forelse($blogs as $blog)
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card h-100 border-0 shadow-sm">
+                            @if($blog->image)
+                                <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="{{ $blog->title }}">
+                            @endif
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ $blog->title }}</h5>
+                                <p class="card-text">{{ Str::limit(strip_tags($blog->content), 100) }}</p>
                             </div>
-                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
-                                <div class="blog-icon-1">
-                                    <p class="text-white px-2">Partager<i class="fa fa-arrow-right ms-3"></i></p>
-                                </div>
-                                <div class="blog-icon-2">
-                                    <a href="" class="btn me-1"><i class="fab fa-facebook-f text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-instagram text-white"></i></a>
-                                </div>
+                            <div class="card-footer bg-transparent border-0 text-center pb-4">
+                                <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-primary rounded-pill">Lire la suite</a>
                             </div>
-                        </div>
-                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
-                            <img src="img/admin.jpg" class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
-                            <h5 class="">Par Daniel Martin</h5>
-                            <span class="text-secondary">24 March 2023</span>
-                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum. Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
-                        </div>
-                        <div class="blog-coment d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
-                            <a href="" class="text-white"><small><i class="fas fa-share me-2 text-secondary"></i>5324 Partages</small></a>
-                            <a href="" class="text-white"><small><i class="fa fa-comments me-2 text-secondary"></i>5 Commentaires</small></a>
-                        </div>
+                        </article>
                     </div>
-                </div>
-                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".5s">
-                    <div class="blog-item position-relative bg-light rounded">
-                        <img src="img/blog-2.jpg" class="img-fluid w-100 rounded-top" alt="">
-                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded" style="top: -28px; right: 20px;">Development</span>
-                        <div class="blog-btn d-flex justify-content-between position-relative px-3" style="margin-top: -75px;">
-                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
-                                <a href="" class="btn text-white ">En savoir plus</a>
-                            </div>
-                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
-                                <div class="blog-icon-1">
-                                    <p class="text-white px-2">Partager<i class="fa fa-arrow-right ms-3"></i></p>
-                                </div>
-                                <div class="blog-icon-2">
-                                    <a href="" class="btn me-1"><i class="fab fa-facebook-f text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-instagram text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
-                            <img src="img/admin.jpg" class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
-                            <h5 class="">Par Daniel Martin</h5>
-                            <span class="text-secondary">23 April 2023</span>
-                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum. Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
-                        </div>
-                        <div class="blog-coment d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
-                            <a href="" class="text-white"><small><i class="fas fa-share me-2 text-secondary"></i>5324 Partages</small></a>
-                            <a href="" class="text-white"><small><i class="fa fa-comments me-2 text-secondary"></i>5 Commentaires</small></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".7s">
-                    <div class="blog-item position-relative bg-light rounded">
-                        <img src="img/blog-3.jpg" class="img-fluid w-100 rounded-top" alt="">
-                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded" style="top: -28px; right: 20px;">Mobile App</span>
-                        <div class="blog-btn d-flex justify-content-between position-relative px-3" style="margin-top: -75px;">
-                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
-                                <a href="" class="btn text-white ">En savoir plus</a>
-                            </div>
-                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
-                                <div class="blog-icon-1">
-                                    <p class="text-white px-2">Partager<i class="fa fa-arrow-right ms-3"></i></p>
-                                </div>
-                                <div class="blog-icon-2">
-                                    <a href="" class="btn me-1"><i class="fab fa-facebook-f text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
-                                    <a href="" class="btn me-1"><i class="fab fa-instagram text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
-                            <img src="img/admin.jpg" class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
-                            <h5 class="">Par Daniel Martin</h5>
-                            <span class="text-secondary">30 jan 2023</span>
-                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum. Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
-                        </div>
-                        <div class="blog-coments d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
-                            <a href="" class="text-white"><small><i class="fas fa-share me-2 text-secondary"></i>5324 Partages</small></a>
-                            <a href="" class="text-white"><small><i class="fa fa-comments me-2 text-secondary"></i>5 Commentaires</small></a>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                    <p class="text-center">Aucun article pour le moment.</p>
+                @endforelse
             </div>
         </div>
     </div>
