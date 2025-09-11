@@ -276,30 +276,15 @@
                 <h5 class="text-primary">Notre équipe</h5>
                 <h1>Rencontrez notre équipe d'experts</h1>
             </div>
-            <div class="owl-carousel team-carousel wow fadeIn" data-wow-delay=".5s">
-                @foreach($team as $member)
-                <div class="rounded team-item">
-                    <div class="team-content">
-                        <div class="team-img-icon">
-                            <div class="team-img rounded-circle">
-                                <img src="{{ $member->image_url }}" class="img-fluid w-100 rounded-circle" alt="{{ $member->name }}">
-                            </div>
-                            <div class="team-name text-center py-3">
-                                <h4 class="">{{ $member->name }}</h4>
-                                <p class="m-0">{{ $member->role }}</p>
-                            </div>
-                            <div class="team-icon d-flex justify-content-center pb-4">
-                                @if($member->linkedin)
-                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1" href="{{ $member->linkedin }}" target="_blank">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                @endif
-                                <!-- Add other social links if you have them in your model -->
-                            </div>
-                        </div>
+            <div class="wow fadeIn" data-wow-delay=".5s">
+                <div id="team-container" class="row g-4"></div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <button id="team-prev" class="btn btn-secondary rounded-pill">Précédent</button>
+                    <div class="flex-grow-1 mx-3 progress" style="height:5px;">
+                        <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
                     </div>
+                    <button id="team-next" class="btn btn-secondary rounded-pill">Suivant</button>
                 </div>
-                @endforeach
             </div>
         </div>
     </div>
@@ -333,6 +318,53 @@
                 }
             }
 
+            
+            const teamContainer = document.getElementById('team-container');
+            const teamPrev = document.getElementById('team-prev');
+            const teamNext = document.getElementById('team-next');
+            const teamProgress = document.getElementById('team-progress');
+            let teamPage = 1;
+            const teamPerPage = 3;
+
+            function loadTeam(page = 1) {
+                fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        teamContainer.innerHTML = '';
+                        data.data.forEach(member => {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-4';
+                            col.innerHTML = `
+                <div class="rounded team-item">
+                    <div class="team-content">
+                        <div class="team-img-icon">
+                            <div class="team-img rounded-circle">
+                                <img src="${member.image_url}" class="img-fluid w-100 rounded-circle" alt="${member.name}">
+                            </div>
+                            <div class="team-name text-center py-3">
+                                <h4>${member.name}</h4>
+                                <p class="m-0">${member.role}</p>
+                            </div>
+                            <div class="team-icon d-flex justify-content-center pb-4">
+                                ${member.linkedin ? `<a class="btn btn-square btn-secondary text-white rounded-circle m-1" href="${member.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                            teamContainer.appendChild(col);
+                        });
+                        teamPage = data.current_page;
+                        const totalPages = data.last_page;
+                        teamPrev.disabled = teamPage === 1;
+                        teamNext.disabled = teamPage === totalPages;
+                        teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                    });
+            }
+
+            teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
+            teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
+            loadTeam();
+            
             const donut = document.querySelector('.hero-donut');
             if (!donut) return;
             const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];

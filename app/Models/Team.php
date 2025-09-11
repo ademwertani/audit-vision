@@ -16,6 +16,8 @@ class Team extends Model
         'image'
     ];
 
+    protected $appends = ["image_url"];
+
     public function getImageUrlAttribute()
     {
         return $this->image ? asset('storage/'.$this->image) : asset('images/default-team.png');
