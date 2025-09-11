@@ -55,16 +55,20 @@
     <section class="about-aisla py-5 my-5">
         <div class="container pt-4 pt-lg-5">
             <div class="row g-5 align-items-center">
-                {{-- LEFT: Big donut visual --}}
+                {{-- LEFT: Logo inside donut --}}
                 <div class="col-lg-6">
                     <div class="about-donut-wrap">
                         <div class="about-donut">
-                            <div class="about-donut__inner"></div>
+                            <div class="about-donut__inner d-flex align-items-center justify-content-center" @if($about?->logo) style="background: none;" @endif>
+                                @if($about?->logo)
+                                    <img src="{{ asset('storage/' . $about->logo) }}" alt="{{ $about->heading ?? 'About logo' }}" class="img-fluid">
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- RIGHT: Copy with statistics --}}
+                {{-- RIGHT: Copy --}}
                 <div class="col-lg-6">
                     <div class="eyebrow">
                         <span>Welcome to Aisla Nova</span>
@@ -72,38 +76,12 @@
                     </div>
 
                     <h1 class="display-5 fw-bold mb-4" style="color: var(--dark);">
-                        Energize Society<br>Reliable Energy
+                        {!! nl2br(e($about->heading ?? '')) !!}
                     </h1>
 
                     <p class="lead text-muted mb-4">
-                        Leading renewable energy solutions provider that is revolutionising and redefining the way sustainable energy sources are harnessed across the world. Present in 18 countries across Asia, Australia, Europe, Africa and the Americas.
+                        {{ $about->summary ?? '' }}
                     </p>
-
-                    {{-- Statistics --}}
-                    <div class="row mb-4">
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="rounded-circle me-3" style="width: 50px; height: 50px; background: var(--warning); display: flex; align-items: center; justify-content: center;">
-                                    <span class="fw-bold text-white">18+</span>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0" style="color: var(--dark);">18+</h5>
-                                    <small class="text-muted">Countries</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="rounded-circle me-3" style="width: 50px; height: 50px; background: var(--warning); display: flex; align-items: center; justify-content: center;">
-                                    <span class="fw-bold text-white">12M</span>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0" style="color: var(--dark);">12M</h5>
-                                    <small class="text-muted">Customers</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <a href="#" class="btn rounded-pill px-4 py-3 fw-semibold" style="background: var(--accent); color: #fff;">
                         Plus de détails
