@@ -100,13 +100,18 @@
                 <div class="service-slide row g-4 {{ $chunkIndex === 0 ? '' : 'd-none' }}">
                     @foreach($chunk as $service)
                     <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ ($loop->index + 1) * 2 - 1 }}s">
-                        <div class="card h-100 border-0 shadow-sm">
+                        <div class="card h-100 border-0 shadow-sm overflow-hidden" style="transition: transform .2s;">
                             <div style="height: 8px; background: var(--warning);"></div>
-                            <div class="card-body p-4" style="background: var(--muted);">
-                                <div class="placeholder-content text-center text-white">
-                                    <h5 class="mb-3">{{ $service->name }}</h5>
-                                    <p class="mb-0">{{ $service->summary }}</p>
-                                </div>
+                            @if($service->image)
+                            <img src="{{ asset('storage/' . ltrim($service->image, '/')) }}" alt="{{ $service->name }}" class="w-100" style="height: 200px; object-fit: cover;">
+                            @else
+                            <div class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
+                                <i class="fas fa-image fa-3x text-white-50"></i>
+                            </div>
+                            @endif
+                            <div class="card-body p-4 text-center" style="background: var(--muted);">
+                                <h5 class="mb-3 text-white">{{ $service->name }}</h5>
+                                <p class="mb-0 text-white-50">{{ $service->summary }}</p>
                             </div>
                         </div>
                     </div>
@@ -461,6 +466,10 @@
             const servicesSection = document.querySelector('.services-section');
             if (servicesSection) {
                 const slides = servicesSection.querySelectorAll('.service-slide');
+                servicesSection.querySelectorAll('.card').forEach(card => {
+                    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+                    card.addEventListener('mouseleave', () => card.style.transform = '');
+                });
                 if (slides.length > 1) {
                     let sIndex = 0;
                     const prevBtn = servicesSection.querySelector('.services-prev');
