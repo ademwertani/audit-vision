@@ -86,6 +86,35 @@
         }
     });
 
+    // Project carousel
+    var projectCarousel = $(".project-carousel");
+    if (projectCarousel.length) {
+        var progressBar = $("#project-progress");
+        projectCarousel.owlCarousel({
+            items: 1,
+            margin: 30,
+            loop: false,
+            dots: false,
+            nav: false,
+            smartSpeed: 1000
+        });
+        var total = projectCarousel.find(".project-item").length;
+        function updateProgress(index) {
+            var percentage = total ? ((index + 1) / total) * 100 : 0;
+            progressBar.css("width", percentage + "%");
+        }
+        updateProgress(0);
+        projectCarousel.on("changed.owl.carousel", function (e) {
+            updateProgress(e.item.index);
+        });
+        $(".project-next").click(function () {
+            projectCarousel.trigger("next.owl.carousel");
+        });
+        $(".project-prev").click(function () {
+            projectCarousel.trigger("prev.owl.carousel");
+        });
+    }
+
 
      // Fact Counter
 
