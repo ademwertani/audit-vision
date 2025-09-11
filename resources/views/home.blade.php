@@ -10,6 +10,11 @@
     $heroTitle = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
     $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
     $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
+    $bannerData = $banners->map(fn($b) => [
+        'title' => $b->title,
+        'summary' => $b->summary,
+        'image' => !empty($b->image) ? asset('storage/' . ltrim($b->image, '/')) : asset('img/default-banner.jpg'),
+    ]);
     @endphp
 
     <div class="hero-aisla">
@@ -23,16 +28,17 @@
                         <p class="hero-lead">{{ $heroSummary }}</p>
                         <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">Get Started</a>
 
-                        {{-- Static dots for the look --}}
-                        <div class="hero-dots mt-4" aria-hidden="true">
-                            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                        {{-- Progress indicator --}}
+                        <div class="hero-dots mt-4" aria-hidden="true"></div>
+                        <div class="hero-progress mt-2" aria-hidden="true">
+                            <div class="hero-progress-bar"></div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Right donut visual --}}
                 <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-                    <div class="hero-donut" data-index="0" data-banners='@json($banners)'>
+                    <div class="hero-donut" data-index="0" data-banners='@json($bannerData)'>
                         <div class="donut-arc"></div>
                         <div class="donut-image" style="background-image: url('{{ $heroImg }}');"></div>
                         <button class="hero-nav prev"><i class="fas fa-chevron-left"></i></button>
@@ -457,6 +463,64 @@
     </div>
     <!-- Team End -->
 
-  
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const donut = document.querySelector('.hero-donut');
+            if (!donut) return;
+            const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
+            if (!banners.length) return;
+
+            let index = 0;
+            const titleEl = document.querySelector('.hero-title');
+            const leadEl = document.querySelector('.hero-lead');
+            const imageEl = donut.querySelector('.donut-image');
+            const dotsContainer = document.querySelector('.hero-dots');
+            const progressBar = document.querySelector('.hero-progress-bar');
+
+            function renderDots() {
+                dotsContainer.innerHTML = '';
+                banners.forEach((_, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'dot' + (i === index ? ' active' : '');
+                    span.dataset.index = i;
+                    dotsContainer.appendChild(span);
+                });
+            }
+
+            function update() {
+                const banner = banners[index] || {};
+                const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
+                const summary = banner.summary || '';
+                const img = banner.image || '/img/default-banner.jpg';
+
+                titleEl.innerHTML = title;
+                leadEl.textContent = summary;
+                imageEl.style.backgroundImage = `url('${img}')`;
+
+                Array.from(dotsContainer.children).forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                const progress = ((index + 1) / banners.length) * 100;
+                progressBar.style.width = progress + '%';
+            }
+
+            function goTo(newIndex) {
+                index = (newIndex + banners.length) % banners.length;
+                update();
+            }
+
+            renderDots();
+            update();
+
+            donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
+            donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
+            dotsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('dot')) {
+                    goTo(parseInt(e.target.dataset.index, 10));
+                }
+            });
+        });
+    </script>
 
 @endsection
