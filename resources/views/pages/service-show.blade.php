@@ -3,118 +3,156 @@
 @section('title', $service->name . ' | Nos services')
 
 @section('content')
-  <!-- Page Styles (brand colors respected) -->
-  <style>
-    :root{
-      /* Adjust to your exact palette if needed */
-      --brand-blue: #0d2a86;   /* your navbar blue */
-      --brand-green:#1f6f10;   /* your green accent */
-      --ink:#0b1220; --muted:#6b7280; --line:#e6e6e6; --panel:#fff; --panel-2:#f7f7f7;
-    }
+@php
+  // Resolve image source robustly
+  $img = $service->image ?? null;
+  if ($img) {
+      $src = \Illuminate\Support\Str::startsWith($img, ['http://','https://','/','storage/'])
+            ? $img
+            : 'storage/'.$img;
+  } else {
+      $src = null;
+  }
+@endphp
 
-    .page-header{ position:relative; isolation:isolate; overflow:hidden; }
-    .page-header::after{
-      content:""; position:absolute; inset:0; pointer-events:none;
-      background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,0) 44%);
-    }
+<style>
+/* =========================================================
+   Aisla Nova – Service Details (same skin as Contact/About/Blog/Projects)
+   Styles scoped to this page only.
+   ========================================================= */
+.page-service{
+  --navy:#2f3582;
+  --navyDark:#1d2760;
+  --sky:#31b4eb;
+  --accent:#ff6b35;
+  --ink:#0f172a;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --ring:#dbe6ff;
+  --shadow-lg:0 24px 48px rgba(16,24,40,.12);
+  --shadow:0 10px 18px rgba(0,0,0,.08);
+}
+.page-service *{box-sizing:border-box}
 
-    .svc-title { letter-spacing:.2px; }
-    .svc-summary { color: var(--brand-blue); }
-    .lead-muted { color: var(--muted); }
+/* ---------- HERO (left-aligned + long pill breadcrumb) ---------- */
+.sv-hero{
+  background:var(--navy); color:#fff; padding:78px 0 92px; position:relative;
+}
+.sv-hero .sv-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
+.sv-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
+@media (min-width:992px){ .sv-title{font-size:56px} }
+.sv-hero h1,.sv-hero .sv-title,.sv-hero p,.sv-hero .sv-sub{color:#fff !important}
+.sv-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
 
-    /* Media card */
-    .media-card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
-    }
-    .media-img{
-      width:100%; height:auto; display:block; aspect-ratio: 4/3; object-fit: cover; background: var(--panel-2);
-    }
-    .zoom-btn{
-      position:absolute; right:12px; bottom:12px;
-      background: rgba(13,42,134,.9); color:#fff;
-      border:0; border-radius:999px; padding:.5rem .7rem; line-height:1; cursor:pointer;
-      display:flex; align-items:center; gap:6px;
-    }
-    .zoom-btn:hover{ filter: brightness(1.05); }
+/* breadcrumb pill */
+.sv-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
+.sv-bread{
+  width:min(1180px, calc(100% - 48px));
+  background:var(--sky); height:46px; border-radius:9999px;
+  display:flex; align-items:center; gap:18px; padding:0 22px;
+  font-weight:700; box-shadow:0 10px 18px rgba(3,102,140,.12);
+  color:#fff !important;
+}
+.sv-bread a,.sv-bread span{color:#fff !important}
+.sv-bread .sep{color:rgba(255,255,255,.85) !important}
+.sv-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.22);color:#fff !important;font-size:12px}
 
-    /* Buttons */
-    .btn-brand{
-      background: var(--brand-blue); border-color: var(--brand-blue); color:#fff; font-weight:600;
-      border-radius: 999px; padding:.6rem 1.1rem;
-    }
-    .btn-brand:hover{ filter:brightness(1.05); }
-    .btn-outline-brand{
-      border-color: var(--brand-blue); color: var(--brand-blue); font-weight:600;
-      border-radius:999px; padding:.6rem 1.1rem; background:#fff;
-    }
-    .btn-outline-brand:hover{ background: var(--brand-blue); color:#fff; }
+/* ---------- Content ---------- */
+.sv-wrap{padding:70px 0 60px}
+.sv-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+@media (max-width: 991.98px){ .sv-grid{grid-template-columns:1fr} }
 
-    /* Readability */
-    .content-box{
-      background: var(--panel); border:1px solid var(--line); border-radius:18px; padding:1.25rem 1.25rem;
-    }
-    .content-box p{ margin-bottom: .9rem; }
+/* Media card + lightbox */
+.media-card{
+  background:var(--card); border:1px solid #eef2f6; border-radius:18px; overflow:hidden;
+  box-shadow:var(--shadow); position:relative;
+}
+.media-thumb{aspect-ratio: 4/3; background:#f2f4f8}
+.media-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.media-placeholder{display:grid;place-items:center;aspect-ratio:4/3;background:#f8fafc;color:#94a3b8}
+.zoom-btn{
+  position:absolute; right:12px; bottom:12px;
+  background:rgba(13,42,134,.9); color:#fff; border:0; border-radius:999px;
+  padding:.5rem .7rem; line-height:1; display:flex; align-items:center; gap:6px; cursor:pointer;
+}
+.zoom-btn:hover{ filter:brightness(1.05) }
+.lb-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.75); display:none;
+  z-index:1050; align-items:center; justify-content:center; padding:2rem}
+.lb-backdrop.is-open{display:flex}
+.lb-img{max-width:min(1200px,96vw); max-height:86vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.lb-close{
+  position:absolute; top:14px; right:16px; background:#fff; border:0; border-radius:999px;
+  padding:.35rem .6rem; cursor:pointer; font-weight:700; color:#111;
+}
 
-    /* Simple lightbox modal */
-    .lb-backdrop{
-      position: fixed; inset:0; background: rgba(0,0,0,.75);
-      display:none; z-index: 1050; align-items:center; justify-content:center; padding: 2rem;
-    }
-    .lb-backdrop.is-open{ display:flex; }
-    .lb-img{
-      max-width: min(1200px, 96vw);
-      max-height: 86vh;
-      border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-    .lb-close{
-      position:absolute; top:14px; right:16px; background:#fff; border:0; border-radius:999px;
-      padding:.35rem .6rem; cursor:pointer; font-weight:700; color:#111;
-    }
+/* Text card */
+.sv-body-card{
+  background:var(--card); border:1px solid #eef2f6; border-radius:18px;
+  box-shadow:var(--shadow); padding:22px;
+}
+@media (min-width:992px){ .sv-body-card{ padding:28px } }
+.sv-h2{font-weight:800;color:#0f172a;margin:0 0 8px}
+.sv-lead{color:#0ea5e9;margin:0 0 12px;font-weight:700}
+.prose{ color:#1f2937; line-height:1.75; font-size:1.05rem }
+.prose p{ margin-bottom:1rem }
+.meta{ font-size:.95rem; color:#6b7280; }
 
-    /* Small meta row */
-    .meta{ font-size:.95rem; color: var(--muted); }
-    .meta .dot{ margin: 0 .5rem; opacity:.6; }
-  </style>
+/* Buttons (consistent with site) */
+.btn-accent{
+  background:var(--accent); color:#fff; border:none; font-weight:800;
+  padding:12px 18px; border-radius:14px; box-shadow:0 10px 18px rgba(255,107,53,.2);
+}
+.btn-accent:hover{ filter:brightness(0.98) }
+.btn-outline-accent{
+  background:#fff; color:#0f1e3d; border:1px solid #dbe4f0; font-weight:700;
+  padding:12px 18px; border-radius:14px;
+}
+.btn-outline-accent:hover{ background:#f8fafc }
+</style>
 
-  <!-- Page Header -->
-  <div class="container-fluid page-header py-5">
-    <div class="container text-center py-5">
-      <h1 class="display-2 text-white mb-3 animated slideInDown">{{ $service->name }}</h1>
-      <nav aria-label="breadcrumb" class="animated slideInDown">
-        <ol class="breadcrumb justify-content-center mb-0">
-          <li class="breadcrumb-item"><a href="{{ url('/') }}">Accueil</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('services.index') }}">Services</a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{ $service->name }}</li>
-        </ol>
-      </nav>
+<section class="page-service">
+
+  {{-- HERO --}}
+  <header class="sv-hero">
+    <div class="sv-hgroup container">
+      <h1 class="sv-title">{{ $service->name }}</h1>
+      @if(!empty($service->summary))
+        <p class="sv-sub">{{ $service->summary }}</p>
+      @endif
     </div>
-  </div>
 
-  <!-- Service Details -->
-  <div class="container-fluid py-5">
+    {{-- Long rounded breadcrumb pill --}}
+    <div class="sv-bread-wrap">
+      <div class="sv-bread">
+        <span class="home-ico"><i class="fa fa-home"></i></span>
+        <a href="{{ url('/') }}">Accueil</a>
+        <span class="sep">|</span>
+        <a href="{{ route('services.index') }}">Services</a>
+        <span class="sep">|</span>
+        <span>{{ \Illuminate\Support\Str::limit($service->name, 60) }}</span>
+      </div>
+    </div>
+  </header>
+
+  {{-- DETAILS --}}
+  <section class="sv-wrap">
     <div class="container">
-      <div class="row g-4 g-lg-5 align-items-start">
-        <!-- Media -->
-        <div class="col-lg-5 wow fadeIn" data-wow-delay=".3s">
-          @php
-            $img = $service->image;
-            $src = \Illuminate\Support\Str::startsWith($img, ['http://','https://','/','storage/'])
-                  ? asset($img)
-                  : asset('storage/'.$img);
-          @endphp
-          <div class="position-relative media-card">
-            @if($service->image)
-              <img src="{{ $src }}" alt="{{ $service->name }}" class="media-img" loading="lazy">
+      <div class="sv-grid">
+
+        {{-- LEFT: Media --}}
+        <div>
+          <div class="media-card">
+            @if($src)
+              <figure class="media-thumb">
+                <img src="{{ asset($src) }}" alt="{{ $service->name }}" loading="lazy">
+              </figure>
               <button class="zoom-btn" type="button" id="openLightbox" aria-label="Agrandir l’image">
                 <i class="fa fa-search-plus"></i><span>Zoom</span>
               </button>
             @else
-              <div class="d-flex align-items-center justify-content-center" style="aspect-ratio:4/3;">
-                <i class="fa fa-code fa-5x" style="color:var(--brand-blue)"></i>
+              <div class="media-placeholder">
+                <i class="fa fa-image fa-3x"></i>
                 <span class="visually-hidden">Aucune image disponible</span>
               </div>
             @endif
@@ -127,50 +165,56 @@
           @endif
         </div>
 
-        <!-- Content -->
-        <div class="col-lg-7 wow fadeIn" data-wow-delay=".5s">
-          <h2 class="svc-title mb-2">{{ $service->name }}</h2>
+        {{-- RIGHT: Content --}}
+        <div class="sv-body-card">
+          <h2 class="sv-h2">{{ $service->name }}</h2>
           @if(!empty($service->summary))
-            <h5 class="svc-summary mb-3">{{ $service->summary }}</h5>
-          @endif>
+            <h5 class="sv-lead">{{ $service->summary }}</h5>
+          @endif
 
-          <div class="content-box mb-3">
-            <p class="lead-muted mb-2">À propos du service</p>
-            <div class="mb-0">{!! nl2br(e($service->description)) !!}</div>
-          </div>
+          @if(!empty($service->description))
+            <div class="prose mb-3">
+              {!! nl2br(e($service->description)) !!}
+            </div>
+          @endif
 
-          <div class="d-flex flex-wrap gap-2 align-items-center">
-            <a href="{{ url('/contact') }}" class="btn btn-brand">
+          <div class="d-flex flex-wrap align-items-center gap-2 pt-2">
+            <a href="{{ url('/contact') }}" class="btn btn-accent">
               <i class="fas fa-phone-alt me-2"></i> Contactez-nous
             </a>
-            <a href="{{ route('services.index') }}" class="btn btn-outline-brand">
+            <a href="{{ route('services.index') }}" class="btn btn-outline-accent">
               <i class="fas fa-arrow-left me-2"></i> Retour aux services
             </a>
           </div>
         </div>
+
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Lightbox (only if image exists) -->
-  @if($service->image)
+  {{-- Lightbox --}}
+  @if($src)
     <div class="lb-backdrop" id="lightbox" aria-modal="true" role="dialog">
       <button class="lb-close" id="closeLightbox" aria-label="Fermer">×</button>
-      <img src="{{ $src }}" alt="{{ $service->name }}" class="lb-img">
+      <img src="{{ asset($src) }}" alt="{{ $service->name }}" class="lb-img">
     </div>
   @endif
 
-  <!-- Minimal JS -->
-  <script>
-    (function(){
-      const open = document.getElementById('openLightbox');
-      const lb   = document.getElementById('lightbox');
-      const close= document.getElementById('closeLightbox');
-      if(!open || !lb || !close) return;
-      open.addEventListener('click', ()=> lb.classList.add('is-open'));
-      close.addEventListener('click', ()=> lb.classList.remove('is-open'));
-      lb.addEventListener('click', (e)=>{ if(e.target === lb) lb.classList.remove('is-open'); });
-      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') lb.classList.remove('is-open'); });
-    })();
-  </script>
+</section>
+
+{{-- Minimal JS for the lightbox (only if image exists) --}}
+@if($src)
+<script>
+  (function(){
+    const open = document.getElementById('openLightbox');
+    const lb   = document.getElementById('lightbox');
+    const close= document.getElementById('closeLightbox');
+    if(!open || !lb || !close) return;
+    open.addEventListener('click', ()=> lb.classList.add('is-open'));
+    close.addEventListener('click', ()=> lb.classList.remove('is-open'));
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) lb.classList.remove('is-open'); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') lb.classList.remove('is-open'); });
+  })();
+</script>
+@endif
 @endsection
