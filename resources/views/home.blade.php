@@ -93,22 +93,36 @@
 
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     <div class="container-fluid py-5 my-5" style="background: var(--light);">
-        <div class="container">
-            <div class="row g-4">
-                @for($i = 1; $i <= 3; $i++)
-                <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ $i * 2 - 1 }}s">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div style="height: 8px; background: var(--warning);"></div>
-                        <div class="card-body p-4" style="background: var(--muted);">
-                            <div class="placeholder-content text-center text-white">
-                                <h5 class="mb-3">Feature {{ $i }}</h5>
-                                <p class="mb-0">Feature description goes here</p>
+        <div class="container services-section">
+            @php $serviceChunks = $services->chunk(3); @endphp
+            <div class="position-relative">
+                @foreach($serviceChunks as $chunkIndex => $chunk)
+                <div class="service-slide row g-4 {{ $chunkIndex === 0 ? '' : 'd-none' }}">
+                    @foreach($chunk as $service)
+                    <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ ($loop->index + 1) * 2 - 1 }}s">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div style="height: 8px; background: var(--warning);"></div>
+                            <div class="card-body p-4" style="background: var(--muted);">
+                                <div class="placeholder-content text-center text-white">
+                                    <h5 class="mb-3">{{ $service->name }}</h5>
+                                    <p class="mb-0">{{ $service->summary }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endfor
+                @endforeach
             </div>
+            @if($services->count() > 3)
+            <div class="d-flex align-items-center mt-4">
+                <button class="btn btn-warning btn-sm services-prev">Previous</button>
+                <div class="services-progress flex-grow-1 mx-3" style="position:relative; height:4px; background:rgba(0,0,0,0.1); overflow:hidden;">
+                    <div class="services-progress-bar" style="position:absolute; top:0; left:0; height:100%; width:0; background:var(--warning); transition:width .3s;"></div>
+                </div>
+                <button class="btn btn-warning btn-sm services-next">Next</button>
+            </div>
+            @endif
         </div>
     </div>
 
@@ -444,6 +458,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const servicesSection = document.querySelector('.services-section');
+            if (servicesSection) {
+                const slides = servicesSection.querySelectorAll('.service-slide');
+                if (slides.length > 1) {
+                    let sIndex = 0;
+                    const prevBtn = servicesSection.querySelector('.services-prev');
+                    const nextBtn = servicesSection.querySelector('.services-next');
+                    const progressBarServices = servicesSection.querySelector('.services-progress-bar');
+                    function showSlide(newIndex) {
+                        slides[sIndex].classList.add('d-none');
+                        sIndex = (newIndex + slides.length) % slides.length;
+                        slides[sIndex].classList.remove('d-none');
+                        const progress = ((sIndex + 1) / slides.length) * 100;
+                        progressBarServices.style.width = progress + '%';
+                    }
+                    prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
+                    nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
+                    progressBarServices.style.width = (1 / slides.length * 100) + '%';
+                }
+            }
+
             const donut = document.querySelector('.hero-donut');
             if (!donut) return;
             const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
