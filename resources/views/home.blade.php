@@ -185,132 +185,52 @@
     <!-- Projects Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
-            {{-- Header with navigation arrows --}}
-            <div class="d-flex justify-content-between align-items-center mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
                     <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center" 
-                            style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
+                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-prev"
+                        style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
                         <i class="fas fa-chevron-left" style="color: var(--muted);"></i>
                     </button>
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center" 
-                            style="width: 50px; height: 50px; background: var(--accent); border: none;">
+                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-next"
+                        style="width: 50px; height: 50px; background: var(--accent); border: none;">
                         <i class="fas fa-chevron-right text-white"></i>
                     </button>
                 </div>
             </div>
 
-            {{-- Projects grid --}}
-            <div class="row g-4">
-                {{-- Featured project card (left) --}}
-                <div class="col-lg-6">
-                    @if($projects->isNotEmpty())
-                    @php $featuredProject = $projects->first(); @endphp
-                    <div class="card h-100 border-0 shadow-sm" style="border: 2px solid var(--accent) !important; border-radius: 16px;">
-                        <div class="card-body p-4">
-                            <span class="badge mb-3" style="background: var(--accent); color: white; font-size: 0.8rem; letter-spacing: 0.05em;">SOLAR ENERGY</span>
-                            <h4 class="fw-bold mb-3" style="color: var(--dark);">{{ $featuredProject->name ?? 'Floating Sun Tracker Solar Panel' }}</h4>
-                            
-                            {{-- Benefits list --}}
-                            <ul class="list-unstyled mb-4">
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Reduce electricity costs</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Increase profits</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Generate independence</span>
-                                </li>
-                            </ul>
-
-                            {{-- Price --}}
-                            <div class="mt-auto">
-                                <h3 class="fw-bold mb-1" style="color: var(--accent);">$00,00</h3>
-                                <small class="text-uppercase" style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em;">YEAR SAVINGS</small>
-                            </div>
+            @if($projects->isNotEmpty())
+            <div class="owl-carousel project-carousel">
+                @foreach($projects as $project)
+                <div class="project-item">
+                    <div class="card h-100 border-0 shadow-sm">
+                        @if($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
+                        @else
+                        <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
+                            <i class="fas fa-image fa-2x text-white"></i>
                         </div>
-                    </div>
-                    @else
-                    <div class="card h-100 border-0 shadow-sm" style="border: 2px solid var(--accent) !important; border-radius: 16px;">
-                        <div class="card-body p-4">
-                            <span class="badge mb-3" style="background: var(--accent); color: white; font-size: 0.8rem; letter-spacing: 0.05em;">SOLAR ENERGY</span>
-                            <h4 class="fw-bold mb-3" style="color: var(--dark);">Floating Sun Tracker Solar Panel</h4>
-                            
-                            <ul class="list-unstyled mb-4">
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Reduce electricity costs</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Increase profits</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle me-2" style="color: var(--accent);"></i>
-                                    <span style="color: var(--muted);">Generate independence</span>
-                                </li>
-                            </ul>
-
-                            <div class="mt-auto">
-                                <h3 class="fw-bold mb-1" style="color: var(--accent);">$00,00</h3>
-                                <small class="text-uppercase" style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em;">YEAR SAVINGS</small>
-                            </div>
+                        @endif
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
+                            @if($project->summary)
+                            <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
+                            @endif
                         </div>
-                    </div>
-                    @endif
-                </div>
-
-                {{-- Project image placeholders (right) --}}
-                <div class="col-lg-6">
-                    <div class="row g-3 h-100">
-                        @for($i = 0; $i < 3; $i++)
-                        <div class="col-4">
-                            {{-- Added hover overlay with project name and improved styling --}}
-                            <div class="project-image-card position-relative rounded h-100 overflow-hidden" 
-                                 style="min-height: 120px; cursor: pointer;">
-                                @if($projects->count() > $i + 1)
-                                    @php $project = $projects->skip($i + 1)->first(); @endphp
-                                    @if($project->image)
-                                        <img src="{{ asset('storage/' . $project->image) }}" 
-                                             class="img-fluid w-100 h-100 rounded project-image" 
-                                             alt="{{ $project->name }}"
-                                             style="object-fit: cover; transition: transform 0.3s ease;">
-                                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                                            <h6 class="text-white fw-bold text-center px-2">{{ $project->name }}</h6>
-                                        </div>
-                                    @else
-                                        <div class="d-flex align-items-center justify-content-center h-100 rounded" 
-                                             style="background: var(--muted);">
-                                            <i class="fas fa-image fa-2x text-white"></i>
-                                        </div>
-                                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                                            <h6 class="text-white fw-bold text-center px-2">{{ $project->name }}</h6>
-                                        </div>
-                                    @endif
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center h-100 rounded" 
-                                         style="background: var(--muted);">
-                                        <i class="fas fa-image fa-2x text-white"></i>
-                                    </div>
-                                    <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                                        <h6 class="text-white fw-bold text-center px-2">Project {{ $i + 2 }}</h6>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        @endfor
                     </div>
                 </div>
+                @endforeach
             </div>
+            <div class="progress mt-4" style="height:4px; background: var(--border);">
+                <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
+            </div>
+            @else
+            <p class="text-center" style="color: var(--muted);">No projects available.</p>
+            @endif
 
-            {{-- Bottom accent circle --}}
             <div class="text-center mt-5">
                 <div class="rounded-circle mx-auto" style="width: 60px; height: 60px; background: var(--warning);"></div>
             </div>
