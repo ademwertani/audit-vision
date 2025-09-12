@@ -52,73 +52,188 @@
  
 
     {{-- =============== ABOUT SECTION (Updated with statistics) =============== --}}
-    <section class="about-aisla py-5 my-5">
-        <div class="container pt-4 pt-lg-5">
-            <div class="row g-5 align-items-center">
-                {{-- LEFT: Logo inside donut --}}
-                <div class="col-lg-6">
-                    <div class="about-donut-wrap">
-                        <div class="about-donut">
-                            <div class="about-donut__inner d-flex align-items-center justify-content-center" @if($about?->logo) style="background: none;" @endif>
-                                @if($about?->logo)
-                                    <img src="{{ asset('storage/' . $about->logo) }}" alt="{{ $about->heading ?? 'About logo' }}" class="img-fluid">
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ <section class="about-aisla py-5 my-5">
+    <div class="container pt-4 pt-lg-5">
 
-                {{-- RIGHT: Copy --}}
-                <div class="col-lg-6">
-                    <div class="eyebrow">
-                        <span>Welcome to Aisla Nova</span>
-                        <i aria-hidden="true"></i>
-                    </div>
-
-                    <h1 class="display-5 fw-bold mb-4" style="color: var(--dark);">
-                        {!! nl2br(e($about->heading ?? '')) !!}
-                    </h1>
-
-                    <p class="lead text-muted mb-4">
-                        {{ $about->summary ?? '' }}
+        <!-- 🔹 Bloc avec 3 images + texte dessous -->
+        <div class="row mb-5 text-center">
+            <div class="col-md-4">
+                <div class="about-feature">
+                    <img src="{{ asset('/img/lamp.png') }}" alt="Feature 1" class="img-fluid mb-3" style="max-height:100px;">
+                    <p class="text-muted small">
+                        Already have an idea of what you’re <br>
+                        looking for and don’t want to waste <br>
+                        any more time
                     </p>
+                </div>
+            </div>
 
-                    <a href="#" class="btn rounded-pill px-4 py-3 fw-semibold" style="background: var(--accent); color: #fff;">
-                        Plus de détails
-                    </a>
+            <div class="col-md-4">
+                <div class="about-feature">
+                    <img src="{{ asset('/img/flash.png') }}" alt="Feature 2" class="img-fluid mb-3" style="max-height:100px;">
+                    <p class="text-muted small">
+                        Already have an idea of what you’re <br>
+                        looking for and don’t want to waste <br>
+                        any more time
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="about-feature">
+                    <img src="{{ asset('/img/key.png') }}" alt="Feature 3" class="img-fluid mb-3" style="max-height:100px;">
+                    <p class="text-muted small">
+                        Already have an idea of what you’re <br>
+                        looking for and don’t want to waste <br>
+                        any more time
+                    </p>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- 🔹 Bloc About principal -->
+<div class="row g-5 align-items-center"> <!-- LEFT: Image (cercle/logo) --> 
+    
+     
+<div class="col-lg-6">
+    <div class="about-donut-wrap">
+        <div class="about-donut">
+            <div class="about-donut__inner">
+                @if($about?->logo)
+                    <img src="{{ asset('storage/' . $about->logo) }}" 
+                         alt="{{ $about->heading ?? 'About logo' }}" 
+                         class="img-fluid">
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- RIGHT: Texte agrandi -->
+    <div class="col-lg-6">
+        
+        <!-- Petit texte jaune -->
+        <div class="fw-bold mb-3 text-uppercase" 
+             style="color: #f6a800; font-size: 1rem; letter-spacing: 1px;">
+            Welcome to Aisla Nova
+        </div>
+        
+        <!-- Titre -->
+        <h1 class="fw-bold mb-4" 
+            style="color: #000; font-size: 3rem; line-height: 1.2;">
+            Energize Society <br> Reliable Energy
+        </h1>
+        
+        <!-- Paragraphe gris clair -->
+        <p class="text-muted mb-5" style="font-size: 1.1rem;">
+            Leading renewable energy solutions provider that is revolutionising and redefining 
+            the way sustainable energy sources are harnessed across the world. Present in 18 
+            countries across Asia, Australia, Europe, Africa and the Americas, Vetzat is powering.
+        </p>
+        
+        <!-- Statistiques -->
+        <div class="row g-4">
+            
+            <!-- Bloc 1 -->
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                     style="width: 60px; height: 60px; background: #f6a800; color: #fff; font-size: 2rem;">
+                    <i class="bi bi-award-fill"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold mb-0" style="font-size: 2rem;">18+</h4>
+                    <small class="text-muted" style="font-size: 1rem;">Years Experience</small>
+                </div>
+            </div>
+            
+            <!-- Bloc 2 -->
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                     style="width: 60px; height: 60px; background: #f6a800; color: #fff; font-size: 2rem;">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold mb-0" style="font-size: 2rem;">12M</h4>
+                    <small class="text-muted" style="font-size: 1rem;">Successful Projects</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    </div>
+</section>
+
+
 
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     <div class="container-fluid py-5 my-5" style="background: var(--light);">
         <div class="container services-section">
             @php $serviceChunks = $services->chunk(3); @endphp
-            <div class="position-relative">
-                @foreach($serviceChunks as $chunkIndex => $chunk)
-                <div class="service-slide row g-4 {{ $chunkIndex === 0 ? '' : 'd-none' }}">
-                    @foreach($chunk as $service)
-                    <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ ($loop->index + 1) * 2 - 1 }}s">
-                        <div class="card h-100 border-0 shadow-sm overflow-hidden" style="transition: transform .2s;">
-                            <div style="height: 8px; background: var(--warning);"></div>
-                            @if($service->image)
-                            <img src="{{ asset('storage/' . ltrim($service->image, '/')) }}" alt="{{ $service->name }}" class="w-100" style="height: 200px; object-fit: cover;">
-                            @else
-                            <div class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
-                                <i class="fas fa-image fa-3x text-white-50"></i>
-                            </div>
-                            @endif
-                            <div class="card-body p-4 text-center" style="background: var(--muted);">
-                                <h5 class="mb-3 text-white">{{ $service->name }}</h5>
-                                <p class="mb-0 text-white-50">{{ $service->summary }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+
+
+  <div class="position-relative">
+    @foreach($serviceChunks as $chunkIndex => $chunk)
+    <div class="service-slide row g-4 {{ $chunkIndex === 0 ? '' : 'd-none' }}">
+        @foreach($chunk as $service)
+        <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ ($loop->index + 1) * 2 - 1 }}s">
+            <div class="card h-100 border-0 shadow-sm overflow-hidden" style="transition: transform .2s;">
+                <div style="height: 8px; background: #000;"></div> <!-- noir -->
+                
+                @if($service->image)
+                <img src="{{ asset('storage/' . ltrim($service->image, '/')) }}" 
+                     alt="{{ $service->name }}" class="w-100" style="height: 200px; object-fit: cover;">
+                @else
+                <div class="d-flex align-items-center justify-content-center bg-dark" style="height: 200px;">
+                    <i class="fas fa-image fa-3x text-white-50"></i>
                 </div>
-                @endforeach
+                @endif
+
+                <div class="card-body p-4 text-center" style="background: #fff;"> <!-- fond blanc -->
+                    <h5 class="mb-3 text-dark">{{ $service->name }}</h5>
+                    <p class="mb-0 text-muted">{{ $service->summary }}</p>
+
+                    <!-- Read More -->
+                    <div class="mt-3">
+                        <a href="javascript:void(0);" class="read-more-toggle text-dark fw-bold" 
+                           data-target="#more-{{ $service->id }}">
+                            <span class="me-1">+</span> Read More
+                        </a>
+                        <p class="text-muted mt-2 d-none" id="more-{{ $service->id }}">
+                            {{ $service->details ?? 'No additional details available.' }}
+                        </p>
+                    </div>
+                </div>
             </div>
+        </div>
+        @endforeach
+    </div>
+    @endforeach
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.read-more-toggle').forEach(function(el){
+        el.addEventListener('click', function(){
+            const target = document.querySelector(el.getAttribute('data-target'));
+            if(target){
+                target.classList.toggle('d-none');
+            }
+        });
+    });
+});
+</script>
+
+
+
             @if($services->count() > 3)
             <div class="d-flex align-items-center mt-4">
                 <button class="btn btn-warning btn-sm services-prev">Previous</button>
@@ -132,57 +247,188 @@
     </div>
 
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
-    <div class="container-fluid py-5 my-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">Produce Your Own Clean Save<br>Ourthe Environment</h2>
-            </div>
-            
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-3">
-                    <div class="text-center">
-                        <i class="fas fa-leaf fa-3x mb-3" style="color: var(--secondary);"></i>
-                        <h5 style="color: var(--dark);">Eco-Friendly Solutions</h5>
-                    </div>
-                </div>
-                <div class="col-lg-6">
+<div class="container-fluid py-5 my-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <!-- Nouveau titre orangé souligné -->
+            <h6 style="color: #b90606; font-size: 1rem; letter-spacing: 1px; text-align: center;">
+  Solutions <span style="border-bottom: 2px solid #b90606;">of Solar</span> Energy
+</h6>
+
+            <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
+                Produce Your Own Clean Save<br>Our the Environment
+            </h2>
+        </div>
+        
+<div class="position-relative">
+    <div class="row justify-content-center align-items-center">
+
+        <!-- LEFT image -->
+        <div class="col-lg-2 d-flex flex-column justify-content-center align-items-center">
+            <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Battery Storage Solutions</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
+        </div>
+
+        <!-- CENTER: video/image -->
+       <div class="col-lg-6">
                     <div class="text-center">
                         <div class="rounded" style="height: 300px; background: var(--muted); display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-play-circle fa-4x text-white"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="text-center">
-                        <i class="fas fa-recycle fa-3x mb-3" style="color: var(--secondary);"></i>
-                        <h5 style="color: var(--dark);">Sustainable Energy</h5>
-                    </div>
-                </div>
-            </div>
+
+        <!-- RIGHT image -->
+        <div class="col-lg-2 d-flex flex-column justify-content-center align-items-center">
+            <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Commercial Solar Energy</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
         </div>
+
     </div>
+
+    <!-- BOTTOM images (4) -->
+    <div class="row justify-content-center mt-5 g-4">
+
+        <div class="col-lg-2 col-md-3 text-center">
+            <img src="/img/wrd.png" alt="High ROI" class="mb-3 uniform-img">
+            <h5 class="uniform-title">High Return On Investment</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
+        </div>
+
+        <div class="col-lg-2 col-md-3 text-center">
+            <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Boost Green Credentials</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
+        </div>
+
+        <div class="col-lg-2 col-md-3 text-center">
+            <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Industrial Solar Energy</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
+        </div>
+
+        <div class="col-lg-2 col-md-3 text-center">
+            <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Scale With New Technologies</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to generate significant energy.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- STYLES -->
+<style>
+    .uniform-img {
+        width: 150px; 
+        height: 150px; 
+        object-fit: contain;
+    }
+    .uniform-title {
+        color: var(--dark);
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+    .uniform-text {
+        font-size: 1.2rem;
+        color: #6c757d; /* équivalent Bootstrap text-muted */
+    }
+</style>
+
+
+
+
+    </div>
+</div>
+
+
+
 
     {{-- =============== CONTACT SECTION (Updated with blue background) =============== --}}
-    <div class="container-fluid py-5 my-5" style="background: var(--primary);">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h2 class="display-5 fw-bold text-white mb-3">Get In Touch To Discuss<br>How We Can Help You</h2>
-                    <p class="text-white-50 mb-4">Ready to start your renewable energy journey? Contact our experts today.</p>
-                    <a href="{{ url('/contact') }}" class="btn rounded-pill px-4 py-3 fw-semibold" style="background: var(--accent); color: #fff;">
-                        Contact Us
-                    </a>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <div class="rounded-circle mx-auto" style="width: 200px; height: 200px; background: var(--muted); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-user fa-4x text-white"></i>
-                    </div>
-                </div>
+<div class="container-fluid py-5 my-5" style="background: var(--primary); position: relative; overflow: hidden;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold text-white mb-3">
+                    Get In Touch To Discuss<br>How We Can Help You
+                </h2>
+                <p class="text-white-50 mb-4">
+                    Ready to start your renewable energy journey? Contact our experts today.
+                </p>
+                <a href="{{ url('/contact') }}" class="btn rounded-pill px-4 py-3 fw-semibold" 
+                   style="background: var(--accent); color: #fff;">
+                   Contact Us
+                </a>
+            </div>
+
+            <div class="col-lg-4" style="position: relative;">
+                <img src="/img/man.png" alt="Contact Image"
+                     style="position: absolute; top: -200px; left: 50px; width: 450px; height: auto; object-fit: cover; z-index: 2;">
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Projects Start -->
+
+
+<style>
+.project-item .card {
+    border: 2px solid red; /* bordure rouge */
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex; /* layout horizontal */
+    flex-direction: row;
+    width: 600px; /* plus grand */
+    height: 250px;
+    margin-right: 15px;
+}
+
+.project-item .card-body {
+    flex: 2; /* texte prend 2/3 de la largeur */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-item img {
+    flex: 1; /* image prend 1/3 de la largeur */
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-carousel .owl-stage-outer {
+    padding-right: 20px; /* voir partiellement la prochaine carte */
+}
+
+/* Optionnel : réduire le texte si trop long */
+.project-item .card-body p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* nombre de lignes max */
+    -webkit-box-orient: vertical;
+}
+</style>
+
+<script>
+$('.project-carousel').owlCarousel({
+    loop:true,
+    margin:15,
+    nav:false,
+    dots:false,
+    responsive:{
+        0:{ items:1 },
+        576:{ items:1 },
+        768:{ items:2 },
+        992:{ items:3 }
+    }
+});
+</script>
+
+
+ <!-- Projects Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -203,27 +449,29 @@
             </div>
 
             @if($projects->isNotEmpty())
-            <div class="owl-carousel project-carousel">
-                @foreach($projects as $project)
-                <div class="project-item">
-                    <div class="card h-100 border-0 shadow-sm">
-                        @if($project->image)
-                        <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
-                        @else
-                        <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
-                            <i class="fas fa-image fa-2x text-white"></i>
-                        </div>
-                        @endif
-                        <div class="card-body">
-                            <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
-                            @if($project->summary)
-                            <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+        <div class="owl-carousel project-carousel">
+    @foreach($projects as $project)
+    <div class="project-item">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
+                @if($project->summary)
+                <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
+                @endif
             </div>
+            @if($project->image)
+            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
+            @else
+            <div class="d-flex align-items-center justify-content-center bg-secondary" style="flex:1;">
+                <i class="fas fa-image fa-2x text-white"></i>
+            </div>
+            @endif
+        </div>
+    </div>
+    @endforeach
+</div>
+
+
             <div class="progress mt-4" style="height:4px; background: var(--border);">
                 <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
             </div>
@@ -231,19 +479,22 @@
             <p class="text-center" style="color: var(--muted);">No projects available.</p>
             @endif
 
-            <div class="text-center mt-5">
-                <div class="rounded-circle mx-auto" style="width: 60px; height: 60px; background: var(--warning);"></div>
-            </div>
+           
         </div>
     </div>
+
+
+
+
     <!-- Projects End -->
 
     <!-- Blog Start -->
     <div class="container-fluid blog py-5 mb-5">
         <div class="container">
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Notre blog</h5>
-                <h1>Derniers articles et actualités</h1>
+                <h5 style="color: red; font-size: 1.3rem;">Blog & Updates</h5>
+
+                <h1>Recent News</h1>
             </div>
             <div class="row g-4 justify-content-center">
                 @forelse($blogs as $blog)
@@ -256,9 +507,7 @@
                                 <h5 class="card-title">{{ $blog->title }}</h5>
                                 <p class="card-text">{{ Str::limit(strip_tags($blog->content), 100) }}</p>
                             </div>
-                            <div class="card-footer bg-transparent border-0 text-center pb-4">
-                                <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-primary rounded-pill">Lire la suite</a>
-                            </div>
+                            
                         </article>
                     </div>
                 @empty
@@ -269,26 +518,41 @@
     </div>
     <!-- Blog End -->
 
-    <!-- Team Start -->
-    <div class="container-fluid py-5 mb-5 team">
-        <div class="container">
-            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Notre équipe</h5>
-                <h1>Rencontrez notre équipe d'experts</h1>
-            </div>
-            <div class="wow fadeIn" data-wow-delay=".5s">
-                <div id="team-container" class="row g-4"></div>
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <button id="team-prev" class="btn btn-secondary rounded-pill">Précédent</button>
-                    <div class="flex-grow-1 mx-3 progress" style="height:5px;">
-                        <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
+ <!-- Team Start -->
+<div class="container-fluid py-5 mb-5 team">
+    <div class="container">
+        <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+            <h5 class="text-danger" style="font-weight:bold;">Notre équipe</h5>
+            <h1>Rencontrez notre équipe d'experts</h1>
+        </div>
+        <div class="wow fadeIn" data-wow-delay=".5s">
+            <div id="team-container" class="row g-4">
+                <!-- Exemple de membre -->
+                <div class="col-12 team-member d-flex align-items-center p-3" style="border:1px solid #eee; border-radius:10px;">
+                    <div class="team-image flex-shrink-0 me-4" style="width:150px;">
+                        <img src="https://via.placeholder.com/150" alt="Membre" class="img-fluid rounded">
                     </div>
-                    <button id="team-next" class="btn btn-secondary rounded-pill">Suivant</button>
+                    <div class="team-info flex-grow-1">
+                        <h3 style="font-weight:bold; color:black;">Nom du membre</h3>
+                        <h5 style="color:red;">Poste du membre</h5>
+                        <p style="color:#555;">Une courte description du membre de l'équipe. Les données sont ici et prennent plus de place que l'image.</p>
+                    </div>
                 </div>
+                <!-- Fin exemple -->
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <button id="team-prev" class="btn btn-secondary rounded-pill">Précédent</button>
+                <div class="flex-grow-1 mx-3 progress" style="height:5px;">
+                    <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
+                </div>
+                <button id="team-next" class="btn btn-secondary rounded-pill">Suivant</button>
             </div>
         </div>
     </div>
-    <!-- Team End -->
+</div>
+<!-- Team End -->
+
 
 
     <script>

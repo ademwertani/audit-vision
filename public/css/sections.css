@@ -239,6 +239,7 @@
   }
 }
 
+
 /* =========================================================
    SECTION STYLES - Updated with Figma colors
    ========================================================= */
@@ -290,23 +291,36 @@
 }
 
 .project-card {
-  background: #fff;
-  border: 1px solid var(--border); /* Using Figma border color */
-  border-radius: 14px;
-  overflow: hidden;
+    border-radius: 12px;
+    min-height: 320px;
 }
-.project-card .img-wrap {
-  height: 250px;
-  overflow: hidden;
+
+/* Première carte */
+.project-card.highlight {
+    border: 2px solid var(--accent);
+    background: #fff;
+    color: var(--dark);
 }
-.project-card .img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.project-card.highlight .category {
+    color: var(--accent);
+    font-size: 0.85rem;
 }
-.project-card:hover {
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.06);
+.project-card.highlight .savings {
+    color: var(--accent);
+    font-size: 1.8rem;
+    margin-bottom: 0;
 }
+.project-card.highlight .year-savings {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Autres cartes */
+.project-card.muted {
+    background: #555;
+    border-radius: 12px;
+}
+
 
 .team-card {
   background: #fff;
