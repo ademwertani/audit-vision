@@ -106,26 +106,10 @@
     </div>
   </header>
 
-  {{-- METRICS (harmonised with the new style) --}}
   <section class="metrics">
     <div class="container">
       <div class="metric-grid">
-        <div class="metric-card">
-          <h3 class="metric-num">99</h3>
-          <p class="metric-label">Clients satisfaits</p>
-        </div>
-        <div class="metric-card">
-          <h3 class="metric-num">25</h3>
-          <p class="metric-label">Formations professionnelles</p>
-        </div>
-        <div class="metric-card">
-          <h3 class="metric-num">120</h3>
-          <p class="metric-label">Collaborateurs formés</p>
-        </div>
-        <div class="metric-card">
-          <h3 class="metric-num">5★</h3>
-          <p class="metric-label">Satisfaction moyenne</p>
-        </div>
+        
       </div>
     </div>
   </section>
