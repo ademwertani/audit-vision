@@ -55,11 +55,13 @@
     <section class="about-aisla py-5 my-5">
         <div class="container pt-4 pt-lg-5">
             <div class="row g-5 align-items-center">
-                {{-- LEFT: Logo inside donut --}}
+                {{-- LEFT: Logo inside circular frame --}}
                 <div class="col-lg-6">
                     <div class="about-donut-wrap">
                         <div class="about-donut">
-                            <div class="about-donut__inner" @if($about?->logo) style="background-image: url('{{ asset('storage/' . $about->logo) }}');" @endif></div>
+                            @if($about?->logo)
+                                <img src="{{ asset('storage/' . $about->logo) }}" alt="Aisla Nova logo">
+                            @endif
                         </div>
                     </div>
                 </div>
