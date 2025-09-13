@@ -59,11 +59,7 @@
                 <div class="col-lg-6">
                     <div class="about-donut-wrap">
                         <div class="about-donut">
-                            <div class="about-donut__inner">
-                                @if($about?->logo)
-                                    <img src="{{ asset('storage/' . $about->logo) }}" alt="{{ $about->heading ?? 'About logo' }}">
-                                @endif
-                            </div>
+                            <div class="about-donut__inner" @if($about?->logo) style="background-image: url('{{ asset('storage/' . $about->logo) }}');" @endif></div>
                         </div>
                     </div>
                 </div>
