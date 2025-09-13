@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'À propos de nous')
+@section('title', $about->heading ?? 'À propos de nous')
 
 @section('content')
 <style>
@@ -92,8 +92,8 @@
   {{-- HERO (same layout as Contact page) --}}
   <header class="pa-hero">
     <div class="pa-hgroup container">
-      <h1 class="pa-title">À propos de nous</h1>
-      <p class="pa-sub">Nous formons et accompagnons les talents de la relation client avec des méthodes modernes, des cas réels et des résultats mesurables.</p>
+      <h1 class="pa-title">{{ $about->heading }}</h1>
+      <p class="pa-sub">{{ $about->summary }}</p>
     </div>
 
     <div class="pa-bread-wrap">
@@ -144,24 +144,22 @@
       </div>
 
       <div class="owl-carousel team-carousel">
-        {{-- Exemple membre d'équipe --}}
+        @foreach($teams as $member)
         <div class="team-card">
           <div class="team-img">
-            <img src="{{ asset('img/team-1.jpg') }}" alt="Photo membre équipe">
+            <img src="{{ $member->image_url }}" alt="{{ $member->name }}">
           </div>
           <div class="team-name">
-            <h4>Ahmed Ben Salem</h4>
-            <p>Formateur en télécommunication</p>
+            <h4>{{ $member->name }}</h4>
+            <p>{{ $member->role }}</p>
           </div>
           <div class="team-icon">
-            <a class="btn btn-secondary text-white" href="#"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-secondary text-white" href="#"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-secondary text-white" href="#"><i class="fab fa-instagram"></i></a>
-            <a class="btn btn-secondary text-white" href="#"><i class="fab fa-linkedin-in"></i></a>
+            @if($member->linkedin)
+            <a class="btn btn-secondary text-white" href="{{ $member->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+            @endif
           </div>
         </div>
-
-        {{-- Dupliquez ce bloc pour d'autres membres --}}
+        @endforeach
       </div>
     </div>
   </section>
