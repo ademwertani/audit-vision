@@ -59,9 +59,9 @@
                 <div class="col-lg-6">
                     <div class="about-donut-wrap">
                         <div class="about-donut">
-                            <div class="about-donut__inner d-flex align-items-center justify-content-center" @if($about?->logo) style="background: none;" @endif>
+                            <div class="about-donut__inner">
                                 @if($about?->logo)
-                                    <img src="{{ asset('storage/' . $about->logo) }}" alt="{{ $about->heading ?? 'About logo' }}" class="img-fluid">
+                                    <img src="{{ asset('storage/' . $about->logo) }}" alt="{{ $about->heading ?? 'About logo' }}">
                                 @endif
                             </div>
                         </div>
