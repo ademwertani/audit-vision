@@ -202,7 +202,8 @@
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
-  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.18));
+  box-shadow: 0 0 0 12px var(--accent), 0 16px 30px rgba(0, 0, 0, 0.18);
+  transition: transform .3s;
 }
 
 .about-donut img {
@@ -210,6 +211,10 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.about-donut:hover {
+  transform: scale(1.02);
 }
 
 /* Make it breathe a bit on small screens */
@@ -414,6 +419,10 @@
   color: var(--primary); /* Using Figma primary blue */
 }
 
+.about-aisla .display-5 {
+  color: var(--dark);
+}
+
 /* Donut wrapper centers the visual */
 .about-donut-wrap {
   display: flex;
@@ -426,7 +435,8 @@
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
-  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.18));
+  box-shadow: 0 0 0 12px var(--accent), 0 16px 30px rgba(0, 0, 0, 0.18);
+  transition: transform .3s;
 }
 
 .about-donut img {
@@ -434,6 +444,26 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.about-donut:hover {
+  transform: scale(1.02);
+}
+
+.about-aisla .btn-accent {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 28px;
+  box-shadow: 0 6px 20px rgba(232, 78, 35, 0.35);
+  transition: background .3s, transform .3s;
+}
+
+.about-aisla .btn-accent:hover {
+  background: var(--danger);
+  transform: translateY(-2px);
 }
 
 /* Make it breathe a bit on small screens */
