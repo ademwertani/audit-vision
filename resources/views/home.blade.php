@@ -73,7 +73,7 @@
                         <i aria-hidden="true"></i>
                     </div>
 
-                    <h1 class="display-5 fw-bold mb-4" style="color: var(--dark);">
+                    <h1 class="display-5 fw-bold mb-4">
                         {!! nl2br(e($about->heading ?? '')) !!}
                     </h1>
 
@@ -81,7 +81,7 @@
                         {{ $about->summary ?? '' }}
                     </p>
 
-                    <a href="#" class="btn rounded-pill px-4 py-3 fw-semibold" style="background: var(--accent); color: #fff;">
+                    <a href="#" class="btn btn-accent rounded-pill px-4 py-3 fw-semibold">
                         Plus de détails
                     </a>
                 </div>
