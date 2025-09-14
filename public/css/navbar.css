@@ -4,7 +4,7 @@
 .hero-aisla {
   position: relative;
   min-height: 760px;
-  background: linear-gradient(rgba(45, 50, 129, 0.6), rgba(45, 50, 129, 0.7)), url("../img/hero-background.jpg");
+  background: linear-gradient(rgba(45, 50, 129, 0.6), rgba(45, 50, 129, 0.7)), var(--hero-bg-img, url("../img/hero-background.jpg"));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
