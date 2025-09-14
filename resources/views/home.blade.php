@@ -130,35 +130,36 @@
     </div>
 
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
-    <div class="container-fluid py-5 my-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">Produce Your Own Clean Save<br>Ourthe Environment</h2>
-            </div>
-            
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-3">
-                    <div class="text-center">
-                        <i class="fas fa-leaf fa-3x mb-3" style="color: var(--secondary);"></i>
-                        <h5 style="color: var(--dark);">Eco-Friendly Solutions</h5>
-                    </div>
+    @if(!empty($video?->url))
+        @php($embed = Str::replace('watch?v=', 'embed/', $video->url))
+        <div class="container-fluid py-5 my-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">Produce Your Own Clean Save<br>Ourthe Environment</h2>
                 </div>
-                <div class="col-lg-6">
-                    <div class="text-center">
-                        <div class="rounded" style="height: 300px; background: var(--muted); display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-play-circle fa-4x text-white"></i>
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-3">
+                        <div class="text-center">
+                            <i class="fas fa-leaf fa-3x mb-3" style="color: var(--secondary);"></i>
+                            <h5 style="color: var(--dark);">Eco-Friendly Solutions</h5>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="text-center">
-                        <i class="fas fa-recycle fa-3x mb-3" style="color: var(--secondary);"></i>
-                        <h5 style="color: var(--dark);">Sustainable Energy</h5>
+                    <div class="col-lg-6">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="text-center">
+                            <i class="fas fa-recycle fa-3x mb-3" style="color: var(--secondary);"></i>
+                            <h5 style="color: var(--dark);">Sustainable Energy</h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     {{-- =============== CONTACT SECTION (Updated with blue background) =============== --}}
     <div class="container-fluid py-5 my-5" style="background: var(--primary);">

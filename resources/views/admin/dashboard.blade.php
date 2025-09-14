@@ -24,7 +24,16 @@
                     <a href="{{ route('users.index') }}" class="btn btn-primary py-2 px-4">Go to Users</a>
                 </div>
             </div>
-            
+
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-light text-center p-4">
+                    <i class="fab fa-youtube fa-3x text-primary mb-3"></i>
+                    <h3 class="mb-3">Manage YouTube Video</h3>
+                    <p>Update the clean energy section video.</p>
+                    <a href="{{ route('admin.video.edit') }}" class="btn btn-primary py-2 px-4">Edit Video</a>
+                </div>
+            </div>
+
             <!-- Add more dashboard cards as needed -->
         </div>
     </div>
