@@ -17,7 +17,7 @@
     ]);
     @endphp
 
-    <div class="hero-aisla">
+    <div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 {{-- Left copy --}}
