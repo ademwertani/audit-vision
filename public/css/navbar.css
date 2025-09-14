@@ -28,7 +28,7 @@
   margin-bottom: 1.2rem;
 }
 .hero-aisla .text-accent {
-  color: #e84e23; /* Using Figma accent orange */
+  color: var(--accent);
 }
 
 /* Reduced excessive left margin and improved layout balance */
@@ -52,7 +52,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: conic-gradient(#e84e23 0 300deg, transparent 300deg 360deg);
+  background: conic-gradient(var(--accent) 0 300deg, transparent 300deg 360deg);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 90px), #000 0);
   mask: radial-gradient(farthest-side, transparent calc(100% - 90px), #000 0);
   z-index: 1;
@@ -77,7 +77,7 @@
   top: 50%;
   transform: translateY(-50%);
   background: #fff;
-  color: #2d3281; /* Using Figma primary color */
+  color: var(--primary);
   border: none;
   width: 44px;
   height: 44px;
@@ -91,7 +91,7 @@
   z-index: 5;
 }
 .hero-donut .hero-nav:hover {
-  background: #e84e23; /* Using Figma accent orange */
+  background: var(--accent);
   color: #fff;
 }
 .hero-donut .hero-nav.prev {
@@ -103,7 +103,7 @@
 
 /* CTA inside hero copy updated with Figma colors */
 .hero-copy .btn-accent {
-  background: #e84e23; /* Using Figma accent orange */
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
   border-radius: 999px;
@@ -111,10 +111,10 @@
   font-size: 1.1rem;
   display: inline-block;
   margin-top: 20px;
-  box-shadow: 0 6px 20px rgba(232, 78, 35, 0.35); /* Updated shadow with Figma accent */
+  box-shadow: 0 6px 20px rgba(232, 78, 35, 0.35);
 }
 .hero-copy .btn-accent:hover {
-  background: #fe5716; /* Using Figma danger color for hover */
+  background: var(--danger);
 }
 
 /* Progress dots and bar */

@@ -24,17 +24,34 @@ class AboutController extends Controller
             'location' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'aboutimage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $about = About::firstOrCreate([]);
 
         if ($request->hasFile('logo')) {
-            // Delete old logo if exists
             if ($about->logo) {
                 Storage::disk('public')->delete($about->logo);
             }
             $validated['logo'] = $request->file('logo')->store('about', 'public');
+        } elseif ($request->boolean('remove_logo')) {
+            if ($about->logo) {
+                Storage::disk('public')->delete($about->logo);
+            }
+            $validated['logo'] = null;
+        }
+
+        if ($request->hasFile('aboutimage')) {
+            if ($about->aboutimage) {
+                Storage::disk('public')->delete($about->aboutimage);
+            }
+            $validated['aboutimage'] = $request->file('aboutimage')->store('about', 'public');
+        } elseif ($request->boolean('remove_aboutimage')) {
+            if ($about->aboutimage) {
+                Storage::disk('public')->delete($about->aboutimage);
+            }
+            $validated['aboutimage'] = null;
         }
 
         $about->update($validated);

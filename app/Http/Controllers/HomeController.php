@@ -19,7 +19,7 @@ class HomeController extends Controller
         // Get all necessary data for the home page
         $banners = Banner::latest()->take(3)->get();
         $services = Service::latest()->get();
-        $projects = Project::latest()->take(4)->get();
+        $projects = Project::latest()->take(9)->get();
         $about = About::first();
         $social = Social::first();
         $blogs = Blog::latest('published_at')->take(3)->get();
