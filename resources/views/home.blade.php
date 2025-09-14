@@ -131,7 +131,26 @@
 
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
     @if(!empty($video?->url))
-        @php($embed = Str::replace('watch?v=', 'embed/', $video->url))
+        @php
+            $embed = null;
+            $url = $video->url;
+
+            if (Str::contains($url, 'youtu.be/')) {
+                $id = Str::after($url, 'youtu.be/');
+            } elseif (Str::contains($url, 'watch?v=')) {
+                $id = Str::after($url, 'watch?v=');
+            } elseif (Str::contains($url, 'embed/')) {
+                $id = Str::after($url, 'embed/');
+            } else {
+                $id = null;
+            }
+
+            if (!empty($id)) {
+                $id = Str::before($id, '&');
+                $embed = 'https://www.youtube.com/embed/' . $id;
+            }
+        @endphp
+        @if($embed)
         <div class="container-fluid py-5 my-5">
             <div class="container">
                 <div class="text-center mb-5">
@@ -159,6 +178,7 @@
                 </div>
             </div>
         </div>
+        @endif
     @endif
 
     {{-- =============== CONTACT SECTION (Updated with blue background) =============== --}}
