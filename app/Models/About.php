@@ -16,5 +16,6 @@ class About extends Model
         'phone',
         'email',
         'logo',
+        'aboutimage',
     ];
 }

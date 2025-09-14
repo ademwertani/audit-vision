@@ -59,8 +59,8 @@
                 <div class="col-lg-6">
                     <div class="about-donut-wrap">
                         <div class="about-donut">
-                            @if($about?->logo)
-                                <img src="{{ asset('storage/' . $about->logo) }}" alt="Aisla Nova logo">
+                            @if($about?->aboutimage)
+                                <img src="{{ asset('storage/' . $about->aboutimage) }}" alt="About image">
                             @endif
                         </div>
                     </div>
@@ -204,27 +204,15 @@
     <!-- Projects Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
-                    <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
-                </div>
-                <div class="d-flex gap-2">
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-prev"
-                        style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
-                        <i class="fas fa-chevron-left" style="color: var(--muted);"></i>
-                    </button>
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-next"
-                        style="width: 50px; height: 50px; background: var(--accent); border: none;">
-                        <i class="fas fa-chevron-right text-white"></i>
-                    </button>
-                </div>
+            <div class="text-center mb-4">
+                <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
+                <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
             </div>
 
             @if($projects->isNotEmpty())
-            <div class="owl-carousel project-carousel">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach($projects as $project)
-                <div class="project-item">
+                <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         @if($project->image)
                         <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
@@ -243,16 +231,9 @@
                 </div>
                 @endforeach
             </div>
-            <div class="progress mt-4" style="height:4px; background: var(--border);">
-                <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
-            </div>
             @else
             <p class="text-center" style="color: var(--muted);">No projects available.</p>
             @endif
-
-            <div class="text-center mt-5">
-                <div class="rounded-circle mx-auto" style="width: 60px; height: 60px; background: var(--warning);"></div>
-            </div>
         </div>
     </div>
     <!-- Projects End -->

@@ -77,6 +77,24 @@
                 @enderror
                 <small class="text-muted">Max 2MB (JPEG, PNG, JPG, GIF)</small>
             </div>
+
+            <div class="mb-3">
+                <label for="aboutimage" class="form-label">About Image</label>
+                @if($about->aboutimage)
+                <div class="mb-2">
+                    <img src="{{ asset('storage/'.$about->aboutimage) }}" alt="Current About Image" class="img-thumbnail" style="max-height: 100px;">
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="remove_aboutimage" name="remove_aboutimage">
+                        <label class="form-check-label" for="remove_aboutimage">Remove current image</label>
+                    </div>
+                </div>
+                @endif
+                <input type="file" class="form-control @error('aboutimage') is-invalid @enderror" id="aboutimage" name="aboutimage">
+                @error('aboutimage')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <small class="text-muted">Max 2MB (JPEG, PNG, JPG, GIF)</small>
+            </div>
             
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">
