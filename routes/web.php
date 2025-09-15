@@ -61,6 +61,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::put('/about', [AdminAboutController::class, 'update'])->name('about.update');
     Route::resource('categories', CategoryController::class);
     Route::resource('banners', BannerController::class);
+    Route::get('/video', [\App\Http\Controllers\Admin\YoutubeVideoController::class, 'edit'])
+        ->name('video.edit');
+    Route::put('/video', [\App\Http\Controllers\Admin\YoutubeVideoController::class, 'update'])
+        ->name('video.update');
 });
 
 // Groupe referencer
