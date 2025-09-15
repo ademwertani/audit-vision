@@ -1,0 +1,94 @@
+body {
+  	margin: 0;
+  	font-family: Arial, sans-serif;
+}
+
+.background {
+  	width: 100%;
+  	position: relative;
+  	height: 548px;
+}
+
+/* Bleu clair */
+.background-child {
+  	position: absolute;
+  	top: 128px;
+  	left: 50px;
+  	border-radius: 30px;
+  	background-color: #37a7df;
+  	width: 1300px;
+  	height: 420px;
+  	z-index: 1;
+}
+
+/* Bleu foncé (principal) */
+.background-item {
+  	position: absolute;
+  	top: 98px;
+  	left: 0px;
+  	border-radius: 30px;
+  	background-color: #2d3281;
+  	width: 1400px;
+  	height: 420px;
+  	z-index: 2;
+  	display: flex;
+  	align-items: center;
+  	justify-content: space-between;
+  	padding: 40px 60px;
+  	color: #fff;
+}
+
+/* Texte */
+.text-box h2 {
+  	font-size: 32px;
+  	margin-bottom: 15px;
+}
+.text-box p {
+  	color: #dcdcdc;
+  	margin-bottom: 25px;
+}
+
+/* Bouton et téléphone */
+.btn-box {
+  	display: flex;
+  	align-items: center;
+  	gap: 20px;
+}
+
+.btn-orange {
+  	background: #f4511e;
+  	color: #fff;
+  	padding: 12px 24px;
+  	border-radius: 30px;
+  	text-decoration: none;
+  	font-weight: bold;
+}
+.btn-orange:hover {
+  	background: #d84315;
+}
+
+.phone {
+  	display: flex;
+  	align-items: center;
+  	gap: 10px;
+  	color: #fff;
+}
+
+.icon-circle {
+  	width: 35px;
+  	height: 35px;
+  	background: #3db4f2;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	border-radius: 50%;
+  	font-size: 16px;
+}
+
+/* Image */
+.image-box img {
+  	max-width: 350px;
+  	height: auto;
+  	position: relative;
+  	z-index: 3;
+}

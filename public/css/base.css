@@ -87,3 +87,31 @@ main,
 .bg-light {
   background-color: var(--light) !important;
 }
+.team-card {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: 15px;
+}
+
+.team-photo .circle-border {
+    position: relative;
+    display: inline-block;
+}
+
+.team-photo .circle-border img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 20px solid transparent;
+    background: conic-gradient(#2e3192 100% 5%, transparent 5% 5%);
+    padding: 5px;
+}
+
+
+.team-photo img {
+    width: 300px;   /* taille plus grande */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%; /* cercle */
+}

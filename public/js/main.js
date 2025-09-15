@@ -91,7 +91,7 @@
     if (projectCarousel.length) {
         var progressBar = $("#project-progress");
         projectCarousel.owlCarousel({
-            items: 1,
+            items: 2,
             margin: 30,
             loop: false,
             dots: false,

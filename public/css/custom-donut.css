@@ -1,0 +1,69 @@
+.donut {
+  position: relative;
+  width: min(400px, 60vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 16px 30px rgba(0,0,0,0.18));
+  overflow: visible;
+  
+  /* arrière-plan bleu */
+  background-color: #36a9e1;
+}
+
+.donut::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  border-radius: 50%;
+
+  /* arc bleu de 120° à 300° */
+  background: conic-gradient(
+    #36a9e1 120deg 300deg,   
+    transparent 30deg 330deg
+  );
+
+  z-index: 2;
+}
+
+.donut-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.donut-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+.service-card {
+    position: relative; /* nécessaire pour position absolute des enfants */
+}
+
+.service-name-block {
+    position: absolute;
+    top: 10px;  /* très haut dans la carte */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFD700; /* jaune */
+    width: 410px;
+    height: 60px;
+    line-height: 60px; /* centrer verticalement le texte */
+    border-radius: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.25rem;
+    z-index: 10;
+}
