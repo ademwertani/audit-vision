@@ -875,6 +875,10 @@
                     <i class="fab fa-facebook"></i>
                     <span class="nav-text">Social Links</span>
                 </a>
+                <a class="nav-link @if(Route::is('admin.video.*')) active @endif" href="{{ route('admin.video.edit') }}" data-tooltip="YouTube Video">
+                    <i class="fab fa-youtube"></i>
+                    <span class="nav-text">YouTube Video</span>
+                </a>
             </div>
 
             <!-- System Management Group -->

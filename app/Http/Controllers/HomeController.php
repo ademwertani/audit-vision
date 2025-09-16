@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\About;
 use App\Models\Social;
 use App\Models\Blog;
+use App\Models\YoutubeVideo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,10 +19,12 @@ class HomeController extends Controller
         // Get all necessary data for the home page
         $banners = Banner::latest()->take(3)->get();
         $services = Service::latest()->get();
-        $projects = Project::latest()->take(10)->get();
+        $projects = Project::latest()->take(9)->get();
         $about = About::first();
         $social = Social::first();
-        $blogs = Blog::latest('published_at')->take(10)->get();
+        $blogs = Blog::latest('published_at')->take(3)->get();
+        $video = YoutubeVideo::first();
+
 
         return view('home', compact(
             'banners',
@@ -29,7 +32,8 @@ class HomeController extends Controller
             'projects',
             'about',
             'social',
-            'blogs'
+            'blogs',
+            'video'
         ));
     }
 }

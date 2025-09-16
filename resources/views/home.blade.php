@@ -17,7 +17,7 @@
         ]);
     @endphp
 
-    <div class="hero-aisla">
+    <div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 {{-- Left copy --}}
@@ -54,6 +54,7 @@
     {{-- =============== ABOUT SECTION (Updated with statistics) =============== --}}
     <section class="about-aisla py-5 my-5">
         <div class="container pt-4 pt-lg-5">
+
 
             <!-- 🔹 Bloc avec 3 images + texte dessous -->
             <div class="row mb-5 text-center">
@@ -112,6 +113,7 @@
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -128,9 +130,11 @@
                         Welcome to Aisla Nova
                     </div>
 
+
                     <!-- Titre -->
                     <h1 class="fw-bold mb-4" style="color: #000; font-size: 3rem; line-height: 1.2;">
                         Energize Society <br> Reliable Energy
+
                     </h1>
 
                     <!-- Paragraphe gris clair -->
@@ -139,6 +143,7 @@
                         the way sustainable energy sources are harnessed across the world. Present in 18
                         countries across Asia, Australia, Europe, Africa and the Americas, Vetzat is powering.
                     </p>
+
 
                     <!-- Statistiques -->
                     <div class="row g-4">
@@ -167,6 +172,7 @@
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>
@@ -245,6 +251,7 @@
     </div>
 
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
+
     <div class="container-fluid py-5 my-5">
         <div class="container">
             <div class="text-center mb-5">
@@ -297,6 +304,51 @@
                         <h5 class="uniform-title">High Return On Investment</h5>
                         <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
                             generate significant energy.</p>
+
+    @if(!empty($video?->url))
+        @php
+            $embed = null;
+            $url = $video->url;
+
+            if (Str::contains($url, 'youtu.be/')) {
+                $id = Str::after($url, 'youtu.be/');
+            } elseif (Str::contains($url, 'watch?v=')) {
+                $id = Str::after($url, 'watch?v=');
+            } elseif (Str::contains($url, 'embed/')) {
+                $id = Str::after($url, 'embed/');
+            } else {
+                $id = null;
+            }
+
+            if (!empty($id)) {
+                $id = Str::before($id, '&');
+                $embed = 'https://www.youtube.com/embed/' . $id;
+            }
+        @endphp
+        @if($embed)
+        <div class="container-fluid py-5 my-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">Produce Your Own Clean Save<br>Ourthe Environment</h2>
+                </div>
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-3">
+                        <div class="text-center">
+                            <i class="fas fa-leaf fa-3x mb-3" style="color: var(--secondary);"></i>
+                            <h5 style="color: var(--dark);">Eco-Friendly Solutions</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="text-center">
+                            <i class="fas fa-recycle fa-3x mb-3" style="color: var(--secondary);"></i>
+                            <h5 style="color: var(--dark);">Sustainable Energy</h5>
+                        </div>
                     </div>
 
 
@@ -350,7 +402,8 @@
 
 
         </div>
-    </div>
+        @endif
+    @endif
 
 
 
@@ -442,6 +495,7 @@
     <!-- Projects Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <p class="text-uppercase fw-bold mb-2"
@@ -479,6 +533,30 @@
                                     </div>
                                 @endif
                             </div>
+
+            <div class="text-center mb-4">
+                <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
+                <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
+            </div>
+
+            @if($projects->isNotEmpty())
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach($projects as $project)
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        @if($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
+                        @else
+                        <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
+                            <i class="fas fa-image fa-2x text-white"></i>
+                        </div>
+                        @endif
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
+                            @if($project->summary)
+                            <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
+                            @endif
+
                         </div>
                     @endforeach
                 </div>
@@ -488,11 +566,10 @@
                 <div class="progress mt-4" style="height:4px; background: var(--border);">
                     <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
                 </div>
+
             @else
                 <p class="text-center" style="color: var(--muted);">No projects available.</p>
             @endif
-
-
         </div>
     </div>
     <!-- Projects End -->
