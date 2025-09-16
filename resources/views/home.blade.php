@@ -377,17 +377,16 @@
                 </div>
             </div>
 
-            <!-- Image alignée en bas à droite -->
-            <!-- Image alignée légèrement en dessous du fond bleu -->
-            <!-- Image légèrement en dessous du fond bleu -->
+            <!-- Image alignée en bas à droite (qui dépasse un peu) -->
             <img src="/img/man.png" alt="Contact Image"
-                style="position: absolute; bottom: -1.27cm; right: 0; width: 500px; height: auto; object-fit: cover; z-index: 2;">
-
-
+                style="position: absolute; bottom: -2.17cm; right: 0; width: 500px; height: auto; object-fit: cover; z-index: 2;">
         </div>
     </div>
 
-
+    <!-- ✅ Nouvelle image placée sous la zone bleue -->
+    <div class="text-center" style="margin-top: -190px;"> <!-- remonte encore plus -->
+        <img src="/img/Rectangle.png" alt="Image sous zone bleue" style="width: ; height: 90; object-fit: cover;">
+    </div>
 
 
     <style>
@@ -498,243 +497,272 @@
     </div>
     <!-- Projects End -->
 
-    <!-- Team Start -->
-    <div class="container-fluid py-5 mb-5 team" style="background-color: #FAFAFA;">
+    <!-- Testimonials Start -->
+    <div class="container-fluid py-5" style="background-color: #ffffff;">
         <div class="container">
-            <!-- Header -->
-            <div class="text-center mx-auto pb-5" style="max-width: 600px;">
-                <h5 class="fw-bold" style="color: #fe5716;">OUR CREATIVE TEAM</h5>
+            <div class="text-center mx-auto" style="max-width: 800px;">
 
-                <h1>Meet Our Experts</h1>
-            </div>
-
-            <!-- Carousel / Members -->
-            <div class="wow fadeIn" data-wow-delay=".5s">
-                <div id="team-container" class="row g-4">
-
-                    <!-- Exemple de membre (sera remplacé par tes données dynamiques) -->
-                    <div class="col-12 team-member d-flex align-items-center p-4">
-                        <!-- Image ronde -->
-                        <div class="flex-shrink-0">
-                            <img src="https://via.placeholder.com/200" alt="Membre" class="img-fluid rounded-circle"
-                                style="width:200px; height:200px; object-fit:cover;">
-                        </div>
-
-
-
-                    </div>
-
-                    <!-- Navigation -->
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                        <button id="team-prev" class="btn btn-outline-secondary rounded-pill px-4">Précédent</button>
-                        <div class="flex-grow-1 mx-3 progress" style="height:5px;">
-                            <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
-                        </div>
-                        <button id="team-next" class="btn btn-outline-secondary rounded-pill px-4">Suivant</button>
-                    </div>
+                <!-- Guillemets haut -->
+                <div class="mb-4">
+                    <img src="/img/iconn.png" alt="Quote" style="width:60px; height:60px;">
                 </div>
+
+                <!-- Texte -->
+                <p style="font-size:1.1rem; color:#333; line-height:1.7;">
+                    “Provider that is revolutionising and redefining the way sustainable energy sources are harnessed across
+                    the world. Present in 18 countries across Asia, Australia, Europe, Africa and the Americas.”
+                </p>
+                <!-- Sous-texte -->
+                <h4 class="fw-bold mt-4" style="color:#000000;">Willimes Marko</h4>
+                <!-- Sous-texte -->
+                <h6 class="fw-bold mt-4" style="color:#F1A601;">Highly Recommended</h6>
+
+                <!-- Navigation cercles (image) -->
+                <div class="text-center mt-4">
+                    <img src="/img/carousel.png" alt="Navigation cercles" style="max-width: 350px; height: auto;">
+                </div>
+
+
             </div>
         </div>
-        <!-- Team End -->
+    </div>
+    <!-- Testimonials End -->
 
 
+  
 
-        <!-- Blog Start -->
-        <div class="container-fluid blog py-5 mb-5">
-            <div class="container">
-                <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                    <h5 class="text-uppercase fw-bold" style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
 
-                        Blog & Updates
-                    </h5>
-                    <h1 class="fw-bold">Recent News</h1>
-                </div>
+            <!-- Team Start -->
+            <div class="container-fluid py-5 mb-5 team" style="background-color: #FAFAFA;">
+                <div class="container">
+                    <!-- Header -->
+                    <div class="text-center mx-auto pb-5" style="max-width: 600px;">
+                        <h5 class="fw-bold" style="color: #fe5716;">OUR CREATIVE TEAM</h5>
 
-                <div class="row g-4 justify-content-center">
-                    @forelse($blogs->slice(0, 4) as $index => $blog)
-                        <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
-                            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                                @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
-                                    @if($blog->image)
-                                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
-                                    @endif
-                                @else
-                                    <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
-                                @endif
+                        <h1>Meet Our Experts</h1>
+                    </div>
 
-                                <div class="card-body" style="border-radius: 1rem;">
-                                    <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
-                                    <h5 class="fw-bold">{{ $blog->title }}</h5>
-                                    <p class="text-muted">
-                                        {{ Str::limit(strip_tags($blog->content), 100) }}
-                                    </p>
-                                    <div class="d-flex align-items-center mt-3"> 
-    <span class="badge px-3 py-2 rounded-pill" style="background-color: #F1A601; color: #000;">
-        {{ $blog->created_at->format('F d, Y') }}
-    </span>
-</div>
+                    <!-- Carousel / Members -->
+                    <div class="wow fadeIn" data-wow-delay=".5s">
+                        <div id="team-container" class="row g-4">
 
+                            <!-- Exemple de membre (sera remplacé par tes données dynamiques) -->
+                            <div class="col-12 team-member d-flex align-items-center p-4">
+                                <!-- Image ronde -->
+                                <div class="flex-shrink-0">
+                                    <img src="https://via.placeholder.com/200" alt="Membre" class="img-fluid rounded-circle"
+                                        style="width:200px; height:200px; object-fit:cover;">
                                 </div>
+
+
+
+                            </div>
+
+                            <!-- Navigation -->
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <button id="team-prev"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Précédent</button>
+                                <div class="flex-grow-1 mx-3 progress" style="height:5px;">
+                                    <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
+                                </div>
+                                <button id="team-next" class="btn btn-outline-secondary rounded-pill px-4">Suivant</button>
                             </div>
                         </div>
-                    @empty
-                        <p class="text-center">Aucun article pour le moment.</p>
-                    @endforelse
+                    </div>
                 </div>
+                <!-- Team End -->
 
 
 
-                <div class="text-center mt-5">
-                    <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
-                        View All News
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Blog End -->
+                <!-- Blog Start -->
+                <div class="container-fluid blog py-5 mb-5">
+                    <div class="container">
+                        <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                            <h5 class="text-uppercase fw-bold"
+                                style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
 
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const servicesSection = document.querySelector('.services-section');
-                if (servicesSection) {
-                    const slides = servicesSection.querySelectorAll('.service-slide');
-                    servicesSection.querySelectorAll('.card').forEach(card => {
-                        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
-                        card.addEventListener('mouseleave', () => card.style.transform = '');
-                    });
-                    if (slides.length > 1) {
-                        let sIndex = 0;
-                        const prevBtn = servicesSection.querySelector('.services-prev');
-                        const nextBtn = servicesSection.querySelector('.services-next');
-                        const progressBarServices = servicesSection.querySelector('.services-progress-bar');
-                        function showSlide(newIndex) {
-                            slides[sIndex].classList.add('d-none');
-                            sIndex = (newIndex + slides.length) % slides.length;
-                            slides[sIndex].classList.remove('d-none');
-                            const progress = ((sIndex + 1) / slides.length) * 100;
-                            progressBarServices.style.width = progress + '%';
-                        }
-                        prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
-                        nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
-                        progressBarServices.style.width = (1 / slides.length * 100) + '%';
-                    }
-                }
-
-
-                const teamContainer = document.getElementById('team-container');
-                const teamPrev = document.getElementById('team-prev');
-                const teamNext = document.getElementById('team-next');
-                const teamProgress = document.getElementById('team-progress');
-                let teamPage = 1;
-                const teamPerPage = 3;
-
-                function loadTeam(page = 1) {
-                    fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            teamContainer.innerHTML = '';
-                            data.data.forEach(member => {
-                                const col = document.createElement('div');
-                                col.className = 'col-md-6 mb-4';
-                                col.innerHTML = `
-                        <div class="d-flex align-items-center team-card p-3 rounded">
-                            <!-- Avatar avec cercle -->
-                            <div class="team-photo position-relative me-3">
-                                <div class="circle-border">
-                                    <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                </div>
-                            </div>
-                            <!-- Infos -->
-                            <div class="team-info flex-grow-1">
-                                <h4 class="fw-bold mb-1">${member.name}</h4>
-                                <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="me-2"><i class="fas fa-envelope text-danger"></i></span>
-                                    <span>${member.email}</span>
-                                </div>
-                                <div>
-                                    ${member.facebook ?
-                                        `<a href="${member.facebook}" target="_blank" class="text-muted text-decoration-none">
-                                            <i class="fab fa-facebook me-1"></i> Facebook
-                                        </a>` : ''}
-                                </div>
-                            </div>
+                                Blog & Updates
+                            </h5>
+                            <h1 class="fw-bold">Recent News</h1>
                         </div>
-                    `;
-                                teamContainer.appendChild(col);
+
+                        <div class="row g-4 justify-content-center">
+                            @forelse($blogs->slice(0, 4) as $index => $blog)
+                                <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
+                                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                                        @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
+                                            @if($blog->image)
+                                                <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
+                                                    style="border-radius: 1rem;">
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
+                                                style="border-radius: 1rem;">
+                                        @endif
+
+                                        <div class="card-body" style="border-radius: 1rem;">
+                                            <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
+                                            <h5 class="fw-bold">{{ $blog->title }}</h5>
+                                            <p class="text-muted">
+                                                {{ Str::limit(strip_tags($blog->content), 100) }}
+                                            </p>
+                                            <div class="d-flex align-items-center mt-3">
+                                                <span class="badge px-3 py-2 rounded-pill"
+                                                    style="background-color: #F1A601; color: #000;">
+                                                    {{ $blog->created_at->format('F d, Y') }}
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <p class="text-center">Aucun article pour le moment.</p>
+                            @endforelse
+                        </div>
+
+
+
+                        <div class="text-center mt-5">
+                            <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
+                                View All News
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog End -->
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const servicesSection = document.querySelector('.services-section');
+                        if (servicesSection) {
+                            const slides = servicesSection.querySelectorAll('.service-slide');
+                            servicesSection.querySelectorAll('.card').forEach(card => {
+                                card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+                                card.addEventListener('mouseleave', () => card.style.transform = '');
                             });
+                            if (slides.length > 1) {
+                                let sIndex = 0;
+                                const prevBtn = servicesSection.querySelector('.services-prev');
+                                const nextBtn = servicesSection.querySelector('.services-next');
+                                const progressBarServices = servicesSection.querySelector('.services-progress-bar');
+                                function showSlide(newIndex) {
+                                    slides[sIndex].classList.add('d-none');
+                                    sIndex = (newIndex + slides.length) % slides.length;
+                                    slides[sIndex].classList.remove('d-none');
+                                    const progress = ((sIndex + 1) / slides.length) * 100;
+                                    progressBarServices.style.width = progress + '%';
+                                }
+                                prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
+                                nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
+                                progressBarServices.style.width = (1 / slides.length * 100) + '%';
+                            }
+                        }
 
-                            // Pagination + Progress bar
-                            teamPage = data.current_page;
-                            const totalPages = data.last_page;
-                            teamPrev.disabled = teamPage === 1;
-                            teamNext.disabled = teamPage === totalPages;
-                            teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+
+                        const teamContainer = document.getElementById('team-container');
+                        const teamPrev = document.getElementById('team-prev');
+                        const teamNext = document.getElementById('team-next');
+                        const teamProgress = document.getElementById('team-progress');
+                        let teamPage = 1;
+                        const teamPerPage = 3;
+
+                        function loadTeam(page = 1) {
+                            fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    teamContainer.innerHTML = '';
+                                    data.data.forEach(member => {
+                                        const col = document.createElement('div');
+                                        col.className = 'col-md-6 mb-4';
+                                        col.innerHTML = `
+                                <div class="d-flex align-items-center team-card p-3 rounded">
+                                    <!-- Avatar avec cercle -->
+                                    <div class="team-photo position-relative me-3">
+                                        <div class="circle-border">
+                                            <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                        </div>
+                                    </div>
+                                    <!-- Infos -->
+                                    <div class="team-info flex-grow-1">
+                                        <h4 class="fw-bold mb-1">${member.name}</h4>
+                                        <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                    </div>
+                                </div>
+                            `;
+                                        teamContainer.appendChild(col);
+                                    });
+
+                                    // Pagination + Progress bar
+                                    teamPage = data.current_page;
+                                    const totalPages = data.last_page;
+                                    teamPrev.disabled = teamPage === 1;
+                                    teamNext.disabled = teamPage === totalPages;
+                                    teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                                });
+                        }
+
+
+                        teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
+                        teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
+                        loadTeam();
+
+                        const donut = document.querySelector('.hero-donut');
+                        if (!donut) return;
+                        const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
+                        if (!banners.length) return;
+
+                        let index = 0;
+                        const titleEl = document.querySelector('.hero-title');
+                        const leadEl = document.querySelector('.hero-lead');
+                        const imageEl = donut.querySelector('.donut-image');
+                        const dotsContainer = document.querySelector('.hero-dots');
+                        const progressBar = document.querySelector('.hero-progress-bar');
+
+                        function renderDots() {
+                            dotsContainer.innerHTML = '';
+                            banners.forEach((_, i) => {
+                                const span = document.createElement('span');
+                                span.className = 'dot' + (i === index ? ' active' : '');
+                                span.dataset.index = i;
+                                dotsContainer.appendChild(span);
+                            });
+                        }
+
+                        function update() {
+                            const banner = banners[index] || {};
+                            const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
+                            const summary = banner.summary || '';
+                            const img = banner.image || '/img/default-banner.jpg';
+
+                            titleEl.innerHTML = title;
+                            leadEl.textContent = summary;
+                            imageEl.style.backgroundImage = `url('${img}')`;
+
+                            Array.from(dotsContainer.children).forEach((dot, i) => {
+                                dot.classList.toggle('active', i === index);
+                            });
+                            const progress = ((index + 1) / banners.length) * 100;
+                            progressBar.style.width = progress + '%';
+                        }
+
+                        function goTo(newIndex) {
+                            index = (newIndex + banners.length) % banners.length;
+                            update();
+                        }
+
+                        renderDots();
+                        update();
+
+                        donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
+                        donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
+                        dotsContainer.addEventListener('click', e => {
+                            if (e.target.classList.contains('dot')) {
+                                goTo(parseInt(e.target.dataset.index, 10));
+                            }
                         });
-                }
-
-
-                teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
-                teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
-                loadTeam();
-
-                const donut = document.querySelector('.hero-donut');
-                if (!donut) return;
-                const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
-                if (!banners.length) return;
-
-                let index = 0;
-                const titleEl = document.querySelector('.hero-title');
-                const leadEl = document.querySelector('.hero-lead');
-                const imageEl = donut.querySelector('.donut-image');
-                const dotsContainer = document.querySelector('.hero-dots');
-                const progressBar = document.querySelector('.hero-progress-bar');
-
-                function renderDots() {
-                    dotsContainer.innerHTML = '';
-                    banners.forEach((_, i) => {
-                        const span = document.createElement('span');
-                        span.className = 'dot' + (i === index ? ' active' : '');
-                        span.dataset.index = i;
-                        dotsContainer.appendChild(span);
                     });
-                }
-
-                function update() {
-                    const banner = banners[index] || {};
-                    const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
-                    const summary = banner.summary || '';
-                    const img = banner.image || '/img/default-banner.jpg';
-
-                    titleEl.innerHTML = title;
-                    leadEl.textContent = summary;
-                    imageEl.style.backgroundImage = `url('${img}')`;
-
-                    Array.from(dotsContainer.children).forEach((dot, i) => {
-                        dot.classList.toggle('active', i === index);
-                    });
-                    const progress = ((index + 1) / banners.length) * 100;
-                    progressBar.style.width = progress + '%';
-                }
-
-                function goTo(newIndex) {
-                    index = (newIndex + banners.length) % banners.length;
-                    update();
-                }
-
-                renderDots();
-                update();
-
-                donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
-                donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
-                dotsContainer.addEventListener('click', e => {
-                    if (e.target.classList.contains('dot')) {
-                        goTo(parseInt(e.target.dataset.index, 10));
-                    }
-                });
-            });
-        </script>
+                </script>
 
 @endsection

@@ -92,26 +92,49 @@ main,
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     border-radius: 15px;
 }
-
-.team-photo .circle-border {
+.team-photo {
     position: relative;
-    display: inline-block;
-}
-
-.team-photo .circle-border img {
     width: 300px;
     height: 300px;
-    object-fit: cover;
-    border-radius: 100%;
-    border: 20px solid transparent;
-    background: conic-gradient(#2e3192 100% 5%, transparent 5% 5%);
-    padding: 5px;
 }
-
 
 .team-photo img {
-    width: 300px;   /* taille plus grande */
-    height: 300px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 50%; /* cercle */
+    border-radius: 50%;
+    display: block;
 }
+.team-photo {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* demi-cercle animé autour de l'image */
+.team-photo .circle-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(#2e3192 0deg 180deg, transparent 180deg 360deg);
+    pointer-events: none;
+
+    /* création d’un cercle plus fin autour de l’image */
+    mask-image: radial-gradient(circle 45%, black 100%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle 45%, black 100%, transparent 100%);
+
+    /* animation de rotation */
+    animation: rotate-circle 2s linear infinite;
+}
+
