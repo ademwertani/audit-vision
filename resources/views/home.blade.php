@@ -533,6 +533,10 @@
                                     </div>
                                 @endif
                             </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
 
             <div class="text-center mb-4">
                 <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
@@ -540,33 +544,31 @@
             </div>
 
             @if($projects->isNotEmpty())
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach($projects as $project)
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        @if($project->image)
-                        <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
-                        @else
-                        <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
-                            <i class="fas fa-image fa-2x text-white"></i>
-                        </div>
-                        @endif
-                        <div class="card-body">
-                            <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
-                            @if($project->summary)
-                            <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
-                            @endif
-
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach($projects as $project)
+                        <div class="col">
+                            <div class="card h-100 border-0 shadow-sm">
+                                @if($project->image)
+                                    <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
+                                @else
+                                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
+                                        <i class="fas fa-image fa-2x text-white"></i>
+                                    </div>
+                                @endif
+                                <div class="card-body">
+                                    <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
+                                    @if($project->summary)
+                                        <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
 
-
-
                 <div class="progress mt-4" style="height:4px; background: var(--border);">
                     <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
                 </div>
-
             @else
                 <p class="text-center" style="color: var(--muted);">No projects available.</p>
             @endif
