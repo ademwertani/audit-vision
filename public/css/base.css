@@ -138,3 +138,26 @@ main,
     animation: rotate-circle 2s linear infinite;
 }
 
+.clean-energy h2 {
+  font-weight: 700;
+}
+
+.clean-energy ul li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.clean-energy .quote {
+  font-size: 1.1rem;
+}
+
+.clean-energy .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background: #e6f0ff;
+  margin: 0 auto;
+}
