@@ -126,7 +126,7 @@
                 <div class="col-lg-6">
 
                     <!-- Petit texte jaune -->
-                    <div class="fw-bold mb-3 text-uppercase" style="color: #f6a800; font-size: 1rem; letter-spacing: 1px;">
+                    <div class="fw-bold mb-3 text-uppercase" style="color: #F1A601; font-size: 1rem; letter-spacing: 1px;">
                         Welcome to Aisla Nova
                     </div>
 
@@ -151,7 +151,7 @@
                         <!-- Bloc 1 -->
                         <div class="col-md-6 d-flex align-items-center">
                             <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                style="width: 60px; height: 60px; background: #f6a800; color: #fff; font-size: 2rem;">
+                                style="width: 60px; height: 60px; background: #F1A601; color: #fff; font-size: 2rem;">
                                 <i class="bi bi-award-fill"></i>
                             </div>
                             <div>
@@ -163,7 +163,7 @@
                         <!-- Bloc 2 -->
                         <div class="col-md-6 d-flex align-items-center">
                             <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                style="width: 60px; height: 60px; background: #f6a800; color: #fff; font-size: 2rem;">
+                                style="width: 60px; height: 60px; background: #F1A601; color: #fff; font-size: 2rem;">
                                 <i class="bi bi-graph-up-arrow"></i>
                             </div>
                             <div>
@@ -258,590 +258,596 @@
                 <!-- Nouveau titre orangé souligné -->
                 <h6 style="color: #b90606; font-size: 1rem; letter-spacing: 1px; text-align: center;">
                     Solutions <span style="border-bottom: 2px solid #b90606;">of Solar</span> Energy
-                </h6>
-
-                <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
-                    Produce Your Own Clean Save<br>Our the Environment
-                </h2>
+                </h6>            
             </div>
 
             <div class="position-relative">
                 <div class="row justify-content-center align-items-center">
-
-                    <!-- LEFT image -->
-                    <div class="col-lg-2 d-flex flex-column justify-content-center align-items-center">
-                        <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">Battery Storage Solutions</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
-                    </div>
-
-                    <!-- CENTER: video/image -->
-                    <div class="col-lg-6">
-                        <div class="text-center">
-                            <div class="rounded"
-                                style="height: 300px; background: var(--muted); display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-play-circle fa-4x text-white"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RIGHT image -->
-                    <div class="col-lg-2 d-flex flex-column justify-content-center align-items-center">
-                        <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">Commercial Solar Energy</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
-                    </div>
-
                 </div>
+                @if(!empty($video?->url))
+                    @php
+                        $embed = null;
+                        $url = $video->url;
 
-                <!-- BOTTOM images (4) -->
-                <div class="row justify-content-center mt-5 g-4">
+                        if (Str::contains($url, 'youtu.be/')) {
+                            $id = Str::after($url, 'youtu.be/');
+                        } elseif (Str::contains($url, 'watch?v=')) {
+                            $id = Str::after($url, 'watch?v=');
+                        } elseif (Str::contains($url, 'embed/')) {
+                            $id = Str::after($url, 'embed/');
+                        } else {
+                            $id = null;
+                        }
 
-                    <div class="col-lg-2 col-md-3 text-center">
-                        <img src="/img/wrd.png" alt="High ROI" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">High Return On Investment</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
+                        if (!empty($id)) {
+                            $id = Str::before($id, '&');
+                            $embed = 'https://www.youtube.com/embed/' . $id;
+                        }
+                    @endphp
+                    @if($embed)
+                        <div class="container-fluid py-5 my-5">
+                            <div class="container">
+    <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
+            Produce Your Own Clean Save<br>Ourthe Environment
+        </h2>
+    </div>
 
-    @if(!empty($video?->url))
-        @php
-            $embed = null;
-            $url = $video->url;
-
-            if (Str::contains($url, 'youtu.be/')) {
-                $id = Str::after($url, 'youtu.be/');
-            } elseif (Str::contains($url, 'watch?v=')) {
-                $id = Str::after($url, 'watch?v=');
-            } elseif (Str::contains($url, 'embed/')) {
-                $id = Str::after($url, 'embed/');
-            } else {
-                $id = null;
-            }
-
-            if (!empty($id)) {
-                $id = Str::before($id, '&');
-                $embed = 'https://www.youtube.com/embed/' . $id;
-            }
-        @endphp
-        @if($embed)
-        <div class="container-fluid py-5 my-5">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">Produce Your Own Clean Save<br>Ourthe Environment</h2>
-                </div>
-
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-3">
-                        <div class="text-center">
-                            <i class="fas fa-leaf fa-3x mb-3" style="color: var(--secondary);"></i>
-                            <h5 style="color: var(--dark);">Eco-Friendly Solutions</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="text-center">
-                            <i class="fas fa-recycle fa-3x mb-3" style="color: var(--secondary);"></i>
-                            <h5 style="color: var(--dark);">Sustainable Energy</h5>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-lg-2 col-md-3 text-center">
-                        <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">Boost Green Credentials</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
-                    </div>
-
-                    <div class="col-lg-2 col-md-3 text-center">
-                        <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">Industrial Solar Energy</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
-                    </div>
-
-                    <div class="col-lg-2 col-md-3 text-center">
-                        <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
-                        <h5 class="uniform-title">Scale With New Technologies</h5>
-                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                            generate significant energy.</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- STYLES -->
-            <style>
-                .uniform-img {
-                    width: 150px;
-                    height: 150px;
-                    object-fit: contain;
-                }
-
-                .uniform-title {
-                    color: var(--dark);
-                    font-size: 1.6rem;
-                    font-weight: 600;
-                }
-
-                .uniform-text {
-                    font-size: 1.2rem;
-                    color: #6c757d;
-                    /* équivalent Bootstrap text-muted */
-                }
-            </style>
-
-
-
-
+    <div class="row g-4 align-items-center">
+        <!-- LEFT image -->
+        <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
+            <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Battery Storage Solutions</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                generate significant energy.</p>
         </div>
-        @endif
-    @endif
 
-
-
-
-
-
-
-    {{-- =============== CONTACT SECTION (Updated with blue background) =============== --}}
-    <div class="container-fluid py-5 my-5"
-        style="background: var(--primary); position: relative; border-radius: 30px; overflow: visible;">
-        <div class="container position-relative">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h2 class="display-5 fw-bold text-white mb-3">
-                        Get In Touch To Discuss<br>How We Can Help You
-                    </h2>
-                    <p class="text-white-50 mb-4">
-                        Ready to start your renewable energy journey? Contact our experts today.
-                    </p>
-                    <a href="{{ url('/contact') }}" class="btn rounded-pill px-4 py-3 fw-semibold"
-                        style="background: var(--accent); color: #fff;">
-                        Contact Us
-                    </a>
-                </div>
+        <!-- VIDEO -->
+        <div class="col-lg-6">
+            <div class="ratio ratio-16x9">
+                <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
             </div>
+        </div>
 
-            <!-- Image alignée en bas à droite (qui dépasse un peu) -->
-            <img src="/img/man.png" alt="Contact Image"
-                style="position: absolute; bottom: -2.17cm; right: 0; width: 500px; height: auto; object-fit: cover; z-index: 2;">
+        <!-- RIGHT image -->
+        <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
+            <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Commercial Solar Energy</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                generate significant energy.</p>
         </div>
     </div>
 
-    <!-- ✅ Nouvelle image placée sous la zone bleue -->
-    <div class="text-center" style="margin-top: -190px;"> <!-- remonte encore plus -->
-        <img src="/img/Rectangle.png" alt="Image sous zone bleue" style="width: ; height: 90; object-fit: cover;">
-    </div>
+    <!-- ROW BELOW VIDEO -->
+    <div class="row g-4 mt-4 text-center">
+        <div class="col-lg-4 col-md-6">
+            <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Boost Green Credentials</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                generate significant energy.</p>
+        </div>
 
+        <div class="col-lg-4 col-md-6">
+            <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Industrial Solar Energy</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                generate significant energy.</p>
+        </div>
 
-    <style>
-        .project-item .card {
-            border: 2px solid red;
-            /* bordure rouge */
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            /* layout horizontal */
-            flex-direction: row;
-            width: 600px;
-            /* plus grand */
-            height: 250px;
-            margin-right: 15px;
-        }
-
-        .project-item .card-body {
-            flex: 2;
-            /* texte prend 2/3 de la largeur */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .project-item img {
-            flex: 1;
-            /* image prend 1/3 de la largeur */
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .project-carousel .owl-stage-outer {
-            padding-right: 20px;
-            /* voir partiellement la prochaine carte */
-        }
-
-        /* Optionnel : réduire le texte si trop long */
-        .project-item .card-body p {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            /* nombre de lignes max */
-            -webkit-box-orient: vertical;
-        }
-    </style>
-
-
-
-
-    <!-- Projects Start -->
-    <div class="container-fluid py-5 mb-5">
-        <div class="container">
-
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <p class="text-uppercase fw-bold mb-2"
-                        style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
-                    <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
-                </div>
-                <div class="d-flex gap-2">
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-prev"
-                        style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
-                        <i class="fas fa-chevron-left" style="color: var(--muted);"></i>
-                    </button>
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-next"
-                        style="width: 50px; height: 50px; background: var(--accent); border: none;">
-                        <i class="fas fa-chevron-right text-white"></i>
-                    </button>
-                </div>
-            </div>
-
-            @if($projects->isNotEmpty())
-                <div class="owl-carousel project-carousel">
-                    @foreach($projects as $project)
-                        <div class="project-item">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
-                                    @if($project->summary)
-                                        <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
-                                    @endif
-                                </div>
-                                @if($project->image)
-                                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="flex:1;">
-                                        <i class="fas fa-image fa-2x text-white"></i>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-
-            <div class="text-center mb-4">
-                <p class="text-uppercase fw-bold mb-2" style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS</p>
-                <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
-            </div>
-
-            @if($projects->isNotEmpty())
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach($projects as $project)
-                        <div class="col">
-                            <div class="card h-100 border-0 shadow-sm">
-                                @if($project->image)
-                                    <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="{{ $project->name }}" style="height:250px; object-fit:cover;">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="height:250px;">
-                                        <i class="fas fa-image fa-2x text-white"></i>
-                                    </div>
-                                @endif
-                                <div class="card-body">
-                                    <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
-                                    @if($project->summary)
-                                        <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="progress mt-4" style="height:4px; background: var(--border);">
-                    <div class="progress-bar" id="project-progress" style="width:0; background: var(--accent);"></div>
-                </div>
-            @else
-                <p class="text-center" style="color: var(--muted);">No projects available.</p>
-            @endif
+        <div class="col-lg-4 col-md-6">
+            <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
+            <h5 class="uniform-title">Scale With New Technologies</h5>
+            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                generate significant energy.</p>
         </div>
     </div>
-    <!-- Projects End -->
-
-    <!-- Testimonials Start -->
-    <div class="container-fluid py-5" style="background-color: #ffffff;">
-        <div class="container">
-            <div class="text-center mx-auto" style="max-width: 800px;">
-
-                <!-- Guillemets haut -->
-                <div class="mb-4">
-                    <img src="/img/iconn.png" alt="Quote" style="width:60px; height:60px;">
-                </div>
-
-                <!-- Texte -->
-                <p style="font-size:1.1rem; color:#333; line-height:1.7;">
-                    “Provider that is revolutionising and redefining the way sustainable energy sources are harnessed across
-                    the world. Present in 18 countries across Asia, Australia, Europe, Africa and the Americas.”
-                </p>
-                <!-- Sous-texte -->
-                <h4 class="fw-bold mt-4" style="color:#000000;">Willimes Marko</h4>
-                <!-- Sous-texte -->
-                <h6 class="fw-bold mt-4" style="color:#F1A601;">Highly Recommended</h6>
-
-                <!-- Navigation cercles (image) -->
-                <div class="text-center mt-4">
-                    <img src="/img/carousel.png" alt="Navigation cercles" style="max-width: 350px; height: auto;">
-                </div>
+</div>
 
 
-            </div>
-        </div>
-    </div>
-    <!-- Testimonials End -->
+                            <!-- STYLES -->
+                            <style>
+                                .uniform-img {
+                                    width: 150px;
+                                    height: 150px;
+                                    object-fit: contain;
+                                }
 
+                                .uniform-title {
+                                    color: var(--dark);
+                                    font-size: 1.6rem;
+                                    font-weight: 600;
+                                }
 
-  
-
-
-            <!-- Team Start -->
-            <div class="container-fluid py-5 mb-5 team" style="background-color: #FAFAFA;">
-                <div class="container">
-                    <!-- Header -->
-                    <div class="text-center mx-auto pb-5" style="max-width: 600px;">
-                        <h5 class="fw-bold" style="color: #fe5716;">OUR CREATIVE TEAM</h5>
-
-                        <h1>Meet Our Experts</h1>
-                    </div>
-
-                    <!-- Carousel / Members -->
-                    <div class="wow fadeIn" data-wow-delay=".5s">
-                        <div id="team-container" class="row g-4">
-
-                            <!-- Exemple de membre (sera remplacé par tes données dynamiques) -->
-                            <div class="col-12 team-member d-flex align-items-center p-4">
-                                <!-- Image ronde -->
-                                <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/200" alt="Membre" class="img-fluid rounded-circle"
-                                        style="width:200px; height:200px; object-fit:cover;">
-                                </div>
+                                .uniform-text {
+                                    font-size: 1.2rem;
+                                    color: #6c757d;
+                                    /* équivalent Bootstrap text-muted */
+                                }
+                            </style>
 
 
 
-                            </div>
 
-                            <!-- Navigation -->
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <button id="team-prev"
-                                    class="btn btn-outline-secondary rounded-pill px-4">Précédent</button>
-                                <div class="flex-grow-1 mx-3 progress" style="height:5px;">
-                                    <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
-                                </div>
-                                <button id="team-next" class="btn btn-outline-secondary rounded-pill px-4">Suivant</button>
+                        </div>
+                    @endif
+                @endif
+
+
+
+
+
+
+
+                {{-- =============== CONTACT SECTION (Updated with blue background) =============== --}}
+                <div class="container-fluid py-5 my-5"
+                    style="background: var(--primary); position: relative; border-radius: 30px; overflow: visible;">
+                    <div class="container position-relative">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <h2 class="display-5 fw-bold text-white mb-3">
+                                    Get In Touch To Discuss<br>How We Can Help You
+                                </h2>
+                                <p class="text-white-50 mb-4">
+                                    Ready to start your renewable energy journey? Contact our experts today.
+                                </p>
+                                <a href="{{ url('/contact') }}" class="btn rounded-pill px-4 py-3 fw-semibold"
+                                    style="background: var(--accent); color: #fff;">
+                                    Contact Us
+                                </a>
                             </div>
                         </div>
+
+                        <!-- Image alignée en bas à droite (qui dépasse un peu) -->
+                        <img src="/img/man.png" alt="Contact Image"
+                            style="position: absolute; bottom: -2.17cm; right: 0; width: 500px; height: auto; object-fit: cover; z-index: 2;">
                     </div>
                 </div>
-                <!-- Team End -->
+
+                <!-- ✅ Nouvelle image placée sous la zone bleue -->
+                <div class="text-center" style="margin-top: -190px;"> <!-- remonte encore plus -->
+                    <img src="/img/Rectangle.png" alt="Image sous zone bleue"
+                        style="width: ; height: 90; object-fit: cover;">
+                </div>
+
+
+                <style>
+                    .project-item .card {
+                        border: 2px solid rgb(255, 115, 0);
+                        /* bordure rouge */
+                        border-radius: 10px;
+                        overflow: hidden;
+                        display: flex;
+                        /* layout horizontal */
+                        flex-direction: row;
+                        width: 600px;
+                        /* plus grand */
+                        height: 250px;
+                        margin-right: 15px;
+                    }
+
+                    .project-item .card-body {
+                        flex: 2;
+                        /* texte prend 2/3 de la largeur */
+                        padding: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    .project-item img {
+                        flex: 1;
+                        /* image prend 1/3 de la largeur */
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .project-carousel .owl-stage-outer {
+                        padding-right: 20px;
+                        /* voir partiellement la prochaine carte */
+                    }
+
+                    /* Optionnel : réduire le texte si trop long */
+                    .project-item .card-body p {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 5;
+                        /* nombre de lignes max */
+                        -webkit-box-orient: vertical;
+                    }
+                </style>
 
 
 
-                <!-- Blog Start -->
-                <div class="container-fluid blog py-5 mb-5">
+
+                <!-- Projects Start -->
+                <div class="container-fluid py-5 mb-5">
                     <div class="container">
-                        <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                            <h5 class="text-uppercase fw-bold"
-                                style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
 
-                                Blog & Updates
-                            </h5>
-                            <h1 class="fw-bold">Recent News</h1>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <p class="text-uppercase fw-bold mb-2"
+                                    style="color: var(--accent); font-size: 0.9rem; letter-spacing: 0.1em;">RECENT PROJECTS
+                                </p>
+                                <h2 class="display-6 fw-bold mb-0" style="color: var(--dark);">Recent Projects</h2>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button
+                                    class="btn rounded-circle d-flex align-items-center justify-content-center project-prev"
+                                    style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
+                                    <i class="fas fa-chevron-left" style="color: var(--muted);"></i>
+                                </button>
+                                <button
+                                    class="btn rounded-circle d-flex align-items-center justify-content-center project-next"
+                                    style="width: 50px; height: 50px; background: var(--accent); border: none;">
+                                    <i class="fas fa-chevron-right text-white"></i>
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="row g-4 justify-content-center">
-                            @forelse($blogs->slice(0, 4) as $index => $blog)
-                                <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
-                                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                                        @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
-                                            @if($blog->image)
+                        @if($projects->isNotEmpty())
+                            <div class="owl-carousel project-carousel">
+                                @foreach($projects as $project)
+                                    <div class="project-item">
+                                        <div class="card h-100 shadow-sm">
+                                            <div class="card-body">
+                                                <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
+                                                @if($project->summary)
+                                                    <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
+                                                @endif
+                                            </div>
+                                            @if($project->image)
+                                                <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
+                                            @else
+                                                <div class="d-flex align-items-center justify-content-center bg-secondary"
+                                                    style="flex:1;">
+                                                    <i class="fas fa-image fa-2x text-white"></i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <!-- Projects End -->
+
+                <div class="container-fluid py-5" style="background-color: #ffffff;">
+                    <div class="container">
+                        <div class="text-center mx-auto" style="max-width: 800px;">
+
+                            <!-- Guillemets haut -->
+                            <div class="mb-4">
+                                <img src="/img/iconn.png" alt="Quote" style="width:60px; height:60px;">
+                            </div>
+
+                            <!-- Texte -->
+                            <p style="font-size:1.1rem; color:#333; line-height:1.7;">
+                                “Provider that is revolutionising and redefining the way sustainable energy sources are
+                                harnessed across
+                                the world. Present in 18 countries across Asia, Australia, Europe, Africa and the Americas.”
+                            </p>
+                            <!-- Sous-texte -->
+                            <h4 class="fw-bold mt-4" style="color:#000000;">Willimes Marko</h4>
+                            <!-- Sous-texte -->
+                            <h6 class="fw-bold mt-4" style="color:#F1A601;">Highly Recommended</h6>
+
+                            <!-- Navigation cercles (image) -->
+                            <div class="text-center mt-4">
+                                <img src="/img/carousel.png" alt="Navigation cercles"
+                                    style="max-width: 350px; height: auto;">
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!-- Team Start -->
+                <div class="container-fluid py-5 mb-5 team" style="background-color: #FAFAFA;">
+                    <div class="container">
+                        <!-- Header -->
+                        <div class="text-center mx-auto pb-5" style="max-width: 600px;">
+                            <h5 class="fw-bold" style="color: #fe5716;">OUR CREATIVE TEAM</h5>
+
+                            <h1>Meet Our Experts</h1>
+                        </div>
+
+                        <!-- Carousel / Members -->
+                        <div class="wow fadeIn" data-wow-delay=".5s">
+                            <div id="team-container" class="row g-4">
+
+                                <!-- Exemple de membre (sera remplacé par tes données dynamiques) -->
+                                <div class="col-12 team-member d-flex align-items-center p-4">
+                                    <!-- Image ronde -->
+                                    <div class="flex-shrink-0">
+                                        <img src="https://via.placeholder.com/200" alt="Membre"
+                                            class="img-fluid rounded-circle"
+                                            style="width:200px; height:200px; object-fit:cover;">
+                                    </div>
+
+
+
+                                </div>
+
+                                <!-- Navigation -->
+                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                    <button id="team-prev"
+                                        class="btn btn-outline-secondary rounded-pill px-4">Précédent</button>
+                                    <div class="flex-grow-1 mx-3 progress" style="height:5px;">
+                                        <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
+                                    </div>
+                                    <button id="team-next"
+                                        class="btn btn-outline-secondary rounded-pill px-4">Suivant</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team End -->
+
+
+
+                    <!-- Blog Start -->
+                    <div class="container-fluid blog py-5 mb-5">
+                        <div class="container">
+                            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                                <h5 class="text-uppercase fw-bold"
+                                    style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
+
+                                    Blog & Updates
+                                </h5>
+                                <h1 class="fw-bold">Recent News</h1>
+                            </div>
+
+                            <div class="row g-4 justify-content-center">
+                                @forelse($blogs->slice(0, 4) as $index => $blog)
+                                    <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
+                                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                                            @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
+                                                @if($blog->image)
+                                                    <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
+                                                        style="border-radius: 1rem;">
+                                                @endif
+                                            @else
                                                 <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
                                                     style="border-radius: 1rem;">
                                             @endif
-                                        @else
-                                            <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
-                                                style="border-radius: 1rem;">
-                                        @endif
 
-                                        <div class="card-body" style="border-radius: 1rem;">
-                                            <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
-                                            <h5 class="fw-bold">{{ $blog->title }}</h5>
-                                            <p class="text-muted">
-                                                {{ Str::limit(strip_tags($blog->content), 100) }}
-                                            </p>
-                                            <div class="d-flex align-items-center mt-3">
-                                                <span class="badge px-3 py-2 rounded-pill"
-                                                    style="background-color: #F1A601; color: #000;">
-                                                    {{ $blog->created_at->format('F d, Y') }}
-                                                </span>
+                                            <div class="card-body" style="border-radius: 1rem;">
+                                                <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
+                                                <h5 class="fw-bold">{{ $blog->title }}</h5>
+                                                <p class="text-muted">
+                                                    {{ Str::limit(strip_tags($blog->content), 100) }}
+                                                </p>
+                                                <div class="d-flex align-items-center mt-3">
+                                                    <span class="badge px-3 py-2 rounded-pill"
+                                                        style="background-color: #F1A601; color: #000;">
+                                                        {{ $blog->created_at->format('F d, Y') }}
+                                                    </span>
+                                                </div>
+
                                             </div>
-
                                         </div>
                                     </div>
-                                </div>
-                            @empty
-                                <p class="text-center">Aucun article pour le moment.</p>
-                            @endforelse
-                        </div>
+                                @empty
+                                    <p class="text-center">Aucun article pour le moment.</p>
+                                @endforelse
+                            </div>
 
 
 
-                        <div class="text-center mt-5">
-                            <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
-                                View All News
-                            </a>
+                            <div class="text-center mt-5">
+                                <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
+                                    View All News
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Blog End -->
+                    <!-- Blog End -->
 
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const servicesSection = document.querySelector('.services-section');
-                        if (servicesSection) {
-                            const slides = servicesSection.querySelectorAll('.service-slide');
-                            servicesSection.querySelectorAll('.card').forEach(card => {
-                                card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
-                                card.addEventListener('mouseleave', () => card.style.transform = '');
-                            });
-                            if (slides.length > 1) {
-                                let sIndex = 0;
-                                const prevBtn = servicesSection.querySelector('.services-prev');
-                                const nextBtn = servicesSection.querySelector('.services-next');
-                                const progressBarServices = servicesSection.querySelector('.services-progress-bar');
-                                function showSlide(newIndex) {
-                                    slides[sIndex].classList.add('d-none');
-                                    sIndex = (newIndex + slides.length) % slides.length;
-                                    slides[sIndex].classList.remove('d-none');
-                                    const progress = ((sIndex + 1) / slides.length) * 100;
-                                    progressBarServices.style.width = progress + '%';
-                                }
-                                prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
-                                nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
-                                progressBarServices.style.width = (1 / slides.length * 100) + '%';
-                            }
-                        }
-
-
-                        const teamContainer = document.getElementById('team-container');
-                        const teamPrev = document.getElementById('team-prev');
-                        const teamNext = document.getElementById('team-next');
-                        const teamProgress = document.getElementById('team-progress');
-                        let teamPage = 1;
-                        const teamPerPage = 3;
-
-                        function loadTeam(page = 1) {
-                            fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    teamContainer.innerHTML = '';
-                                    data.data.forEach(member => {
-                                        const col = document.createElement('div');
-                                        col.className = 'col-md-6 mb-4';
-                                        col.innerHTML = `
-                                <div class="d-flex align-items-center team-card p-3 rounded">
-                                    <!-- Avatar avec cercle -->
-                                    <div class="team-photo position-relative me-3">
-                                        <div class="circle-border">
-                                            <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                        </div>
-                                    </div>
-                                    <!-- Infos -->
-                                    <div class="team-info flex-grow-1">
-                                        <h4 class="fw-bold mb-1">${member.name}</h4>
-                                        <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                    </div>
-                                </div>
-                            `;
-                                        teamContainer.appendChild(col);
-                                    });
-
-                                    // Pagination + Progress bar
-                                    teamPage = data.current_page;
-                                    const totalPages = data.last_page;
-                                    teamPrev.disabled = teamPage === 1;
-                                    teamNext.disabled = teamPage === totalPages;
-                                    teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const servicesSection = document.querySelector('.services-section');
+                            if (servicesSection) {
+                                const slides = servicesSection.querySelectorAll('.service-slide');
+                                servicesSection.querySelectorAll('.card').forEach(card => {
+                                    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+                                    card.addEventListener('mouseleave', () => card.style.transform = '');
                                 });
-                        }
-
-
-                        teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
-                        teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
-                        loadTeam();
-
-                        const donut = document.querySelector('.hero-donut');
-                        if (!donut) return;
-                        const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
-                        if (!banners.length) return;
-
-                        let index = 0;
-                        const titleEl = document.querySelector('.hero-title');
-                        const leadEl = document.querySelector('.hero-lead');
-                        const imageEl = donut.querySelector('.donut-image');
-                        const dotsContainer = document.querySelector('.hero-dots');
-                        const progressBar = document.querySelector('.hero-progress-bar');
-
-                        function renderDots() {
-                            dotsContainer.innerHTML = '';
-                            banners.forEach((_, i) => {
-                                const span = document.createElement('span');
-                                span.className = 'dot' + (i === index ? ' active' : '');
-                                span.dataset.index = i;
-                                dotsContainer.appendChild(span);
-                            });
-                        }
-
-                        function update() {
-                            const banner = banners[index] || {};
-                            const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
-                            const summary = banner.summary || '';
-                            const img = banner.image || '/img/default-banner.jpg';
-
-                            titleEl.innerHTML = title;
-                            leadEl.textContent = summary;
-                            imageEl.style.backgroundImage = `url('${img}')`;
-
-                            Array.from(dotsContainer.children).forEach((dot, i) => {
-                                dot.classList.toggle('active', i === index);
-                            });
-                            const progress = ((index + 1) / banners.length) * 100;
-                            progressBar.style.width = progress + '%';
-                        }
-
-                        function goTo(newIndex) {
-                            index = (newIndex + banners.length) % banners.length;
-                            update();
-                        }
-
-                        renderDots();
-                        update();
-
-                        donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
-                        donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
-                        dotsContainer.addEventListener('click', e => {
-                            if (e.target.classList.contains('dot')) {
-                                goTo(parseInt(e.target.dataset.index, 10));
+                                if (slides.length > 1) {
+                                    let sIndex = 0;
+                                    const prevBtn = servicesSection.querySelector('.services-prev');
+                                    const nextBtn = servicesSection.querySelector('.services-next');
+                                    const progressBarServices = servicesSection.querySelector('.services-progress-bar');
+                                    function showSlide(newIndex) {
+                                        slides[sIndex].classList.add('d-none');
+                                        sIndex = (newIndex + slides.length) % slides.length;
+                                        slides[sIndex].classList.remove('d-none');
+                                        const progress = ((sIndex + 1) / slides.length) * 100;
+                                        progressBarServices.style.width = progress + '%';
+                                    }
+                                    prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
+                                    nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
+                                    progressBarServices.style.width = (1 / slides.length * 100) + '%';
+                                }
                             }
+
+
+                            const teamContainer = document.getElementById('team-container');
+                            const teamPrev = document.getElementById('team-prev');
+                            const teamNext = document.getElementById('team-next');
+                            const teamProgress = document.getElementById('team-progress');
+                            let teamPage = 1;
+                            const teamPerPage = 3;
+
+                            function loadTeam(page = 1) {
+                                fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        teamContainer.innerHTML = '';
+                                        data.data.forEach(member => {
+                                            const col = document.createElement('div');
+                                            col.className = 'col-md-6 mb-4';
+                                            col.innerHTML = `
+                                            <div class="d-flex align-items-center team-card p-3 rounded">
+                                                <!-- Avatar avec cercle -->
+                                                <div class="team-photo position-relative me-3">
+                                                    <div class="circle-border">
+                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                    </div>
+                                                </div>
+                                                <!-- Infos -->
+                                                <div class="team-info flex-grow-1">
+                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                </div>
+                                            </div>
+                                        `;
+                                            teamContainer.appendChild(col);
+                                        });
+
+                                        // Pagination + Progress bar
+                                        teamPage = data.current_page;
+                                        const totalPages = data.last_page;
+                                        teamPrev.disabled = teamPage === 1;
+                                        teamNext.disabled = teamPage === totalPages;
+                                        teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                                    });
+                            }
+
+
+                            teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
+                            teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
+                            loadTeam();
+
+                            const donut = document.querySelector('.hero-donut');
+                            if (!donut) return;
+                            const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
+                            if (!banners.length) return;
+
+                            let index = 0;
+                            const titleEl = document.querySelector('.hero-title');
+                            const leadEl = document.querySelector('.hero-lead');
+                            const imageEl = donut.querySelector('.donut-image');
+                            const dotsContainer = document.querySelector('.hero-dots');
+                            const progressBar = document.querySelector('.hero-progress-bar');
+
+                            function renderDots() {
+                                dotsContainer.innerHTML = '';
+                                banners.forEach((_, i) => {
+                                    const span = document.createElement('span');
+                                    span.className = 'dot' + (i === index ? ' active' : '');
+                                    span.dataset.index = i;
+                                    dotsContainer.appendChild(span);
+                                });
+                            }
+
+                            function update() {
+                                const banner = banners[index] || {};
+                                const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
+                                const summary = banner.summary || '';
+                                const img = banner.image || '/img/default-banner.jpg';
+
+                                titleEl.innerHTML = title;
+                                leadEl.textContent = summary;
+                                imageEl.style.backgroundImage = `url('${img}')`;
+
+                                Array.from(dotsContainer.children).forEach((dot, i) => {
+                                    dot.classList.toggle('active', i === index);
+                                });
+                                const progress = ((index + 1) / banners.length) * 100;
+                                progressBar.style.width = progress + '%';
+                            }
+
+                            function goTo(newIndex) {
+                                index = (newIndex + banners.length) % banners.length;
+                                update();
+                            }
+
+                            renderDots();
+                            update();
+
+                            donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
+                            donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
+                            dotsContainer.addEventListener('click', e => {
+                                if (e.target.classList.contains('dot')) {
+                                    goTo(parseInt(e.target.dataset.index, 10));
+                                }
+                            });
                         });
-                    });
-                </script>
+                    </script>
+<style>
+  /* Règles globales de sécurité */
+  html, body { overflow-x: hidden; }
+  img, iframe { max-width: 100%; height: auto; display: block; }
+
+  /* 🔒 Mobile only */
+  @media (max-width: 575.98px) {
+    /* Garder padding vertical, réduire/annuler le padding horizontal */
+    .container, .container-fluid {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+    .row { margin-left: 0 !important; margin-right: 0 !important; }
+    [class^="col-"], [class*=" col-"] {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+    }
+
+    /* HERO / titres longs : éviter les casses horizontales */
+    .hero-title, h1, h2, h3, h4, h5 { word-wrap: break-word; overflow-wrap: anywhere; }
+
+    /* Services / cartes : supprimer largeurs fixes */
+    .services-section .card { width: 100% !important; }
+    .services-section img { max-width: 100%; height: auto; }
+
+    /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
+    .project-item .card {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .project-item img { height: 180px !important; object-fit: cover; }
+
+    /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
+    .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
+      position: static !important;
+      width: 70vw !important;
+      max-width: 320px !important;
+      margin: 16px auto 0 !important;
+    }
+
+    /* Image sous la zone bleue + marge négative */
+    img[alt="Image sous zone bleue"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .text-center[style*="margin-top: -190px"] {
+      margin-top: 0 !important;
+    }
+
+    /* Icônes/visuels autour de la vidéo */
+    .uniform-img { width: 96px !important; height: 96px !important; object-fit: contain; }
+
+    /* Éviter tous débordements horizontaux restants */
+    .hero-aisla, .about-aisla, .blog, .team,
+    .project-carousel, .services-section {
+      overflow-x: hidden !important;
+    }
+
+    @media (min-width: 576px) {
+  .project-item .card { width: 600px; }
+}
+  }
+</style>
 
 @endsection

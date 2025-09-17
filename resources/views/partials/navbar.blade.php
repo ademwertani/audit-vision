@@ -50,16 +50,17 @@
             @if(!empty($about->logo))
               <img src="{{ asset('storage/' . ltrim($about->logo, '/')) }}" alt="Aisla Nova">
             @else
-              <img src="{{ asset('img/logo-aisla.png') }}" alt="Aisla Nova">
+              <img src="{{ asset('/img/png.png') }}" alt="Aisla Nova">
             @endif
           </a>
 
+
           {{-- Toggler --}}
-          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#navbarCollapseNew" aria-controls="navbarCollapseNew"
-                  aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+<button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapseNew" aria-controls="navbarCollapseNew"
+        aria-expanded="false" aria-label="Toggle navigation">
+  <img src="{{ asset('img/but.png') }}" alt="Menu" width="25" height="25">
+</button>
 
           {{-- Links --}}
           <div class="collapse navbar-collapse" id="navbarCollapseNew">
