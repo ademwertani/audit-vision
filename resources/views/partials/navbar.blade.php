@@ -59,7 +59,7 @@
 <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarCollapseNew" aria-controls="navbarCollapseNew"
         aria-expanded="false" aria-label="Toggle navigation">
-  <img src="{{ asset('img/but.png') }}" alt="Menu" width="25" height="25">
+  <img src="{{ asset('img/menu.png') }}" alt="Menu" width="25" height="25">
 </button>
 
           {{-- Links --}}
