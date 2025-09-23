@@ -5,49 +5,65 @@
 @section('content')
 
     {{-- =============== HERO (Updated to match Figma design) =============== --}}
-    @php
-        $hero = optional($banners)->first();
-        $heroTitle = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
-        $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
-        $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
-        $bannerData = $banners->map(fn($b) => [
-            'title' => $b->title,
-            'summary' => $b->summary,
-            'image' => !empty($b->image) ? asset('storage/' . ltrim($b->image, '/')) : asset('img/default-banner.jpg'),
-        ]);
-    @endphp
+@php
+    $hero = optional($banners)->first();
+    $heroTitle   = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
+    $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
 
-    <div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                {{-- Left copy --}}
-                <div class="col-lg-6">
-                    <div class="hero-copy">
-                        <span class="tag text-accent fw-bold d-inline-block mb-2">Aisla Nova</span>
-                        <h1 class="hero-title">{!! nl2br(e($heroTitle)) !!}</h1>
-                        <p class="hero-lead">{{ $heroSummary }}</p>
-                        <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">Get Started</a>
+    // Si tu as une description longue en base, elle sera utilisée dans la "boîte verre".
+    // Sinon on retombe sur le summary pour ne rien casser.
+    $heroDesc = trim($hero->description ?? '') ?: $heroSummary;
 
-                        {{-- Progress indicator --}}
-                        <div class="hero-dots mt-4" aria-hidden="true"></div>
-                        <div class="hero-progress mt-2" aria-hidden="true">
-                            <div class="hero-progress-bar"></div>
-                        </div>
+    $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
+    $bannerData = $banners->map(fn($b) => [
+        'title'   => $b->title,
+        'summary' => $b->summary,
+        'image'   => !empty($b->image) ? asset('storage/' . ltrim($b->image, '/')) : asset('img/default-banner.jpg'),
+    ]);
+@endphp
+
+<div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
+    <div class="hero-overlay"></div>
+
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            {{-- Left copy --}}
+            <div class="col-lg-6">
+                <div class="hero-copy">
+                    <h1 class="hero-title">{!! nl2br(e($heroTitle)) !!}</h1>
+
+                    {{-- petit sous-titre (ligne fine) --}}
+                    <p class="hero-sub mb-3">{{ $heroSummary }}</p>
+
+                    {{-- encart “verre” (paragraphe long) --}}
+                  
+
+                    <div class="d-flex gap-3 flex-wrap justify-content-center hero-buttons">
+                        <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">
+                            Get Started
+                        </a>
+                        <a href="{{ url('/video') }}" class="btn btn-dark-ghost rounded-pill px-4 py-3">
+                            <i class="fas fa-play me-2"></i> Watch Full Video
+                        </a>
                     </div>
-                </div>
 
-                {{-- Right donut visual --}}
-                <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-                    <div class="hero-donut" data-index="0" data-banners='@json($bannerData)'>
-                        <div class="donut-arc"></div>
-                        <div class="donut-image" style="background-image: url('{{ $heroImg }}');"></div>
-                        <button class="hero-nav prev"><i class="fas fa-chevron-left"></i></button>
-                        <button class="hero-nav next"><i class="fas fa-chevron-right"></i></button>
+                    {{-- Dots & progress --}}
+                    <div class="hero-dots mt-4" aria-hidden="true"></div>
+                    <div class="hero-progress mt-2" aria-hidden="true">
+                        <div class="hero-progress-bar"></div>
                     </div>
                 </div>
             </div>
+
+            {{-- Right donut visual --}}
+            
         </div>
     </div>
+
+    {{-- bande courbe foncée en bas (comme sur la capture) --}}
+    <div class="hero-curve" aria-hidden="true"></div>
+</div>
+
 
 
 
