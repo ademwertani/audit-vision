@@ -77,47 +77,256 @@
             </h2>
         </div>
     </section>
-    <!-- Projects Start -->
-    <div class="container-fluid py-5 mb-5">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="d-flex gap-2">
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-prev"
-                        style="width: 50px; height: 50px; border: 2px solid var(--border); background: transparent;">
-                        <i class="fas fa-chevron-left" style="color: var(--muted);"></i>
-                    </button>
-                    <button class="btn rounded-circle d-flex align-items-center justify-content-center project-next"
-                        style="width: 50px; height: 50px; background: var(--accent); border: none;">
-                        <i class="fas fa-chevron-right text-white"></i>
-                    </button>
-                </div>
-            </div>
-            @if($projects->isNotEmpty())
-                <div class="owl-carousel project-carousel">
-                    @foreach($projects as $project)
-                        <div class="project-item">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $project->name }}</h4>
-                                    @if($project->summary)
-                                        <p class="mb-0" style="color: var(--muted);">{{ $project->summary }}</p>
-                                    @endif
-                                </div>
-                                @if($project->image)
-                                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="flex:1;">
-                                        <i class="fas fa-image fa-2x text-white"></i>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+<!-- Projects Start -->
+<div class="container-fluid py-5 mb-5">
+  <div class="container">
+    <div class="projects-grid">
+      {{-- ======= P1 : Grand projet (haut gauche) ======= --}}
+      @if(($p1 = $projects->get(0)))
+        <a href="{{ route('projects.show', $p1->id) }}"
+           class="proj-card proj-card--lg text-decoration-none grid-p1">
+          @if($p1->image)
+            <img src="{{ asset('storage/' . $p1->image) }}" alt="{{ $p1->name }}">
+          @endif
+          <div class="proj-overlay">
+            <span class="pill pill--muted">
+              {{ $p1->address ?? $p1->location ?? $p1->name }}
+            </span>
+            <span class="pill pill--action">
+              <i class="fas fa-play me-2"></i> Watch Project Full Video
+            </span>
+          </div>
+          <span class="stretched-link" aria-label="Voir {{ $p1->name }}"></span>
+        </a>
+      @endif
+      {{-- ======= Bloc statique : Bannière verte (haut droite) ======= --}}
+      <div class="promo-card grid-promo">
+  <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
+    Proud to serve the Pennsylvania community<br>
+    with our top-notch solar energy solutions.
+  </p>
+  <span class="promo-dot"></span>
+</div>
+      {{-- ======= P2 : Projet (bas gauche) ======= --}}
+      @if(($p2 = $projects->get(1)))
+        <a href="{{ route('projects.show', $p2->id) }}"
+           class="proj-card proj-card--md text-decoration-none grid-p2">
+          @if($p2->image)
+            <img src="{{ asset('storage/' . $p2->image) }}" alt="{{ $p2->name }}">
+          @endif
+          <div class="proj-overlay">
+            <span class="pill pill--muted">
+              {{ $p2->address ?? $p2->location ?? $p2->name }}
+            </span>
+            <span class="pill pill--action">
+              <i class="fas fa-play me-2"></i> Watch Project Full Video
+            </span>
+          </div>
+          <span class="stretched-link" aria-label="Voir {{ $p2->name }}"></span>
+        </a>
+      @endif
+      {{-- ======= P3 : Projet (milieu/droite, plus haut) ======= --}}
+      @if(($p3 = $projects->get(2)))
+        <a href="{{ route('projects.show', $p3->id) }}"
+           class="proj-card proj-card--md text-decoration-none grid-p3">
+          @if($p3->image)
+            <img src="{{ asset('storage/' . $p3->image) }}" alt="{{ $p3->name }}">
+          @endif
+          <div class="proj-overlay">
+            <span class="pill pill--muted">
+              {{ $p3->address ?? $p3->location ?? $p3->name }}
+            </span>
+            <span class="pill pill--action">
+              <i class="fas fa-play me-2"></i> Watch Project Full Video
+            </span>
+          </div>
+          <span class="stretched-link" aria-label="Voir {{ $p3->name }}"></span>
+        </a>
+      @endif
+      {{-- ======= Bloc statique : Stats (sous le 3e projet) ======= --}}
+      <div class="stats-card grid-stats">
+        <h5 class="text-center mb-4">We have successfully powered over</h5>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-number">87</div>
+            <div class="stat-label">Homes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">32</div>
+            <div class="stat-label">Companies</div>
+          </div>
+          <div class="stat stat--accent">
+            <div class="stat-number">40</div>
+            <div class="stat-label">Farms</div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Projects End -->
+  </div>
+</div>
+<style>
+:root{
+  --radius: 18px;
+  --gap: 28px;                 /* espace entre les cartes */
+  --accent: #7CAE2A;
+  --primary: #2d3281;
+  --muted: #e9eef3;
+}
+/* ====== GRID LAYOUT AVEC ZONES ====== */
+.projects-grid{
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;     /* léger avantage à gauche (comme la maquette) */
+  gap: var(--gap);
+  grid-template-areas:
+    "p1    promo"   /* 1ère rangée : grand visuel + petite bannière */
+    "p2    p3"      /* 2e rangée : P2 à gauche, P3 remonte à droite */
+    ".     stats";  /* 3e rangée : stats sous le 3e projet */
+}
+/* Raccorder les éléments aux zones */
+.grid-p1   { grid-area: p1; }
+.grid-promo{ grid-area: promo; }
+.grid-p2   { grid-area: p2; }
+.grid-p3   { grid-area: p3; }
+.grid-stats{ grid-area: stats; }
+/* ====== CARTES ====== */
+.proj-card, .promo-card{
+  min-height: 240px;                 /* cartes plus petites et espacées */
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  background: #fff;
+}
+.stats-card{
+  min-height: 240px;                 /* cartes plus petites et espacées */
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  background: #fff;
+
+}
+/* hauteurs spécifiques pour coller au visuel */
+.proj-card--lg{ min-height: 360px; }  /* grand bloc (haut gauche) */
+.grid-promo    { min-height: 120px; } /* ✅ bannière verte moins haute */
+.grid-p3       { min-height: 300px; } /* 3e projet plus haut visuellement */
+.grid-stats    { min-height: 150px; }
+/* ====== IMAGES ====== */
+.proj-card img{
+  width:100%; height:100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+.proj-card:hover img{ transform: scale(1.04); }
+/* ====== OVERLAY + PILLS ====== */
+.proj-overlay{
+  position:absolute; inset:auto 0 0 0;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+}
+.pill{
+  border-radius:999px; padding:8px 12px;
+  font-size:.8rem; display:inline-flex; align-items:center; gap:6px;
+}
+.pill--muted{ background:rgba(255,255,255,.9); color:#2c313a; }
+.pill--action{ background:var(--accent); color:#fff; }
+/* ====== PROMO ====== */
+.promo-card{
+  background:#69bb36; color:#fff;
+  width:700px; height:180px;
+  padding:20px; display:flex; align-items:center; justify-content:center; text-align:center;
+}
+.promo-dot{
+  width:35px; height:30px; background:#1d2a78; border-radius:4px;
+  position:absolute; bottom:0px; right:0px;
+}
+/* ====== STATS ====== */
+.stats-card{ padding:20px; margin-top: -200px;margin-bottom: 400px;}
+.stats-row{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; }
+.stat{ background:#e8eef7; padding:12px; border-radius:10px; text-align:center; }
+.stat--accent{ background:#e5f5e2; }
+.stat-number{ font-size:22px; font-weight:700; color:var(--primary); }
+.stat--accent .stat-number{ color: var(--accent); }
+.stat-label{ font-size:13px; color:#3f4759; }
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px){
+  .projects-grid{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "p1"
+      "promo"
+      "p2"
+      "p3"
+      "stats";
+  }
+  .proj-card--lg{ min-height: 300px; }
+  .grid-p3{ min-height: 260px; }
+}
+/* Remonter uniquement la 3e carte (P3) */
+.grid-p3 {
+  margin-top: -240px;
+  margin-bottom: 240px; /* 🔥 ajuste la valeur selon la hauteur voulue */
+}
+</style>
+<!-- Projects End -->
+<!-- =============== ABOUT (comme la maquette) =============== -->
+<section class="about-fei pt-2 pb-5">
+
+
+
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <!-- Texte à gauche -->
+      <div class="col-lg-6">
+        <p class="about-kicker mb-2">A PROPOS</p>
+        <h2 class="about-title mb-3">Qui sommes nous?</h2>
+        <p class="about-text mb-4">
+          France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique<br>
+          Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et
+          installations industrielles. Notre mission est claire&nbsp;: améliorer la performance
+          énergétique, réduire les déperditions de chaleur et optimiser le confort tout en
+          contribuant à la maîtrise des coûts énergétiques.
+        </p>
+        <p class="about-subtitle mb-3">NOS VALEURS</p>
+        <!-- Valeurs -->
+<ul class="about-values list-unstyled d-flex flex-wrap gap-4 mb-4">
+  <li class="about-value">
+    <img src="{{ asset('img/icons/expertise.png') }}" alt="Expertise" class="value-icon">
+    <span class="label">L’expertise</span>
+  </li>
+  <li class="about-value">
+    <img src="{{ asset('img/icons/qualite.png') }}" alt="Qualité" class="value-icon">
+    <span class="label">La qualité</span>
+  </li>
+  <li class="about-value">
+    <img src="{{ asset('img/icons/innovation.png') }}" alt="Innovation" class="value-icon">
+    <span class="label">L’innovation</span>
+  </li>
+  <li class="about-value">
+    <img src="{{ asset('img/icons/delais.png') }}" alt="Délais" class="value-icon">
+    <span class="label">Respect des délais</span>
+  </li>
+</ul>
+        <!-- Bouton -->
+        <a href="{{ url('/about') }}" class="btn about-btn">
+          En savoir plus
+          <span class="btn-icon" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <!-- Image à droite avec plaque bleue derrière -->
+      <div class="col-lg-6">
+        <div class="about-media">
+          <img
+            src="{{ asset('img/afr.png') }}"
+            alt="Nos actions"
+            class="about-img"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     <div class="container-fluid py-5 my-5" style="background: var(--light);">
         <div class="container services-section">
@@ -133,7 +342,7 @@
                                         style="transition: transform .2s; background-color: {{ $service->image ? '#fff' : '#555555' }};">
                                         @if($service->image)
                                             <img src="{{ asset('storage/' . ltrim($service->image, '/')) }}" alt="{{ $service->name }}"
-                                                class="w-100" style="height: 200px; object-fit: cover;">
+                                                class="w-100" style="height: 500px; object-fit: cover;">
                                         @else
                                             <div class="d-flex align-items-center justify-content-center" style="height: 200px;">
                                                 <i class="fas fa-image fa-3x text-white-50"></i>

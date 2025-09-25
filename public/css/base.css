@@ -443,3 +443,154 @@ main,
 .hero-aisla .hero-buttons {
     justify-content: flex-start; /* aligne les boutons avec le texte */
 }
+/* ================== THEME ================== */
+:root{
+  --about-green: #69bb36;   /* vert des pastilles/bouton/titre */
+  --about-navy:  #2d2f67;   /* plaque bleue derrière l'image */
+  --about-text:  #000000;   /* texte gris du paragraphe */
+  --about-white: #ffffff;
+  --about-radius: 18px;
+}
+
+/* ================== TEXTE ================== */
+.about-fei .about-kicker{
+  color: var(--about-green);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.about-fei .about-title{
+  color: var(--about-green);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 40px);  /* taille comme la maquette */
+  line-height: 1.1;
+  margin: 0;
+}
+
+
+.about-fei .about-text{
+  color: var(--about-text);
+}
+
+.about-fei .about-subtitle{
+  color: var(--about-green);
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+/* ================== VALEURS ================== */
+.about-values .about-value{
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  min-width: 220px; /* pour garder l’espacement comme l’image */
+}
+
+.shape{
+  width: 48px; height: 48px;
+  display: inline-block;
+}
+
+/* Hexagone plein vert (SVG pur via background) */
+.shape-hex{
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="25,5 75,5 100,50 75,95 25,95 0,50"/></svg>') no-repeat center/contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="25,5 75,5 100,50 75,95 25,95 0,50"/></svg>') no-repeat center/contain;
+  background: var(--about-green);
+  border-radius: 0; /* pas d’arrondi sur l’hexagone */
+}
+
+.shape-dot{
+  background: var(--about-green);
+  border-radius: 999px;
+}
+
+.about-values .label{
+  color: #cbd5df;
+  font-weight: 600;
+}
+
+/* ================== BOUTON ================== */
+.about-btn{
+  background: var(--about-green);
+  color: #0f1a10;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  box-shadow: 0 10px 24px rgba(105,187,54,.35);
+  text-decoration: none;
+}
+
+.about-btn .btn-icon{
+  width: 36px; height: 36px;
+  line-height: 36px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  display: inline-grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.about-btn:hover{
+  color: #0f1a10;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(105,187,54,.45);
+}
+
+/* ================== MEDIA (image + plaque) ================== */
+.about-media{
+  position: relative;
+  display: inline-block;
+  border-radius: 20px; /* arrondi identique */
+  isolation: isolate;
+}
+
+/* Cadre bleu derrière */
+.about-media::before{
+  content: "";
+  position: absolute;
+  top: -12px;    /* décalage vers le haut */
+  right: -12px;   /* décalage à gauche */
+  left: 12px;   /* décale un peu la largeur pour donner l’effet */
+  bottom: 12px;  /* décale en bas */
+  background: #2d2f67; /* bleu foncé */
+  border-radius: 20px;
+  z-index: 0;
+}
+
+/* L’image au-dessus */
+.about-media img{
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.35); /* ombre comme la maquette */
+}
+
+/* Liseré/ombre en pointillés simulés (optionnel – effet “grain”) */
+.about-media::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 -12px 0;
+  height: 10px;
+  border-radius: 0 0 var(--about-radius) var(--about-radius);
+  box-shadow: 0 18px 20px rgba(0,0,0,.35);
+  z-index: 0;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 991.98px){
+  .about-media::before{
+    inset: -12px -12px auto auto;
+    height: 78%;
+  }
+  .about-values .about-value{
+    min-width: 46%;
+  }
+}
