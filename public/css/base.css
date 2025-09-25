@@ -120,18 +120,12 @@ main,
     background-color: #7CAE2A; /* vert plus foncé au hover */
     color: #fff;
 }
-/* Navbar background + shadow */
-.header-aisla {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-}
-
 
 
 
 .btn-accent{
   background:#7CAE2A; border:none; color:#ffffff; font-weight:700;
-  box-shadow:0 10px 22px rgba(53,194,74,.35);
+
 }
 .btn-accent:hover{ filter:brightness(.95); }
 
@@ -173,11 +167,7 @@ main,
     background-color: #7cb342;
     color: #fff;
 }
-/* Augmenter la hauteur de toute la navbar */
-.navbar {
-    padding-top: 1.5rem !important;
-    padding-bottom: 2rem !important;
-}
+
 
 /* Les liens aussi prennent plus de place */
 .navbar .nav-link {
@@ -307,10 +297,7 @@ main,
   line-height: 1.6;
 }
 
-.hero-buttons {
-  margin-top: auto; /* pousse les boutons en bas */
-  justify-content: center;
-}
+
 /* Bouton vert (Get Started) */
 .btn-green {
   background: #7CAE2A;
@@ -337,13 +324,6 @@ main,
 .btn-outline-light:hover {
   background: #fff;
   color: #333;
-}
-/* Groupe des boutons : centré et aéré */
-.hero-buttons {
-  margin-top: auto;         /* pousse les boutons vers le bas */
-  display: flex;
-  justify-content: center;  /* centre horizontal */
-  gap: 14px;
 }
 
 
@@ -419,30 +399,47 @@ main,
     color: #1E2452;        /* bleu foncé */
     font-weight: 300;
 }
-/* ===== Hero Title ===== */
-.hero-aisla .hero-title {
-    font-family: 'Anuphan', sans-serif;  /* police personnalisée */
-    font-size: 3rem;                     /* taille du titre */
-    font-weight: 700;                     /* gras */
-    color: #ffffff;                       /* couleur du texte */
-    line-height: 1.2;
-    margin-bottom: 2rem;
-    text-align: right;                     /* alignement horizontal */
+.hero-aisla .hero-copy {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;   /* largeur du bloc de texte */
+    width: 90%;         /* responsive */
+    text-align: left;   /* chaque ligne commence au même niveau à gauche */
+    padding: 0 1rem;
+    flex-direction: column;       /* permet d’empiler le texte et les boutons */
+    justify-content: space-between; /* texte en haut, boutons en bas */
+
+}
+.hero-aisla .hero-buttons {
+    display: flex;
+    gap: 14rem;
+
+    margin-left: 18rem;
+    margin-top: 30rem;            /* espace avec le texte */
 }
 
-/* ===== Hero Summary ===== */
+/* Hero Title */
+.hero-aisla .hero-title {
+    font-family: 'Anuphan', sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+/* Hero Summary */
 .hero-aisla .hero-sub {
     font-family: 'Anuphan', sans-serif;
-    font-size: 1.1rem;                   /* taille du texte */
-    color: rgba(255, 255, 255, 0.85);    /* couleur légèrement transparente */
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
-    margin-bottom: 2rem;                  /* espace sous le résumé */
-    text-align: top right;                     /* alignement horizontal */
+    margin-bottom: 2rem;
 }
 
-/* ===== Positionnement global du hero-copy ===== */
-.hero-aisla .hero-copy {
-    padding-top: 100px;    /* décale le bloc vers le bas si besoin */
-    padding-left: 110;      /* ajuster à gauche */
-    max-width: 800px;     /* largeur max du texte pour ne pas s'étaler */
+/* Boutons centrés horizontalement sous le texte */
+.hero-aisla .hero-buttons {
+    justify-content: flex-start; /* aligne les boutons avec le texte */
 }
