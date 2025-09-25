@@ -5,203 +5,96 @@
 @section('content')
 
     {{-- =============== HERO (Updated to match Figma design) =============== --}}
-@php
-    $hero = optional($banners)->first();
-    $heroTitle   = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
-    $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
+    @php
+        $hero = optional($banners)->first();
+        $heroTitle = trim($hero->title ?? '') ?: "Energize Society\nReliable Energy";
+        $heroSummary = trim($hero->summary ?? '') ?: 'Practical renewable energy technology that reduces costs and helps the environment';
 
-    // Si tu as une description longue en base, elle sera utilisée dans la "boîte verre".
-    // Sinon on retombe sur le summary pour ne rien casser.
-    $heroDesc = trim($hero->description ?? '') ?: $heroSummary;
+        // Si tu as une description longue en base, elle sera utilisée dans la "boîte verre".
+        // Sinon on retombe sur le summary pour ne rien casser.
+        $heroDesc = trim($hero->description ?? '') ?: $heroSummary;
 
-    $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
-    $bannerData = $banners->map(fn($b) => [
-        'title'   => $b->title,
-        'summary' => $b->summary,
-        'image'   => !empty($b->image) ? asset('storage/' . ltrim($b->image, '/')) : asset('img/default-banner.jpg'),
-    ]);
-@endphp
+        $heroImg = !empty($hero?->image) ? asset('storage/' . ltrim($hero->image, '/')) : asset('img/default-banner.jpg');
+        $bannerData = $banners->map(fn($b) => [
+            'title' => $b->title,
+            'summary' => $b->summary,
+            'image' => !empty($b->image) ? asset('storage/' . ltrim($b->image, '/')) : asset('img/default-banner.jpg'),
+        ]);
+    @endphp
 
-<div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
-    <div class="hero-overlay"></div>
+    <div class="hero-aisla" style="--hero-bg-img: url('{{ $heroImg }}');">
+        <div class="hero-overlay"></div>
+        
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-copy">
+                        <h1 class="hero-title">{!! nl2br(e($heroTitle)) !!}</h1>
+                        <p class="hero-sub mb-3">{{ $heroSummary }}</p>
 
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            {{-- Left copy --}}
-            <div class="col-lg-6">
-                <div class="hero-copy">
-                    <h1 class="hero-title">{!! nl2br(e($heroTitle)) !!}</h1>
-
-                    {{-- petit sous-titre (ligne fine) --}}
-                    <p class="hero-sub mb-3">{{ $heroSummary }}</p>
-
-                    {{-- encart “verre” (paragraphe long) --}}
-                  
-
-                    <div class="d-flex gap-3 flex-wrap justify-content-center hero-buttons">
-                        <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">
-                            Get Started
-                        </a>
-                        <a href="{{ url('/video') }}" class="btn btn-dark-ghost rounded-pill px-4 py-3">
-                            <i class="fas fa-play me-2"></i> Watch Full Video
-                        </a>
-                    </div>
-
-                    {{-- Dots & progress --}}
-                    <div class="hero-dots mt-4" aria-hidden="true"></div>
-                    <div class="hero-progress mt-2" aria-hidden="true">
-                        <div class="hero-progress-bar"></div>
+                        <div class="d-flex gap-3 flex-wrap justify-content-center hero-buttons">
+                            <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">
+                                Get Started
+                            </a>
+                            <a href="{{ url('/video') }}" class="btn btn-dark-ghost rounded-pill px-4 py-3">
+                                <i class="fas fa-play me-2"></i> Watch Full Video
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {{-- Right donut visual --}}
-            
         </div>
+
+        {{-- Flèches navigation --}}
+        <button class="hero-arrow hero-arrow-left">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="hero-arrow hero-arrow-right">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="hero-curve" aria-hidden="true"></div>
     </div>
+    <script>
+        const banners = @json($bannerData);
+        let currentIndex = 0;
 
-    {{-- bande courbe foncée en bas (comme sur la capture) --}}
-    <div class="hero-curve" aria-hidden="true"></div>
-</div>
+        function updateHero(index) {
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSub = document.querySelector('.hero-sub');
+            document.querySelector('.hero-aisla').style.setProperty(
+                '--hero-bg-img',
+                `url('${banners[index].image}')`
+            );
+            heroTitle.innerHTML = banners[index].title.replace(/\n/g, "<br>");
+            heroSub.textContent = banners[index].summary;
+        }
 
+        document.querySelector('.hero-arrow-left').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + banners.length) % banners.length;
+            updateHero(currentIndex);
+        });
 
+        document.querySelector('.hero-arrow-right').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % banners.length;
+            updateHero(currentIndex);
+        });
+    </script>
 
-
-    {{-- =============== ABOUT SECTION (Updated with statistics) =============== --}}
-    <section class="about-aisla py-5 my-5">
-        <div class="container pt-4 pt-lg-5">
-
-
-            <!-- 🔹 Bloc avec 3 images + texte dessous -->
-            <div class="row mb-5 text-center">
-                <div class="col-md-4">
-                    <div class="about-feature">
-                        <img src="{{ asset('/img/lamp.png') }}" alt="Feature 1" class="img-fluid mb-3"
-                            style="max-height:100px;">
-                        <p class="text-muted small">
-                            Already have an idea of what you’re <br>
-                            looking for and don’t want to waste <br>
-                            any more time
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="about-feature">
-                        <img src="{{ asset('/img/flash.png') }}" alt="Feature 2" class="img-fluid mb-3"
-                            style="max-height:100px;">
-                        <p class="text-muted small">
-                            Already have an idea of what you’re <br>
-                            looking for and don’t want to waste <br>
-                            any more time
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="about-feature">
-                        <img src="{{ asset('/img/key.png') }}" alt="Feature 3" class="img-fluid mb-3"
-                            style="max-height:100px;">
-                        <p class="text-muted small">
-                            Already have an idea of what you’re <br>
-                            looking for and don’t want to waste <br>
-                            any more time
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 🔹 Bloc About principal -->
-            <div class="row g-5 align-items-center"> <!-- LEFT: Image (cercle/logo) -->
-
-                <link rel="stylesheet" href="{{ asset('css/custom-donut.css') }}">
-
-                <div class="col-lg-6">
-                    <div class="about-donut-wrap">
-
-                        <div class="donut-wrapper">
-                            <div class="donut">
-                                <div class="donut-inner">
-                                    @if($about?->logo)
-                                        <img src="{{ asset('storage/' . $about->logo) }}"
-                                            alt="{{ $about->heading ?? 'About logo' }}">
-                                    @endif
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
-
-
-
-                <!-- RIGHT: Texte agrandi -->
-                <div class="col-lg-6">
-
-                    <!-- Petit texte jaune -->
-                    <div class="fw-bold mb-3 text-uppercase" style="color: #F1A601; font-size: 1rem; letter-spacing: 1px;">
-                        Welcome to Aisla Nova
-                    </div>
-
-
-                    <!-- Titre -->
-                    <h1 class="fw-bold mb-4" style="color: #000; font-size: 3rem; line-height: 1.2;">
-                        Energize Society <br> Reliable Energy
-
-                    </h1>
-
-                    <!-- Paragraphe gris clair -->
-                    <p class="text-muted mb-5" style="font-size: 1.1rem;">
-                        Leading renewable energy solutions provider that is revolutionising and redefining
-                        the way sustainable energy sources are harnessed across the world. Present in 18
-                        countries across Asia, Australia, Europe, Africa and the Americas, Vetzat is powering.
-                    </p>
-
-
-                    <!-- Statistiques -->
-                    <div class="row g-4">
-
-                        <!-- Bloc 1 -->
-                        <div class="col-md-6 d-flex align-items-center">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                style="width: 60px; height: 60px; background: #F1A601; color: #fff; font-size: 2rem;">
-                                <i class="bi bi-award-fill"></i>
-                            </div>
-                            <div>
-                                <h4 class="fw-bold mb-0" style="font-size: 2rem;">18+</h4>
-                                <small class="text-muted" style="font-size: 1rem;">Years Experience</small>
-                            </div>
-                        </div>
-
-                        <!-- Bloc 2 -->
-                        <div class="col-md-6 d-flex align-items-center">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                style="width: 60px; height: 60px; background: #F1A601; color: #fff; font-size: 2rem;">
-                                <i class="bi bi-graph-up-arrow"></i>
-                            </div>
-                            <div>
-                                <h4 class="fw-bold mb-0" style="font-size: 2rem;">12M</h4>
-                                <small class="text-muted" style="font-size: 1rem;">Successful Projects</small>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-
+    {{-- Section après le Hero --}}
+    <section class="after-hero-text py-5">
+        <div class="container">
+            <h2 class="big-title">
+                <div class="text-green text-start">Leading the Way in</div>
+                <div class="text-darkblue text-center">Solar Energy Solutions</div>
+            </h2>
         </div>
     </section>
 
 
-
-
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     <div class="container-fluid py-5 my-5" style="background: var(--light);">
@@ -274,7 +167,7 @@
                 <!-- Nouveau titre orangé souligné -->
                 <h6 style="color: #b90606; font-size: 1rem; letter-spacing: 1px; text-align: center;">
                     Solutions <span style="border-bottom: 2px solid #b90606;">of Solar</span> Energy
-                </h6>            
+                </h6>
             </div>
 
             <div class="position-relative">
@@ -303,61 +196,61 @@
                     @if($embed)
                         <div class="container-fluid py-5 my-5">
                             <div class="container">
-    <div class="text-center mb-5">
-        <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
-            Produce Your Own Clean Save<br>Ourthe Environment
-        </h2>
-    </div>
+                                <div class="text-center mb-5">
+                                    <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
+                                        Produce Your Own Clean Save<br>Ourthe Environment
+                                    </h2>
+                                </div>
 
-    <div class="row g-4 align-items-center">
-        <!-- LEFT image -->
-        <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
-            <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
-            <h5 class="uniform-title">Battery Storage Solutions</h5>
-            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                generate significant energy.</p>
-        </div>
+                                <div class="row g-4 align-items-center">
+                                    <!-- LEFT image -->
+                                    <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
+                                        <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
+                                        <h5 class="uniform-title">Battery Storage Solutions</h5>
+                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                                            generate significant energy.</p>
+                                    </div>
 
-        <!-- VIDEO -->
-        <div class="col-lg-6">
-            <div class="ratio ratio-16x9">
-                <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
-            </div>
-        </div>
+                                    <!-- VIDEO -->
+                                    <div class="col-lg-6">
+                                        <div class="ratio ratio-16x9">
+                                            <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
 
-        <!-- RIGHT image -->
-        <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
-            <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
-            <h5 class="uniform-title">Commercial Solar Energy</h5>
-            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                generate significant energy.</p>
-        </div>
-    </div>
+                                    <!-- RIGHT image -->
+                                    <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
+                                        <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
+                                        <h5 class="uniform-title">Commercial Solar Energy</h5>
+                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                                            generate significant energy.</p>
+                                    </div>
+                                </div>
 
-    <!-- ROW BELOW VIDEO -->
-    <div class="row g-4 mt-4 text-center">
-        <div class="col-lg-4 col-md-6">
-            <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
-            <h5 class="uniform-title">Boost Green Credentials</h5>
-            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                generate significant energy.</p>
-        </div>
+                                <!-- ROW BELOW VIDEO -->
+                                <div class="row g-4 mt-4 text-center">
+                                    <div class="col-lg-4 col-md-6">
+                                        <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
+                                        <h5 class="uniform-title">Boost Green Credentials</h5>
+                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                                            generate significant energy.</p>
+                                    </div>
 
-        <div class="col-lg-4 col-md-6">
-            <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
-            <h5 class="uniform-title">Industrial Solar Energy</h5>
-            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                generate significant energy.</p>
-        </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
+                                        <h5 class="uniform-title">Industrial Solar Energy</h5>
+                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                                            generate significant energy.</p>
+                                    </div>
 
-        <div class="col-lg-4 col-md-6">
-            <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
-            <h5 class="uniform-title">Scale With New Technologies</h5>
-            <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                generate significant energy.</p>
-        </div>
-    </div>
-</div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
+                                        <h5 class="uniform-title">Scale With New Technologies</h5>
+                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
+                                            generate significant energy.</p>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <!-- STYLES -->
@@ -715,20 +608,20 @@
                                             const col = document.createElement('div');
                                             col.className = 'col-md-6 mb-4';
                                             col.innerHTML = `
-                                            <div class="d-flex align-items-center team-card p-3 rounded">
-                                                <!-- Avatar avec cercle -->
-                                                <div class="team-photo position-relative me-3">
-                                                    <div class="circle-border">
-                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                    <div class="d-flex align-items-center team-card p-3 rounded">
+                                                        <!-- Avatar avec cercle -->
+                                                        <div class="team-photo position-relative me-3">
+                                                            <div class="circle-border">
+                                                                <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                            </div>
+                                                        </div>
+                                                        <!-- Infos -->
+                                                        <div class="team-info flex-grow-1">
+                                                            <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                            <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- Infos -->
-                                                <div class="team-info flex-grow-1">
-                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                </div>
-                                            </div>
-                                        `;
+                                                `;
                                             teamContainer.appendChild(col);
                                         });
 
@@ -802,68 +695,106 @@
                             });
                         });
                     </script>
-<style>
-  /* Règles globales de sécurité */
-  html, body { overflow-x: hidden; }
-  img, iframe { max-width: 100%; height: auto; display: block; }
+                    <style>
+                        /* Règles globales de sécurité */
+                        html,
+                        body {
+                            overflow-x: hidden;
+                        }
 
-  /* 🔒 Mobile only */
-  @media (max-width: 575.98px) {
-    /* Garder padding vertical, réduire/annuler le padding horizontal */
-    .container, .container-fluid {
-      padding-left: 12px !important;
-      padding-right: 12px !important;
-    }
-    .row { margin-left: 0 !important; margin-right: 0 !important; }
-    [class^="col-"], [class*=" col-"] {
-      padding-left: 8px !important;
-      padding-right: 8px !important;
-    }
+                        img,
+                        iframe {
+                            max-width: 100%;
+                            height: auto;
+                            display: block;
+                        }
 
-    /* HERO / titres longs : éviter les casses horizontales */
-    .hero-title, h1, h2, h3, h4, h5 { word-wrap: break-word; overflow-wrap: anywhere; }
+                        /* 🔒 Mobile only */
+                        @media (max-width: 575.98px) {
 
-    /* Services / cartes : supprimer largeurs fixes */
-    .services-section .card { width: 100% !important; }
-    .services-section img { max-width: 100%; height: auto; }
+                            /* Garder padding vertical, réduire/annuler le padding horizontal */
+                            .container,
+                            .container-fluid {
+                                padding-left: 12px !important;
+                                padding-right: 12px !important;
+                            }
 
-    /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
-    .project-item .card {
-      width: 100% !important;
-      height: auto !important;
-    }
-    .project-item img { height: 180px !important; object-fit: cover; }
+                            .row {
+                                margin-left: 0 !important;
+                                margin-right: 0 !important;
+                            }
 
-    /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
-    .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
-      position: static !important;
-      width: 70vw !important;
-      max-width: 320px !important;
-      margin: 16px auto 0 !important;
-    }
+                            [class^="col-"],
+                            [class*=" col-"] {
+                                padding-left: 8px !important;
+                                padding-right: 8px !important;
+                            }
 
-    /* Image sous la zone bleue + marge négative */
-    img[alt="Image sous zone bleue"] {
-      width: 100% !important;
-      height: auto !important;
-    }
-    .text-center[style*="margin-top: -190px"] {
-      margin-top: 0 !important;
-    }
+                           
 
-    /* Icônes/visuels autour de la vidéo */
-    .uniform-img { width: 96px !important; height: 96px !important; object-fit: contain; }
 
-    /* Éviter tous débordements horizontaux restants */
-    .hero-aisla, .about-aisla, .blog, .team,
-    .project-carousel, .services-section {
-      overflow-x: hidden !important;
-    }
+                            /* Services / cartes : supprimer largeurs fixes */
+                            .services-section .card {
+                                width: 100% !important;
+                            }
 
-    @media (min-width: 576px) {
-  .project-item .card { width: 600px; }
-}
-  }
-</style>
+                            .services-section img {
+                                max-width: 100%;
+                                height: auto;
+                            }
+
+                            /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
+                            .project-item .card {
+                                width: 100% !important;
+                                height: auto !important;
+                            }
+
+                            .project-item img {
+                                height: 180px !important;
+                                object-fit: cover;
+                            }
+
+                            /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
+                            .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
+                                position: static !important;
+                                width: 70vw !important;
+                                max-width: 320px !important;
+                                margin: 16px auto 0 !important;
+                            }
+
+                            /* Image sous la zone bleue + marge négative */
+                            img[alt="Image sous zone bleue"] {
+                                width: 100% !important;
+                                height: auto !important;
+                            }
+
+                            .text-center[style*="margin-top: -190px"] {
+                                margin-top: 0 !important;
+                            }
+
+                            /* Icônes/visuels autour de la vidéo */
+                            .uniform-img {
+                                width: 96px !important;
+                                height: 96px !important;
+                                object-fit: contain;
+                            }
+
+                            /* Éviter tous débordements horizontaux restants */
+                            .hero-aisla,
+                            .about-aisla,
+                            .blog,
+                            .team,
+                            .project-carousel,
+                            .services-section {
+                                overflow-x: hidden !important;
+                            }
+
+                            @media (min-width: 576px) {
+                                .project-item .card {
+                                    width: 600px;
+                                }
+                            }
+                        }
+                    </style>
 
 @endsection

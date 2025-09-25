@@ -369,3 +369,80 @@ main,
   padding: 0.95rem 1.6rem;   /* tu gardes ton px-4 py-3 si tu veux */
   font-size: 0.98rem;
 }
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;       /* cercle parfait */
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.hero-arrow:hover {
+  background: rgba(0,0,0,0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-arrow-left {
+  left: 20px;
+}
+
+.hero-arrow-right {
+  right: 20px;
+}
+
+.hero-arrow i {
+  font-size: 20px;
+}
+.after-hero-text .big-title {
+    font-size: 6rem;       /* très grand */
+    font-weight: 300;      /* pas en gras */
+    line-height: 1.2;
+    margin: 0;
+}
+
+.after-hero-text .text-green {
+    color: #7CC242;        /* vert clair */
+    font-weight: 300;
+}
+
+.after-hero-text .text-darkblue {
+    color: #1E2452;        /* bleu foncé */
+    font-weight: 300;
+}
+/* ===== Hero Title ===== */
+.hero-aisla .hero-title {
+    font-family: 'Anuphan', sans-serif;  /* police personnalisée */
+    font-size: 3rem;                     /* taille du titre */
+    font-weight: 700;                     /* gras */
+    color: #ffffff;                       /* couleur du texte */
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    text-align: right;                     /* alignement horizontal */
+}
+
+/* ===== Hero Summary ===== */
+.hero-aisla .hero-sub {
+    font-family: 'Anuphan', sans-serif;
+    font-size: 1.1rem;                   /* taille du texte */
+    color: rgba(255, 255, 255, 0.85);    /* couleur légèrement transparente */
+    line-height: 1.6;
+    margin-bottom: 2rem;                  /* espace sous le résumé */
+    text-align: top right;                     /* alignement horizontal */
+}
+
+/* ===== Positionnement global du hero-copy ===== */
+.hero-aisla .hero-copy {
+    padding-top: 100px;    /* décale le bloc vers le bas si besoin */
+    padding-left: 110;      /* ajuster à gauche */
+    max-width: 800px;     /* largeur max du texte pour ne pas s'étaler */
+}
