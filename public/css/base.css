@@ -640,7 +640,7 @@ main,
 }
 .service-card__info--lower{
   bottom: 150px; 
-  le   /* plus près du bas */
+  /* plus près du bas */
 }
 
 /* Titre vert souligné */
@@ -658,6 +658,9 @@ main,
   line-height:1.5;
   color:#666;                /* gris doux */
   margin:0;
+}
+.pub-section {
+  margin-top: 180px !important; /* espace avant la section */
 }
 
 

@@ -369,502 +369,314 @@
         </div>
     </section>
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
-{{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
-<div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
-  <div class="carousel-inner">
-    @foreach($services->chunk(3) as $chunkIndex => $chunk)
-      <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
-        <div class="container py-4">
-          <div class="row g-5">
-            @foreach($chunk as $service)
-              @php
-                $img = !empty($service->image)
-                  ? asset('storage/' . ltrim($service->image, '/'))
-                  : asset('img/placeholders/service.jpg');
-              @endphp
-
-              <div class="col-12 col-md-6 col-lg-4">
-                {{-- Lien englobant la carte --}}
-                <a href="{{ route('services.show', $service->id) }}" class="text-decoration-none text-dark">
-                  <div class="service-card">
-                    {{-- Image plein cadre --}}
-                    <img src="{{ $img }}" alt="{{ $service->name }}" class="service-card__img">
-
-                    {{-- Petite carte blanche --}}
-                    <div class="service-card__info service-card__info--lower">
-                      <h5 class="service-card__name">{{ $service->name }}</h5>
-                      <p class="service-card__text">
-                        {{ Str::limit($service->description, 160) }}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-    @endforeach
-  </div>
-
-  {{-- Flèches navigation personnalisées --}}
-  <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
-    <span style="font-size:2rem; color:black;">&#10094;</span> {{-- ‹ --}}
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
-    <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
-  </button>
-</div>
-
-
-  {{-- Flèches navigation personnalisées --}}
-  <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
-    <span style="font-size:2rem; color:black;">&#10094;</span> {{-- ‹ --}}
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
-    <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
-  </button>
-</div>
-
-
-
-    {{-- =============== CLEAN ENERGY SECTION =============== --}}
-    <div class="container-fluid py-5 my-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <!-- Nouveau titre orangé souligné -->
-                <h6 style="color: #b90606; font-size: 1rem; letter-spacing: 1px; text-align: center;">
-                    Solutions <span style="border-bottom: 2px solid #b90606;">of Solar</span> Energy
-                </h6>
-            </div>
-            <div class="position-relative">
-                <div class="row justify-content-center align-items-center">
-                </div>
-                @if(!empty($video?->url))
-                    @php
-                        $embed = null;
-                        $url = $video->url;
-                        if (Str::contains($url, 'youtu.be/')) {
-                            $id = Str::after($url, 'youtu.be/');
-                        } elseif (Str::contains($url, 'watch?v=')) {
-                            $id = Str::after($url, 'watch?v=');
-                        } elseif (Str::contains($url, 'embed/')) {
-                            $id = Str::after($url, 'embed/');
-                        } else {
-                            $id = null;
-                        }
-                        if (!empty($id)) {
-                            $id = Str::before($id, '&');
-                            $embed = 'https://www.youtube.com/embed/' . $id;
-                        }
-                    @endphp
-                    @if($embed)
-                        <div class="container-fluid py-5 my-5">
-                            <div class="container">
-                                <div class="text-center mb-5">
-                                    <h2 class="display-5 fw-bold mb-3" style="color: var(--dark);">
-                                        Produce Your Own Clean Save<br>Ourthe Environment
-                                    </h2>
-                                </div>
-                                <div class="row g-4 align-items-center">
-                                    <!-- LEFT image -->
-                                    <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
-                                        <img src="/img/bat.png" alt="Battery" class="mb-3 uniform-img">
-                                        <h5 class="uniform-title">Battery Storage Solutions</h5>
-                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                                            generate significant energy.</p>
-                                    </div>
-                                    <!-- VIDEO -->
-                                    <div class="col-lg-6">
-                                        <div class="ratio ratio-16x9">
-                                            <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                    <!-- RIGHT image -->
-                                    <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
-                                        <img src="/img/wrd.png" alt="Solar" class="mb-3 uniform-img">
-                                        <h5 class="uniform-title">Commercial Solar Energy</h5>
-                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                                            generate significant energy.</p>
-                                    </div>
-                                </div>
-                                <!-- ROW BELOW VIDEO -->
-                                <div class="row g-4 mt-4 text-center">
-                                    <div class="col-lg-4 col-md-6">
-                                        <img src="/img/ssun.png" alt="Boost Green Credentials" class="mb-3 uniform-img">
-                                        <h5 class="uniform-title">Boost Green Credentials</h5>
-                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                                            generate significant energy.</p>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <img src="/img/vent.png" alt="Industrial Solar Energy" class="mb-3 uniform-img">
-                                        <h5 class="uniform-title">Industrial Solar Energy</h5>
-                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                                            generate significant energy.</p>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <img src="/img/sun.png" alt="Scale Technologies" class="mb-3 uniform-img">
-                                        <h5 class="uniform-title">Scale With New Technologies</h5>
-                                        <p class="uniform-text">We fully utilise the latest corporate renewable energy technology to
-                                            generate significant energy.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- STYLES -->
-                            <style>
-                                .uniform-img {
-                                    width: 150px;
-                                    height: 150px;
-                                    object-fit: contain;
-                                }
-                                .uniform-title {
-                                    color: var(--dark);
-                                    font-size: 1.6rem;
-                                    font-weight: 600;
-                                }
-                                .uniform-text {
-                                    font-size: 1.2rem;
-                                    color: #6c757d;
-                                    /* équivalent Bootstrap text-muted */
-                                }
-                            </style>
-                        </div>
-                    @endif
-                @endif
-                <style>
-                    .project-item .card {
-                        border: 2px solid rgb(255, 115, 0);
-                        /* bordure rouge */
-                        border-radius: 10px;
-                        overflow: hidden;
-                        display: flex;
-                        /* layout horizontal */
-                        flex-direction: row;
-                        width: 600px;
-                        /* plus grand */
-                        height: 250px;
-                        margin-right: 15px;
-                    }
-                    .project-item .card-body {
-                        flex: 2;
-                        /* texte prend 2/3 de la largeur */
-                        padding: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                    }
-                    .project-item img {
-                        flex: 1;
-                        /* image prend 1/3 de la largeur */
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                    .project-carousel .owl-stage-outer {
-                        padding-right: 20px;
-                        /* voir partiellement la prochaine carte */
-                    }
-                    /* Optionnel : réduire le texte si trop long */
-                    .project-item .card-body p {
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 5;
-                        /* nombre de lignes max */
-                        -webkit-box-orient: vertical;
-                    }
-                </style>
-                <!-- Team Start -->
-                <div class="container-fluid py-5 mb-5 team" style="background-color: #FAFAFA;">
-                    <div class="container">
-                        <!-- Header -->
-                        <div class="text-center mx-auto pb-5" style="max-width: 600px;">
-                            <h5 class="fw-bold" style="color: #fe5716;">OUR CREATIVE TEAM</h5>
-                            <h1>Meet Our Experts</h1>
-                        </div>
-                        <!-- Carousel / Members -->
-                        <div class="wow fadeIn" data-wow-delay=".5s">
-                            <div id="team-container" class="row g-4">
-                                <!-- Exemple de membre (sera remplacé par tes données dynamiques) -->
-                                <div class="col-12 team-member d-flex align-items-center p-4">
-                                    <!-- Image ronde -->
-                                    <div class="flex-shrink-0">
-                                        <img src="https://via.placeholder.com/200" alt="Membre"
-                                            class="img-fluid rounded-circle"
-                                            style="width:200px; height:200px; object-fit:cover;">
-                                    </div>
-                                </div>
-                                <!-- Navigation -->
-                                <div class="d-flex justify-content-between align-items-center mt-4">
-                                    <button id="team-prev"
-                                        class="btn btn-outline-secondary rounded-pill px-4">Précédent</button>
-                                    <div class="flex-grow-1 mx-3 progress" style="height:5px;">
-                                        <div id="team-progress" class="progress-bar bg-secondary" role="progressbar"></div>
-                                    </div>
-                                    <button id="team-next"
-                                        class="btn btn-outline-secondary rounded-pill px-4">Suivant</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Team End -->
-                    <!-- Blog Start -->
-                    <div class="container-fluid blog py-5 mb-5">
-                        <div class="container">
-                            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                                <h5 class="text-uppercase fw-bold"
-                                    style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
-                                    Blog & Updates
-                                </h5>
-                                <h1 class="fw-bold">Recent News</h1>
-                            </div>
-                            <div class="row g-4 justify-content-center">
-                                @forelse($blogs->slice(0, 4) as $index => $blog)
-                                    <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
-                                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                                            @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
-                                                @if($blog->image)
-                                                    <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
-                                                        style="border-radius: 1rem;">
-                                                @endif
-                                            @else
-                                                <img src="{{ asset('storage/' . $blog->image) }}" class="w-100"
-                                                    style="border-radius: 1rem;">
-                                            @endif
-                                            <div class="card-body" style="border-radius: 1rem;">
-                                                <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
-                                                <h5 class="fw-bold">{{ $blog->title }}</h5>
-                                                <p class="text-muted">
-                                                    {{ Str::limit(strip_tags($blog->content), 100) }}
+    {{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
+    <div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+            @foreach($services->chunk(3) as $chunkIndex => $chunk)
+                <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                    <div class="container py-4">
+                        <div class="row g-5">
+                            @foreach($chunk as $service)
+                                @php
+                                    $img = !empty($service->image)
+                                        ? asset('storage/' . ltrim($service->image, '/'))
+                                        : asset('img/placeholders/service.jpg');
+                                  @endphp
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    {{-- Lien englobant la carte --}}
+                                    <a href="{{ route('services.show', $service->id) }}" class="text-decoration-none text-dark">
+                                        <div class="service-card">
+                                            {{-- Image plein cadre --}}
+                                            <img src="{{ $img }}" alt="{{ $service->name }}" class="service-card__img">
+                                            {{-- Petite carte blanche --}}
+                                            <div class="service-card__info service-card__info--lower">
+                                                <h5 class="service-card__name">{{ $service->name }}</h5>
+                                                <p class="service-card__text">
+                                                    {{ Str::limit($service->description, 160) }}
                                                 </p>
-                                                <div class="d-flex align-items-center mt-3">
-                                                    <span class="badge px-3 py-2 rounded-pill"
-                                                        style="background-color: #F1A601; color: #000;">
-                                                        {{ $blog->created_at->format('F d, Y') }}
-                                                    </span>
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @empty
-                                    <p class="text-center">Aucun article pour le moment.</p>
-                                @endforelse
-                            </div>
-                            <div class="text-center mt-5">
-                                <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
-                                    View All News
-                                </a>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        {{-- Flèches navigation personnalisées --}}
+        <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+            <span style="font-size:2rem; color:black;">&#10094;</span> {{-- ‹ --}}
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+            <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
+        </button>
+    </div>
+    {{-- pub --}}
+    <section class="pub-section pt-2 pb-5 mt-5">
+        <div class="container">
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-6">
+                    <img src="{{ asset('img/pub.png') }}" alt="pub" class="about-btn-img mb-4">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Start -->
+    <div class="container-fluid blog py-5 mb-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-uppercase fw-bold" style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
+                    Blog & Updates
+                </h5>
+                <h1 class="fw-bold">Recent News</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                @forelse($blogs->slice(0, 4) as $index => $blog)
+                    <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
+                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                            @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
+                                @if($blog->image)
+                                    <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
+                                @endif
+                            @else
+                                <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
+                            @endif
+                            <div class="card-body" style="border-radius: 1rem;">
+                                <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
+                                <h5 class="fw-bold">{{ $blog->title }}</h5>
+                                <p class="text-muted">
+                                    {{ Str::limit(strip_tags($blog->content), 100) }}
+                                </p>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="badge px-3 py-2 rounded-pill" style="background-color: #F1A601; color: #000;">
+                                        {{ $blog->created_at->format('F d, Y') }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Blog End -->
-                    <!-- Section Titre avec image en dessous -->
-                    <section class="hcw my-5">
-                        <div class="container text-center">
-                            <h1 class="hcw-title">
-                                <span>Happy Customers,</span><br>
-                                <span>Happy World</span>
-                            </h1>
-                            <!-- Image sous le texte -->
-                            <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
-                        </div>
-                    </section>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const servicesSection = document.querySelector('.services-section');
-                            if (servicesSection) {
-                                const slides = servicesSection.querySelectorAll('.service-slide');
-                                servicesSection.querySelectorAll('.card').forEach(card => {
-                                    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
-                                    card.addEventListener('mouseleave', () => card.style.transform = '');
-                                });
-                                if (slides.length > 1) {
-                                    let sIndex = 0;
-                                    const prevBtn = servicesSection.querySelector('.services-prev');
-                                    const nextBtn = servicesSection.querySelector('.services-next');
-                                    const progressBarServices = servicesSection.querySelector('.services-progress-bar');
-                                    function showSlide(newIndex) {
-                                        slides[sIndex].classList.add('d-none');
-                                        sIndex = (newIndex + slides.length) % slides.length;
-                                        slides[sIndex].classList.remove('d-none');
-                                        const progress = ((sIndex + 1) / slides.length) * 100;
-                                        progressBarServices.style.width = progress + '%';
-                                    }
-                                    prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
-                                    nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
-                                    progressBarServices.style.width = (1 / slides.length * 100) + '%';
-                                }
-                            }
-                            const teamContainer = document.getElementById('team-container');
-                            const teamPrev = document.getElementById('team-prev');
-                            const teamNext = document.getElementById('team-next');
-                            const teamProgress = document.getElementById('team-progress');
-                            let teamPage = 1;
-                            const teamPerPage = 3;
-                            function loadTeam(page = 1) {
-                                fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        teamContainer.innerHTML = '';
-                                        data.data.forEach(member => {
-                                            const col = document.createElement('div');
-                                            col.className = 'col-md-6 mb-4';
-                                            col.innerHTML = `
-                                                                    <div class="d-flex align-items-center team-card p-3 rounded">
-                                                                        <!-- Avatar avec cercle -->
-                                                                        <div class="team-photo position-relative me-3">
-                                                                            <div class="circle-border">
-                                                                                <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Infos -->
-                                                                        <div class="team-info flex-grow-1">
-                                                                            <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                                            <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                `;
-                                            teamContainer.appendChild(col);
-                                        });
-                                        // Pagination + Progress bar
-                                        teamPage = data.current_page;
-                                        const totalPages = data.last_page;
-                                        teamPrev.disabled = teamPage === 1;
-                                        teamNext.disabled = teamPage === totalPages;
-                                        teamProgress.style.width = (teamPage / totalPages * 100) + '%';
-                                    });
-                            }
-                            teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
-                            teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
-                            loadTeam();
-                            const donut = document.querySelector('.hero-donut');
-                            if (!donut) return;
-                            const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
-                            if (!banners.length) return;
-                            let index = 0;
-                            const titleEl = document.querySelector('.hero-title');
-                            const leadEl = document.querySelector('.hero-lead');
-                            const imageEl = donut.querySelector('.donut-image');
-                            const dotsContainer = document.querySelector('.hero-dots');
-                            const progressBar = document.querySelector('.hero-progress-bar');
-                            function renderDots() {
-                                dotsContainer.innerHTML = '';
-                                banners.forEach((_, i) => {
-                                    const span = document.createElement('span');
-                                    span.className = 'dot' + (i === index ? ' active' : '');
-                                    span.dataset.index = i;
-                                    dotsContainer.appendChild(span);
-                                });
-                            }
-                            function update() {
-                                const banner = banners[index] || {};
-                                const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
-                                const summary = banner.summary || '';
-                                const img = banner.image || '/img/default-banner.jpg';
-                                titleEl.innerHTML = title;
-                                leadEl.textContent = summary;
-                                imageEl.style.backgroundImage = `url('${img}')`;
-                                Array.from(dotsContainer.children).forEach((dot, i) => {
-                                    dot.classList.toggle('active', i === index);
-                                });
-                                const progress = ((index + 1) / banners.length) * 100;
-                                progressBar.style.width = progress + '%';
-                            }
-                            function goTo(newIndex) {
-                                index = (newIndex + banners.length) % banners.length;
-                                update();
-                            }
-                            renderDots();
-                            update();
-                            donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
-                            donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
-                            dotsContainer.addEventListener('click', e => {
-                                if (e.target.classList.contains('dot')) {
-                                    goTo(parseInt(e.target.dataset.index, 10));
-                                }
-                            });
+                @empty
+                    <p class="text-center">Aucun article pour le moment.</p>
+                @endforelse
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
+                    View All News
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Blog End -->
+    <!-- Section Titre avec image en dessous -->
+    <section class="hcw my-5">
+        <div class="container text-center">
+            <h1 class="hcw-title">
+                <span>Happy Customers,</span><br>
+                <span>Happy World</span>
+            </h1>
+            <!-- Image sous le texte -->
+            <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const servicesSection = document.querySelector('.services-section');
+            if (servicesSection) {
+                const slides = servicesSection.querySelectorAll('.service-slide');
+                servicesSection.querySelectorAll('.card').forEach(card => {
+                    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+                    card.addEventListener('mouseleave', () => card.style.transform = '');
+                });
+                if (slides.length > 1) {
+                    let sIndex = 0;
+                    const prevBtn = servicesSection.querySelector('.services-prev');
+                    const nextBtn = servicesSection.querySelector('.services-next');
+                    const progressBarServices = servicesSection.querySelector('.services-progress-bar');
+                    function showSlide(newIndex) {
+                        slides[sIndex].classList.add('d-none');
+                        sIndex = (newIndex + slides.length) % slides.length;
+                        slides[sIndex].classList.remove('d-none');
+                        const progress = ((sIndex + 1) / slides.length) * 100;
+                        progressBarServices.style.width = progress + '%';
+                    }
+                    prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
+                    nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
+                    progressBarServices.style.width = (1 / slides.length * 100) + '%';
+                }
+            }
+            const teamContainer = document.getElementById('team-container');
+            const teamPrev = document.getElementById('team-prev');
+            const teamNext = document.getElementById('team-next');
+            const teamProgress = document.getElementById('team-progress');
+            let teamPage = 1;
+            const teamPerPage = 3;
+            function loadTeam(page = 1) {
+                fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        teamContainer.innerHTML = '';
+                        data.data.forEach(member => {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-6 mb-4';
+                            col.innerHTML = `
+                                                                                <div class="d-flex align-items-center team-card p-3 rounded">
+                                                                                    <!-- Avatar avec cercle -->
+                                                                                    <div class="team-photo position-relative me-3">
+                                                                                        <div class="circle-border">
+                                                                                            <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Infos -->
+                                                                                    <div class="team-info flex-grow-1">
+                                                                                        <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                                                        <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            `;
+                            teamContainer.appendChild(col);
                         });
-                    </script>
-                    <style>
-                        /* Règles globales de sécurité */
-                        html,
-                        body {
-                            overflow-x: hidden;
-                        }
-                        img,
-                        iframe {
-                            max-width: 100%;
-                            height: auto;
-                            display: block;
-                        }
-                        /* 🔒 Mobile only */
-                        @media (max-width: 575.98px) {
-                            /* Garder padding vertical, réduire/annuler le padding horizontal */
-                            .container,
-                            .container-fluid {
-                                padding-left: 12px !important;
-                                padding-right: 12px !important;
-                            }
-                            .row {
-                                margin-left: 0 !important;
-                                margin-right: 0 !important;
-                            }
-                            [class^="col-"],
-                            [class*=" col-"] {
-                                padding-left: 8px !important;
-                                padding-right: 8px !important;
-                            }
-                            /* Services / cartes : supprimer largeurs fixes */
-                            .services-section .card {
-                                width: 100% !important;
-                            }
-                            .services-section img {
-                                max-width: 100%;
-                                height: auto;
-                            }
-                            /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
-                            .project-item .card {
-                                width: 100% !important;
-                                height: auto !important;
-                            }
-                            .project-item img {
-                                height: 180px !important;
-                                object-fit: cover;
-                            }
-                            /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
-                            .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
-                                position: static !important;
-                                width: 70vw !important;
-                                max-width: 320px !important;
-                                margin: 16px auto 0 !important;
-                            }
-                            /* Image sous la zone bleue + marge négative */
-                            img[alt="Image sous zone bleue"] {
-                                width: 100% !important;
-                                height: auto !important;
-                            }
-                            .text-center[style*="margin-top: -190px"] {
-                                margin-top: 0 !important;
-                            }
-                            /* Icônes/visuels autour de la vidéo */
-                            .uniform-img {
-                                width: 96px !important;
-                                height: 96px !important;
-                                object-fit: contain;
-                            }
-                            /* Éviter tous débordements horizontaux restants */
-                            .hero-aisla,
-                            .about-aisla,
-                            .blog,
-                            .team,
-                            .project-carousel,
-                            .services-section {
-                                overflow-x: hidden !important;
-                            }
-                            @media (min-width: 576px) {
-                                .project-item .card {
-                                    width: 600px;
-                                }
-                            }
-                        }
-                    </style>
+                        // Pagination + Progress bar
+                        teamPage = data.current_page;
+                        const totalPages = data.last_page;
+                        teamPrev.disabled = teamPage === 1;
+                        teamNext.disabled = teamPage === totalPages;
+                        teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                    });
+            }
+            teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
+            teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
+            loadTeam();
+            const donut = document.querySelector('.hero-donut');
+            if (!donut) return;
+            const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
+            if (!banners.length) return;
+            let index = 0;
+            const titleEl = document.querySelector('.hero-title');
+            const leadEl = document.querySelector('.hero-lead');
+            const imageEl = donut.querySelector('.donut-image');
+            const dotsContainer = document.querySelector('.hero-dots');
+            const progressBar = document.querySelector('.hero-progress-bar');
+            function renderDots() {
+                dotsContainer.innerHTML = '';
+                banners.forEach((_, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'dot' + (i === index ? ' active' : '');
+                    span.dataset.index = i;
+                    dotsContainer.appendChild(span);
+                });
+            }
+            function update() {
+                const banner = banners[index] || {};
+                const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
+                const summary = banner.summary || '';
+                const img = banner.image || '/img/default-banner.jpg';
+                titleEl.innerHTML = title;
+                leadEl.textContent = summary;
+                imageEl.style.backgroundImage = `url('${img}')`;
+                Array.from(dotsContainer.children).forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                const progress = ((index + 1) / banners.length) * 100;
+                progressBar.style.width = progress + '%';
+            }
+            function goTo(newIndex) {
+                index = (newIndex + banners.length) % banners.length;
+                update();
+            }
+            renderDots();
+            update();
+            donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
+            donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
+            dotsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('dot')) {
+                    goTo(parseInt(e.target.dataset.index, 10));
+                }
+            });
+        });
+    </script>
+    <style>
+        /* Règles globales de sécurité */
+        html,
+        body {
+            overflow-x: hidden;
+        }
+        img,
+        iframe {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* 🔒 Mobile only */
+        @media (max-width: 575.98px) {
+            /* Garder padding vertical, réduire/annuler le padding horizontal */
+            .container,
+            .container-fluid {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            [class^="col-"],
+            [class*=" col-"] {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+            /* Services / cartes : supprimer largeurs fixes */
+            .services-section .card {
+                width: 100% !important;
+            }
+            .services-section img {
+                max-width: 100%;
+                height: auto;
+            }
+            /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
+            .project-item .card {
+                width: 100% !important;
+                height: auto !important;
+            }
+            .project-item img {
+                height: 180px !important;
+                object-fit: cover;
+            }
+            /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
+            .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
+                position: static !important;
+                width: 70vw !important;
+                max-width: 320px !important;
+                margin: 16px auto 0 !important;
+            }
+            /* Image sous la zone bleue + marge négative */
+            img[alt="Image sous zone bleue"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+            .text-center[style*="margin-top: -190px"] {
+                margin-top: 0 !important;
+            }
+            /* Icônes/visuels autour de la vidéo */
+            .uniform-img {
+                width: 96px !important;
+                height: 96px !important;
+                object-fit: contain;
+            }
+            /* Éviter tous débordements horizontaux restants */
+            .hero-aisla,
+            .about-aisla,
+            .blog,
+            .team,
+            .project-carousel,
+            .services-section {
+                overflow-x: hidden !important;
+            }
+            @media (min-width: 576px) {
+                .project-item .card {
+                    width: 600px;
+                }
+            }
+        }
+    </style>
 @endsection
