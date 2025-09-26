@@ -204,7 +204,6 @@
   position: relative;
   box-shadow: 0 6px 18px rgba(0,0,0,.06);
   background: #fff;
-
 }
 /* hauteurs spécifiques pour coller au visuel */
 .proj-card--lg{ min-height: 360px; }  /* grand bloc (haut gauche) */
@@ -272,59 +271,18 @@
 <!-- Projects End -->
 <!-- =============== ABOUT (comme la maquette) =============== -->
 <section class="about-fei pt-2 pb-5">
-
-
-
   <div class="container">
-    <div class="row g-5 align-items-center">
-      <!-- Texte à gauche -->
-      <div class="col-lg-6">
-        <p class="about-kicker mb-2">A PROPOS</p>
-        <h2 class="about-title mb-3">Qui sommes nous?</h2>
-        <p class="about-text mb-4">
-          France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique<br>
-          Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et
-          installations industrielles. Notre mission est claire&nbsp;: améliorer la performance
-          énergétique, réduire les déperditions de chaleur et optimiser le confort tout en
-          contribuant à la maîtrise des coûts énergétiques.
-        </p>
-        <p class="about-subtitle mb-3">NOS VALEURS</p>
-        <!-- Valeurs -->
-<ul class="about-values list-unstyled d-flex flex-wrap gap-4 mb-4">
-  <li class="about-value">
-    <img src="{{ asset('img/icons/expertise.png') }}" alt="Expertise" class="value-icon">
-    <span class="label">L’expertise</span>
-  </li>
-  <li class="about-value">
-    <img src="{{ asset('img/icons/qualite.png') }}" alt="Qualité" class="value-icon">
-    <span class="label">La qualité</span>
-  </li>
-  <li class="about-value">
-    <img src="{{ asset('img/icons/innovation.png') }}" alt="Innovation" class="value-icon">
-    <span class="label">L’innovation</span>
-  </li>
-  <li class="about-value">
-    <img src="{{ asset('img/icons/delais.png') }}" alt="Délais" class="value-icon">
-    <span class="label">Respect des délais</span>
-  </li>
-</ul>
-        <!-- Bouton -->
-        <a href="{{ url('/about') }}" class="btn about-btn">
-          En savoir plus
-          <span class="btn-icon" aria-hidden="true">→</span>
-        </a>
-      </div>
-      <!-- Image à droite avec plaque bleue derrière -->
-      <div class="col-lg-6">
-        <div class="about-media">
-          <img
-            src="{{ asset('img/afr.png') }}"
-            alt="Nos actions"
-            class="about-img"
-          >
-        </div>
-      </div>
-    </div>
+<div class="row g-5 align-items-start">
+  <div class="col-lg-6">
+    <img src="{{ asset('img/africa.png') }}" 
+         alt="En savoir plus" 
+         class="about-btn-img mb-4">
+    <a href="{{ url('/about') }}" class="btn about-btn">
+      En savoir plus
+      <span class="btn-icon" aria-hidden="true">→</span>
+    </a>
+  </div>
+</div>
   </div>
 </section>
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
@@ -380,7 +338,7 @@
             @endif
         </div>
     </div>
-    </div>
+    
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
     <div class="container-fluid py-5 my-5">
         <div class="container">
@@ -610,6 +568,19 @@
                         </div>
                     </div>
                     <!-- Blog End -->
+<!-- Section Titre avec image en dessous -->
+<section class="hcw my-5">
+  <div class="container text-center">
+    <h1 class="hcw-title">
+      <span>Happy Customers,</span><br>
+      <span>Happy World</span>
+    </h1>
+    <!-- Image sous le texte -->
+    <img src="{{ asset('img/Card.png') }}" 
+         alt="Happy Customers" 
+         class="hcw-img mt-4">
+  </div>
+</section>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             const servicesSection = document.querySelector('.services-section');

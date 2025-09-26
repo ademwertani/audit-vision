@@ -505,6 +505,40 @@ main,
   background: var(--about-green);
   border-radius: 999px;
 }
+.about-btn-img {
+  max-width: 2590px;  /* 🔥 taille plus grande (augmente à volonté) */
+  display: block;
+}
+.about-fei .col-lg-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* reste à gauche */
+  justify-content: flex-start; /* colle en haut */
+}
+/* Titre "Happy Customers, Happy World" */
+/* Titre */
+.hcw-title {
+  margin: 0;
+  color: #1f2658;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-size: clamp(32px, 6vw, 64px);
+  font-family: Inter, "SF Pro Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Image sous le titre */
+.hcw-img {
+  max-width: 1300px;   /* ✅ règle la taille */
+  width: 100%;        /* responsive */
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hcw{ padding-top: 8px; padding-bottom: 8px; }
+
 
 .about-values .label{
   color: #cbd5df;
