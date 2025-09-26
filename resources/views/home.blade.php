@@ -77,268 +77,357 @@
             </h2>
         </div>
     </section>
-<!-- Projects Start -->
-<div class="container-fluid py-5 mb-5">
-  <div class="container">
-    <div class="projects-grid">
-      {{-- ======= P1 : Grand projet (haut gauche) ======= --}}
-      @if(($p1 = $projects->get(0)))
-        <a href="{{ route('projects.show', $p1->id) }}"
-           class="proj-card proj-card--lg text-decoration-none grid-p1">
-          @if($p1->image)
-            <img src="{{ asset('storage/' . $p1->image) }}" alt="{{ $p1->name }}">
-          @endif
-          <div class="proj-overlay">
-            <span class="pill pill--muted">
-              {{ $p1->address ?? $p1->location ?? $p1->name }}
-            </span>
-            <span class="pill pill--action">
-              <i class="fas fa-play me-2"></i> Watch Project Full Video
-            </span>
-          </div>
-          <span class="stretched-link" aria-label="Voir {{ $p1->name }}"></span>
-        </a>
-      @endif
-      {{-- ======= Bloc statique : Bannière verte (haut droite) ======= --}}
-      <div class="promo-card grid-promo">
-  <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
-    Proud to serve the Pennsylvania community<br>
-    with our top-notch solar energy solutions.
-  </p>
-  <span class="promo-dot"></span>
-</div>
-      {{-- ======= P2 : Projet (bas gauche) ======= --}}
-      @if(($p2 = $projects->get(1)))
-        <a href="{{ route('projects.show', $p2->id) }}"
-           class="proj-card proj-card--md text-decoration-none grid-p2">
-          @if($p2->image)
-            <img src="{{ asset('storage/' . $p2->image) }}" alt="{{ $p2->name }}">
-          @endif
-          <div class="proj-overlay">
-            <span class="pill pill--muted">
-              {{ $p2->address ?? $p2->location ?? $p2->name }}
-            </span>
-            <span class="pill pill--action">
-              <i class="fas fa-play me-2"></i> Watch Project Full Video
-            </span>
-          </div>
-          <span class="stretched-link" aria-label="Voir {{ $p2->name }}"></span>
-        </a>
-      @endif
-      {{-- ======= P3 : Projet (milieu/droite, plus haut) ======= --}}
-      @if(($p3 = $projects->get(2)))
-        <a href="{{ route('projects.show', $p3->id) }}"
-           class="proj-card proj-card--md text-decoration-none grid-p3">
-          @if($p3->image)
-            <img src="{{ asset('storage/' . $p3->image) }}" alt="{{ $p3->name }}">
-          @endif
-          <div class="proj-overlay">
-            <span class="pill pill--muted">
-              {{ $p3->address ?? $p3->location ?? $p3->name }}
-            </span>
-            <span class="pill pill--action">
-              <i class="fas fa-play me-2"></i> Watch Project Full Video
-            </span>
-          </div>
-          <span class="stretched-link" aria-label="Voir {{ $p3->name }}"></span>
-        </a>
-      @endif
-      {{-- ======= Bloc statique : Stats (sous le 3e projet) ======= --}}
-      <div class="stats-card grid-stats">
-        <h5 class="text-center mb-4">We have successfully powered over</h5>
-        <div class="stats-row">
-          <div class="stat">
-            <div class="stat-number">87</div>
-            <div class="stat-label">Homes</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">32</div>
-            <div class="stat-label">Companies</div>
-          </div>
-          <div class="stat stat--accent">
-            <div class="stat-number">40</div>
-            <div class="stat-label">Farms</div>
+    <!-- Projects Start -->
+    <div class="container-fluid py-5 mb-5">
+        <div class="container">
+            <div class="projects-grid">
+                {{-- ======= P1 : Grand projet (haut gauche) ======= --}}
+                @if(($p1 = $projects->get(0)))
+                    <a href="{{ route('projects.show', $p1->id) }}"
+                        class="proj-card proj-card--lg text-decoration-none grid-p1">
+                        @if($p1->image)
+                            <img src="{{ asset('storage/' . $p1->image) }}" alt="{{ $p1->name }}">
+                        @endif
+                        <div class="proj-overlay">
+                            <span class="pill pill--muted">
+                                {{ $p1->address ?? $p1->location ?? $p1->name }}
+                            </span>
+                            <span class="pill pill--action">
+                                <i class="fas fa-play me-2"></i> Watch Project Full Video
+                            </span>
+                        </div>
+                        <span class="stretched-link" aria-label="Voir {{ $p1->name }}"></span>
+                    </a>
+                @endif
+                {{-- ======= Bloc statique : Bannière verte (haut droite) ======= --}}
+                <div class="promo-card grid-promo">
+                    <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
+                        Proud to serve the Pennsylvania community<br>
+                        with our top-notch solar energy solutions.
+                    </p>
+                    <span class="promo-dot"></span>
+                </div>
+                {{-- ======= P2 : Projet (bas gauche) ======= --}}
+                @if(($p2 = $projects->get(1)))
+                    <a href="{{ route('projects.show', $p2->id) }}"
+                        class="proj-card proj-card--md text-decoration-none grid-p2">
+                        @if($p2->image)
+                            <img src="{{ asset('storage/' . $p2->image) }}" alt="{{ $p2->name }}">
+                        @endif
+                        <div class="proj-overlay">
+                            <span class="pill pill--muted">
+                                {{ $p2->address ?? $p2->location ?? $p2->name }}
+                            </span>
+                            <span class="pill pill--action">
+                                <i class="fas fa-play me-2"></i> Watch Project Full Video
+                            </span>
+                        </div>
+                        <span class="stretched-link" aria-label="Voir {{ $p2->name }}"></span>
+                    </a>
+                @endif
+                {{-- ======= P3 : Projet (milieu/droite, plus haut) ======= --}}
+                @if(($p3 = $projects->get(2)))
+                    <a href="{{ route('projects.show', $p3->id) }}"
+                        class="proj-card proj-card--md text-decoration-none grid-p3">
+                        @if($p3->image)
+                            <img src="{{ asset('storage/' . $p3->image) }}" alt="{{ $p3->name }}">
+                        @endif
+                        <div class="proj-overlay">
+                            <span class="pill pill--muted">
+                                {{ $p3->address ?? $p3->location ?? $p3->name }}
+                            </span>
+                            <span class="pill pill--action">
+                                <i class="fas fa-play me-2"></i> Watch Project Full Video
+                            </span>
+                        </div>
+                        <span class="stretched-link" aria-label="Voir {{ $p3->name }}"></span>
+                    </a>
+                @endif
+                {{-- ======= Bloc statique : Stats (sous le 3e projet) ======= --}}
+                <div class="stats-card grid-stats">
+                    <h5 class="text-center mb-4">We have successfully powered over</h5>
+                    <div class="stats-row">
+                        <div class="stat">
+                            <div class="stat-number">87</div>
+                            <div class="stat-label">Homes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">32</div>
+                            <div class="stat-label">Companies</div>
+                        </div>
+                        <div class="stat stat--accent">
+                            <div class="stat-number">40</div>
+                            <div class="stat-label">Farms</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        :root {
+            --radius: 18px;
+            --gap: 28px;
+            /* espace entre les cartes */
+            --accent: #7CAE2A;
+            --primary: #2d3281;
+            --muted: #e9eef3;
+        }
+        /* ====== GRID LAYOUT AVEC ZONES ====== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            /* léger avantage à gauche (comme la maquette) */
+            gap: var(--gap);
+            grid-template-areas:
+                "p1    promo"
+                /* 1ère rangée : grand visuel + petite bannière */
+                "p2    p3"
+                /* 2e rangée : P2 à gauche, P3 remonte à droite */
+                ".     stats";
+            /* 3e rangée : stats sous le 3e projet */
+        }
+        /* Raccorder les éléments aux zones */
+        .grid-p1 {
+            grid-area: p1;
+        }
+        .grid-promo {
+            grid-area: promo;
+        }
+        .grid-p2 {
+            grid-area: p2;
+        }
+        .grid-p3 {
+            grid-area: p3;
+        }
+        .grid-stats {
+            grid-area: stats;
+        }
+        /* ====== CARTES ====== */
+        .proj-card,
+        .promo-card {
+            min-height: 240px;
+            /* cartes plus petites et espacées */
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+            background: #fff;
+        }
+        .stats-card {
+            min-height: 240px;
+            /* cartes plus petites et espacées */
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+            background: #fff;
+        }
+        /* hauteurs spécifiques pour coller au visuel */
+        .proj-card--lg {
+            min-height: 360px;
+        }
+        /* grand bloc (haut gauche) */
+        .grid-promo {
+            min-height: 120px;
+        }
+        /* ✅ bannière verte moins haute */
+        .grid-p3 {
+            min-height: 300px;
+        }
+        /* 3e projet plus haut visuellement */
+        .grid-stats {
+            min-height: 150px;
+        }
+        /* ====== IMAGES ====== */
+        .proj-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s ease;
+        }
+        .proj-card:hover img {
+            transform: scale(1.04);
+        }
+        /* ====== OVERLAY + PILLS ====== */
+        .proj-overlay {
+            position: absolute;
+            inset: auto 0 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
+        }
+        .pill {
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: .8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill--muted {
+            background: rgba(255, 255, 255, .9);
+            color: #2c313a;
+        }
+        .pill--action {
+            background: var(--accent);
+            color: #fff;
+        }
+        /* ====== PROMO ====== */
+        .promo-card {
+            background: #69bb36;
+            color: #fff;
+            width: 700px;
+            height: 180px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .promo-dot {
+            width: 35px;
+            height: 30px;
+            background: #1d2a78;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+        /* ====== STATS ====== */
+        .stats-card {
+            padding: 20px;
+            margin-top: -200px;
+            margin-bottom: 400px;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .stat {
+            background: #e8eef7;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat--accent {
+            background: #e5f5e2;
+        }
+        .stat-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat--accent .stat-number {
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #3f4759;
+        }
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "p1"
+                    "promo"
+                    "p2"
+                    "p3"
+                    "stats";
+            }
+            .proj-card--lg {
+                min-height: 300px;
+            }
+            .grid-p3 {
+                min-height: 260px;
+            }
+        }
+        /* Remonter uniquement la 3e carte (P3) */
+        .grid-p3 {
+            margin-top: -240px;
+            margin-bottom: 240px;
+            /* 🔥 ajuste la valeur selon la hauteur voulue */
+        }
+    </style>
+    <!-- Projects End -->
+    <!-- =============== ABOUT (comme la maquette) =============== -->
+    <section class="about-fei pt-2 pb-5">
+        <div class="container">
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-6">
+                    <img src="{{ asset('img/africa.png') }}" alt="En savoir plus" class="about-btn-img mb-4">
+                    <a href="{{ url('/about') }}" class="btn about-btn">
+                        En savoir plus
+                        <span class="btn-icon" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
+{{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
+<div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
+  <div class="carousel-inner">
+    @foreach($services->chunk(3) as $chunkIndex => $chunk)
+      <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+        <div class="container py-4">
+          <div class="row g-5">
+            @foreach($chunk as $service)
+              @php
+                $img = !empty($service->image)
+                  ? asset('storage/' . ltrim($service->image, '/'))
+                  : asset('img/placeholders/service.jpg');
+              @endphp
+
+              <div class="col-12 col-md-6 col-lg-4">
+                {{-- Lien englobant la carte --}}
+                <a href="{{ route('services.show', $service->id) }}" class="text-decoration-none text-dark">
+                  <div class="service-card">
+                    {{-- Image plein cadre --}}
+                    <img src="{{ $img }}" alt="{{ $service->name }}" class="service-card__img">
+
+                    {{-- Petite carte blanche --}}
+                    <div class="service-card__info service-card__info--lower">
+                      <h5 class="service-card__name">{{ $service->name }}</h5>
+                      <p class="service-card__text">
+                        {{ Str::limit($service->description, 160) }}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            @endforeach
           </div>
         </div>
       </div>
-    </div>
+    @endforeach
   </div>
+
+  {{-- Flèches navigation personnalisées --}}
+  <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+    <span style="font-size:2rem; color:black;">&#10094;</span> {{-- ‹ --}}
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+    <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
+  </button>
 </div>
-<style>
-:root{
-  --radius: 18px;
-  --gap: 28px;                 /* espace entre les cartes */
-  --accent: #7CAE2A;
-  --primary: #2d3281;
-  --muted: #e9eef3;
-}
-/* ====== GRID LAYOUT AVEC ZONES ====== */
-.projects-grid{
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;     /* léger avantage à gauche (comme la maquette) */
-  gap: var(--gap);
-  grid-template-areas:
-    "p1    promo"   /* 1ère rangée : grand visuel + petite bannière */
-    "p2    p3"      /* 2e rangée : P2 à gauche, P3 remonte à droite */
-    ".     stats";  /* 3e rangée : stats sous le 3e projet */
-}
-/* Raccorder les éléments aux zones */
-.grid-p1   { grid-area: p1; }
-.grid-promo{ grid-area: promo; }
-.grid-p2   { grid-area: p2; }
-.grid-p3   { grid-area: p3; }
-.grid-stats{ grid-area: stats; }
-/* ====== CARTES ====== */
-.proj-card, .promo-card{
-  min-height: 240px;                 /* cartes plus petites et espacées */
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  background: #fff;
-}
-.stats-card{
-  min-height: 240px;                 /* cartes plus petites et espacées */
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  background: #fff;
-}
-/* hauteurs spécifiques pour coller au visuel */
-.proj-card--lg{ min-height: 360px; }  /* grand bloc (haut gauche) */
-.grid-promo    { min-height: 120px; } /* ✅ bannière verte moins haute */
-.grid-p3       { min-height: 300px; } /* 3e projet plus haut visuellement */
-.grid-stats    { min-height: 150px; }
-/* ====== IMAGES ====== */
-.proj-card img{
-  width:100%; height:100%;
-  object-fit: cover;
-  transition: transform .6s ease;
-}
-.proj-card:hover img{ transform: scale(1.04); }
-/* ====== OVERLAY + PILLS ====== */
-.proj-overlay{
-  position:absolute; inset:auto 0 0 0;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:12px 14px;
-  background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
-}
-.pill{
-  border-radius:999px; padding:8px 12px;
-  font-size:.8rem; display:inline-flex; align-items:center; gap:6px;
-}
-.pill--muted{ background:rgba(255,255,255,.9); color:#2c313a; }
-.pill--action{ background:var(--accent); color:#fff; }
-/* ====== PROMO ====== */
-.promo-card{
-  background:#69bb36; color:#fff;
-  width:700px; height:180px;
-  padding:20px; display:flex; align-items:center; justify-content:center; text-align:center;
-}
-.promo-dot{
-  width:35px; height:30px; background:#1d2a78; border-radius:4px;
-  position:absolute; bottom:0px; right:0px;
-}
-/* ====== STATS ====== */
-.stats-card{ padding:20px; margin-top: -200px;margin-bottom: 400px;}
-.stats-row{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; }
-.stat{ background:#e8eef7; padding:12px; border-radius:10px; text-align:center; }
-.stat--accent{ background:#e5f5e2; }
-.stat-number{ font-size:22px; font-weight:700; color:var(--primary); }
-.stat--accent .stat-number{ color: var(--accent); }
-.stat-label{ font-size:13px; color:#3f4759; }
-/* ====== RESPONSIVE ====== */
-@media (max-width: 992px){
-  .projects-grid{
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "p1"
-      "promo"
-      "p2"
-      "p3"
-      "stats";
-  }
-  .proj-card--lg{ min-height: 300px; }
-  .grid-p3{ min-height: 260px; }
-}
-/* Remonter uniquement la 3e carte (P3) */
-.grid-p3 {
-  margin-top: -240px;
-  margin-bottom: 240px; /* 🔥 ajuste la valeur selon la hauteur voulue */
-}
-</style>
-<!-- Projects End -->
-<!-- =============== ABOUT (comme la maquette) =============== -->
-<section class="about-fei pt-2 pb-5">
-  <div class="container">
-<div class="row g-5 align-items-start">
-  <div class="col-lg-6">
-    <img src="{{ asset('img/africa.png') }}" 
-         alt="En savoir plus" 
-         class="about-btn-img mb-4">
-    <a href="{{ url('/about') }}" class="btn about-btn">
-      En savoir plus
-      <span class="btn-icon" aria-hidden="true">→</span>
-    </a>
-  </div>
+
+
+  {{-- Flèches navigation personnalisées --}}
+  <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+    <span style="font-size:2rem; color:black;">&#10094;</span> {{-- ‹ --}}
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+    <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
+  </button>
 </div>
-  </div>
-</section>
-    {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
-    <div class="container-fluid py-5 my-5" style="background: var(--light);">
-        <div class="container services-section">
-            @php $serviceChunks = $services->chunk(3); @endphp
-            <div class="position-relative">
-                @foreach($serviceChunks as $chunkIndex => $chunk)
-                    <div class="service-slide row g-4 {{ $chunkIndex === 0 ? '' : 'd-none' }}">
-                        @foreach($chunk as $service)
-                            <div class="col-md-4 wow fadeIn" data-wow-delay=".{{ ($loop->index + 1) * 2 - 1 }}s">
-                                <a href="{{ route('services.show', $service->id) }}" class="text-decoration-none text-dark"
-                                    style="display:block;">
-                                    <div class="card h-100 border-0 shadow-sm overflow-hidden service-card"
-                                        style="transition: transform .2s; background-color: {{ $service->image ? '#fff' : '#555555' }};">
-                                        @if($service->image)
-                                            <img src="{{ asset('storage/' . ltrim($service->image, '/')) }}" alt="{{ $service->name }}"
-                                                class="w-100" style="height: 500px; object-fit: cover;">
-                                        @else
-                                            <div class="d-flex align-items-center justify-content-center" style="height: 200px;">
-                                                <i class="fas fa-image fa-3x text-white-50"></i>
-                                            </div>
-                                        @endif
-                                        <div class="card-body p-4 text-center" style="background: transparent; padding-top: 80px;">
-                                            <h5 class="service-name-block">{{ $service->name }}</h5>
-                                            <p class="mb-0 text-muted">
-                                                {{ \Illuminate\Support\Str::limit($service->description, 60, '...') }}
-                                            </p>
-                                            <div class="mt-3">
-                                                <span class="text-dark fw-bold">
-                                                    Créé le : {{ $service->created_at->format('d/m/Y') }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
-            @if($services->count() > 3)
-                <div class="d-flex align-items-center mt-4">
-                    <button class="btn btn-warning btn-sm services-prev">Previous</button>
-                    <div class="services-progress flex-grow-1 mx-3"
-                        style="position:relative; height:4px; background:rgba(0,0,0,0.1); overflow:hidden;">
-                        <div class="services-progress-bar"
-                            style="position:absolute; top:0; left:0; height:100%; width:0; background:var(--warning); transition:width .3s;">
-                        </div>
-                    </div>
-                    <button class="btn btn-warning btn-sm services-next">Next</button>
-                </div>
-            @endif
-        </div>
-    </div>
-    
+
+
+
     {{-- =============== CLEAN ENERGY SECTION =============== --}}
     <div class="container-fluid py-5 my-5">
         <div class="container">
@@ -568,19 +657,17 @@
                         </div>
                     </div>
                     <!-- Blog End -->
-<!-- Section Titre avec image en dessous -->
-<section class="hcw my-5">
-  <div class="container text-center">
-    <h1 class="hcw-title">
-      <span>Happy Customers,</span><br>
-      <span>Happy World</span>
-    </h1>
-    <!-- Image sous le texte -->
-    <img src="{{ asset('img/Card.png') }}" 
-         alt="Happy Customers" 
-         class="hcw-img mt-4">
-  </div>
-</section>
+                    <!-- Section Titre avec image en dessous -->
+                    <section class="hcw my-5">
+                        <div class="container text-center">
+                            <h1 class="hcw-title">
+                                <span>Happy Customers,</span><br>
+                                <span>Happy World</span>
+                            </h1>
+                            <!-- Image sous le texte -->
+                            <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
+                        </div>
+                    </section>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             const servicesSection = document.querySelector('.services-section');
@@ -622,20 +709,20 @@
                                             const col = document.createElement('div');
                                             col.className = 'col-md-6 mb-4';
                                             col.innerHTML = `
-                                                        <div class="d-flex align-items-center team-card p-3 rounded">
-                                                            <!-- Avatar avec cercle -->
-                                                            <div class="team-photo position-relative me-3">
-                                                                <div class="circle-border">
-                                                                    <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                                                </div>
-                                                            </div>
-                                                            <!-- Infos -->
-                                                            <div class="team-info flex-grow-1">
-                                                                <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                                <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                            </div>
-                                                        </div>
-                                                    `;
+                                                                    <div class="d-flex align-items-center team-card p-3 rounded">
+                                                                        <!-- Avatar avec cercle -->
+                                                                        <div class="team-photo position-relative me-3">
+                                                                            <div class="circle-border">
+                                                                                <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Infos -->
+                                                                        <div class="team-info flex-grow-1">
+                                                                            <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                                            <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                `;
                                             teamContainer.appendChild(col);
                                         });
                                         // Pagination + Progress bar

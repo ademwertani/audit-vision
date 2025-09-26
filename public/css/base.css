@@ -584,6 +584,99 @@ main,
   isolation: isolate;
 }
 
+
+/* ===== Carte service ===== */
+.service-card{
+  position: relative;
+  border-radius: 20px;       /* arrondi comme l’image */
+  overflow: hidden;
+  min-height: 520px;         /* ajuste selon ton design */
+}
+
+/* Image plein cadre */
+.service-card__img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center;
+  border-radius: 20px;       /* arrondi cohérent */
+}
+
+/* Petite carte blanche */
+.service-card__info{
+  position:absolute;
+  background:#fff;
+  border-radius:14px;
+  padding:16px 20px;
+  max-width: 240px;          /* largeur proche du rendu */
+  box-shadow:0 8px 18px rgba(218, 5, 5, 0.12);
+}
+
+/* Placement (par défaut bas-gauche) */
+.service-card__info--bottom-left{ left:18px; bottom:18px; }
+
+/* Titre */
+.service-card__name{
+  font-weight:700;
+  font-size:1rem;
+  color:#4A8F2C;             /* vert comme ton exemple */
+  margin-bottom:8px;
+}
+.service-card__name:hover{ text-decoration:underline; }
+
+/* Texte */
+.service-card__text{
+  font-size:0.9rem;
+  line-height:1.4;
+  color:#444;
+}
+/* ===== Petite carte blanche style ===== */
+.service-card__info{
+  background:#fff;
+  border-radius:14px;
+  padding:18px 20px;
+  max-width: 260px;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);  /* ombre diffuse */
+}
+.service-card__info--lower{
+  bottom: 150px; 
+  le   /* plus près du bas */
+}
+
+/* Titre vert souligné */
+.service-card__name{
+  font-weight:600;
+  font-size:1rem;
+  color:#4A8F2C;             /* vert */
+  text-decoration:underline; /* souligné */
+  margin-bottom:10px;
+}
+
+/* Texte description */
+.service-card__text{
+  font-size:0.92rem;
+  line-height:1.5;
+  color:#666;                /* gris doux */
+  margin:0;
+}
+
+
+/* Responsive */
+@media (max-width: 992px){
+  .service-card{ min-height:280px; }
+  .service-card__info{ max-width: 75%; }
+  .service-card__info--right{ right: 6%; }
+  .service-card__info--left{  left:  6%; }
+}
+@media (max-width: 576px){
+  .service-card{ min-height:240px; }
+  .service-card__info{ max-width: 86%; top:auto; bottom: 6%; left: 7%; right: 7%; }
+}
+
+
+
+
+
 /* Cadre bleu derrière */
 .about-media::before{
   content: "";
