@@ -9,10 +9,10 @@
    Scoped so it won't leak elsewhere.
    ========================================================= */
 .page-about{
-  --navy:#2f3582;
+  --navy:#242958;
   --navyDark:#1d2760;
   --sky:#31b4eb;
-  --accent:#ff6b35;
+  --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
   --field:#f5f7fb;
@@ -30,8 +30,8 @@
   position:relative;
 }
 .pa-hero .pa-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
-.pa-title{font-size:56px;line-height:1.05;font-weight:800;margin:0 0 10px}
-.pa-hero h1,.pa-hero .pa-title,.pa-hero p,.pa-hero .pa-sub{color:#fff !important}
+.pa-title{font-size:80px;line-height:2.05;font-weight:800;margin:0 0 10px}
+.pa-hero h1,.pa-hero .pa-title,.pa-hero p,.pa-hero .pa-sub{color:#ffffff !important}
 .pa-sub{max-width:620px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
 @media (max-width:768px){.pa-title{font-size:40px}}
 
@@ -53,7 +53,7 @@
 .pa-kicker{color:var(--sky);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 .pa-h1{color:var(--ink);font-weight:800;line-height:1.14;margin:8px 0 0}
 .btn-accent{background:var(--accent);border:none;color:#fff;font-weight:800;padding:14px 22px;border-radius:14px;
-  box-shadow:0 10px 18px rgba(255,107,53,.2);transition:.2s}
+  ;transition:.2s}
 .btn-accent:hover{transform:translateY(-1px);filter:brightness(.98)}
 
 /* ---------- Metrics (replaces bg-secondary strip) ---------- */
@@ -83,7 +83,7 @@
 .team-card .team-name{padding:14px 12px;text-align:center}
 .team-card .team-name h4{margin:0 0 6px;font-weight:800}
 .team-card .team-name p{margin:0;color:#64748b}
-.team-card .team-icon{display:flex;justify-content:center;gap:8px;padding:0 0 18px}
+.team-card .team-icon{display:flex;justify-content:center;gap:8px;padding:0 0 18px;}
 .team-card .btn{width:36px;height:36px;border-radius:50%}
 </style>
 
@@ -96,14 +96,7 @@
       <p class="pa-sub">{{ $about->summary }}</p>
     </div>
 
-    <div class="pa-bread-wrap">
-      <div class="pa-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Accueil</a>
-        <span class="sep">|</span>
-        <span>À propos</span>
-      </div>
-    </div>
+ 
   </header>
 
   <section class="metrics">

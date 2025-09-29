@@ -12,7 +12,7 @@
   --navy:#2f3582;
   --navyDark:#1d2760;
   --sky:#31b4eb;
-  --accent:#ff6b35;
+  --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
   --field:#f5f7fb;
@@ -132,7 +132,7 @@
         <div class="cp-kicker">Request a quote</div>
         <h2 class="cp-h1">
           Talk About How We Can Help<br>
-          You <span style="color:var(--sky)">Reduce Your Energy</span>
+          You 
         </h2>
 
         @if(session('success'))

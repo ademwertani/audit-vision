@@ -9,10 +9,10 @@
    Scoped to this page only.
    ========================================================= */
 .page-projects{
-  --navy:#2f3582;
+  --navy:#242958;
   --navyDark:#1d2760;
   --sky:#31b4eb;
-  --accent:#ff6b35;
+  --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
   --card:#ffffff;
@@ -80,7 +80,7 @@
 .card-footer{padding:12px 16px;display:flex;justify-content:flex-start;gap:8px}
 .btn-accent{
   background:var(--accent); color:#fff; border:none; font-weight:800;
-  padding:10px 14px; border-radius:14px; box-shadow:0 10px 18px rgba(255,107,53,.2);
+  padding:10px 14px; border-radius:14px; 
 }
 .btn-accent:hover{filter:brightness(.98)}
 </style>

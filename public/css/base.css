@@ -1,7 +1,6 @@
 /* =============================================
    Base variables and global layout - Updated with Figma colors
    ============================================= */
-
 /* ===== Updated Palette with Figma Colors ===== */
 :root {
     --primary: #2d3281; /* Deep blue from Figma */
@@ -15,14 +14,12 @@
     --border: #dadada; /* Light borders from Figma */
     --surface: #f1f1f1; /* Surface color from Figma */
     --text-muted: #949494; /* Muted text from Figma */
-
     /* Legacy variables for compatibility */
     --indigo: #2d3281; /* Updated to Figma primary */
     --sky: #37a7df; /* Updated to Figma secondary */
     --ink: #333333; /* Updated to Figma dark */
     --card-bd: #dadada; /* Updated to Figma border */
 }
-
 /* Added proper font family and improved global layout */
 body {
     color: var(--dark);
@@ -30,18 +27,15 @@ body {
     font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
 }
-
 /* Improved container widths to reduce excessive side spacing */
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
-
 .container-fluid {
     padding: 0 20px;
 }
-
 /* Keep page content separate from the header */
 .header-aisla {
     position: relative;
@@ -54,7 +48,6 @@ main,
     position: relative;
     z-index: 1;
 }
-
 /* Loading spinner overlay */
 #spinner {
     opacity: 0;
@@ -69,7 +62,6 @@ main,
     opacity: 1;
     transition: opacity 0.5s ease-out;
 }
-
 /* Updated global text colors to use Figma palette */
 .text-primary {
     color: var(--primary) !important;
@@ -89,23 +81,16 @@ main,
 .bg-light {
     background-color: var(--light) !important;
 }
-
-
-
 .clean-energy h2 {
     font-weight: 700;
 }
-
 .clean-energy ul li {
     margin-bottom: 10px;
     font-size: 0.95rem;
 }
-
 .clean-energy .quote {
     font-size: 1.1rem;
 }
-
-
 .btn-contact {
     background-color: #7CAE2A; /* vert principal */
     color: #fff;
@@ -115,29 +100,21 @@ main,
     transition: all 0.3s ease;
     text-decoration: none;
 }
-
 .btn-contact:hover {
     background-color: #7CAE2A; /* vert plus foncé au hover */
     color: #fff;
 }
-
-
-
 .btn-accent{
   background:#7CAE2A; border:none; color:#ffffff; font-weight:700;
-
 }
 .btn-accent:hover{ filter:brightness(.95); }
-
 .btn-dark-ghost{
   background:rgba(12,22,39,.85); color:#fff; border:1px solid rgba(255,255,255,.25);
 }
 .btn-dark-ghost:hover{ background:rgba(12,22,39,.95); }
-
 .hero-dots{ height:8px; width:120px; background:rgba(255,255,255,.2); border-radius:999px; }
 .hero-progress{ height:4px; width:180px; background:rgba(255,255,255,.18); border-radius:999px; overflow:hidden; }
 .hero-progress-bar{ height:100%; width:40%; background:#35c24a; }
-
 /* Bouton vert plein */
 .btn-contact {
     background-color: #7cb342;
@@ -147,12 +124,10 @@ main,
     font-weight: 500;
     transition: all 0.3s ease;
 }
-
 .btn-contact:hover {
     background-color: #689f38;
     color: #fff;
 }
-
 /* Bouton vert contour */
 .btn-outline-contact {
     border: 2px solid #7CAE2A;
@@ -162,20 +137,16 @@ main,
     font-weight: 500;
     transition: all 0.3s ease;
 }
-
 .btn-outline-contact:hover {
     background-color: #7cb342;
     color: #fff;
 }
-
-
 /* Les liens aussi prennent plus de place */
 .navbar .nav-link {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
     line-height: 1.8 !important;
 }
-
 /* Une seule image de fond qui change */
 .hero-aisla{
   position: relative;
@@ -186,7 +157,6 @@ main,
   color: #fff;
   overflow: hidden;
 }
-
 /* Désactive totalement tout overlay/pseudo-élément */
 .hero-aisla::before{
   content: "";           /* nécessaire pour cibler le pseudo-élément */
@@ -194,7 +164,6 @@ main,
   background: transparent !important;
   backdrop-filter: none !important;
 }
-
 /* S'assurer que le contenu passe au-dessus du voile */
 .hero-aisla .container, .hero-aisla .row { position: relative; z-index: 2; }
 .hero-overlay{
@@ -202,14 +171,11 @@ main,
   background: transparent !important;
   backdrop-filter: none !important;
 }
-
-
 /* courbe sombre en bas */
 .hero-curve{
   position:absolute; left:0; right:0; bottom:-1px; height:350px; z-index:1;
   background: radial-gradient(120% 120% at 50% -10%, transparent 60%, #242958 61%);
 }
-
 .hero-aisla .overlay {
   position: absolute;
   inset: 0;
@@ -220,25 +186,21 @@ main,
   flex-direction: column;
   height: 100%;
 }
-
 .hero-title {
   font-size: 3rem;
   font-weight: bold;
   font-family: 'Times New Roman', serif;
   text-transform: uppercase;
   line-height: 1.2;
-
 }
 .hero-subtitle {
   font-size: 1.25rem;
   margin-bottom: 1rem;
 }
-
 .hero-text {
   font-size: 1rem;
   margin-bottom: 1.5rem;
 }
-
 .btn-green {
   background: #6fcf97;
   color: #fff;
@@ -259,7 +221,6 @@ main,
   overflow: hidden;
   padding-left: 5%; /* pour coller à gauche */
 }
-
 /* Overlay léger */
 .hero-aisla::after {
   content: "";
@@ -268,8 +229,6 @@ main,
   background: rgba(0,0,0,0.35); /* voile assombri */
   z-index: 1;
 }
-
-
 /* Titre principal */
 .hero-title {
   font-size: 3.2rem;          /* grande taille */
@@ -280,7 +239,6 @@ main,
   margin-bottom: 1rem;
   color: #fff;
 }
-
 /* Sous-titre */
 .hero-subtitle {
   font-size: 1.3rem;
@@ -288,7 +246,6 @@ main,
   font-weight: 500;
   color: #f1f1f1;
 }
-
 /* Texte descriptif */
 .hero-text {
   font-size: 1rem;
@@ -296,8 +253,6 @@ main,
   color: #e0e0e0;
   line-height: 1.6;
 }
-
-
 /* Bouton vert (Get Started) */
 .btn-green {
   background: #7CAE2A;
@@ -311,7 +266,6 @@ main,
   background: #5e8f1e;
   color: #fff;
 }
-
 /* Bouton transparent (Watch Video) */
 .btn-outline-light {
   border: 2px solid #fff;
@@ -325,10 +279,7 @@ main,
   background: #fff;
   color: #333;
 }
-
-
 /* Bouton principal – vert "Get Started" */
-
 /* Bouton secondaire – contour blanc (ghost) */
 .btn-dark-ghost{
   background: transparent !important;
@@ -342,7 +293,6 @@ main,
   background: rgba(255,255,255,.12) !important;
   transform: translateY(-1px);
 }
-
 /* Pilules un peu plus grandes comme dans l’image */
 .btn.rounded-pill{
   border-radius: 999px;
@@ -366,20 +316,16 @@ main,
   z-index: 10;
   transition: background 0.3s, transform 0.2s;
 }
-
 .hero-arrow:hover {
   background: rgba(0,0,0,0.7);
   transform: translateY(-50%) scale(1.1);
 }
-
 .hero-arrow-left {
   left: 20px;
 }
-
 .hero-arrow-right {
   right: 20px;
 }
-
 .hero-arrow i {
   font-size: 20px;
 }
@@ -389,12 +335,10 @@ main,
     line-height: 1.2;
     margin: 0;
 }
-
 .after-hero-text .text-green {
     color: #7CC242;        /* vert clair */
     font-weight: 300;
 }
-
 .after-hero-text .text-darkblue {
     color: #1E2452;        /* bleu foncé */
     font-weight: 300;
@@ -410,16 +354,13 @@ main,
     padding: 0 1rem;
     flex-direction: column;       /* permet d’empiler le texte et les boutons */
     justify-content: space-between; /* texte en haut, boutons en bas */
-
 }
 .hero-aisla .hero-buttons {
     display: flex;
     gap: 14rem;
-
     margin-left: 18rem;
     margin-top: 30rem;            /* espace avec le texte */
 }
-
 /* Hero Title */
 .hero-aisla .hero-title {
     font-family: 'Anuphan', sans-serif;
@@ -429,7 +370,6 @@ main,
     line-height: 1.2;
     margin-bottom: 1rem;
 }
-
 /* Hero Summary */
 .hero-aisla .hero-sub {
     font-family: 'Anuphan', sans-serif;
@@ -438,7 +378,6 @@ main,
     line-height: 1.6;
     margin-bottom: 2rem;
 }
-
 /* Boutons centrés horizontalement sous le texte */
 .hero-aisla .hero-buttons {
     justify-content: flex-start; /* aligne les boutons avec le texte */
@@ -451,7 +390,6 @@ main,
   --about-white: #ffffff;
   --about-radius: 18px;
 }
-
 /* ================== TEXTE ================== */
 .about-fei .about-kicker{
   color: var(--about-green);
@@ -459,7 +397,6 @@ main,
   letter-spacing: .08em;
   text-transform: uppercase;
 }
-
 .about-fei .about-title{
   color: var(--about-green);
   font-weight: 800;
@@ -467,18 +404,14 @@ main,
   line-height: 1.1;
   margin: 0;
 }
-
-
 .about-fei .about-text{
   color: var(--about-text);
 }
-
 .about-fei .about-subtitle{
   color: var(--about-green);
   font-weight: 700;
   letter-spacing: .02em;
 }
-
 /* ================== VALEURS ================== */
 .about-values .about-value{
   display: grid;
@@ -487,12 +420,10 @@ main,
   column-gap: 12px;
   min-width: 220px; /* pour garder l’espacement comme l’image */
 }
-
 .shape{
   width: 48px; height: 48px;
   display: inline-block;
 }
-
 /* Hexagone plein vert (SVG pur via background) */
 .shape-hex{
   -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="25,5 75,5 100,50 75,95 25,95 0,50"/></svg>') no-repeat center/contain;
@@ -500,7 +431,6 @@ main,
   background: var(--about-green);
   border-radius: 0; /* pas d’arrondi sur l’hexagone */
 }
-
 .shape-dot{
   background: var(--about-green);
   border-radius: 999px;
@@ -526,7 +456,6 @@ main,
   font-size: clamp(32px, 6vw, 64px);
   font-family: Inter, "SF Pro Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
-
 /* Image sous le titre */
 .hcw-img {
   max-width: 1300px;   /* ✅ règle la taille */
@@ -536,15 +465,11 @@ main,
   margin-left: auto;
   margin-right: auto;
 }
-
 .hcw{ padding-top: 8px; padding-bottom: 8px; }
-
-
 .about-values .label{
   color: #cbd5df;
   font-weight: 600;
 }
-
 /* ================== BOUTON ================== */
 .about-btn{
   background: var(--about-green);
@@ -559,7 +484,6 @@ main,
   box-shadow: 0 10px 24px rgba(105,187,54,.35);
   text-decoration: none;
 }
-
 .about-btn .btn-icon{
   width: 36px; height: 36px;
   line-height: 36px;
@@ -569,13 +493,11 @@ main,
   place-items: center;
   font-weight: 800;
 }
-
 .about-btn:hover{
   color: #0f1a10;
   transform: translateY(-1px);
   box-shadow: 0 14px 28px rgba(105,187,54,.45);
 }
-
 /* ================== MEDIA (image + plaque) ================== */
 .about-media{
   position: relative;
@@ -583,8 +505,6 @@ main,
   border-radius: 20px; /* arrondi identique */
   isolation: isolate;
 }
-
-
 /* ===== Carte service ===== */
 .service-card{
   position: relative;
@@ -592,7 +512,6 @@ main,
   overflow: hidden;
   min-height: 520px;         /* ajuste selon ton design */
 }
-
 /* Image plein cadre */
 .service-card__img{
   position:absolute; inset:0;
@@ -601,7 +520,6 @@ main,
   object-position:center;
   border-radius: 20px;       /* arrondi cohérent */
 }
-
 /* Petite carte blanche */
 .service-card__info{
   position:absolute;
@@ -611,10 +529,8 @@ main,
   max-width: 240px;          /* largeur proche du rendu */
   box-shadow:0 8px 18px rgba(218, 5, 5, 0.12);
 }
-
 /* Placement (par défaut bas-gauche) */
 .service-card__info--bottom-left{ left:18px; bottom:18px; }
-
 /* Titre */
 .service-card__name{
   font-weight:700;
@@ -623,7 +539,6 @@ main,
   margin-bottom:8px;
 }
 .service-card__name:hover{ text-decoration:underline; }
-
 /* Texte */
 .service-card__text{
   font-size:0.9rem;
@@ -642,7 +557,11 @@ main,
   bottom: 150px; 
   /* plus près du bas */
 }
-
+.full-width-img img {
+    width: 100%;        /* occupe toute la largeur */
+    height: auto;       /* garde le ratio */
+    display: block;     /* enlève l’espace blanc en bas */
+}
 /* Titre vert souligné */
 .service-card__name{
   font-weight:600;
@@ -651,7 +570,6 @@ main,
   text-decoration:underline; /* souligné */
   margin-bottom:10px;
 }
-
 /* Texte description */
 .service-card__text{
   font-size:0.92rem;
@@ -662,8 +580,6 @@ main,
 .pub-section {
   margin-top: 180px !important; /* espace avant la section */
 }
-
-
 /* Responsive */
 @media (max-width: 992px){
   .service-card{ min-height:280px; }
@@ -675,11 +591,6 @@ main,
   .service-card{ min-height:240px; }
   .service-card__info{ max-width: 86%; top:auto; bottom: 6%; left: 7%; right: 7%; }
 }
-
-
-
-
-
 /* Cadre bleu derrière */
 .about-media::before{
   content: "";
@@ -692,7 +603,6 @@ main,
   border-radius: 20px;
   z-index: 0;
 }
-
 /* L’image au-dessus */
 .about-media img{
   display: block;
@@ -702,7 +612,6 @@ main,
   z-index: 1;
   box-shadow: 0 8px 18px rgba(0,0,0,.35); /* ombre comme la maquette */
 }
-
 /* Liseré/ombre en pointillés simulés (optionnel – effet “grain”) */
 .about-media::after{
   content:"";
@@ -713,7 +622,6 @@ main,
   box-shadow: 0 18px 20px rgba(0,0,0,.35);
   z-index: 0;
 }
-
 /* ================== RESPONSIVE ================== */
 @media (max-width: 991.98px){
   .about-media::before{
@@ -723,4 +631,134 @@ main,
   .about-values .about-value{
     min-width: 46%;
   }
+}
+/* Wrapper */
+.blog-card{
+  position: relative;
+  height: 460px;    
+  min-height: 420px;
+  border-radius: 16px;        /* radius only here */
+  overflow: hidden;           /* clip children to radius */
+  background:#000;            /* prevents grey bleed on edges */
+}
+
+/* Full-cover image */
+.blog-card__img{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 150% !important;
+  height: 150% !important;
+  object-fit: cover !important;          /* fill entire card */
+  display: block !important;
+  /* IMPORTANT: no border-radius here */
+  border: 0;
+}
+
+/* Overlay */
+.blog-card__overlay{
+  position: absolute;
+  inset: 0;
+  /* no radius here either */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.55) 85%),
+    rgba(0,0,0,.10);
+}
+
+/* Content */
+.blog-card__content{
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+  padding-bottom: 96px;   /* réserve la place du bouton */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card__cat{ font-size:.78rem; font-weight:700; color:#6FA0C8; }
+.blog-card__title{ font-size:1.25rem; font-weight:800; margin:0;color:#ffffff; }
+.blog-card__meta{ font-size:.9rem; opacity:.95; display:flex; gap:10px; }
+.blog-card__date{ display:flex; align-items:center; gap:6px; color:#E8F0F8; }
+.blog-card__excerpt{ font-size:1rem; line-height:2; color:#E6F7F0; }
+
+/* Bouton fixé en bas */
+.blog-card__btn{
+  position: absolute;
+  left: 24px;
+  right: 24px;            /* retire si tu veux un bouton à gauche uniquement */
+  bottom: 20px;
+  z-index: 3;
+
+  background:#6DB139;
+  color:#fff;
+  font-weight:700;
+  padding:10px 18px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.blog-card__btn-icon{
+  background:rgba(255,255,255,.25);
+  border-radius:50%;
+  width:26px; height:26px;
+  display:grid; place-items:center;
+}
+/* ===== Section Head "Blog" (style capture) ===== */
+.blog-intro{
+  max-width: 640px;
+  margin-left: 0;           /* aligné à gauche */
+  margin-right: auto;
+  text-align: left;
+}
+
+.blog-intro__title{
+  color: #6DB139;           /* vert du thème */
+  font-weight: 800;
+  font-size: 2rem;          /* ≈ 32px – ajuste si besoin */
+  line-height: 1.1;
+  margin: 0 0 .35rem 0;
+}
+
+.blog-intro__desc{
+  color: #5f6368;           /* gris doux comme la capture */
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 1rem 0;
+  max-width: 56ch;
+}
+
+/* Bouton vert avec pastille flèche */
+.blog-intro__cta{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #6DB139;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(109,177,57,.35); /* ombre sous le bouton */
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+
+.blog-intro__cta-icon{
+  display: grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  font-weight: 900;
+}
+
+.blog-intro__cta:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(109,177,57,.40);
+  opacity: .95;
+}
+
+/* Mobile tweak */
+@media (max-width: 576px){
+  .blog-intro__title{ font-size: 1.75rem; }
 }

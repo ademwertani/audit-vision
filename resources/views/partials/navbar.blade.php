@@ -3,34 +3,24 @@
   $about = $about ?? (object) [];
   $social = $social ?? (object) [];
 @endphp
-
 <header class="header-aisla bg-white shadow-sm">
   <div class="container-fluid"> {{-- full width pour coller totalement à gauche --}}
     <nav class="navbar navbar-expand-lg navbar-light py-2">
-
       {{-- Logo totalement à gauche et plus grand --}}
       <a href="{{ url('/') }}" class="navbar-brand me-auto d-flex align-items-center gap-2">
-    @if(!empty($about->logo))
-        <img src="{{ asset('storage/' . ltrim($about->logo, '/')) }}" 
-             alt="France Isolation" 
-             class="ms-0 logo-navbar">
-    @else
-        <img src="{{ asset('/img/png.png') }}" 
-             alt="Aisla Nova" 
-             class="ms-0 logo-navbar">
-    @endif
-</a>
-
-
+        @if(!empty($about->logo))
+          <img src="{{ asset('storage/' . ltrim($about->logo, '/')) }}" alt="France Isolation" class="ms-0 logo-navbar">
+        @else
+          <img src="{{ asset('/img/png.png') }}" alt="Aisla Nova" class="ms-0 logo-navbar">
+        @endif
+      </a>
       {{-- Toggler mobile --}}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseNew"
         aria-controls="navbarCollapseNew" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       {{-- Liens + Boutons --}}
       <div class="collapse navbar-collapse" id="navbarCollapseNew">
-
         {{-- Liens centrés --}}
         <ul class="navbar-nav mx-auto align-items-lg-center gap-3">
           <li class="nav-item">
@@ -56,22 +46,23 @@
               class="nav-link {{ Request::is('projects*') ? 'active' : '' }}">Projects</a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('blog.index') }}" class="nav-link {{ Request::is('blog*') ? 'active' : '' }}">Blog</a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('/about') }}" class="nav-link {{ Request::is('about') ? 'active' : '' }}">About Us</a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/contact') }}" class="nav-link {{ Request::is('Contact Us') ? 'active' : '' }}">Contact Us
+            </a>
+          </li>
         </ul>
-
         {{-- Boutons alignés à droite --}}
         <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
           <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
           <a href="{{ url('quote') }}" class="btn btn-outline-contact">Get a Quote</a>
         </div>
-
       </div>
     </nav>
   </div>
 </header>
-
-
-
-
 {{-- ================== /HEADER ================== --}}

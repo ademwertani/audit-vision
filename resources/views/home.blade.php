@@ -173,6 +173,7 @@
             --primary: #2d3281;
             --muted: #e9eef3;
         }
+
         /* ====== GRID LAYOUT AVEC ZONES ====== */
         .projects-grid {
             display: grid;
@@ -187,22 +188,28 @@
                 ".     stats";
             /* 3e rangée : stats sous le 3e projet */
         }
+
         /* Raccorder les éléments aux zones */
         .grid-p1 {
             grid-area: p1;
         }
+
         .grid-promo {
             grid-area: promo;
         }
+
         .grid-p2 {
             grid-area: p2;
         }
+
         .grid-p3 {
             grid-area: p3;
         }
+
         .grid-stats {
             grid-area: stats;
         }
+
         /* ====== CARTES ====== */
         .proj-card,
         .promo-card {
@@ -214,6 +221,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
+
         .stats-card {
             min-height: 240px;
             /* cartes plus petites et espacées */
@@ -223,22 +231,27 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
+
         /* hauteurs spécifiques pour coller au visuel */
         .proj-card--lg {
             min-height: 360px;
         }
+
         /* grand bloc (haut gauche) */
         .grid-promo {
             min-height: 120px;
         }
+
         /* ✅ bannière verte moins haute */
         .grid-p3 {
             min-height: 300px;
         }
+
         /* 3e projet plus haut visuellement */
         .grid-stats {
             min-height: 150px;
         }
+
         /* ====== IMAGES ====== */
         .proj-card img {
             width: 100%;
@@ -246,9 +259,11 @@
             object-fit: cover;
             transition: transform .6s ease;
         }
+
         .proj-card:hover img {
             transform: scale(1.04);
         }
+
         /* ====== OVERLAY + PILLS ====== */
         .proj-overlay {
             position: absolute;
@@ -259,6 +274,7 @@
             padding: 12px 14px;
             background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
         }
+
         .pill {
             border-radius: 999px;
             padding: 8px 12px;
@@ -267,14 +283,17 @@
             align-items: center;
             gap: 6px;
         }
+
         .pill--muted {
             background: rgba(255, 255, 255, .9);
             color: #2c313a;
         }
+
         .pill--action {
             background: var(--accent);
             color: #fff;
         }
+
         /* ====== PROMO ====== */
         .promo-card {
             background: #69bb36;
@@ -287,6 +306,7 @@
             justify-content: center;
             text-align: center;
         }
+
         .promo-dot {
             width: 35px;
             height: 30px;
@@ -296,38 +316,46 @@
             bottom: 0px;
             right: 0px;
         }
+
         /* ====== STATS ====== */
         .stats-card {
             padding: 20px;
             margin-top: -200px;
             margin-bottom: 400px;
         }
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
+
         .stat {
             background: #e8eef7;
             padding: 12px;
             border-radius: 10px;
             text-align: center;
         }
+
         .stat--accent {
             background: #e5f5e2;
         }
+
         .stat-number {
             font-size: 22px;
             font-weight: 700;
             color: var(--primary);
         }
+
         .stat--accent .stat-number {
             color: var(--accent);
         }
+
         .stat-label {
             font-size: 13px;
             color: #3f4759;
         }
+
         /* ====== RESPONSIVE ====== */
         @media (max-width: 992px) {
             .projects-grid {
@@ -339,13 +367,16 @@
                     "p3"
                     "stats";
             }
+
             .proj-card--lg {
                 min-height: 300px;
             }
+
             .grid-p3 {
                 min-height: 260px;
             }
         }
+
         /* Remonter uniquement la 3e carte (P3) */
         .grid-p3 {
             margin-top: -240px;
@@ -413,62 +444,83 @@
         </button>
     </div>
     {{-- pub --}}
-    <section class="pub-section pt-2 pb-5 mt-5">
-        <div class="container">
-            <div class="row g-5 align-items-start">
-                <div class="col-lg-6">
-                    <img src="{{ asset('img/pub.png') }}" alt="pub" class="about-btn-img mb-4">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Blog Start -->
-    <div class="container-fluid blog py-5 mb-5">
-        <div class="container">
-            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-uppercase fw-bold" style="color:#F1A601 ; font-size: 1.1rem; letter-spacing: 1px;">
-                    Blog & Updates
-                </h5>
-                <h1 class="fw-bold">Recent News</h1>
-            </div>
-            <div class="row g-4 justify-content-center">
-                @forelse($blogs->slice(0, 4) as $index => $blog)
-                    <div class="col-12 col-md-6"> <!-- 2 cartes par ligne sur md+ -->
-                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                            @if($index === 0 || $index === 3) <!-- 1er et 4eme blog -->
-                                @if($blog->image)
-                                    <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
-                                @endif
-                            @else
-                                <img src="{{ asset('storage/' . $blog->image) }}" class="w-100" style="border-radius: 1rem;">
-                            @endif
-                            <div class="card-body" style="border-radius: 1rem;">
-                                <p class="text-uppercase small text-muted fw-semibold mb-2">Design Process</p>
-                                <h5 class="fw-bold">{{ $blog->title }}</h5>
-                                <p class="text-muted">
-                                    {{ Str::limit(strip_tags($blog->content), 100) }}
-                                </p>
-                                <div class="d-flex align-items-center mt-3">
-                                    <span class="badge px-3 py-2 rounded-pill" style="background-color: #F1A601; color: #000;">
-                                        {{ $blog->created_at->format('F d, Y') }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-center">Aucun article pour le moment.</p>
-                @endforelse
-            </div>
-            <div class="text-center mt-5">
-                <a href="{{ route('blog.index') }}" class="btn btn-danger px-4 py-2 rounded-pill">
-                    View All News
-                </a>
-            </div>
-        </div>
+<section class="pub-section pt-2 pb-5 mt-5">
+    <div class="full-width-img">
+        <img src="{{ asset('img/pub.png') }}" alt="pub">
     </div>
+</section>
+
+<!-- Blog Start -->
+<div class="container-fluid py-5 mb-5">
+  <div class="container">
+<div class="blog-intro pb-4">
+  <h2 class="blog-intro__title">Blog</h2>
+  <p class="blog-intro__desc">
+    Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
+    en mettant l’accent sur la durabilité et l’autonomisation.
+  </p>
+
+  <a href="{{ route('blog.index') }}" class="blog-intro__cta">
+    Tout voir <span class="blog-intro__cta-icon">→</span>
+  </a>
+</div>
+
+    <div class="row g-4 justify-content-center">
+      @forelse($blogs->take(3) as $blog)
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none">
+            <article class="blog-card rounded-4 overflow-hidden position-relative">
+  {{-- Image plein cadre --}}
+  @if($blog->image)
+    <img src="{{ asset('storage/' . $blog->image) }}" 
+         alt="{{ $blog->title }}"
+         class="blog-card__img">
+  @endif
+
+  {{-- Overlay --}}
+  <div class="blog-card__overlay"></div>
+
+  {{-- Content --}}
+  <div class="blog-card__content">
+    <p class="blog-card__cat text-uppercase mb-1">
+      {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
+    </p>
+
+    <h3 class="blog-card__title">{{ $blog->title }}</h3>
+
+    <div class="blog-card__meta">
+      <span class="blog-card__date">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ $blog->created_at->translatedFormat('j F Y') }}
+      </span>
     </div>
-    <!-- Blog End -->
+
+    <p class="blog-card__excerpt">
+      {{ Str::limit(strip_tags($blog->content), 120) }}
+    </p>
+
+    <span class="blog-card__btn">
+      Lire Plus <span class="blog-card__btn-icon">→</span>
+    </span>
+  </div>
+</article>
+
+          </a>
+        </div>
+      @empty
+        <p class="text-center">Aucun article pour le moment.</p>
+      @endforelse
+    </div>
+
+    
+  </div>
+</div>
+<!-- Blog End -->
+
     <!-- Section Titre avec image en dessous -->
     <section class="hcw my-5">
         <div class="container text-center">
@@ -521,20 +573,20 @@
                             const col = document.createElement('div');
                             col.className = 'col-md-6 mb-4';
                             col.innerHTML = `
-                                                                                <div class="d-flex align-items-center team-card p-3 rounded">
-                                                                                    <!-- Avatar avec cercle -->
-                                                                                    <div class="team-photo position-relative me-3">
-                                                                                        <div class="circle-border">
-                                                                                            <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!-- Infos -->
-                                                                                    <div class="team-info flex-grow-1">
-                                                                                        <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                                                        <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            `;
+                                                                                            <div class="d-flex align-items-center team-card p-3 rounded">
+                                                                                                <!-- Avatar avec cercle -->
+                                                                                                <div class="team-photo position-relative me-3">
+                                                                                                    <div class="circle-border">
+                                                                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Infos -->
+                                                                                                <div class="team-info flex-grow-1">
+                                                                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        `;
                             teamContainer.appendChild(col);
                         });
                         // Pagination + Progress bar
@@ -602,46 +654,56 @@
         body {
             overflow-x: hidden;
         }
+
         img,
         iframe {
             max-width: 100%;
             height: auto;
             display: block;
         }
+
         /* 🔒 Mobile only */
         @media (max-width: 575.98px) {
+
             /* Garder padding vertical, réduire/annuler le padding horizontal */
             .container,
             .container-fluid {
                 padding-left: 12px !important;
                 padding-right: 12px !important;
             }
+
             .row {
                 margin-left: 0 !important;
                 margin-right: 0 !important;
             }
+
             [class^="col-"],
             [class*=" col-"] {
                 padding-left: 8px !important;
                 padding-right: 8px !important;
             }
+
             /* Services / cartes : supprimer largeurs fixes */
             .services-section .card {
                 width: 100% !important;
             }
+
             .services-section img {
                 max-width: 100%;
                 height: auto;
             }
+
             /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
             .project-item .card {
                 width: 100% !important;
                 height: auto !important;
             }
+
             .project-item img {
                 height: 180px !important;
                 object-fit: cover;
             }
+
             /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
             .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
                 position: static !important;
@@ -649,20 +711,24 @@
                 max-width: 320px !important;
                 margin: 16px auto 0 !important;
             }
+
             /* Image sous la zone bleue + marge négative */
             img[alt="Image sous zone bleue"] {
                 width: 100% !important;
                 height: auto !important;
             }
+
             .text-center[style*="margin-top: -190px"] {
                 margin-top: 0 !important;
             }
+
             /* Icônes/visuels autour de la vidéo */
             .uniform-img {
                 width: 96px !important;
                 height: 96px !important;
                 object-fit: contain;
             }
+
             /* Éviter tous débordements horizontaux restants */
             .hero-aisla,
             .about-aisla,
@@ -672,6 +738,7 @@
             .services-section {
                 overflow-x: hidden !important;
             }
+
             @media (min-width: 576px) {
                 .project-item .card {
                     width: 600px;
