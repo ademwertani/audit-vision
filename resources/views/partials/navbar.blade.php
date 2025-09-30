@@ -59,10 +59,24 @@
         {{-- Boutons alignés à droite --}}
         <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
           <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
-          <a href="{{ url('quote') }}" class="btn btn-outline-contact">Get a Quote</a>
+          <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn">Get a Quote</a>
+
         </div>
       </div>
     </nav>
   </div>
 </header>
 {{-- ================== /HEADER ================== --}}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const quoteBtn = document.querySelector(".quote-btn");
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 200) {
+        quoteBtn.classList.add("fixed-bottom");
+      } else {
+        quoteBtn.classList.remove("fixed-bottom");
+      }
+    });
+  });
+</script>

@@ -762,3 +762,28 @@ main,
 @media (max-width: 576px){
   .blog-intro__title{ font-size: 1.75rem; }
 }
+/* Style normal (dans le header) */
+.quote-btn {
+  transition: all 0.3s ease;
+}
+
+/* Style quand le bouton est fixé en bas */
+.quote-btn.fixed-bottom {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 100;
+  border-radius: 50px;   /* pour un style plus moderne */
+  padding: 1px 2px;
+      background-color: #7CAE2A; /* vert principal */
+    color: #fff;
+    border-radius: 20px; /* arrondi */
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+        background-color: #7CAE2A; /* vert plus foncé au hover */
+    color: #fff;
+  
+}
+
