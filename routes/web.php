@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
@@ -16,7 +17,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController as PublicContactController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
-
+use App\Http\Controllers\QuoteController ;
+use App\Http\Controllers\Admin\QuoteController as AdminQuoteController ;
 // Page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,6 +31,8 @@ Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('pro
 Route::get('/team', fn () => view('pages.team'))->name('team');
 Route::get('/testimonials', fn () => view('pages.testimonial'))->name('testimonials');
 Route::get('/404', fn () => view('pages.404'))->name('404');
+Route::get('/quote', [QuoteController::class, 'create'])->name('pages.quote'); // affiche le formulaire
+Route::post('/quote', [QuoteController::class, 'store'])->name('pages.quote'); // enregistre les données
 
 // Services publics
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
@@ -51,6 +55,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('contacts', AdminContactController::class);
     Route::resource('projects', AdminProjectController::class);
     Route::resource('blogs', AdminBlogController::class);
+    Route::resource('quotes', AdminQuoteController::class);
+
     Route::get('/social', [\App\Http\Controllers\Admin\SocialController::class, 'edit'])
         ->name('social.edit');
     Route::get('/about', [AdminAboutController::class, 'edit'])

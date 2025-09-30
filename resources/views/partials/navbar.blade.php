@@ -59,8 +59,11 @@
         {{-- Boutons alignés à droite --}}
         <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
           <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
-          <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn">Get a Quote</a>
-
+          @if(!request()->is('quote'))
+            <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn fixed-bottom">
+              Demander un devis
+            </a>
+          @endif
         </div>
       </div>
     </nav>
@@ -70,7 +73,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const quoteBtn = document.querySelector(".quote-btn");
-
     window.addEventListener("scroll", function () {
       if (window.scrollY > 200) {
         quoteBtn.classList.add("fixed-bottom");

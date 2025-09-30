@@ -842,6 +842,10 @@
                     <i class="fas fa-blog"></i>
                     <span class="nav-text">Blog Posts</span>
                 </a>
+                <a class="nav-link @if(Route::is('admin.quotes.*')) active @endif" href="{{ route('admin.quotes.index') }}" data-tooltip="quotes">
+                    <i class="fas float-lg-start"></i>
+                    <span class="nav-text">Quote</span>
+                </a>
             </div>
 
             <!-- Communication Group -->

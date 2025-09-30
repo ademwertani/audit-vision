@@ -787,3 +787,31 @@ main,
   
 }
 
+/* Bouton principal réduit et positionné à droite */
+.quote-btn.fixed-bottom {
+  position: fixed;
+  bottom: 30px;      /* distance depuis le bas */
+  right: 20px;       /* distance depuis la droite */
+  z-index: 100;
+
+  /* Taille réduite */
+  font-size: 0.75rem;
+  padding: 5px 10px;  /* hauteur et largeur du bouton */
+
+  /* Couleur soft (transparente) */
+  background-color: rgba(124, 174, 42, 0.5); /* vert clair transparent */
+  color: #fff;
+
+  border: none;
+  border-radius: 15px;
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Effet au hover */
+.quote-btn.fixed-bottom:hover {
+  background-color: #7CAE2A; /* vert 100% opaque */
+  color: #fff;
+}
