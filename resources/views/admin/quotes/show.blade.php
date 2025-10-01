@@ -10,14 +10,76 @@
             <i class="fas fa-arrow-left me-2"></i>Back
         </a>
     </div>
+
     <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><strong>Nom :</strong> {{ $quote->nom }}</li>
-            <li class="list-group-item"><strong>Prénom :</strong> {{ $quote->prenom }}</li>
-            <li class="list-group-item"><strong>Adresse :</strong> {{ $quote->adresse }}</li>
-            <li class="list-group-item"><strong>Email :</strong> {{ $quote->email }}</li>
-            <li class="list-group-item"><strong>Created At :</strong> {{ $quote->created_at->format('Y-m-d H:i') }}</li>
-        </ul>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Nom bénéficiaire :</strong>
+                        {{ $quote->nom_beneficiaire ?? '—' }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Prénom bénéficiaire :</strong>
+                        {{ $quote->prenom_beneficiaire ?? '—' }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Email :</strong>
+                        {{ $quote->email ?? '—' }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Téléphone :</strong>
+                        {{ $quote->telephone ?? '—' }}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Raison sociale :</strong>
+                        {{ $quote->raison_sociale ?? '—' }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Adresse :</strong>
+                        {{ $quote->adresse ?? '—' }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Secteur :</strong>
+                        @if(!empty($quote->secteur))
+                            <span class="badge bg-info text-dark text-uppercase ms-1">{{ $quote->secteur }}</span>
+                        @else
+                            —
+                        @endif
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Opérations :</strong>
+                        @php
+                            $ops = is_array($quote->operations)
+                                ? $quote->operations
+                                : (json_decode($quote->operations, true) ?: []);
+                        @endphp
+                        @if(!empty($ops))
+                            @foreach($ops as $op)
+                                <span class="badge bg-secondary text-capitalize ms-1">{{ $op }}</span>
+                            @endforeach
+                        @else
+                            —
+                        @endif
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="text-muted small">
+            <strong>Created At :</strong>
+            {{ optional($quote->created_at)->format('Y-m-d H:i') ?? '—' }}
+            &nbsp;|&nbsp;
+            <strong>Updated At :</strong>
+            {{ optional($quote->updated_at)->format('Y-m-d H:i') ?? '—' }}
+        </div>
     </div>
 </div>
 @endsection

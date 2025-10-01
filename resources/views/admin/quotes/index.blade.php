@@ -13,50 +13,89 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table id='table' class="table table-hover">
+                <table id="table" class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
                             <th>ID</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
+                            <th>Nom bénéficiaire</th>
+                            <th>Prénom bénéficiaire</th>
                             <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Secteur</th>
+                            <th>Opérations</th>
                             <th>Adresse</th>
-                            <th>Actions</th>
+                            <th>Raison sociale</th>
+                            <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($quotes as $quote)
+                        @forelse($quotes as $quote)
                             <tr>
                                 <td>{{ $quote->id }}</td>
-                                <td>{{ $quote->nom }}</td>
-                                <td>{{ $quote->prenom }}</td>
-                                <td>{{ $quote->email }}</td>
-                                <td>{{ $quote->adresse }}</td>
+                                <td>{{ $quote->nom_beneficiaire ?? '—' }}</td>
+                                <td>{{ $quote->prenom_beneficiaire ?? '—' }}</td>
+                                <td>{{ $quote->email ?? '—' }}</td>
+                                <td>{{ $quote->telephone ?? '—' }}</td>
                                 <td>
+                                    @if(!empty($quote->secteur))
+                                        <span class="badge bg-info text-dark text-uppercase">{{ $quote->secteur }}</span>
+                                    @else
+                                        —
+                                    @endif
+                                </td>
+                                <td>
+                                    @php
+                                        // Robustesse : si cast JSON actif -> array ; sinon tenter json_decode
+                                        $ops = is_array($quote->operations)
+                                            ? $quote->operations
+                                            : (json_decode($quote->operations, true) ?: []);
+                                    @endphp
+                                    @if(!empty($ops))
+                                        @foreach($ops as $op)
+                                            <span class="badge bg-secondary text-capitalize me-1">{{ $op }}</span>
+                                        @endforeach
+                                    @else
+                                        —
+                                    @endif
+                                </td>
+                                <td>{{ $quote->adresse ?? '—' }}</td>
+                                <td>{{ $quote->raison_sociale ?? '—' }}</td>
+                                <td class="text-end">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('admin.quotes.show', $quote) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('admin.quotes.show', $quote) }}" class="btn btn-sm btn-info" title="Voir">
                                             <i class="fas fa-eye"></i>
                                         </a>
-
-                                        <a href="{{ route('admin.quotes.edit', $quote->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.quotes.edit', $quote->id) }}" class="btn btn-sm btn-warning" title="Éditer">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
-                                            style="display:inline;">
+                                        <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure?')">
+                                                onclick="return confirm('Êtes-vous sûr ?')"
+                                                title="Supprimer">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center text-muted">
+                                    Aucune demande de devis pour le moment.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
+
+            @if(method_exists($quotes, 'links'))
+                <div class="mt-3">
+                    {{ $quotes->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection

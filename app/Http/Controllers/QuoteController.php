@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class QuoteController extends Controller
 {
@@ -12,10 +14,8 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        // Récupérer toutes les quotes
         $quotes = Quote::all();
 
-        // Retourner la vue avec les données
         return view('pages.quote', compact('quotes'));
     }
 
@@ -24,8 +24,10 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        // Afficher le formulaire de création
-        return view('pages.quote');
+        $secteurs = Quote::SECTEURS;
+        $secteurOps = Quote::SECTEUR_OPS;
+
+        return view('pages.quote', compact('secteurs', 'secteurOps'));
     }
 
     /**
@@ -33,18 +35,44 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation des champs
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'adresse' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-        ]);
+        $rules = [
+            'nom_beneficiaire'    => ['required', 'string', 'max:255'],
+            'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
+            'email'               => ['nullable', 'email', 'max:255'],
+            'telephone'           => ['nullable', 'string', 'max:30'],
+            'raison_sociale'      => ['nullable', 'string', 'max:255'],
+            'adresse'             => ['nullable', 'string', 'max:255'],
+            'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
+            'operations'          => ['nullable', 'array'],
+            'operations.*'        => ['string'],
+        ];
 
-        // Création de la quote
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->after(function ($v) use ($request) {
+            $secteur = $request->input('secteur');
+            $ops     = $request->input('operations', []);
+
+            if ($secteur) {
+                $allowed = Quote::allowedOperationsFor($secteur);
+
+                if (!empty($ops)) {
+                    $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
+                    if ($invalid->isNotEmpty()) {
+                        $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
+                    }
+                }
+            }
+        });
+
+        $validated = $validator->validate();
+
+        if (!empty($validated['operations'])) {
+            $validated['operations'] = array_values(array_unique($validated['operations']));
+        }
+
         Quote::create($validated);
 
-        // Redirection avec message de succès
         return redirect()->route('pages.quote')->with('success', 'Quote ajoutée avec succès !');
     }
 
@@ -63,7 +91,7 @@ class QuoteController extends Controller
     public function edit(string $id)
     {
         $quote = Quote::findOrFail($id);
-        return view('quote.edit', compact('quote'));
+        return view('pages.quote', compact('quote'));
     }
 
     /**
@@ -71,17 +99,46 @@ class QuoteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'adresse' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-        ]);
+        $rules = [
+            'nom_beneficiaire'    => ['required', 'string', 'max:255'],
+            'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
+            'email'               => ['nullable', 'email', 'max:255'],
+            'telephone'           => ['nullable', 'string', 'max:30'],
+            'raison_sociale'      => ['nullable', 'string', 'max:255'],
+            'adresse'             => ['nullable', 'string', 'max:255'],
+            'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
+            'operations'          => ['nullable', 'array'],
+            'operations.*'        => ['string'],
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->after(function ($v) use ($request) {
+            $secteur = $request->input('secteur');
+            $ops     = $request->input('operations', []);
+
+            if ($secteur) {
+                $allowed = Quote::allowedOperationsFor($secteur);
+
+                if (!empty($ops)) {
+                    $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
+                    if ($invalid->isNotEmpty()) {
+                        $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
+                    }
+                }
+            }
+        });
+
+        $validated = $validator->validate();
+
+        if (!empty($validated['operations'])) {
+            $validated['operations'] = array_values(array_unique($validated['operations']));
+        }
 
         $quote = Quote::findOrFail($id);
         $quote->update($validated);
 
-        return redirect()->route('quotes.index')->with('success', 'Quote mise à jour avec succès !');
+        return redirect()->route('pages.quote')->with('success', 'Quote mise à jour avec succès !');
     }
 
     /**
@@ -92,6 +149,6 @@ class QuoteController extends Controller
         $quote = Quote::findOrFail($id);
         $quote->delete();
 
-        return redirect()->route('quotes.index')->with('success', 'Quote supprimée avec succès !');
+        return redirect()->route('pages.quote')->with('success', 'Quote supprimée avec succès !');
     }
 }
