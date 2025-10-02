@@ -25,7 +25,7 @@
 .page-post{
   --navy:#2f3582;
   --navyDark:#1d2760;
-  --sky:#31b4eb;
+  --sky:#7CAE2A;
   --accent:#ff6b35;
   --ink:#0f172a;
   --muted:#6b7280;

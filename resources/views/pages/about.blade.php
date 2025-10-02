@@ -113,14 +113,14 @@
       <div class="row g-5 align-items-center">
         <div class="col-lg-5 col-md-6">
           <div class="about-imgs">
-            <img src="{{ asset('img/about-1.jpg') }}" alt="EcoCall" class="img-a">
-            <img src="{{ asset('img/about-2.jpg') }}" alt="Formation" class="img-b">
+            <img src="{{ asset('img/rect2.png') }}" alt="EcoCall" class="img-a">
+            <img src="{{ asset('img/rect.png') }}" alt="Formation" class="img-b">
           </div>
         </div>
         <div class="col-lg-7 col-md-6">
-          <div class="pa-kicker">Qui sommes-nous ?</div>
-          <h1 class="pa-h1">EcoCall, votre partenaire en formation et relation client</h1>
-          <p class="mt-3">EcoCall est un centre de formation et de services dédié à l'excellence dans le domaine du call center. Nous accompagnons les entreprises et les particuliers dans le développement de leurs compétences en relation client, gestion des appels, communication commerciale et outils CRM.</p>
+          <div class="pa-kicker"><span style="color: #7CAE2A;">Qui sommes-nous ?</span></h2></div>
+          <h1 class="pa-h1">France Expert Isolation, votre partenaire en formation et relation client</h1>
+          <p class="mt-3">France Expert Isolation est un centre de formation et de services dédié à l'excellence dans le domaine du call center. Nous accompagnons les entreprises et les particuliers dans le développement de leurs compétences en relation client, gestion des appels, communication commerciale et outils CRM.</p>
           <p class="mb-4">Grâce à des formateurs expérimentés et des modules adaptés aux exigences du marché, nous garantissons une montée en compétence rapide et efficace. Notre objectif est de professionnaliser les métiers de la relation client à travers une pédagogie moderne et des cas pratiques réels.</p>
           <a href="{{ url('/formation') }}" class="btn btn-accent">Voir nos formations</a>
         </div>
@@ -132,8 +132,7 @@
   <section class="team-wrap">
     <div class="container">
       <div class="team-head">
-        <div class="pa-kicker">Notre équipe</div>
-        <h2 class="pa-h1">Rencontrez nos formateurs experts</h2>
+        <h2 class="pa-h1">Our <span style="color: #7CAE2A;">Leadership</span></h2>
       </div>
 
       <div class="owl-carousel team-carousel">

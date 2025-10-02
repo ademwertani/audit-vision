@@ -9,9 +9,9 @@
    All styles are scoped to avoid leaking to other pages.
    ========================================================= */
 .contact-page{
-  --navy:#2f3582;
+  --navy:#242958;
   --navyDark:#1d2760;
-  --sky:#31b4eb;
+  --sky:#7CAE2A;
   --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
@@ -80,7 +80,7 @@
 .cp-form textarea.form-control{min-height:160px;resize:vertical}
 .cp-btn{
   background:var(--accent); border:none; color:#fff; font-weight:800;
-  padding:14px 22px; border-radius:14px; box-shadow:0 10px 18px rgba(255,107,53,.2); transition:.2s;
+  padding:14px 22px; border-radius:14px; transition:.2s;
 }
 .cp-btn:hover{transform:translateY(-1px);filter:brightness(.98)}
 .contact-page .alert-success{border-radius:12px}

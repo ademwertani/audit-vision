@@ -12,7 +12,7 @@
 .page-blog{
   --navy:#242958;
   --navyDark:#1d2760;
-  --sky:#31b4eb;
+  --sky:#7CAE2A;
   --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
