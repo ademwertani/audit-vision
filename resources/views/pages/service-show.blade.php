@@ -23,7 +23,7 @@
 .page-service{
   --navy:#242958;
   --navyDark:#1d2760;
-  --sky:#31b4eb;
+  --sky:#7CAE2A;
   --accent:#7CAE2A;
   --ink:#0f172a;
   --muted:#6b7280;
@@ -76,6 +76,15 @@
   background:rgba(13,42,134,.9); color:#fff; border:0; border-radius:999px;
   padding:.5rem .7rem; line-height:1; display:flex; align-items:center; gap:6px; cursor:pointer;
 }
+/* --- Bottom full-bleed banner --- */
+.sv-bottom-banner{ margin: 40px 0 0; }
+.sv-bottom-banner img{
+  width:100%;
+  height:clamp(220px, 45vw, 560px); /* responsive */
+  object-fit:cover;
+  display:block;
+}
+
 .zoom-btn:hover{ filter:brightness(1.05) }
 .lb-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.75); display:none;
   z-index:1050; align-items:center; justify-content:center; padding:2rem}
@@ -85,6 +94,29 @@
   position:absolute; top:14px; right:16px; background:#fff; border:0; border-radius:999px;
   padding:.35rem .6rem; cursor:pointer; font-weight:700; color:#111;
 }
+/* --- Bouton image centré en bas sur la grande image --- */
+.sv-bottom-banner{ position: relative; margin: 40px 0 0; }
+.sv-bottom-banner .banner-bg{
+  width:100%;
+  height:clamp(220px, 45vw, 560px);
+  object-fit:cover;
+  display:block;
+}
+.sv-banner-cta{
+  position:absolute;
+  left:50%;
+  bottom:48px;                 /* distance du bas */
+  transform:translateX(-50%);
+  z-index:2;
+  display:inline-block;
+}
+.sv-banner-cta img{
+  display:block;
+  width:clamp(120px, 22vw, 280px);   /* taille responsive du bouton */
+  height:auto;
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.25));
+}
+.sv-banner-cta:hover img{ transform:scale(1.02); }
 
 /* Text card */
 .sv-body-card{
@@ -217,4 +249,15 @@
   })();
 </script>
 @endif
+{{-- Grande image en bas (depuis /public/img) --}}
+<div class="container-fluid px-0 sv-bottom-banner">
+  <img class="banner-bg" src="{{ asset('img/greenn.png') }}" alt="" loading="lazy">
+
+  {{-- Bouton sous forme d'image, centré en bas (cliquable) --}}
+  <a href="{{ url('/contact') }}" class="sv-banner-cta" aria-label="Contactez-nous">
+    <img src="{{ asset('img/btn-cta.png') }}" alt="Contactez-nous">
+  </a>
+</div>
+
+
 @endsection

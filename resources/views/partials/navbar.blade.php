@@ -3,9 +3,9 @@
   $about = $about ?? (object) [];
   $social = $social ?? (object) [];
 @endphp
-<header class="header-aisla bg-white shadow-sm">
+<header class="header-aisla bg-white shadow-sm sticky-top">
   <div class="container-fluid"> {{-- full width pour coller totalement à gauche --}}
-    <nav class="navbar navbar-expand-lg navbar-light py-2">
+    <nav class="navbar navbar-expand-lg navbar-light py-1">
       {{-- Logo totalement à gauche et plus grand --}}
       <a href="{{ url('/') }}" class="navbar-brand me-auto d-flex align-items-center gap-2">
         @if(!empty($about->logo))
@@ -57,28 +57,17 @@
           </li>
         </ul>
         {{-- Boutons alignés à droite --}}
-        <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
-          <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
-          @if(!request()->is('quote'))
-            <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn fixed-bottom">
-              Demander un devis
-            </a>
-          @endif
-        </div>
+<div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
+  <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
+
+  @if(!request()->is('quote'))
+    <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn">
+      Demander un devis
+    </a>
+  @endif
+</div>
+
       </div>
     </nav>
   </div>
 </header>
-{{-- ================== /HEADER ================== --}}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const quoteBtn = document.querySelector(".quote-btn");
-    window.addEventListener("scroll", function () {
-      if (window.scrollY > 200) {
-        quoteBtn.classList.add("fixed-bottom");
-      } else {
-        quoteBtn.classList.remove("fixed-bottom");
-      }
-    });
-  });
-</script>

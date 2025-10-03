@@ -29,7 +29,7 @@
                         <a href="{{ url('/contact') }}" class="btn btn-accent rounded-pill px-4 py-3">
                             Get Started
                         </a>
-                        <a href="{{ url('/video') }}" class="btn btn-dark-ghost rounded-pill px-4 py-3">
+                        <a href="#video" class="btn btn-dark-ghost rounded-pill px-4 py-3 js-scroll-video">
                             <i class="fas fa-play me-2"></i> Watch Full Video
                         </a>
                     </div>
@@ -68,6 +68,35 @@
         });
     </script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+        /* 🔧 Annule tout flou sur le hero */
+        .hero-aisla,
+        .hero-aisla::before,
+        .hero-aisla .hero-overlay {
+            filter: none !important;
+            -webkit-filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        /* Optionnel : garde une légère superposition sombre sans blur */
+        .hero-aisla .hero-overlay {
+            background: rgba(0, 0, 0, .25);
+            /* ajuste ou mets 0 si tu ne veux rien */
+        }
+        /* Si le flou venait d'un scale utilisé avec blur, on le neutralise aussi */
+        .hero-aisla::before {
+            transform: none !important;
+            opacity: 1 !important;
+        }
+        /* Par sécurité, assure que l'image de fond est nette */
+        .hero-aisla {
+            background-image: var(--hero-bg-img);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
     {{-- Section après le Hero --}}
     <section class="after-hero-text py-5">
         <div class="container">
@@ -173,7 +202,6 @@
             --primary: #2d3281;
             --muted: #e9eef3;
         }
-
         /* ====== GRID LAYOUT AVEC ZONES ====== */
         .projects-grid {
             display: grid;
@@ -188,28 +216,22 @@
                 ".     stats";
             /* 3e rangée : stats sous le 3e projet */
         }
-
         /* Raccorder les éléments aux zones */
         .grid-p1 {
             grid-area: p1;
         }
-
         .grid-promo {
             grid-area: promo;
         }
-
         .grid-p2 {
             grid-area: p2;
         }
-
         .grid-p3 {
             grid-area: p3;
         }
-
         .grid-stats {
             grid-area: stats;
         }
-
         /* ====== CARTES ====== */
         .proj-card,
         .promo-card {
@@ -221,7 +243,6 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
-
         .stats-card {
             min-height: 240px;
             /* cartes plus petites et espacées */
@@ -231,27 +252,22 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
-
         /* hauteurs spécifiques pour coller au visuel */
         .proj-card--lg {
             min-height: 360px;
         }
-
         /* grand bloc (haut gauche) */
         .grid-promo {
             min-height: 120px;
         }
-
         /* ✅ bannière verte moins haute */
         .grid-p3 {
             min-height: 300px;
         }
-
         /* 3e projet plus haut visuellement */
         .grid-stats {
             min-height: 150px;
         }
-
         /* ====== IMAGES ====== */
         .proj-card img {
             width: 100%;
@@ -259,11 +275,9 @@
             object-fit: cover;
             transition: transform .6s ease;
         }
-
         .proj-card:hover img {
             transform: scale(1.04);
         }
-
         /* ====== OVERLAY + PILLS ====== */
         .proj-overlay {
             position: absolute;
@@ -274,7 +288,6 @@
             padding: 12px 14px;
             background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
         }
-
         .pill {
             border-radius: 999px;
             padding: 8px 12px;
@@ -283,17 +296,14 @@
             align-items: center;
             gap: 6px;
         }
-
         .pill--muted {
             background: rgba(255, 255, 255, .9);
             color: #2c313a;
         }
-
         .pill--action {
             background: var(--accent);
             color: #fff;
         }
-
         /* ====== PROMO ====== */
         .promo-card {
             background: #69bb36;
@@ -306,7 +316,6 @@
             justify-content: center;
             text-align: center;
         }
-
         .promo-dot {
             width: 35px;
             height: 30px;
@@ -316,46 +325,38 @@
             bottom: 0px;
             right: 0px;
         }
-
         /* ====== STATS ====== */
         .stats-card {
             padding: 20px;
             margin-top: -200px;
             margin-bottom: 400px;
         }
-
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
-
         .stat {
             background: #e8eef7;
             padding: 12px;
             border-radius: 10px;
             text-align: center;
         }
-
         .stat--accent {
             background: #e5f5e2;
         }
-
         .stat-number {
             font-size: 22px;
             font-weight: 700;
             color: var(--primary);
         }
-
         .stat--accent .stat-number {
             color: var(--accent);
         }
-
         .stat-label {
             font-size: 13px;
             color: #3f4759;
         }
-
         /* ====== RESPONSIVE ====== */
         @media (max-width: 992px) {
             .projects-grid {
@@ -367,16 +368,13 @@
                     "p3"
                     "stats";
             }
-
             .proj-card--lg {
                 min-height: 300px;
             }
-
             .grid-p3 {
                 min-height: 260px;
             }
         }
-
         /* Remonter uniquement la 3e carte (P3) */
         .grid-p3 {
             margin-top: -240px;
@@ -444,306 +442,362 @@
         </button>
     </div>
     {{-- pub --}}
-<section class="pub-section pt-2 pb-5 mt-5">
-    <div class="full-width-img">
-        <img src="{{ asset('img/pub.png') }}" alt="pub">
-    </div>
-</section>
-
-<!-- Blog Start -->
-<div class="container-fluid py-5 mb-5">
-  <div class="container">
-<div class="blog-intro pb-4">
-  <h2 class="blog-intro__title">Blog</h2>
-  <p class="blog-intro__desc">
-    Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
-    en mettant l’accent sur la durabilité et l’autonomisation.
-  </p>
-
-  <a href="{{ route('blog.index') }}" class="blog-intro__cta">
-    Tout voir <span class="blog-intro__cta-icon">→</span>
-  </a>
-</div>
-
-    <div class="row g-4 justify-content-center">
-      @forelse($blogs->take(3) as $blog)
-        <div class="col-12 col-md-6 col-lg-4">
-          <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none">
-            <article class="blog-card rounded-4 overflow-hidden position-relative">
-  {{-- Image plein cadre --}}
-  @if($blog->image)
-    <img src="{{ asset('storage/' . $blog->image) }}" 
-         alt="{{ $blog->title }}"
-         class="blog-card__img">
-  @endif
-
-  {{-- Overlay --}}
-  <div class="blog-card__overlay"></div>
-
-  {{-- Content --}}
-  <div class="blog-card__content">
-    <p class="blog-card__cat text-uppercase mb-1">
-      {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
-    </p>
-
-    <h3 class="blog-card__title">{{ $blog->title }}</h3>
-
-    <div class="blog-card__meta">
-      <span class="blog-card__date">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        {{ $blog->created_at->translatedFormat('j F Y') }}
-      </span>
-    </div>
-
-    <p class="blog-card__excerpt">
-      {{ Str::limit(strip_tags($blog->content), 120) }}
-    </p>
-
-    <span class="blog-card__btn">
-      Lire Plus <span class="blog-card__btn-icon">→</span>
-    </span>
-  </div>
-</article>
-
-          </a>
-        </div>
-      @empty
-        <p class="text-center">Aucun article pour le moment.</p>
-      @endforelse
-    </div>
-
-    
-  </div>
-</div>
-<!-- Blog End -->
-
-    <!-- Section Titre avec image en dessous -->
-    <section class="hcw my-5">
-        <div class="container text-center">
-            <h1 class="hcw-title">
-                <span>Happy Customers,</span><br>
-                <span>Happy World</span>
-            </h1>
-            <!-- Image sous le texte -->
-            <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
+    <section class="pub-section pt-2 pb-5 mt-5">
+        <div class="full-width-img">
+            <img src="{{ asset('img/pub.png') }}" alt="pub">
         </div>
     </section>
+    <!-- Blog Start -->
+    <div class="container-fluid py-5 mb-5">
+        <div class="container">
+            <div class="blog-intro pb-4">
+                <h2 class="blog-intro__title">Blog</h2>
+                <p class="blog-intro__desc">
+                    Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
+                    en mettant l’accent sur la durabilité et l’autonomisation.
+                </p>
+                <a href="{{ route('blog.index') }}" class="blog-intro__cta">
+                    Tout voir <span class="blog-intro__cta-icon">→</span>
+                </a>
+            </div>
+            <div class="row g-4 justify-content-center">
+                @forelse($blogs->take(3) as $blog)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none">
+                            <article class="blog-card rounded-4 overflow-hidden position-relative">
+                                {{-- Image plein cadre --}}
+                                @if($blog->image)
+                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                                        class="blog-card__img">
+                                @endif
+                                {{-- Overlay --}}
+                                <div class="blog-card__overlay"></div>
+                                {{-- Content --}}
+                                <div class="blog-card__content">
+                                    <p class="blog-card__cat text-uppercase mb-1">
+                                        {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
+                                    </p>
+                                    <h3 class="blog-card__title">{{ $blog->title }}</h3>
+                                    <div class="blog-card__meta">
+                                        <span class="blog-card__date">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            {{ $blog->created_at->translatedFormat('j F Y') }}
+                                        </span>
+                                    </div>
+                                    <p class="blog-card__excerpt">
+                                        {{ Str::limit(strip_tags($blog->content), 120) }}
+                                    </p>
+                                    <span class="blog-card__btn">
+                                        Lire Plus <span class="blog-card__btn-icon">→</span>
+                                    </span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-center">Aucun article pour le moment.</p>
+                @endforelse
+            </div>
+        </div>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const servicesSection = document.querySelector('.services-section');
-            if (servicesSection) {
-                const slides = servicesSection.querySelectorAll('.service-slide');
-                servicesSection.querySelectorAll('.card').forEach(card => {
-                    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
-                    card.addEventListener('mouseleave', () => card.style.transform = '');
-                });
-                if (slides.length > 1) {
-                    let sIndex = 0;
-                    const prevBtn = servicesSection.querySelector('.services-prev');
-                    const nextBtn = servicesSection.querySelector('.services-next');
-                    const progressBarServices = servicesSection.querySelector('.services-progress-bar');
-                    function showSlide(newIndex) {
-                        slides[sIndex].classList.add('d-none');
-                        sIndex = (newIndex + slides.length) % slides.length;
-                        slides[sIndex].classList.remove('d-none');
-                        const progress = ((sIndex + 1) / slides.length) * 100;
-                        progressBarServices.style.width = progress + '%';
-                    }
-                    prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
-                    nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
-                    progressBarServices.style.width = (1 / slides.length * 100) + '%';
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.querySelector('.js-scroll-video');
+    if (!btn) return;
+
+    btn.addEventListener('click', function (e) {
+      const target = document.getElementById('video');
+      if (target) {
+        e.preventDefault();
+        const header = document.querySelector('.header-aisla');
+        const offset = header ? header.offsetHeight : 0;
+        const y = target.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      } else {
+        // si la section vidéo n'est pas présente sur la home, on bascule vers /video
+        window.location.href = "{{ url('/video') }}";
+      }
+    });
+  });
+</script>
+
+    <!-- Blog End -->
+    <div class="position-relative">
+        <div class="row justify-content-center align-items-center">
+        </div>
+        @if(!empty($video?->url))
+            @php
+                $embed = null;
+                $url = $video->url;
+                if (Str::contains($url, 'youtu.be/')) {
+                    $id = Str::after($url, 'youtu.be/');
+                } elseif (Str::contains($url, 'watch?v=')) {
+                    $id = Str::after($url, 'watch?v=');
+                } elseif (Str::contains($url, 'embed/')) {
+                    $id = Str::after($url, 'embed/');
+                } else {
+                    $id = null;
                 }
-            }
-            const teamContainer = document.getElementById('team-container');
-            const teamPrev = document.getElementById('team-prev');
-            const teamNext = document.getElementById('team-next');
-            const teamProgress = document.getElementById('team-progress');
-            let teamPage = 1;
-            const teamPerPage = 3;
-            function loadTeam(page = 1) {
-                fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        teamContainer.innerHTML = '';
-                        data.data.forEach(member => {
-                            const col = document.createElement('div');
-                            col.className = 'col-md-6 mb-4';
-                            col.innerHTML = `
-                                                                                            <div class="d-flex align-items-center team-card p-3 rounded">
-                                                                                                <!-- Avatar avec cercle -->
-                                                                                                <div class="team-photo position-relative me-3">
-                                                                                                    <div class="circle-border">
-                                                                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <!-- Infos -->
-                                                                                                <div class="team-info flex-grow-1">
-                                                                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        `;
-                            teamContainer.appendChild(col);
-                        });
-                        // Pagination + Progress bar
-                        teamPage = data.current_page;
-                        const totalPages = data.last_page;
-                        teamPrev.disabled = teamPage === 1;
-                        teamNext.disabled = teamPage === totalPages;
-                        teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                if (!empty($id)) {
+                    $id = Str::before($id, '&');
+                    $embed = 'https://www.youtube.com/embed/' . $id;
+                }
+            @endphp
+            @if($embed)
+                <div class="container-fluid py-5 my-5" id="video">
+                    <div class="container">
+                        <div class="text-center mb-5">
+                            <p class="fw-light mb-1" style="color: var(--dark); font-size: 26px;">
+                                Join our community of satisfied customers and discover the beauty<br>
+                                and benefits of solar energy.
+                            </p>
+                        </div>
+                        <div class="row g-4 align-items-center">
+                            <!-- VIDEO -->
+                            <div class="row g-4 align-items-center justify-content-center">
+                                <!-- VIDEO -->
+                                <div class="col-lg-8">
+                                    <div class="ratio ratio-16x9">
+                                        <iframe src="{{ $embed }}" title="YouTube video" allowfullscreen
+                                            class="mx-auto d-block"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- STYLES -->
+                            <style>
+                                .uniform-img {
+                                    width: 150px;
+                                    height: 150px;
+                                    object-fit: contain;
+                                }
+                                .uniform-title {
+                                    color: var(--dark);
+                                    font-size: 1.6rem;
+                                    font-weight: 600;
+                                }
+                                .uniform-text {
+                                    font-size: 1.2rem;
+                                    color: #6c757d;
+                                    /* équivalent Bootstrap text-muted */
+                                }
+                            </style>
+                        </div>
+            @endif
+        @endif
+            </div>
+        </div>
+        <!-- Section Titre avec image en dessous -->
+        <section class="hcw my-5">
+            <div class="container text-center">
+                <h1 class="hcw-title">
+                    <span>Happy Customers,</span><br>
+                    <span>Happy World</span>
+                </h1>
+                <!-- Image sous le texte -->
+                <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
+            </div>
+        </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const servicesSection = document.querySelector('.services-section');
+                if (servicesSection) {
+                    const slides = servicesSection.querySelectorAll('.service-slide');
+                    servicesSection.querySelectorAll('.card').forEach(card => {
+                        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+                        card.addEventListener('mouseleave', () => card.style.transform = '');
                     });
-            }
-            teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
-            teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
-            loadTeam();
-            const donut = document.querySelector('.hero-donut');
-            if (!donut) return;
-            const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
-            if (!banners.length) return;
-            let index = 0;
-            const titleEl = document.querySelector('.hero-title');
-            const leadEl = document.querySelector('.hero-lead');
-            const imageEl = donut.querySelector('.donut-image');
-            const dotsContainer = document.querySelector('.hero-dots');
-            const progressBar = document.querySelector('.hero-progress-bar');
-            function renderDots() {
-                dotsContainer.innerHTML = '';
-                banners.forEach((_, i) => {
-                    const span = document.createElement('span');
-                    span.className = 'dot' + (i === index ? ' active' : '');
-                    span.dataset.index = i;
-                    dotsContainer.appendChild(span);
-                });
-            }
-            function update() {
-                const banner = banners[index] || {};
-                const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
-                const summary = banner.summary || '';
-                const img = banner.image || '/img/default-banner.jpg';
-                titleEl.innerHTML = title;
-                leadEl.textContent = summary;
-                imageEl.style.backgroundImage = `url('${img}')`;
-                Array.from(dotsContainer.children).forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-                const progress = ((index + 1) / banners.length) * 100;
-                progressBar.style.width = progress + '%';
-            }
-            function goTo(newIndex) {
-                index = (newIndex + banners.length) % banners.length;
-                update();
-            }
-            renderDots();
-            update();
-            donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
-            donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
-            dotsContainer.addEventListener('click', e => {
-                if (e.target.classList.contains('dot')) {
-                    goTo(parseInt(e.target.dataset.index, 10));
+                    if (slides.length > 1) {
+                        let sIndex = 0;
+                        const prevBtn = servicesSection.querySelector('.services-prev');
+                        const nextBtn = servicesSection.querySelector('.services-next');
+                        const progressBarServices = servicesSection.querySelector('.services-progress-bar');
+                        function showSlide(newIndex) {
+                            slides[sIndex].classList.add('d-none');
+                            sIndex = (newIndex + slides.length) % slides.length;
+                            slides[sIndex].classList.remove('d-none');
+                            const progress = ((sIndex + 1) / slides.length) * 100;
+                            progressBarServices.style.width = progress + '%';
+                        }
+                        prevBtn.addEventListener('click', () => showSlide(sIndex - 1));
+                        nextBtn.addEventListener('click', () => showSlide(sIndex + 1));
+                        progressBarServices.style.width = (1 / slides.length * 100) + '%';
+                    }
                 }
+                const teamContainer = document.getElementById('team-container');
+                const teamPrev = document.getElementById('team-prev');
+                const teamNext = document.getElementById('team-next');
+                const teamProgress = document.getElementById('team-progress');
+                let teamPage = 1;
+                const teamPerPage = 3;
+                function loadTeam(page = 1) {
+                    fetch(`/api/team?page=${page}&per_page=${teamPerPage}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            teamContainer.innerHTML = '';
+                            data.data.forEach(member => {
+                                const col = document.createElement('div');
+                                col.className = 'col-md-6 mb-4';
+                                col.innerHTML = `
+                                                                                                            <div class="d-flex align-items-center team-card p-3 rounded">
+                                                                                                                <!-- Avatar avec cercle -->
+                                                                                                                <div class="team-photo position-relative me-3">
+                                                                                                                    <div class="circle-border">
+                                                                                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <!-- Infos -->
+                                                                                                                <div class="team-info flex-grow-1">
+                                                                                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                                                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        `;
+                                teamContainer.appendChild(col);
+                            });
+                            // Pagination + Progress bar
+                            teamPage = data.current_page;
+                            const totalPages = data.last_page;
+                            teamPrev.disabled = teamPage === 1;
+                            teamNext.disabled = teamPage === totalPages;
+                            teamProgress.style.width = (teamPage / totalPages * 100) + '%';
+                        });
+                }
+                teamPrev.addEventListener('click', () => loadTeam(teamPage - 1));
+                teamNext.addEventListener('click', () => loadTeam(teamPage + 1));
+                loadTeam();
+                const donut = document.querySelector('.hero-donut');
+                if (!donut) return;
+                const banners = donut.dataset.banners ? JSON.parse(donut.dataset.banners) : [];
+                if (!banners.length) return;
+                let index = 0;
+                const titleEl = document.querySelector('.hero-title');
+                const leadEl = document.querySelector('.hero-lead');
+                const imageEl = donut.querySelector('.donut-image');
+                const dotsContainer = document.querySelector('.hero-dots');
+                const progressBar = document.querySelector('.hero-progress-bar');
+                function renderDots() {
+                    dotsContainer.innerHTML = '';
+                    banners.forEach((_, i) => {
+                        const span = document.createElement('span');
+                        span.className = 'dot' + (i === index ? ' active' : '');
+                        span.dataset.index = i;
+                        dotsContainer.appendChild(span);
+                    });
+                }
+                function update() {
+                    const banner = banners[index] || {};
+                    const title = (banner.title || '').split('\n').map(s => s.trim()).join('<br>');
+                    const summary = banner.summary || '';
+                    const img = banner.image || '/img/default-banner.jpg';
+                    titleEl.innerHTML = title;
+                    leadEl.textContent = summary;
+                    imageEl.style.backgroundImage = `url('${img}')`;
+                    Array.from(dotsContainer.children).forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                    const progress = ((index + 1) / banners.length) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+                function goTo(newIndex) {
+                    index = (newIndex + banners.length) % banners.length;
+                    update();
+                }
+                renderDots();
+                update();
+                donut.querySelector('.hero-nav.next').addEventListener('click', () => goTo(index + 1));
+                donut.querySelector('.hero-nav.prev').addEventListener('click', () => goTo(index - 1));
+                dotsContainer.addEventListener('click', e => {
+                    if (e.target.classList.contains('dot')) {
+                        goTo(parseInt(e.target.dataset.index, 10));
+                    }
+                });
             });
-        });
-    </script>
-    <style>
-        /* Règles globales de sécurité */
-        html,
-        body {
-            overflow-x: hidden;
-        }
-
-        img,
-        iframe {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* 🔒 Mobile only */
-        @media (max-width: 575.98px) {
-
-            /* Garder padding vertical, réduire/annuler le padding horizontal */
-            .container,
-            .container-fluid {
-                padding-left: 12px !important;
-                padding-right: 12px !important;
+        </script>
+        <style>
+            /* Règles globales de sécurité */
+            html,
+            body {
+                overflow-x: hidden;
             }
-
-            .row {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-            }
-
-            [class^="col-"],
-            [class*=" col-"] {
-                padding-left: 8px !important;
-                padding-right: 8px !important;
-            }
-
-            /* Services / cartes : supprimer largeurs fixes */
-            .services-section .card {
-                width: 100% !important;
-            }
-
-            .services-section img {
+            img,
+            iframe {
                 max-width: 100%;
                 height: auto;
+                display: block;
             }
-
-            /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
-            .project-item .card {
-                width: 100% !important;
-                height: auto !important;
-            }
-
-            .project-item img {
-                height: 180px !important;
-                object-fit: cover;
-            }
-
-            /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
-            .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
-                position: static !important;
-                width: 70vw !important;
-                max-width: 320px !important;
-                margin: 16px auto 0 !important;
-            }
-
-            /* Image sous la zone bleue + marge négative */
-            img[alt="Image sous zone bleue"] {
-                width: 100% !important;
-                height: auto !important;
-            }
-
-            .text-center[style*="margin-top: -190px"] {
-                margin-top: 0 !important;
-            }
-
-            /* Icônes/visuels autour de la vidéo */
-            .uniform-img {
-                width: 96px !important;
-                height: 96px !important;
-                object-fit: contain;
-            }
-
-            /* Éviter tous débordements horizontaux restants */
-            .hero-aisla,
-            .about-aisla,
-            .blog,
-            .team,
-            .project-carousel,
-            .services-section {
-                overflow-x: hidden !important;
-            }
-
-            @media (min-width: 576px) {
+            /* 🔒 Mobile only */
+            @media (max-width: 575.98px) {
+                /* Garder padding vertical, réduire/annuler le padding horizontal */
+                .container,
+                .container-fluid {
+                    padding-left: 12px !important;
+                    padding-right: 12px !important;
+                }
+                .row {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                }
+                [class^="col-"],
+                [class*=" col-"] {
+                    padding-left: 8px !important;
+                    padding-right: 8px !important;
+                }
+                /* Services / cartes : supprimer largeurs fixes */
+                .services-section .card {
+                    width: 100% !important;
+                }
+                .services-section img {
+                    max-width: 100%;
+                    height: auto;
+                }
+                /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
                 .project-item .card {
-                    width: 600px;
+                    width: 100% !important;
+                    height: auto !important;
+                }
+                .project-item img {
+                    height: 180px !important;
+                    object-fit: cover;
+                }
+                /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
+                .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
+                    position: static !important;
+                    width: 70vw !important;
+                    max-width: 320px !important;
+                    margin: 16px auto 0 !important;
+                }
+                /* Image sous la zone bleue + marge négative */
+                img[alt="Image sous zone bleue"] {
+                    width: 100% !important;
+                    height: auto !important;
+                }
+                .text-center[style*="margin-top: -190px"] {
+                    margin-top: 0 !important;
+                }
+                /* Icônes/visuels autour de la vidéo */
+                .uniform-img {
+                    width: 96px !important;
+                    height: 96px !important;
+                    object-fit: contain;
+                }
+                /* Éviter tous débordements horizontaux restants */
+                .hero-aisla,
+                .about-aisla,
+                .blog,
+                .team,
+                .project-carousel,
+                .services-section {
+                    overflow-x: hidden !important;
+                }
+                @media (min-width: 576px) {
+                    .project-item .card {
+                        width: 600px;
+                    }
                 }
             }
-        }
-    </style>
+        </style>
 @endsection

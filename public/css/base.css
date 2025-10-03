@@ -141,12 +141,7 @@ main,
     background-color: #7cb342;
     color: #fff;
 }
-/* Les liens aussi prennent plus de place */
-.navbar .nav-link {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    line-height: 1.8 !important;
-}
+
 /* Une seule image de fond qui change */
 .hero-aisla{
   position: relative;
@@ -814,4 +809,27 @@ main,
 .quote-btn.fixed-bottom:hover {
   background-color: #7CAE2A; /* vert 100% opaque */
   color: #fff;
+}
+.header-aisla{ position: fixed; top:0; left:0; right:0; z-index:1040; }
+body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
+/* Header compact sans réduire la taille des éléments internes */
+.header-aisla.sticky-top { z-index: 1040; }  /* au-dessus du contenu */
+
+.header-aisla .navbar{
+  padding-top: 4px !important;   /* compact desktop */
+  padding-bottom: 4px !important;
+}
+
+@media (max-width: 991.98px){
+  /* garde un peu plus d’espace sur mobile pour le confort tactile */
+  .header-aisla .navbar{
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+}
+
+/* (optionnel) verrouille le logo si jamais il se re-dimensionne ailleurs */
+.logo-navbar{
+  height: auto;            /* conserve la taille d’origine de l’image */
+  max-height: 100px;        /* ajuste si tu veux un plafond de hauteur */
 }
