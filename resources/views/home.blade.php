@@ -67,7 +67,7 @@
             updateHero(currentIndex);
         });
     </script>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         /* 🔧 Annule tout flou sur le hero */
@@ -172,24 +172,34 @@
                         <span class="stretched-link" aria-label="Voir {{ $p3->name }}"></span>
                     </a>
                 @endif
-                {{-- ======= Bloc statique : Stats (sous le 3e projet) ======= --}}
-                <div class="stats-card grid-stats">
-                    <h5 class="text-center mb-4">We have successfully powered over</h5>
-                    <div class="stats-row">
-                        <div class="stat">
-                            <div class="stat-number">87</div>
-                            <div class="stat-label">Homes</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">32</div>
-                            <div class="stat-label">Companies</div>
-                        </div>
-                        <div class="stat stat--accent">
-                            <div class="stat-number">40</div>
-                            <div class="stat-label">Farms</div>
-                        </div>
-                    </div>
-                </div>
+                {{-- ======= Bloc Stats (dynamique) ======= --}}
+<div class="stats-card grid-stats">
+    <h5 class="text-center mb-4">We have successfully powered over</h5>
+
+    <div class="stats-row">
+        @forelse($stats as $stat)
+            <div class="stat {{ $stat->is_accent ? 'stat--accent' : '' }}">
+                <div class="stat-number">{{ number_format($stat->value) }}</div>
+                <div class="stat-label">{{ $stat->label }}</div>
+            </div>
+        @empty
+            {{-- Fallback si aucune stat en base (à retirer si inutile) --}}
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Homes</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat stat--accent">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Farms</div>
+            </div>
+        @endforelse
+    </div>
+</div>
+
             </div>
         </div>
     </div>
@@ -216,6 +226,7 @@
                 ".     stats";
             /* 3e rangée : stats sous le 3e projet */
         }
+        
         /* Raccorder les éléments aux zones */
         .grid-p1 {
             grid-area: p1;
@@ -243,15 +254,13 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
-        .stats-card {
-            min-height: 240px;
-            /* cartes plus petites et espacées */
-            border-radius: var(--radius);
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
-            background: #fff;
-        }
+.stats-card {
+  padding: 20px;
+  margin-top: -200px;
+  margin-bottom: 400px; /* <= énorme espace sous les stats */
+}
+
+
         /* hauteurs spécifiques pour coller au visuel */
         .proj-card--lg {
             min-height: 360px;
@@ -326,11 +335,8 @@
             right: 0px;
         }
         /* ====== STATS ====== */
-        .stats-card {
-            padding: 20px;
-            margin-top: -200px;
-            margin-bottom: 400px;
-        }
+      
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -800,4 +806,18 @@
                 }
             }
         </style>
+        <style>
+  /* Réduit UNIQUEMENT l'espace sous le bloc stats, sans toucher au reste */
+  .projects-grid > .grid-stats.stats-card{
+    margin-bottom: 9px !important; /* ajuste 80–120px selon ton rendu */
+  }
+
+  /* Sur mobile, raccourcis un peu plus l’espace */
+  @media (max-width: 992px){
+    .projects-grid > .grid-stats.stats-card{
+      margin-bottom: 56px !important;
+    }
+  }
+</style>
+
 @endsection

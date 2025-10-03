@@ -843,8 +843,10 @@
                     <span class="nav-text">Blog Posts</span>
                 </a>
                 <a class="nav-link @if(Route::is('admin.quotes.*')) active @endif" href="{{ route('admin.quotes.index') }}" data-tooltip="quotes">
-                    <i class="fas float-lg-start"></i>
-                    <span class="nav-text">Quote</span>
+    <i class="fas fa-file-invoice float-lg-start"></i>
+    <span class="nav-text">Quote</span>
+</a>
+
                 </a>
             </div>
 
@@ -883,6 +885,11 @@
                     <i class="fab fa-youtube"></i>
                     <span class="nav-text">YouTube Video</span>
                 </a>
+                <a class="nav-link @if(Route::is('admin.stats.*')) active @endif" href="{{ route('admin.stats.index') }}" data-tooltip="Stats">
+    <i class="fas fa-chart-line float-lg-start"></i>
+    <span class="nav-text">Statistiques</span>
+</a>
+
             </div>
 
             <!-- System Management Group -->
