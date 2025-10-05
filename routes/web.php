@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\Admin\StatController as AdminStatController;
+use App\Http\Controllers\Admin\PartnerController;
 // Page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Pages publiques
@@ -53,6 +54,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('quotes', AdminQuoteController::class);
     Route::resource('stats', AdminStatController::class)
         ->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('partners', PartnerController::class);
     Route::get('/social', [\App\Http\Controllers\Admin\SocialController::class, 'edit'])
         ->name('social.edit');
     Route::get('/about', [AdminAboutController::class, 'edit'])

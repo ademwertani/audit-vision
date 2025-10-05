@@ -23,13 +23,11 @@
             --header-height: 75px;
             --footer-height: 80px;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f766e 0%, #059669 50%, #10b981 100%);
@@ -38,7 +36,6 @@
             display: flex;
             flex-direction: column;
         }
-
         /* Header Styles */
         .admin-header {
             background: rgba(255, 255, 255, 0.98);
@@ -53,7 +50,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-
         .admin-header .navbar-brand {
             font-weight: 700;
             font-size: 1.6rem;
@@ -64,7 +60,6 @@
             display: flex;
             align-items: center;
         }
-
         .admin-header .navbar-brand i {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             -webkit-background-clip: text;
@@ -72,7 +67,6 @@
             background-clip: text;
             font-size: 1.8rem;
         }
-
         /* Enhanced Sidebar Styles */
         .admin-sidebar {
             position: fixed;
@@ -91,37 +85,29 @@
             scrollbar-color: rgba(5, 150, 105, 0.3) transparent;
             box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
         }
-
         /* Sidebar collapsed state */
         .sidebar-collapsed .admin-sidebar {
             width: var(--sidebar-collapsed-width);
         }
-
         .sidebar-collapsed .main-content {
             margin-left: var(--sidebar-collapsed-width);
         }
-
         .admin-sidebar::-webkit-scrollbar {
             width: 8px;
         }
-
         .admin-sidebar::-webkit-scrollbar-track {
             background: transparent;
         }
-
         .admin-sidebar::-webkit-scrollbar-thumb {
             background: rgba(5, 150, 105, 0.3);
             border-radius: 4px;
         }
-
         .admin-sidebar::-webkit-scrollbar-thumb:hover {
             background: rgba(5, 150, 105, 0.5);
         }
-
         .sidebar-open .admin-sidebar {
             transform: translateX(0);
         }
-
         /* Fixed Sidebar Toggle Button */
         .sidebar-toggle-btn {
             position: absolute;
@@ -141,39 +127,32 @@
             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
             z-index: 1001;
         }
-
         .sidebar-toggle-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
         }
-
         .sidebar-toggle-btn i {
             font-size: 1rem;
             transition: transform 0.3s ease;
         }
-
         .sidebar-collapsed .sidebar-toggle-btn i {
             transform: rotate(180deg);
         }
-
         /* Hide toggle button on mobile */
         @media (max-width: 991.98px) {
             .sidebar-toggle-btn {
                 display: none !important;
             }
         }
-
         /* Sidebar Navigation Groups */
         .sidebar-nav {
             padding: 3rem 0 2rem 0;
             position: relative;
         }
-
         .nav-group {
             margin-bottom: 2rem;
         }
-
         .nav-group-title {
             padding: 0.5rem 1.5rem 0.75rem 1.5rem;
             font-size: 0.75rem;
@@ -187,33 +166,27 @@
             align-items: center;
             transition: all 0.3s ease;
         }
-
         .nav-group-title i {
             margin-right: 0.5rem;
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-
         .nav-group-title .title-text {
             transition: all 0.3s ease;
         }
-
         /* Collapsed sidebar styles */
         .sidebar-collapsed .nav-group-title {
             padding: 0.5rem 0.75rem 0.75rem 0.75rem;
             justify-content: center;
         }
-
         .sidebar-collapsed .nav-group-title .title-text {
             opacity: 0;
             width: 0;
             overflow: hidden;
         }
-
         .sidebar-collapsed .nav-group-title i {
             margin-right: 0;
         }
-
         .sidebar-nav .nav-link {
             display: flex;
             align-items: center;
@@ -229,13 +202,11 @@
             position: relative;
             overflow: hidden;
         }
-
         .sidebar-collapsed .sidebar-nav .nav-link {
             padding: 1rem 0.75rem;
             margin: 0.125rem 0.5rem;
             justify-content: center;
         }
-
         .sidebar-nav .nav-link::before {
             content: '';
             position: absolute;
@@ -247,24 +218,20 @@
             transition: width 0.3s ease;
             z-index: -1;
         }
-
         .sidebar-nav .nav-link:hover::before,
         .sidebar-nav .nav-link.active::before {
             width: 100%;
         }
-
         .sidebar-nav .nav-link:hover,
         .sidebar-nav .nav-link.active {
             color: white;
             transform: translateX(6px);
             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
         }
-
         .sidebar-collapsed .sidebar-nav .nav-link:hover,
         .sidebar-collapsed .sidebar-nav .nav-link.active {
             transform: translateX(0) scale(1.05);
         }
-
         .sidebar-nav .nav-link i {
             width: 22px;
             margin-right: 0.875rem;
@@ -272,22 +239,18 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-
         .sidebar-collapsed .sidebar-nav .nav-link i {
             margin-right: 0;
         }
-
         .sidebar-nav .nav-link .nav-text {
             flex: 1;
             transition: all 0.3s ease;
         }
-
         .sidebar-collapsed .sidebar-nav .nav-link .nav-text {
             opacity: 0;
             width: 0;
             overflow: hidden;
         }
-
         .sidebar-nav .nav-link .badge {
             background: rgba(239, 68, 68, 0.1);
             color: var(--danger-color);
@@ -296,18 +259,15 @@
             border-radius: 50px;
             transition: all 0.3s ease;
         }
-
         .sidebar-collapsed .sidebar-nav .nav-link .badge {
             opacity: 0;
             width: 0;
             overflow: hidden;
         }
-
         /* Tooltip for collapsed sidebar */
         .sidebar-collapsed .nav-link {
             position: relative;
         }
-
         .sidebar-collapsed .nav-link::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -326,12 +286,10 @@
             margin-left: 10px;
             z-index: 1000;
         }
-
         .sidebar-collapsed .nav-link:hover::after {
             opacity: 1;
             visibility: visible;
         }
-
         /* Main Content Layout */
         .main-wrapper {
             display: flex;
@@ -339,7 +297,6 @@
             min-height: 100vh;
             margin-top: var(--header-height);
         }
-
         .main-content {
             flex: 1;
             margin-left: 0;
@@ -348,7 +305,6 @@
             position: relative;
             z-index: 1;
         }
-
         .content-wrapper {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
@@ -359,7 +315,6 @@
             min-height: calc(100vh - var(--header-height) - var(--footer-height) - 4rem);
             position: relative;
         }
-
         .content-wrapper::before {
             content: '';
             position: absolute;
@@ -370,7 +325,6 @@
             background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
             border-radius: 24px 24px 0 0;
         }
-
         /* Enhanced User Dropdown */
         .user-dropdown .dropdown-toggle {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
@@ -382,16 +336,13 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
         }
-
         .user-dropdown .dropdown-toggle:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
         }
-
         .user-dropdown .dropdown-toggle::after {
             margin-left: 0.5rem;
         }
-
         .user-dropdown .dropdown-menu {
             border: none;
             border-radius: 16px;
@@ -402,7 +353,6 @@
             padding: 0.5rem;
             min-width: 200px;
         }
-
         .user-dropdown .dropdown-item {
             padding: 0.875rem 1.25rem;
             border-radius: 12px;
@@ -411,22 +361,18 @@
             display: flex;
             align-items: center;
         }
-
         .user-dropdown .dropdown-item i {
             width: 20px;
             margin-right: 0.75rem;
         }
-
         .user-dropdown .dropdown-item:hover {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
             transform: translateX(4px);
         }
-
         .user-dropdown .dropdown-item.text-danger:hover {
             background: linear-gradient(135deg, var(--danger-color), #f87171);
         }
-
         /* Mobile Sidebar Toggle */
         .sidebar-toggle {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
@@ -437,12 +383,10 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
         }
-
         .sidebar-toggle:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
         }
-
         /* Enhanced Alert Styles */
         .alert {
             border: none;
@@ -454,18 +398,15 @@
             display: flex;
             align-items: center;
         }
-
         .alert-success {
             background: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
             border-left: 4px solid var(--success-color);
         }
-
         .alert i {
             font-size: 1.2rem;
             margin-right: 0.75rem;
         }
-
         /* Enhanced Footer - Fixed z-index */
         .admin-footer {
             background: rgba(15, 23, 42, 0.98);
@@ -478,53 +419,45 @@
             position: relative;
             z-index: 900;
         }
-
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 1.5rem;
         }
-
         .footer-section h6 {
             color: var(--primary-light);
             font-weight: 600;
             margin-bottom: 1rem;
             font-size: 1rem;
         }
-
-        .footer-section p, .footer-section a {
+        .footer-section p,
+        .footer-section a {
             color: #cbd5e1;
             text-decoration: none;
             font-size: 0.9rem;
             line-height: 1.6;
             transition: color 0.3s ease;
         }
-
         .footer-section a:hover {
             color: var(--primary-light);
         }
-
         .footer-links {
             list-style: none;
             padding: 0;
         }
-
         .footer-links li {
             margin-bottom: 0.5rem;
         }
-
         .footer-links a {
             display: flex;
             align-items: center;
         }
-
         .footer-links i {
             width: 16px;
             margin-right: 0.5rem;
             font-size: 0.9rem;
         }
-
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 1.5rem;
@@ -534,18 +467,15 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
         .footer-bottom p {
             margin: 0;
             color: #94a3b8;
             font-size: 0.9rem;
         }
-
         .social-links {
             display: flex;
             gap: 1rem;
         }
-
         .social-links a {
             display: flex;
             align-items: center;
@@ -557,13 +487,11 @@
             color: #cbd5e1;
             transition: all 0.3s ease;
         }
-
         .social-links a:hover {
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
         }
-
         /* Search and Filter Styles */
         .search-filter-container {
             background: rgba(255, 255, 255, 0.95);
@@ -574,7 +502,6 @@
             border: 1px solid rgba(16, 185, 129, 0.1);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
-
         .search-input {
             border: 2px solid rgba(16, 185, 129, 0.2);
             border-radius: 10px;
@@ -582,12 +509,10 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
-
         .search-input:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.25);
         }
-
         .filter-select {
             border: 2px solid rgba(16, 185, 129, 0.2);
             border-radius: 10px;
@@ -595,12 +520,10 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
-
         .filter-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.25);
         }
-
         .clear-filters-btn {
             background: linear-gradient(135deg, var(--secondary-color), #94a3b8);
             border: none;
@@ -610,89 +533,72 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-
         .clear-filters-btn:hover {
             background: linear-gradient(135deg, #475569, var(--secondary-color));
             transform: translateY(-1px);
         }
-
         .no-results {
             text-align: center;
             padding: 3rem 1rem;
             color: var(--secondary-color);
         }
-
         .no-results i {
             font-size: 3rem;
             margin-bottom: 1rem;
             opacity: 0.5;
         }
-
         /* Table enhancements */
         .table-hover tbody tr:hover {
             background-color: rgba(16, 185, 129, 0.05);
         }
-
         /* Responsive Design */
         @media (min-width: 992px) {
             .admin-sidebar {
                 transform: translateX(0);
                 position: fixed;
             }
-            
             .main-content {
                 margin-left: var(--sidebar-width);
             }
-            
             .sidebar-toggle {
                 display: none;
             }
         }
-
         @media (max-width: 991.98px) {
             .main-content {
                 padding: 1rem;
             }
-            
             .content-wrapper {
                 padding: 1.5rem;
                 border-radius: 16px;
             }
-
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
             }
-
             .search-filter-container {
                 padding: 1rem;
             }
         }
-
         @media (max-width: 576px) {
             .admin-header .navbar-brand {
                 font-size: 1.3rem;
             }
-
             .content-wrapper {
                 padding: 1rem;
             }
-
             .nav-group-title {
                 padding: 0.5rem 1rem 0.75rem 1rem;
             }
-
             .sidebar-nav .nav-link {
                 padding: 0.875rem 1rem;
                 margin: 0.125rem 0.5rem;
             }
         }
-
         /* Overlay for mobile */
         .sidebar-overlay {
             position: fixed;
@@ -707,12 +613,10 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(4px);
         }
-
         .sidebar-open .sidebar-overlay {
             opacity: 1;
             visibility: visible;
         }
-
         /* Animation for page load */
         @keyframes fadeInUp {
             from {
@@ -724,11 +628,9 @@
                 transform: translateY(0);
             }
         }
-
         .content-wrapper {
             animation: fadeInUp 0.6s ease-out;
         }
-
         /* Status indicators */
         .status-indicator {
             width: 8px;
@@ -737,12 +639,10 @@
             display: inline-block;
             margin-right: 0.5rem;
         }
-
         .status-online {
             background: var(--success-color);
             box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
         }
-
         .status-offline {
             background: var(--secondary-color);
         }
@@ -756,19 +656,17 @@
             <button class="sidebar-toggle me-3 d-lg-none" type="button" onclick="toggleSidebar()">
                 <i class="fas fa-bars"></i>
             </button>
-            
             <a class="navbar-brand" href="{{ route('admin.services.index') }}">
                 <i class="fas fa-leaf me-2"></i>France-Isolation Admin
             </a>
-
             <div class="ms-auto d-flex align-items-center">
                 <div class="me-3 d-none d-md-block">
                     <span class="status-indicator status-online"></span>
                     <small class="text-muted">System Online</small>
                 </div>
-                
                 <div class="dropdown user-dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <i class="fas fa-user-circle me-2"></i>
                         <span class="d-none d-sm-inline">Admin User</span>
                     </button>
@@ -788,33 +686,31 @@
                                 <i class="fas fa-bell"></i> Notifications
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
                         <li>
-                            
-                            <form action="{{ route('admin.logout') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="{{ route('admin.logout') }}" method="POST"
+                                onsubmit="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">
                                     Déconnexion
                                 </button>
                             </form>
-
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-
     <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
     <!-- Enhanced Sidebar with Fixed Toggle Button -->
     <nav class="admin-sidebar">
         <!-- Desktop Toggle Button - Fixed positioning -->
         <button class="sidebar-toggle-btn d-none d-lg-block" onclick="toggleDesktopSidebar()" title="Toggle Sidebar">
             <i class="fas fa-chevron-left"></i>
         </button>
-
         <div class="sidebar-nav">
             <!-- Content Management Group -->
             <div class="nav-group">
@@ -822,76 +718,89 @@
                     <i class="fas fa-edit"></i>
                     <span class="title-text">Content Management</span>
                 </div>
-                <a class="nav-link @if(Route::is('admin.banners.*')) active @endif" href="{{ route('admin.banners.index') }}" data-tooltip="Banners">
+                <a class="nav-link @if(Route::is('admin.banners.*')) active @endif"
+                    href="{{ route('admin.banners.index') }}" data-tooltip="Banners">
                     <i class="fas fa-image"></i>
                     <span class="nav-text">Banners</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.categories.*')) active @endif" href="{{ route('admin.categories.index') }}" data-tooltip="Categories">
+                <a class="nav-link @if(Route::is('admin.categories.*')) active @endif"
+                    href="{{ route('admin.categories.index') }}" data-tooltip="Categories">
                     <i class="fas fa-tags"></i>
                     <span class="nav-text">Categories</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.services.*')) active @endif" href="{{ route('admin.services.index') }}" data-tooltip="Services">
+                <a class="nav-link @if(Route::is('admin.services.*')) active @endif"
+                    href="{{ route('admin.services.index') }}" data-tooltip="Services">
                     <i class="fas fa-cogs"></i>
                     <span class="nav-text">Services</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.projects.*')) active @endif" href="{{ route('admin.projects.index') }}" data-tooltip="Projects">
+                <a class="nav-link @if(Route::is('admin.projects.*')) active @endif"
+                    href="{{ route('admin.projects.index') }}" data-tooltip="Projects">
                     <i class="fas fa-briefcase"></i>
                     <span class="nav-text">Projects</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.blogs.*')) active @endif" href="{{ route('admin.blogs.index') }}" data-tooltip="Blog Posts">
+                <a class="nav-link @if(Route::is('admin.blogs.*')) active @endif"
+                    href="{{ route('admin.blogs.index') }}" data-tooltip="Blog Posts">
                     <i class="fas fa-blog"></i>
                     <span class="nav-text">Blog Posts</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.quotes.*')) active @endif" href="{{ route('admin.quotes.index') }}" data-tooltip="quotes">
-    <i class="fas fa-file-invoice float-lg-start"></i>
-    <span class="nav-text">Quote</span>
+                <a class="nav-link @if(Route::is('admin.quotes.*')) active @endif"
+                    href="{{ route('admin.quotes.index') }}" data-tooltip="quotes">
+                    <i class="fas fa-file-invoice float-lg-start"></i>
+                    <span class="nav-text">Quote</span>
+                </a>
+                <a class="nav-link @if(Route::is('admin.partners.*')) active @endif"
+   href="{{ route('admin.partners.index') }}" data-tooltip="Partners">
+    <i class="fas fa-handshake"></i>
+    <span class="nav-text">Partners</span>
 </a>
 
                 </a>
             </div>
-
             <!-- Communication Group -->
             <div class="nav-group">
                 <div class="nav-group-title">
                     <i class="fas fa-comments"></i>
                     <span class="title-text">Communication</span>
                 </div>
-                <a class="nav-link @if(Route::is('admin.contacts.*')) active @endif" href="{{ route('admin.contacts.index') }}" data-tooltip="Contact Messages">
+                <a class="nav-link @if(Route::is('admin.contacts.*')) active @endif"
+                    href="{{ route('admin.contacts.index') }}" data-tooltip="Contact Messages">
                     <i class="fas fa-envelope"></i>
                     <span class="nav-text">Contact Messages</span>
                     <span class="badge">5</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.teams.*')) active @endif" href="{{ route('admin.teams.index') }}" data-tooltip="Team Members">
+                <a class="nav-link @if(Route::is('admin.teams.*')) active @endif"
+                    href="{{ route('admin.teams.index') }}" data-tooltip="Team Members">
                     <i class="fas fa-users"></i>
                     <span class="nav-text">Team Members</span>
                 </a>
             </div>
-
             <!-- Site Configuration Group -->
             <div class="nav-group">
                 <div class="nav-group-title">
                     <i class="fas fa-sliders-h"></i>
                     <span class="title-text">Site Configuration</span>
                 </div>
-                <a class="nav-link @if(Route::is('admin.about.*')) active @endif" href="{{ route('admin.about.edit') }}" data-tooltip="About Page">
+                <a class="nav-link @if(Route::is('admin.about.*')) active @endif" href="{{ route('admin.about.edit') }}"
+                    data-tooltip="About Page">
                     <i class="fas fa-info-circle"></i>
                     <span class="nav-text">About Page</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.social.*')) active @endif" href="{{ route('admin.social.edit') }}" data-tooltip="Social Links">
+                <a class="nav-link @if(Route::is('admin.social.*')) active @endif"
+                    href="{{ route('admin.social.edit') }}" data-tooltip="Social Links">
                     <i class="fab fa-facebook"></i>
                     <span class="nav-text">Social Links</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.video.*')) active @endif" href="{{ route('admin.video.edit') }}" data-tooltip="YouTube Video">
+                <a class="nav-link @if(Route::is('admin.video.*')) active @endif" href="{{ route('admin.video.edit') }}"
+                    data-tooltip="YouTube Video">
                     <i class="fab fa-youtube"></i>
                     <span class="nav-text">YouTube Video</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.stats.*')) active @endif" href="{{ route('admin.stats.index') }}" data-tooltip="Stats">
-    <i class="fas fa-chart-line float-lg-start"></i>
-    <span class="nav-text">Statistiques</span>
-</a>
-
+                <a class="nav-link @if(Route::is('admin.stats.*')) active @endif"
+                    href="{{ route('admin.stats.index') }}" data-tooltip="Stats">
+                    <i class="fas fa-chart-line float-lg-start"></i>
+                    <span class="nav-text">Statistiques</span>
+                </a>
             </div>
-
             <!-- System Management Group -->
             <div class="nav-group">
                 <div class="nav-group-title">
@@ -913,7 +822,6 @@
             </div>
         </div>
     </nav>
-
     <!-- Main Content Wrapper -->
     <div class="main-wrapper">
         <main class="main-content">
@@ -927,7 +835,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-
                 @if(session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <i class="fas fa-exclamation-circle"></i>
@@ -937,43 +844,34 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-
                 @yield('content')
             </div>
         </main>
-
-      
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Mobile sidebar toggle
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-open');
         }
-
         // Desktop sidebar collapse/expand
         function toggleDesktopSidebar() {
             document.body.classList.toggle('sidebar-collapsed');
-            
             // Save state to localStorage
             const isCollapsed = document.body.classList.contains('sidebar-collapsed');
             localStorage.setItem('sidebarCollapsed', isCollapsed);
         }
-
         // Load saved sidebar state on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const savedState = localStorage.getItem('sidebarCollapsed');
             if (savedState === 'true') {
                 document.body.classList.add('sidebar-collapsed');
             }
-
             // Initialize table search and filter if table exists
             if (document.getElementById('table')) {
                 initializeTableSearchAndFilter();
             }
         });
-
         // Close mobile sidebar when clicking on a link
         document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -982,20 +880,17 @@
                 }
             });
         });
-
         // Close mobile sidebar on window resize if screen becomes large
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 992) {
                 document.body.classList.remove('sidebar-open');
             }
         });
-
         // Add smooth scrolling to sidebar
         document.querySelector('.admin-sidebar').addEventListener('wheel', (e) => {
             e.preventDefault();
             e.currentTarget.scrollTop += e.deltaY;
         });
-
         // Auto-hide alerts after 5 seconds
         document.querySelectorAll('.alert').forEach(alert => {
             setTimeout(() => {
@@ -1004,10 +899,9 @@
                 }
             }, 5000);
         });
-
         // Add loading state to buttons
         document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function() {
+            form.addEventListener('submit', function () {
                 const submitBtn = form.querySelector('button[type="submit"]');
                 if (submitBtn) {
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
@@ -1015,15 +909,12 @@
                 }
             });
         });
-
         // System status check (simulated)
         function updateSystemStatus() {
             const statusIndicator = document.querySelector('.status-indicator');
             const statusText = document.querySelector('.status-indicator').nextElementSibling;
-            
             // Simulate random status check
             const isOnline = Math.random() > 0.1; // 90% uptime simulation
-            
             if (isOnline) {
                 statusIndicator.className = 'status-indicator status-online';
                 statusText.textContent = 'System Online';
@@ -1032,12 +923,10 @@
                 statusText.textContent = 'System Offline';
             }
         }
-
         // Update system status every 30 seconds
         setInterval(updateSystemStatus, 30000);
-
         // Keyboard shortcut for sidebar toggle (Ctrl/Cmd + B)
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
                 e.preventDefault();
                 if (window.innerWidth >= 992) {
@@ -1047,12 +936,10 @@
                 }
             }
         });
-
         // Advanced Table Search and Filter System
         function initializeTableSearchAndFilter() {
             const table = document.getElementById('table');
             if (!table) return;
-
             // Create search and filter container
             const searchContainer = document.createElement('div');
             searchContainer.className = 'search-filter-container';
@@ -1099,16 +986,13 @@
                     </div>
                 </div>
             `;
-
             // Insert search container before the table
             table.parentNode.insertBefore(searchContainer, table);
-
             // Get table elements
             const tbody = table.querySelector('tbody');
             const thead = table.querySelector('thead');
             const rows = Array.from(tbody.querySelectorAll('tr'));
             const headers = Array.from(thead.querySelectorAll('th'));
-
             // Populate column filter dropdown
             const columnFilter = document.getElementById('columnFilter');
             headers.forEach((header, index) => {
@@ -1119,25 +1003,21 @@
                     columnFilter.appendChild(option);
                 }
             });
-
             // Search and filter variables
             let currentSearchTerm = '';
             let currentColumnFilter = '';
             let currentRowsPerPage = 10;
             let currentPage = 1;
             let filteredRows = [...rows];
-
             // Update result count
             function updateResultCount() {
                 document.getElementById('resultCount').textContent = filteredRows.length;
                 document.getElementById('totalCount').textContent = rows.length;
             }
-
             // Filter rows based on search and column filter
             function filterRows() {
                 filteredRows = rows.filter(row => {
                     const cells = Array.from(row.querySelectorAll('td'));
-                    
                     // Apply search filter
                     let matchesSearch = true;
                     if (currentSearchTerm) {
@@ -1150,19 +1030,15 @@
                             return false;
                         });
                     }
-
                     return matchesSearch;
                 });
-
                 displayRows();
                 updateResultCount();
             }
-
             // Display rows with pagination
             function displayRows() {
                 // Hide all rows first
                 rows.forEach(row => row.style.display = 'none');
-
                 // Show filtered rows based on pagination
                 if (currentRowsPerPage === 'all') {
                     filteredRows.forEach(row => row.style.display = '');
@@ -1172,16 +1048,13 @@
                     const pageRows = filteredRows.slice(startIndex, endIndex);
                     pageRows.forEach(row => row.style.display = '');
                 }
-
                 // Show no results message if needed
                 showNoResultsMessage();
                 updatePagination();
             }
-
             // Show no results message
             function showNoResultsMessage() {
                 let noResultsRow = tbody.querySelector('.no-results-row');
-                
                 if (filteredRows.length === 0) {
                     if (!noResultsRow) {
                         noResultsRow = document.createElement('tr');
@@ -1202,28 +1075,22 @@
                     }
                 }
             }
-
             // Update pagination
             function updatePagination() {
                 let paginationContainer = document.querySelector('.custom-pagination');
-                
                 if (currentRowsPerPage === 'all' || filteredRows.length <= parseInt(currentRowsPerPage)) {
                     if (paginationContainer) {
                         paginationContainer.remove();
                     }
                     return;
                 }
-
                 const totalPages = Math.ceil(filteredRows.length / parseInt(currentRowsPerPage));
-                
                 if (!paginationContainer) {
                     paginationContainer = document.createElement('div');
                     paginationContainer.className = 'custom-pagination d-flex justify-content-center mt-3';
                     table.parentNode.appendChild(paginationContainer);
                 }
-
                 let paginationHTML = '<nav><ul class="pagination">';
-                
                 // Previous button
                 paginationHTML += `
                     <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
@@ -1232,7 +1099,6 @@
                         </a>
                     </li>
                 `;
-
                 // Page numbers
                 for (let i = 1; i <= totalPages; i++) {
                     if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
@@ -1245,7 +1111,6 @@
                         paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
                     }
                 }
-
                 // Next button
                 paginationHTML += `
                     <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
@@ -1254,13 +1119,11 @@
                         </a>
                     </li>
                 `;
-
                 paginationHTML += '</ul></nav>';
                 paginationContainer.innerHTML = paginationHTML;
-
                 // Add pagination click handlers
                 paginationContainer.querySelectorAll('.page-link').forEach(link => {
-                    link.addEventListener('click', function(e) {
+                    link.addEventListener('click', function (e) {
                         e.preventDefault();
                         const page = parseInt(this.dataset.page);
                         if (page && page !== currentPage && page >= 1 && page <= totalPages) {
@@ -1270,27 +1133,23 @@
                     });
                 });
             }
-
             // Event listeners
-            document.getElementById('tableSearch').addEventListener('input', function() {
+            document.getElementById('tableSearch').addEventListener('input', function () {
                 currentSearchTerm = this.value;
                 currentPage = 1;
                 filterRows();
             });
-
-            document.getElementById('columnFilter').addEventListener('change', function() {
+            document.getElementById('columnFilter').addEventListener('change', function () {
                 currentColumnFilter = this.value;
                 currentPage = 1;
                 filterRows();
             });
-
-            document.getElementById('rowsPerPage').addEventListener('change', function() {
+            document.getElementById('rowsPerPage').addEventListener('change', function () {
                 currentRowsPerPage = this.value;
                 currentPage = 1;
                 displayRows();
             });
-
-            document.getElementById('clearFilters').addEventListener('click', function() {
+            document.getElementById('clearFilters').addEventListener('click', function () {
                 document.getElementById('tableSearch').value = '';
                 document.getElementById('columnFilter').value = '';
                 document.getElementById('rowsPerPage').value = '10';
@@ -1302,7 +1161,6 @@
                 displayRows();
                 updateResultCount();
             });
-
             // Initialize
             filterRows();
         }

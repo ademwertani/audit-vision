@@ -112,16 +112,6 @@
       <h1 class="cp-title">Contact Us</h1>
       <p class="cp-sub">Practical renewable energy technology that reduces costs and helps the environment</p>
     </div>
-
-    {{-- Long rounded breadcrumb pill --}}
-    <div class="cp-bread-wrap">
-      <div class="cp-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Home</a>
-        <span class="sep">|</span>
-        <span>Contact Us</span>
-      </div>
-    </div>
   </header>
 
   {{-- CONTENT --}}

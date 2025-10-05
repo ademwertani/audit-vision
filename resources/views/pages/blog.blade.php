@@ -85,14 +85,7 @@
       <h1 class="pb-title">Notre blog</h1>
       <p class="pb-sub">Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.</p>
     </div>
-    <div class="pb-bread-wrap">
-      <div class="pb-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Accueil</a>
-        <span class="sep">|</span>
-        <span>Blog</span>
-      </div>
-    </div>
+ 
   </header>
 
   {{-- LIST --}}

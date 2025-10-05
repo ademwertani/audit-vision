@@ -127,17 +127,7 @@
       @endif
     </div>
 
-    {{-- Long rounded breadcrumb pill --}}
-    <div class="pp-bread-wrap">
-      <div class="pp-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Accueil</a>
-        <span class="sep">|</span>
-        <a href="{{ route('blog.index') }}">Blog</a>
-        <span class="sep">|</span>
-        <span>{{ Str::limit($blog->title, 60) }}</span>
-      </div>
-    </div>
+
   </header>
 
   {{-- ARTICLE --}}

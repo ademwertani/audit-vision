@@ -90,15 +90,7 @@
       <p class="tm-sub">Rencontrez les personnes derrière nos projets et notre service client.</p>
     </div>
 
-    {{-- Long rounded breadcrumb pill --}}
-    <div class="tm-bread-wrap">
-      <div class="tm-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Accueil</a>
-        <span class="sep">|</span>
-        <span>Notre équipe</span>
-      </div>
-    </div>
+
   </header>
 
   {{-- METRICS (replaces old bg-secondary band) --}}

@@ -630,8 +630,8 @@ main,
 /* Wrapper */
 .blog-card{
   position: relative;
-  height: 460px;    
-  min-height: 420px;
+  height: 160px;    
+  min-height: 320px;
   border-radius: 16px;        /* radius only here */
   overflow: hidden;           /* clip children to radius */
   background:#000;            /* prevents grey bleed on edges */
@@ -680,7 +680,7 @@ main,
 .blog-card__btn{
   position: absolute;
   left: 24px;
-  right: 24px;            /* retire si tu veux un bouton à gauche uniquement */
+  right: 194px;            /* retire si tu veux un bouton à gauche uniquement */
   bottom: 20px;
   z-index: 3;
 
@@ -832,4 +832,92 @@ body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
 .logo-navbar{
   height: auto;            /* conserve la taille d’origine de l’image */
   max-height: 100px;        /* ajuste si tu veux un plafond de hauteur */
+}
+
+
+/* Titre */
+.partners-title{
+  margin:0 0 18px 0; text-align:center; color:#fff;
+  font-weight:800; line-height:1.1;
+  font-size:clamp(28px,6vw,64px);
+}
+
+/* ===== Partenaires : 4 x 2, logos + GRANDS ===== */
+.pub-section .full-width-img { position: relative; }
+
+.pub-section .partners-overlay{
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(20px, 4vw, 60px);
+  z-index: 2;
+}
+
+/* Grille (4 colonnes => 2 rangées si 8 logos) */
+.pub-section .partners-logos{
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: clamp(24px, 3vw, 48px) clamp(28px, 3.5vw, 56px) !important;
+  width: min(1700px, 96%) !important;
+  margin: clamp(6px, 1.2vw, 16px) auto 0 !important;
+}
+
+/* Slot (pas de carte) — TAILLE DES LOGOS ↑↑ */
+.pub-section .partner-logo-link{
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  height: clamp(180px, 20vw, 300px) !important;  /* <<< augmente ici si tu veux ENCORE plus grand */
+  padding: 0 !important; margin: 0 !important;
+  background: transparent !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important;
+}
+
+/* Image : remplissage du slot sans déformation */
+.pub-section .partner-logo{
+  max-height: 100% !important;
+  max-width: 92% !important;
+  width: auto !important; height: auto !important;
+  object-fit: contain !important;
+}
+
+/* ===== Force 4 en haut + 4 en bas (8 au total) sur desktop ===== */
+@media (min-width: 992px){
+  /* 4 colonnes fixes */
+  .pub-section .partners-logos{
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  /* on n'affiche que les 8 premiers (2 rangées) */
+  .pub-section .partners-logos > *:nth-child(n+9){
+    display: none !important;
+  }
+}
+
+/* Optionnel : si tu veux aussi 4x2 sur grands écrans larges */
+@media (min-width: 1400px){
+  .pub-section .partners-logos{
+    width: min(1600px, 94%) !important; /* largeur confortable pour respirer */
+  }
+}
+.partners-logos--two-rows{
+  display:grid; grid-template-columns:repeat(4,1fr); gap: clamp(24px, 3vw, 48px) clamp(28px, 3.5vw, 56px);
+}
+@media (max-width: 992px){
+  .partners-logos--two-rows{ grid-template-columns:repeat(2,1fr); }
+}
+/* Desktop : remonter les 2 rangées différemment */
+@media (min-width: 992px){
+  /* 4 premiers (rangée 1) : un peu plus haut */
+  .pub-section .partners-logos > *:nth-child(-n+4){
+    transform: translateY(-14px);
+    will-change: transform;
+  }
+
+  /* 4 suivants (rangée 2) : encore plus haut */
+  .pub-section .partners-logos > *:nth-child(n+5):nth-child(-n+8){
+    transform: translateY(-116px);
+    will-change: transform;
+  }
+
+  /* Optionnel: resserrer un peu l'espace vertical entre les rangées */
+  .pub-section .partners-logos{
+    row-gap: 20px !important; /* ajuste 16–28 selon ton rendu */
+  }
 }

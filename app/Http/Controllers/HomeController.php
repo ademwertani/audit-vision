@@ -10,7 +10,7 @@ use App\Models\Social;
 use App\Models\Blog;
 use App\Models\YoutubeVideo;
 use App\Models\Stat; // <-- AJOUTE CETTE LIGNE
-
+use App\Models\Partner;
 class HomeController extends Controller
 {
     public function index()
@@ -22,11 +22,13 @@ class HomeController extends Controller
         $social   = Social::first();
         $blogs    = Blog::latest('published_at')->take(3)->get();
         $video    = YoutubeVideo::first();
-
+$partners = Partner::latest()->get();
         $stats = Stat::orderBy('display_order')->take(3)->get(); // OK
 
         return view('home', compact(
-            'banners','services','projects','about','social','blogs','video','stats'
+            'banners','services','projects','about','social','blogs','video','stats','partners'
         ));
+        
     }
+    
 }

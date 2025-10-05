@@ -94,15 +94,6 @@
       <p class="px-sub">Nos réalisations récentes et études de cas pour nos clients.</p>
     </div>
 
-    {{-- Long rounded breadcrumb pill --}}
-    <div class="px-bread-wrap">
-      <div class="px-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Accueil</a>
-        <span class="sep">|</span>
-        <span>Projets</span>
-      </div>
-    </div>
   </header>
 
   {{-- LIST --}}

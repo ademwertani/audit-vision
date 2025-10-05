@@ -235,17 +235,7 @@
         @endif
       </div>
 
-      {{-- Long rounded breadcrumb pill --}}
-      <div class="pr-bread-wrap">
-        <div class="pr-bread">
-          <span class="home-ico"><i class="fa fa-home"></i></span>
-          <a href="{{ url('/') }}">Accueil</a>
-          <span class="sep">|</span>
-          <a href="{{ route('projects.index') }}">Projets</a>
-          <span class="sep">|</span>
-          <span>{{ \Illuminate\Support\Str::limit($project->name, 60) }}</span>
-        </div>
-      </div>
+
     </header>
 
     {{-- DETAILS --}}

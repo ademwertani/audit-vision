@@ -103,15 +103,7 @@
       <p class="sx-sub">Services built specifically for your business.</p>
     </div>
 
-    {{-- Long rounded breadcrumb pill --}}
-    <div class="sx-bread-wrap">
-      <div class="sx-bread">
-        <span class="home-ico"><i class="fa fa-home"></i></span>
-        <a href="{{ url('/') }}">Home</a>
-        <span class="sep">|</span>
-        <span>Services</span>
-      </div>
-    </div>
+
   </header>
 
   {{-- LIST --}}

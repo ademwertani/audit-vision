@@ -447,12 +447,43 @@
             <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
         </button>
     </div>
-    {{-- pub --}}
-    <section class="pub-section pt-2 pb-5 mt-5">
-        <div class="full-width-img">
-            <img src="{{ asset('img/pub.png') }}" alt="pub">
-        </div>
-    </section>
+{{-- pub --}}
+{{-- pub --}}
+<section class="pub-section pt-2 pb-5 mt-5">
+  <div class="full-width-img partners-wrap">
+    <img src="{{ asset('img/pubb.png') }}" alt="pub" class="partners-bg">
+
+    <div class="partners-overlay">
+      <h2 class="partners-title">Nos Partenaires</h2>
+
+      @if(!empty($partners) && $partners->count())
+        @php
+  $top = $partners->take(4);
+  $bottom = $partners->skip(4)->take(4);
+@endphp
+
+<div class="partners-logos partners-logos--two-rows">
+  @foreach($top as $p)
+    <span class="partner-logo-link" title="{{ $p->name }}">
+      <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
+    </span>
+  @endforeach
+  @foreach($bottom as $p)
+    <span class="partner-logo-link" title="{{ $p->name }}">
+      <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
+    </span>
+  @endforeach
+</div>
+
+
+      @endif
+    </div>
+  </div>
+</section>
+
+
+
+
     <!-- Blog Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
@@ -467,47 +498,53 @@
                 </a>
             </div>
             <div class="row g-4 justify-content-center">
-                @forelse($blogs->take(3) as $blog)
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none">
-                            <article class="blog-card rounded-4 overflow-hidden position-relative">
-                                {{-- Image plein cadre --}}
-                                @if($blog->image)
-                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
-                                        class="blog-card__img">
-                                @endif
-                                {{-- Overlay --}}
-                                <div class="blog-card__overlay"></div>
-                                {{-- Content --}}
-                                <div class="blog-card__content">
-                                    <p class="blog-card__cat text-uppercase mb-1">
-                                        {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
-                                    </p>
-                                    <h3 class="blog-card__title">{{ $blog->title }}</h3>
-                                    <div class="blog-card__meta">
-                                        <span class="blog-card__date">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
-                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            {{ $blog->created_at->translatedFormat('j F Y') }}
-                                        </span>
-                                    </div>
-                                    <p class="blog-card__excerpt">
-                                        {{ Str::limit(strip_tags($blog->content), 120) }}
-                                    </p>
-                                    <span class="blog-card__btn">
-                                        Lire Plus <span class="blog-card__btn-icon">→</span>
-                                    </span>
-                                </div>
-                            </article>
-                        </a>
-                    </div>
-                @empty
-                    <p class="text-center">Aucun article pour le moment.</p>
-                @endforelse
+  @forelse($blogs->take(3) as $blog)
+    <div class="col-12 col-md-6 col-lg-4 d-flex">  {{-- <= important --}}
+      <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
+        <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
+          {{-- Image pleine largeur avec ratio fixe --}}
+          @if($blog->image)
+            <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="blog-card__img">
+          @else
+            <div class="blog-card__img blog-card__img--placeholder"></div>
+          @endif
+
+          {{-- Overlay (si tu l’utilises, tu peux le laisser) --}}
+          <div class="blog-card__overlay"></div>
+
+          {{-- Contenu --}}
+          <div class="blog-card__content d-flex flex-column flex-grow-1">
+            <p class="blog-card__cat text-uppercase mb-1">
+              {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
+            </p>
+            <h3 class="blog-card__title">{{ $blog->title }}</h3>
+
+            <div class="blog-card__meta mb-2">
+              <span class="blog-card__date">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                  <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                {{ $blog->created_at->translatedFormat('j F Y') }}
+              </span>
             </div>
+
+            <p class="blog-card__excerpt mb-3">
+              {{ Str::limit(strip_tags($blog->content), 120) }}
+            </p>
+
+            <span class="blog-card__btn mt-auto">
+              Lire Plus <span class="blog-card__btn-icon">→</span>
+            </span>
+          </div>
+        </article>
+      </a>
+    </div>
+  @empty
+    <p class="text-center">Aucun article pour le moment.</p>
+  @endforelse
+</div>
+
         </div>
     </div>
     <script>
@@ -807,6 +844,7 @@
             }
         </style>
         <style>
+            
   /* Réduit UNIQUEMENT l'espace sous le bloc stats, sans toucher au reste */
   .projects-grid > .grid-stats.stats-card{
     margin-bottom: 9px !important; /* ajuste 80–120px selon ton rendu */
