@@ -102,17 +102,124 @@
 /* ---------- MAP ---------- */
 .cp-map{margin-top:34px;background:#f4f7ff;border-radius:20px;box-shadow:0 8px 18px rgba(0,0,0,.06);padding:10px}
 .cp-map iframe{width:100%;height:440px;border:0;border-radius:12px}
+/* ---------- HERO Contact : bande bleue + image qui dépasse ---------- */
+.cp-hero{
+  position: relative;
+  background: #242958;      /* bleu */
+  color: #fff;
+  padding: 78px 0 92px;     /* hauteur du bandeau bleu */
+  overflow: visible;         /* IMPORTANT : ne pas couper l'image qui déborde */
+  z-index: 5;
+}
+
+/* Contrôle le “décrochage” de l’image sous le bleu */
+.cp-hero--split{
+  --cp-img-drop: 108px;      /* ajuste 60–140px selon le rendu */
+  margin-bottom: var(--cp-img-drop);
+}
+
+.cp-hero__inner{ position: relative; z-index: 3; }
+.cp-hero .cp-title{ margin:0 0 6px; font-weight:800; font-size: clamp(34px, 5vw, 64px); }
+.cp-hero .cp-sub{ max-width: 720px; opacity:.95; }
+
+/* Couche bleue (sous le texte, au-dessus de l’image) */
+.cp-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:#242958;
+  z-index: 2;
+  pointer-events:none;
+}
+
+/* L’image : à droite, dépasse vers le bas, SANS effets */
+.cp-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--cp-img-drop));
+  width: min(520px, 50vw);   /* largeur de l’image */
+  z-index: 1;                /* sous la couche bleue */
+}
+.cp-hero__media img{
+  display:block; width:100%; height:auto;
+  border: 0;
+  border-radius: 0;          /* laisse droit (mets 18px si tu veux arrondi) */
+  box-shadow: none; filter:none; transform:none;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .cp-hero--split{ --cp-img-drop: 48px; }
+  .cp-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+/* ---------- HERO Contact : image AU-DESSUS + coins arrondis ---------- */
+.cp-hero{
+  position: relative;
+  background: #242958;         /* bleu */
+  color: #fff;
+  padding: 78px 0 92px;        /* hauteur du bandeau bleu */
+  overflow: visible;           /* ne pas couper l'image qui dépasse */
+  z-index: 5;
+}
+
+/* Décrochage vertical de l'image */
+.cp-hero--split{
+  --cp-img-drop: 17px;        /* ↑ baisse l’image ; 60–140px selon ton rendu */
+  margin-bottom: var(--cp-img-drop);
+}
+
+/* Calques : texte tout en haut, image devant le bleu, bleu derrière tout */
+.cp-hero__inner{ position: relative; z-index: 5; }  /* texte */
+.cp-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:#242958;          /* bande bleue */
+  z-index: 2;                  /* derrière l'image */
+  pointer-events:none;
+}
+
+/* Image : à droite, dépasse vers le bas, AU-DESSUS de la bande bleue */
+.cp-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--cp-img-drop)); /* fait dépasser vers le bas */
+  width: min(520px, 50vw);
+  z-index: 4;                                  /* > au bleu, < au texte */
+}
+.cp-hero__media img{
+  display:block; width:100%; height:auto;
+  border: 0;
+  border-radius: 18px !important;              /* coins arrondis */
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .cp-hero--split{ --cp-img-drop: 48px; }
+  .cp-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
 </style>
 
 <section class="contact-page">
 
-  {{-- HERO --}}
-  <header class="cp-hero">
-    <div class="cp-hgroup container">
-      <h1 class="cp-title">Contact Us</h1>
-      <p class="cp-sub">Practical renewable energy technology that reduces costs and helps the environment</p>
-    </div>
-  </header>
+{{-- HERO --}}
+<header class="cp-hero cp-hero--split">
+  <div class="cp-hgroup container cp-hero__inner">
+    <h1 class="cp-title">Contact Us</h1>
+    <p class="cp-sub">
+      Practical renewable energy technology that reduces costs and helps the environment
+    </p>
+  </div>
+
+  {{-- Image statique, même style/placement --}}
+  <figure class="cp-hero__media">
+    <img src="{{ asset('img/ima.png') }}" alt="Contact hero">
+    {{-- mets ici ton image statique (ex: public/img/contact-hero.png) --}}
+  </figure>
+</header>
+
 
   {{-- CONTENT --}}
   <div class="cp-wrap">

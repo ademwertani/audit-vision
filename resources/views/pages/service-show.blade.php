@@ -141,22 +141,84 @@
   padding:12px 18px; border-radius:14px;
 }
 .btn-outline-accent:hover{ background:#f8fafc }
+/* HERO Services : pas de découpe, pas d'effet sur l'image */
+.sv-hero{
+  position: relative;
+  background: var(--navy);    /* ta couleur bleue */
+  color: #fff;
+  padding: 78px 0 92px;       /* hauteur du bandeau */
+  overflow: visible;          /* <<< important : ne pas couper l'image */
+  z-index: 5;                 /* au-dessus des sections suivantes */
+}
+
+/* Contrôle le “décrochage” de l’image sous le bleu */
+.sv-hero--split{
+  --img-drop: 160px;                 /* ajuste 40–100px selon ton rendu */
+  margin-bottom: var(--img-drop);   /* évite que la section suivante chevauche l’image */
+}
+
+/* Texte au-dessus de la couche bleue */
+.sv-hero__inner{ position: relative; z-index: 3; }
+
+/* Couche bleue qui recouvre l’image dans la zone du hero */
+.sv-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2;              /* au-dessus de l'image mais sous le texte */
+  pointer-events:none;
+}
+
+/* L’image : placée sous le bleu, dépasse vers le bas, SANS effets */
+.sv-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--img-drop));  /* la fait descendre sous la bande bleue */
+  width: min(520px, 20vw);
+  z-index: 1;                           /* sous la couche bleue */
+}
+
+.sv-hero__media img{
+  display:block; width:100%; height:auto;
+  border:0; border-radius:0 !important;
+  box-shadow:none !important;
+  filter:none !important;
+  transform:none !important;           /* aucun effet */
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .sv-hero--split{ --img-drop: 40px; }
+  .sv-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
 </style>
 
 <section class="page-service">
 
-  {{-- HERO --}}
-  <header class="sv-hero">
-    <div class="sv-hgroup container">
+@php
+  $serviceHeroImg = !empty($service->image)
+      ? asset('storage/' . ltrim($service->image, '/'))
+      : asset('img/placeholder-hero.png'); // fallback si besoin
+@endphp
+
+{{-- HERO --}}
+<header class="sv-hero sv-hero--split">
+  <div class="container sv-hero__inner">
+    <div class="sv-hero__copy">
       <h1 class="sv-title">{{ $service->name }}</h1>
       @if(!empty($service->summary))
         <p class="sv-sub">{{ $service->summary }}</p>
       @endif
     </div>
 
-    {{-- Long rounded breadcrumb pill --}}
-  
-  </header>
+    {{-- Image sous la zone bleue, qui peut déborder en bas --}}
+    <figure class="sv-hero__media">
+      <img src="{{ $serviceHeroImg }}" alt="{{ $service->name }}">
+    </figure>
+  </div>
+</header>
+
 
   {{-- DETAILS --}}
   <section class="sv-wrap">

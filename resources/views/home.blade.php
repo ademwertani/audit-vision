@@ -387,22 +387,87 @@
             margin-bottom: 240px;
             /* 🔥 ajuste la valeur selon la hauteur voulue */
         }
+        /* Aligner le bouton avec le texte et le garder en bas */
+.blog-card__content{
+  display:flex;            /* déjà présent, on confirme */
+  flex-direction:column;
+  padding:24px;            /* même retrait que le texte */
+  padding-bottom:24px;     /* plus besoin de gros espace pour un bouton absolu */
+}
+
+.blog-card__btn{
+  position: static !important;      /* sort du mode absolu */
+  inset: auto !important;           /* reset left/right/bottom/top */
+  align-self: flex-start;           /* aligne sur la même colonne que le texte */
+  margin-top: auto;                 /* pousse le bouton en bas du bloc */
+  display: inline-flex;             /* taille au contenu */
+  /* style existant du bouton conservé */
+}
+
     </style>
     <!-- Projects End -->
     <!-- =============== ABOUT (comme la maquette) =============== -->
-    <section class="about-fei pt-2 pb-5">
-        <div class="container">
-            <div class="row g-5 align-items-start">
-                <div class="col-lg-6">
-                    <img src="{{ asset('img/africa.png') }}" alt="En savoir plus" class="about-btn-img mb-4">
-                    <a href="{{ url('/about') }}" class="btn about-btn">
-                        En savoir plus
-                        <span class="btn-icon" aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </div>
+ @php
+  $aboutImg = $aboutImg
+      ?? (isset($banners) && $banners->count()
+            ? asset('storage/'.ltrim($banners->first()->image,'/'))
+            : asset('img/about.jpg')); // fallback
+@endphp
+
+<section class="about-fei pt-2 pb-5">
+  <div class="container">
+    <div class="about-grid">
+      {{-- Colonne gauche : textes --}}
+      <div class="about-left">
+        <div class="about-kicker">A PROPOS</div>
+        <h2 class="about-title">Qui sommes nous?</h2>
+        <p class="about-text">
+            France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique
+          Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et installations
+          industrielles. Notre mission est claire : améliorer la performance énergétique, réduire les déperditions
+          de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts énergétiques.
+        </p>
+
+        <div class="values-kicker">NOS VALEURS</div>
+        <div class="values-row">
+          <div class="value-chip">
+            <span class="dot"></span>
+            <span class="label">L’expertise</span>
+          </div>
+          <div class="value-chip">
+            <span class="dot"></span>
+            <span class="label">La qualité</span>
+          </div>
+          <div class="value-chip">
+            <span class="dot"></span>
+            <span class="label">L’innovation</span>
+          </div>
+          <div class="value-chip">
+            <span class="dot"></span>
+            <span class="label">Respect des délais</span>
+          </div>
         </div>
-    </section>
+
+        {{-- Ton bouton existant --}}
+        <a href="{{ url('/about') }}" class="btn about-btn mt-3">
+          En savoir plus
+          <span class="btn-icon" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      {{-- Colonne droite : image + plaque bleue derrière --}}
+      <div class="about-right">
+        <div class="about-media">
+          <div class="navy-plate" aria-hidden="true"></div>
+          <figure class="photo">
+            <img src="{{ $aboutImg }}" alt="Notre équipe sur le terrain">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     {{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
     <div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
@@ -468,14 +533,13 @@
       <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
     </span>
   @endforeach
-  @foreach($bottom as $p)
-    <span class="partner-logo-link" title="{{ $p->name }}">
-      <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
-    </span>
-  @endforeach
+@foreach($bottom as $p)
+  <span class="partner-logo-link" title="{{ $p->name }}">
+    <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
+  </span>
+@endforeach
+
 </div>
-
-
       @endif
     </div>
   </div>

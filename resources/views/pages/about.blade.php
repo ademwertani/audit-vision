@@ -144,19 +144,82 @@
 .team-card .team-name p{margin:0;color:#64748b}
 .team-card .team-icon{display:flex;justify-content:center;gap:8px;padding:0 0 18px;}
 .team-card .btn{width:36px;height:36px;border-radius:50%}
+/* ===== HERO About : bande bleue + image qui dépasse vers le bas ===== */
+.pa-hero{
+  position: relative;
+  background: var(--navy, #242958);
+  color: #fff;
+  padding: 58px 0 -2px;     /* hauteur du bandeau bleu */
+  overflow: visible;        /* ne coupe pas l'image qui déborde */
+  z-index: 5;
+}
+
+/* Décrochage vertical + espace sous le hero pour laisser respirer l'image */
+.pa-hero--split{
+  --pa-img-drop: 108px;     /* ↓ augmente/diminue la descente de l’image (ex: 80–140px) */
+  margin-bottom: var(--pa-img-drop);
+}
+
+/* Texte au-dessus du bleu */
+.pa-hero__inner{ position: relative; z-index: 3; }
+
+/* Couche bleue (derrière le texte, devant l’image) */
+.pa-hero::after{
+  content:"";
+  position: absolute; inset: 0;
+  background: var(--navy, #242958);
+  z-index: 2;               /* le bleu passe DEVANT l'image, le texte reste au-dessus */
+  pointer-events: none;
+}
+
+/* Image : à droite, dépasse vers le bas, sous la couche bleue */
+.pa-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--pa-img-drop));  /* la fait “sortir” sous la bande bleue */
+  width: min(520px, 50vw);
+  z-index: 1;                             /* sous la couche bleue, mais visible en dessous */
+}
+.pa-hero__media img{
+  display: block; width: 100%; height: auto;
+  border-radius: 18px;        /* coins arrondis */
+  border: 0; box-shadow: none; filter: none; transform: none;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .pa-hero--split{ --pa-img-drop: 48px; }
+  .pa-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
 </style>
 
 <section class="page-about">
 
-  {{-- HERO (same layout as Contact page) --}}
-  <header class="pa-hero">
-    <div class="pa-hgroup container">
+{{-- HERO (split : texte à gauche, image à droite) --}}
+@php
+  // Fallback si jamais $heroBannerImg n’a pas été passé
+  $heroBannerImg = $heroBannerImg
+      ?? (isset($banners) && $banners->count()
+            ? asset('storage/'.ltrim($banners->first()->image,'/'))
+            : asset('img/default-banner.jpg'));
+@endphp
+
+<header class="pa-hero pa-hero--split">
+  <div class="container pa-hero__inner">
+    {{-- Colonne gauche : texte --}}
+    <div class="pa-hero__copy">
       <h1 class="pa-title">{{ $about->heading }}</h1>
       <p class="pa-sub">{{ $about->summary }}</p>
     </div>
 
- 
-  </header>
+    {{-- Colonne droite : image banner --}}
+    <figure class="pa-hero__media">
+      <img src="{{ $heroBannerImg }}" alt="Hero banner">
+    </figure>
+  </div>
+</header>
+
 
   <section class="metrics">
     <div class="container">

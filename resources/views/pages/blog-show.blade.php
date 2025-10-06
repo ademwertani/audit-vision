@@ -108,17 +108,97 @@
   padding:10px 16px; border-radius:14px; box-shadow:0 10px 18px rgba(255,107,53,.2);
 }
 .btn-accent:hover{ filter:brightness(.98) }
+/* HERO Post : bleu en haut, image dessous, pas d'effet */
+.pp-hero{
+  --navy:#242958;
+  position: relative;
+  background: var(--navy);
+  color: #fff;
+  padding: 78px 0 92px;     /* hauteur de la bande bleue */
+  overflow: visible;        /* pour laisser dépasser l'image */
+  z-index: 5;
+}
+
+/* Décrochage de l'image sous le bleu */
+.pp-hero--split{
+  --pp-img-drop: 160px;      /* ⇦ ajuste +/– pour monter/descendre l'image */
+  margin-bottom: var(--pp-img-drop);
+}
+
+.pp-hero__inner{ position: relative; z-index: 3; } /* texte au-dessus */
+.pp-title{ margin: 0 0 6px; font-weight: 800; font-size: clamp(32px,5vw,56px); }
+.pp-sub{ max-width: 720px; opacity: .95; }
+
+/* Couche bleue au-dessus de l'image mais sous le texte (pour un “cut” net) */
+.pp-hero::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--navy);
+  z-index: 2;
+  pointer-events: none;
+}
+/* Coins arrondis pour l'image du hero (post) */
+.pp-hero__media img{
+  border-radius: 18px !important; /* ajuste: 12px, 18px, 24px... */
+  box-shadow: none !important;    /* pas d'ombre, comme demandé */
+  filter: none !important;        /* aucun effet */
+  transform: none !important;
+}
+.pa-hero__media img,
+.sv-hero__media img,
+.pb-hero__media img,
+.pp-hero__media img{
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+
+/* IMAGE : sous la couche bleue, dépasse vers le bas, SANS effets */
+.pp-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--pp-img-drop)); /* fait dépasser l'image sous le bleu */
+  width: min(360px, 52vw);
+  z-index: 1;                             /* sous la couche bleue */
+}
+.pp-hero__media img{
+  display: block;
+  width: 100%; height: auto;
+  border: 0; border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;            /* ZERO effet sur l'image */
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .pp-hero--split{ --pp-img-drop: 44px; }
+  .pp-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
 </style>
 
 <section class="page-post">
 
-  {{-- HERO (left-aligned, matches Contact/About) --}}
-  <header class="pp-hero">
-    <div class="pp-hgroup container">
+@php
+  // Image héro = image de l'article, sinon fallback
+  $postHeroImg = !empty($blog->image)
+      ? asset('storage/' . ltrim($blog->image, '/'))
+      : asset('img/blog-post-hero.png'); // fallback
+@endphp
+
+{{-- HERO (left-aligned) --}}
+<header class="pp-hero pp-hero--split">
+  <div class="pp-hgroup container pp-hero__inner">
+    <div class="pp-hero__copy">
       <h1 class="pp-title">{{ $blog->title }}</h1>
+
       @if($publishedAt)
         <p class="pp-sub">
-          Publié le <time datetime="{{ $publishedAt->toDateString() }}">{{ $publishedAt->isoFormat('DD/MM/YYYY') }}</time>
+          Publié le
+          <time datetime="{{ $publishedAt->toDateString() }}">{{ $publishedAt->isoFormat('DD/MM/YYYY') }}</time>
           • {{ $readingMinutes }} min de lecture
           @isset($blog->author) • Par <strong>{{ e($blog->author) }}</strong> @endisset
         </p>
@@ -127,8 +207,13 @@
       @endif
     </div>
 
+    {{-- IMAGE sous la bande bleue (PAS d’effet) --}}
+    <figure class="pp-hero__media">
+      <img src="{{ $postHeroImg }}" alt="{{ $blog->title }}">
+    </figure>
+  </div>
+</header>
 
-  </header>
 
   {{-- ARTICLE --}}
   <div class="pp-wrap">

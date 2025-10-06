@@ -75,18 +75,95 @@
   padding:10px 16px; border-radius:14px; 
 }
 .btn-accent:hover{filter:brightness(.98)}
+/* HERO Blog : bande bleue, image dessous, pas d'effet */
+.pb-hero{
+  position: relative;
+  background: var(--navy, #242958);
+  color: #fff;
+  padding: 78px 0 92px;   /* hauteur du bandeau bleu */
+  overflow: visible;      /* IMPORTANT : ne pas couper l'image qui déborde */
+  z-index: 5;
+}
+
+/* Contrôle le “décrochage” de l’image sous le bleu */
+.pb-hero--split{
+  --pb-img-drop: 108px;              /* ajuste 40–100px selon ton rendu */
+  margin-bottom: var(--pb-img-drop);/* évite que la section suivante chevauche l’image */
+}
+
+/* Texte au-dessus du bleu */
+.pb-hero__inner{ position: relative; z-index: 3; }
+.pb-hero .pb-title{ margin:0 0 6px; font-weight:800; font-size: clamp(34px, 5vw, 64px); }
+.pb-hero .pb-sub{ max-width: 720px; opacity:.95; }
+
+/* Couche bleue par-dessus l'image mais sous le texte */
+.pb-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy, #242958);
+  z-index: 2;
+  pointer-events:none;
+}
+/* Coins arrondis pour l'image du hero (Blog) */
+.page-blog .pb-hero__media img{
+  border-radius: 18px !important;  /* ajuste 12px, 18px, 24px... */
+  box-shadow: none !important;     /* pas d’ombre */
+  filter: none !important;
+  transform: none !important;
+}
+
+/* L’image : sous la couche bleue, dépasse vers le bas, SANS effets */
+.pb-hero__media{
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: calc(-1 * var(--pb-img-drop));  /* la fait descendre sous la bande bleue */
+  width: min(520px, 50vw);
+  z-index: 1;                             /* sous la couche bleue */
+}
+.pb-hero__media img{
+  display:block; width:100%; height:auto;
+  border:0; border-radius:0 !important;
+  box-shadow:none !important;
+  filter:none !important;
+  transform:none !important;              /* aucun effet */
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .pb-hero--split{ --pb-img-drop: 40px; }
+  .pb-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
 </style>
 
 <section class="page-blog">
 
-  {{-- HERO --}}
-  <header class="pb-hero">
-    <div class="pb-hgroup container">
+@php
+  // Utilise $blogHeroImg si passé depuis le contrôleur, sinon un fallback
+  $blogHeroImg = $blogHeroImg
+      ?? (isset($banners) && $banners->count()
+            ? (!empty($banners[0]->image) ? asset('storage/' . ltrim($banners[0]->image,'/')) : null)
+            : null)
+      ?? asset('img/ima.png'); // image par défaut
+@endphp
+
+{{-- HERO --}}
+<header class="pb-hero pb-hero--split">
+  <div class="container pb-hero__inner">
+    <div class="pb-hero__copy">
       <h1 class="pb-title">Notre blog</h1>
-      <p class="pb-sub">Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.</p>
+      <p class="pb-sub">
+        Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.
+      </p>
     </div>
- 
-  </header>
+
+    {{-- Image sous la zone bleue, qui peut dépasser en bas --}}
+    <figure class="pb-hero__media">
+      <img src="{{ $blogHeroImg }}" alt="Blog hero">
+    </figure>
+  </div>
+</header>
+
 
   {{-- LIST --}}
   <div class="pb-wrap">

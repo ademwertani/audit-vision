@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Banner;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -12,8 +12,12 @@ class ServiceController extends Controller
      */
      public function index()
     {
+        $banner = \App\Models\Banner::latest()->first();
+    $heroBannerImg = $banner && $banner->image
+        ? asset('storage/'.ltrim($banner->image,'/'))
+        : asset('img/default-banner.jpg');
         $services = Service::all(); // Get all services from database
-        return view('pages.service', compact('services'));
+        return view('pages.service', compact('services','heroBannerImg'));
     }
 
     /**
@@ -37,7 +41,11 @@ class ServiceController extends Controller
      */
      public function show(Service $service)
     {
-        return view('pages.service-show', compact('service'));
+        $banner = \App\Models\Banner::latest()->first();
+    $heroBannerImg = $banner && $banner->image
+        ? asset('storage/'.ltrim($banner->image,'/'))
+        : asset('img/default-banner.jpg');
+        return view('pages.service-show', compact('service','heroBannerImg'));
     }
 
     /**
