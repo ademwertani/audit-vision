@@ -679,8 +679,8 @@ main,
 /* Bouton fixé en bas */
 .blog-card__btn{
   position: absolute;
-  left: 24px;
-  right: 194px;            /* retire si tu veux un bouton à gauche uniquement */
+  left: 74px;
+  right: 214px;            /* retire si tu veux un bouton à gauche uniquement */
   bottom: 20px;
   z-index: 3;
 
@@ -921,3 +921,48 @@ body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
     row-gap: 20px !important; /* ajuste 16–28 selon ton rendu */
   }
 }
+/* ====== Testimonials (Customers) ====== */
+.t-card{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  padding:24px;
+  border-radius:16px;
+  min-height: 260px;         /* cartes homogènes */
+}
+
+.t-stars { letter-spacing: 2px; }
+.t-star--on  { color: #f1a601; }      /* jaune (warning) */
+.t-star--off { color: #e2e6ea; }      /* gris clair */
+
+.t-title{
+  color:#1E2452;             /* bleu foncé */
+  font-weight:800;
+  font-size:1.25rem;
+  line-height:1.25;
+}
+
+.t-comment{
+  color:#5f6368;             /* gris doux */
+  line-height:1.7;
+}
+
+.t-author{
+  color:#69bb36;             /* vert comme ta charte */
+  font-weight:600;
+  font-size:1.05rem;
+}
+
+/* Grille responsive 3 / 2 / 1 colonnes déjà gérée par Bootstrap
+   (col-lg-4, col-md-6, col-12) ; on s'assure juste des hauteurs égales */
+.t-card{ height: 100%; }
+/* Couleur et espacement des étoiles */
+.t-stars i{
+  color: #f1a601;          /* même jaune que --warning */
+  margin-right: 4px;
+  font-size: 1.1rem;       /* ajuste si besoin */
+}
+/* Couleur/contraste des étoiles */
+.t-stars .fa-star{ margin-right:4px; font-size:1.1rem; }
+.t-stars .fa-solid.fa-star{ color:#f1a601; }   /* allumées */
+.t-stars .fa-regular.fa-star{ color:#d7dbe3; } /* éteintes */

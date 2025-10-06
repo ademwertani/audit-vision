@@ -73,6 +73,65 @@
 .about-imgs .img-b{position:absolute;top:25%;left:25%;width:75%;border-radius:16px;box-shadow:var(--shadow)}
 .about-text p{color:#475569}
 .about-text h1{font-weight:800}
+/* ---------- VALUES (Our Values) ---------- */
+.values-wrap{ padding: 42px 0 64px; background:#fbfbfb; }
+.values-head .kicker{
+  color:#7CAE2A; font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:.9rem;
+}
+.values-title{
+  margin: 6px 0 20px; line-height:1.05; font-weight:800;
+  font-size: clamp(32px, 4.2vw, 64px);
+  color:#0f172a;
+}
+.values-title .accent{ color:#7CAE2A; display:block; }
+.values-img{
+  width:100%; border-radius:28px; box-shadow:0 20px 40px rgba(16,24,40,.08);
+  display:block; margin-top:20px;
+  object-fit:cover; max-height:520px;
+}
+
+/* liste de 3 valeurs à droite */
+.value-list{ display:flex; flex-direction:column; gap:46px; }
+.value-item{ display:grid; grid-template-columns:92px 1fr; align-items:center; column-gap:18px; }
+
+.value-ico{
+  width:92px; height:92px; border-radius:50%;
+  display:grid; place-items:center;
+  background:#ffffff; border:1px solid #e8eef6; box-shadow:0 12px 24px rgba(0,0,0,.05);
+  position:relative; isolation:isolate;
+}
+.value-ico::after{               /* pastille verte derrière l’icône */
+  content:""; position:absolute; inset:10px;
+  background:#7CAE2A; border-radius:50%; z-index:-1; opacity:.15;
+}
+.value-ico i{ font-size:34px; color:#1f2a5a; }   /* icône FA */
+
+.value-title{ margin:0 0 6px; font-weight:800; letter-spacing:.02em;
+  text-transform:uppercase; color:#7CAE2A; font-size:1.05rem;
+}
+.value-text{ margin:0; color:#475569; line-height:1.7; }
+/* Décale la colonne des valeurs un peu vers le bas (desktop only) */
+@media (min-width: 992px){
+  .values-col{ margin-top: 32px; }     /* ~32px */
+}
+@media (min-width: 1400px){
+  .values-col{ margin-top: 56px; }     /* un peu plus sur très grands écrans */
+}
+
+/* Option : si tu préfères un décalage léger aussi sur tablette large */
+@media (min-width: 768px) and (max-width: 991.98px){
+  .values-col{ margin-top: 16px; }
+}
+
+/* responsive */
+@media (max-width: 991.98px){
+  .value-item{ grid-template-columns:78px 1fr; }
+  .value-ico{ width:78px; height:78px; }
+  .value-ico i{ font-size:28px; }
+}
+@media (max-width: 575.98px){
+  .values-img{ max-height:360px; }
+}
 
 /* ---------- Team ---------- */
 .team-wrap{padding:10px 0 70px}
@@ -127,6 +186,74 @@
       </div>
     </div>
   </section>
+{{-- OUR VALUES section (placer AVANT .team-wrap) --}}
+<section class="values-wrap">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      {{-- Colonne gauche : titre + grande image --}}
+      <div class="col-lg-7">
+        <div class="values-head">
+          <div class="kicker">ABOUT</div>
+          <h2 class="values-title">
+            We stand by<br>
+            <span class="accent">Our Values</span>
+          </h2>
+        </div>
+
+        {{-- Image grande avec coins arrondis --}}
+        <img
+          src="{{ asset('img/ta.png') }}"
+          alt="Solar values"
+          class="values-img">
+      </div>
+
+      {{-- Colonne droite : 3 valeurs --}}
+      <div class="col-lg-3 values-col">
+        <div class="value-list">
+          {{-- Valeur 1 --}}
+          <div class="value-item">
+            <div class="value-ico">
+              <i class="fa-solid fa-seedling"></i>
+            </div>
+            <div>
+              <h4 class="value-title">Integrity</h4>
+              <p class="value-text">
+                Nous opérons avec transparence et responsabilité à chaque étape.
+              </p>
+            </div>
+          </div>
+
+          {{-- Valeur 2 --}}
+          <div class="value-item">
+            <div class="value-ico">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+            <div>
+              <h4 class="value-title">Quality</h4>
+              <p class="value-text">
+                Des matériaux certifiés et une exécution maîtrisée pour durer.
+              </p>
+            </div>
+          </div>
+
+          {{-- Valeur 3 --}}
+          <div class="value-item">
+            <div class="value-ico">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h4 class="value-title">Commitment</h4>
+              <p class="value-text">
+                Engagement total envers la performance, la sécurité et l’environnement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{-- /col droite --}}
+    </div>
+  </div>
+</section>
 
   {{-- TEAM (keeps your owl-carousel classes) --}}
   <section class="team-wrap">

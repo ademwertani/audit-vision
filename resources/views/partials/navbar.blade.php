@@ -11,7 +11,7 @@
         @if(!empty($about->logo))
           <img src="{{ asset('storage/' . ltrim($about->logo, '/')) }}" alt="France Isolation" class="ms-0 logo-navbar">
         @else
-          <img src="{{ asset('/img/png.png') }}" alt="Aisla Nova" class="ms-0 logo-navbar">
+          <img src="{{ asset('/img/lo.png') }}" alt="France Isolation" class="ms-0 logo-navbar">
         @endif
       </a>
       {{-- Toggler mobile --}}

@@ -168,7 +168,7 @@
                     <h6 class="mb-3">Questions – ${nice}</h6>
 
                     <div class="mb-2">
-                      <label class="form-label d-block">Êtes-vous dans le secteur marché ?</label>
+                      <label class="form-label d-block">Êtes-vous dans le secteur agriculture maraîchère  ?</label>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="qs[${slug}][secteur_marche]" id="${slug}_sm_oui" value="oui" required>
                         <label class="form-check-label" for="${slug}_sm_oui">Oui</label>
@@ -180,7 +180,7 @@
                     </div>
 
                     <div class="mb-0">
-                      <label class="form-label d-block">La surface est-elle ≥ 200 m² ?</label>
+                      <label class="form-label d-block">La surface de la serre est-elle ≥ 200 m² ?</label>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="qs[${slug}][surface_ge_200]" id="${slug}_s_oui" value="oui" required>
                         <label class="form-check-label" for="${slug}_s_oui">Oui</label>
@@ -209,13 +209,13 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="qs[${slug}][type_froid]" id="${slug}_type_clim" value="climatique" required>
-                        <label class="form-check-label" for="${slug}_type_clim">Climatique</label>
+                        <label class="form-check-label" for="${slug}_type_clim">Climatisation de confort</label>
                       </div>
                     </div>
 
                     <!-- Sous-questions -->
                     <div class="mt-2 ps-2" data-sub="chambre" style="display:none;">
-                      <label class="form-label d-block">Puissance chambre froide ≥ 10 kW ?</label>
+                      <label class="form-label d-block">Puissance nominale chambre froide ≥ 10 kW ?</label>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input sub-req" type="radio" name="qs[${slug}][chambre_ge_10]" id="${slug}_ch_oui" value="oui">
                         <label class="form-check-label" for="${slug}_ch_oui">Oui</label>
@@ -227,7 +227,7 @@
                     </div>
 
                     <div class="mt-2 ps-2" data-sub="climatique" style="display:none;">
-                      <label class="form-label d-block">Climatisation ≥ 80 kW ?</label>
+                      <label class="form-label d-block">puissance nominale climatisation de confort ≥ 80 kw ?</label>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input sub-req" type="radio" name="qs[${slug}][clim_ge_880]" id="${slug}_cl_oui" value="oui">
                         <label class="form-check-label" for="${slug}_cl_oui">Oui</label>
@@ -239,7 +239,7 @@
                     </div>
 
                     <small class="text-muted d-block mt-2">
-                      Choisissez <strong>Chambre froide</strong> ou <strong>Climatique</strong>, répondez ensuite.  
+                      Choisissez <strong>Chambre froide</strong> ou <strong>Climatisation de confort</strong>, répondez ensuite.  
                       Le formulaire passera si la réponse est <strong>Oui</strong> sur la branche sélectionnée.
                     </small>
                   </div>
@@ -384,7 +384,7 @@
                     const s200 = getVal(`qs[${op}][surface_ge_200]`);
                     if (sm !== 'oui') {
                         e.preventDefault();
-                        alert("Pour 'Déshumidificateur' : vous devez être dans le secteur marché (répondez Oui).");
+                        alert("Pour 'Déshumidificateur' : vous devez être dans le secteur agriculture maraîchère  (répondez Oui).");
                         blk.scrollIntoView({behavior: 'smooth', block: 'center'});
                         return;
                     }
@@ -417,7 +417,7 @@
                         const cl = getVal(`qs[${op}][clim_ge_880]`);
                         if (cl !== 'oui') {
                             e.preventDefault();
-                            alert("Pour 'Variateur' (Climatique) : la climatisation doit être ≥ 880 kW (répondez Oui).");
+                            alert("Pour 'Variateur' (Climatique) : la climatisation doit être ≥ 80 kW (répondez Oui).");
                             blk.scrollIntoView({behavior: 'smooth', block: 'center'});
                             return;
                         }

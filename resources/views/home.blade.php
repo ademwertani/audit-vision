@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Aisla Nova - Energize Society Reliable Energy')
+@section('title', 'France Isolation - Energize Society Reliable Energy')
 @section('content')
     {{-- =============== HERO (Updated to match Figma design) =============== --}}
     @php
@@ -633,17 +633,46 @@
         @endif
             </div>
         </div>
-        <!-- Section Titre avec image en dessous -->
-        <section class="hcw my-5">
-            <div class="container text-center">
-                <h1 class="hcw-title">
-                    <span>Happy Customers,</span><br>
-                    <span>Happy World</span>
-                </h1>
-                <!-- Image sous le texte -->
-                <img src="{{ asset('img/Card.png') }}" alt="Happy Customers" class="hcw-img mt-4">
-            </div>
-        </section>
+     <section class="hcw my-5">
+  <div class="container">
+    <h1 class="hcw-title text-center">
+      <span>Happy Customers,</span><br>
+      <span>Happy World</span>
+    </h1>
+
+    @if(!empty($customers) && $customers->count())
+      <div class="row g-4 mt-4">
+        @foreach($customers as $c)
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <article class="t-card w-100 rounded-4 d-flex flex-column">
+              {{-- Étoiles dynamiques (0 à 5) --}}
+
+@php $r = (int)($c->rating ?? $c->note ?? 0); @endphp
+<div class="t-stars" aria-label="Note {{ $r }} sur 5">
+  @for ($i = 1; $i <= 5; $i++)
+    <i class="{{ $i <= $r ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
+  @endfor
+</div>
+
+
+              {{-- Titre --}}
+              <h3 class="t-title mb-3">{{ $c->title }}</h3>
+
+              {{-- Commentaire --}}
+              <p class="t-comment mb-0 flex-grow-1">
+                {{ $c->comment }}
+              </p>
+
+              {{-- Auteur --}}
+              <div class="t-author mt-3">{{ $c->customer_name }}</div>
+            </article>
+          </div>
+        @endforeach
+      </div>
+    @endif
+  </div>
+</section>
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const servicesSection = document.querySelector('.services-section');
