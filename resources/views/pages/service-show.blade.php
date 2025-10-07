@@ -34,9 +34,14 @@
 }
 .page-service *{box-sizing:border-box}
 
-/* ---------- HERO (left-aligned + long pill breadcrumb) ---------- */
+/* ---------- HERO (split : texte + image qui dépasse) ---------- */
 .sv-hero{
-  background:var(--navy); color:#fff; padding:78px 0 92px; position:relative;
+  position: relative;
+  background: var(--navy);
+  color:#fff;
+  padding: var(--sv-hero-pad, 140px) 0;  /* hauteur bande verte */
+  overflow: visible;                     /* ne pas couper l’image */
+  z-index: 5;
 }
 .sv-hero .sv-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
 .sv-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
@@ -44,7 +49,46 @@
 .sv-hero h1,.sv-hero .sv-title,.sv-hero p,.sv-hero .sv-sub{color:#fff !important}
 .sv-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
 
-/* breadcrumb pill */
+/* “Split” : espace sous le hero pour loger l’image qui déborde */
+.sv-hero--split{
+  --sv-img-drop: 160px;          /* ↓ descend plus  ↑ remonte */
+  margin-bottom: var(--sv-img-drop);
+}
+
+/* Texte au-dessus */
+.sv-hero__inner{ position: relative; z-index: 3; }
+
+/* Couche verte “au-dessus” de l’image */
+.sv-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2;  /* au-dessus de l’image, sous le texte */
+  pointer-events:none;
+}
+
+/* Image : sous la couche verte, dépasse en bas, SANS effet */
+.sv-hero__media{
+  position: absolute;
+  right: var(--sv-img-right, 24px);          /* + → plus à gauche ; - → plus à droite */
+  bottom: calc(-1 * var(--sv-img-drop, 160px));
+  width: var(--sv-img-w, 460px);             /* largeur de l’image */
+  z-index: 1;                                 /* sous la couche verte */
+  border-radius: 0;                            /* coins carrés (change si tu veux) */
+  overflow: visible;                           /* on laisse dépasser proprement */
+}
+.sv-hero__media img{
+  display:block; width:100%; height:auto;
+  border:0; box-shadow:none !important; filter:none !important; transform:none !important;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .sv-hero--split{ --sv-img-drop: 40px; }
+  .sv-hero__media{ width: min(640px, 88vw); right: 12px; }
+}
+
+/* ---------- Breadcrumb pill (si tu l’utilises) ---------- */
 .sv-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
 .sv-bread{
   width:min(1180px, calc(100% - 48px));
@@ -76,15 +120,6 @@
   background:rgba(13,42,134,.9); color:#fff; border:0; border-radius:999px;
   padding:.5rem .7rem; line-height:1; display:flex; align-items:center; gap:6px; cursor:pointer;
 }
-/* --- Bottom full-bleed banner --- */
-.sv-bottom-banner{ margin: 40px 0 0; }
-.sv-bottom-banner img{
-  width:100%;
-  height:clamp(220px, 45vw, 560px); /* responsive */
-  object-fit:cover;
-  display:block;
-}
-
 .zoom-btn:hover{ filter:brightness(1.05) }
 .lb-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.75); display:none;
   z-index:1050; align-items:center; justify-content:center; padding:2rem}
@@ -94,7 +129,8 @@
   position:absolute; top:14px; right:16px; background:#fff; border:0; border-radius:999px;
   padding:.35rem .6rem; cursor:pointer; font-weight:700; color:#111;
 }
-/* --- Bouton image centré en bas sur la grande image --- */
+
+/* --- Grande bannière en bas + bouton image --- */
 .sv-bottom-banner{ position: relative; margin: 40px 0 0; }
 .sv-bottom-banner .banner-bg{
   width:100%;
@@ -105,14 +141,14 @@
 .sv-banner-cta{
   position:absolute;
   left:50%;
-  bottom:48px;                 /* distance du bas */
+  bottom:48px;
   transform:translateX(-50%);
   z-index:2;
   display:inline-block;
 }
 .sv-banner-cta img{
   display:block;
-  width:clamp(120px, 22vw, 280px);   /* taille responsive du bouton */
+  width:clamp(120px, 22vw, 280px);
   height:auto;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.25));
 }
@@ -129,8 +165,6 @@
 .prose{ color:#1f2937; line-height:1.75; font-size:1.05rem }
 .prose p{ margin-bottom:1rem }
 .meta{ font-size:.95rem; color:#6b7280; }
-
-/* Buttons (consistent with site) */
 .btn-accent{
   background:var(--accent); color:#fff; border:none; font-weight:800;
   padding:12px 18px; border-radius:14px; 
@@ -141,57 +175,6 @@
   padding:12px 18px; border-radius:14px;
 }
 .btn-outline-accent:hover{ background:#f8fafc }
-/* HERO Services : pas de découpe, pas d'effet sur l'image */
-.sv-hero{
-  position: relative;
-  background: var(--navy);    /* ta couleur bleue */
-  color: #fff;
-  padding: 78px 0 92px;       /* hauteur du bandeau */
-  overflow: visible;          /* <<< important : ne pas couper l'image */
-  z-index: 5;                 /* au-dessus des sections suivantes */
-}
-
-/* Contrôle le “décrochage” de l’image sous le bleu */
-.sv-hero--split{
-  --img-drop: 160px;                 /* ajuste 40–100px selon ton rendu */
-  margin-bottom: var(--img-drop);   /* évite que la section suivante chevauche l’image */
-}
-
-/* Texte au-dessus de la couche bleue */
-.sv-hero__inner{ position: relative; z-index: 3; }
-
-/* Couche bleue qui recouvre l’image dans la zone du hero */
-.sv-hero::after{
-  content:"";
-  position:absolute; inset:0;
-  background: var(--navy);
-  z-index: 2;              /* au-dessus de l'image mais sous le texte */
-  pointer-events:none;
-}
-
-/* L’image : placée sous le bleu, dépasse vers le bas, SANS effets */
-.sv-hero__media{
-  position: absolute;
-  right: clamp(16px, 3vw, 40px);
-  bottom: calc(-1 * var(--img-drop));  /* la fait descendre sous la bande bleue */
-  width: min(520px, 20vw);
-  z-index: 1;                           /* sous la couche bleue */
-}
-
-.sv-hero__media img{
-  display:block; width:100%; height:auto;
-  border:0; border-radius:0 !important;
-  box-shadow:none !important;
-  filter:none !important;
-  transform:none !important;           /* aucun effet */
-}
-
-/* Responsive */
-@media (max-width: 992px){
-  .sv-hero--split{ --img-drop: 40px; }
-  .sv-hero__media{ width: min(640px, 88vw); right: 12px; }
-}
-
 </style>
 
 <section class="page-service">
@@ -203,7 +186,14 @@
 @endphp
 
 {{-- HERO --}}
-<header class="sv-hero sv-hero--split">
+<header class="sv-hero sv-hero--split"
+        style="
+          /* ⇩⇩ Tu ajustes ici selon la page ⇩⇩ */
+          --sv-img-drop: 260px;
+          --sv-img-right: 24px;
+          --sv-img-w: 660px;
+          --sv-hero-pad: 140px;
+        ">
   <div class="container sv-hero__inner">
     <div class="sv-hero__copy">
       <h1 class="sv-title">{{ $service->name }}</h1>
@@ -212,78 +202,77 @@
       @endif
     </div>
 
-    {{-- Image sous la zone bleue, qui peut déborder en bas --}}
+    {{-- Image sous la zone verte, qui peut déborder en bas --}}
     <figure class="sv-hero__media">
       <img src="{{ $serviceHeroImg }}" alt="{{ $service->name }}">
     </figure>
   </div>
 </header>
 
+{{-- DETAILS --}}
+<section class="sv-wrap">
+  <div class="container">
+    <div class="sv-grid">
 
-  {{-- DETAILS --}}
-  <section class="sv-wrap">
-    <div class="container">
-      <div class="sv-grid">
-
-        {{-- LEFT: Media --}}
-        <div>
-          <div class="media-card">
-            @if($src)
-              <figure class="media-thumb">
-                <img src="{{ asset($src) }}" alt="{{ $service->name }}" loading="lazy">
-              </figure>
-              <button class="zoom-btn" type="button" id="openLightbox" aria-label="Agrandir l’image">
-                <i class="fa fa-search-plus"></i><span>Zoom</span>
-              </button>
-            @else
-              <div class="media-placeholder">
-                <i class="fa fa-image fa-3x"></i>
-                <span class="visually-hidden">Aucune image disponible</span>
-              </div>
-            @endif
-          </div>
-
-          @if(!empty($service->updated_at))
-            <div class="meta mt-2">
-              Mis à jour le {{ $service->updated_at->format('d/m/Y') }}
+      {{-- LEFT: Media --}}
+      <div>
+        <div class="media-card">
+          @if($src)
+            <figure class="media-thumb">
+              <img src="{{ asset($src) }}" alt="{{ $service->name }}" loading="lazy">
+            </figure>
+            <button class="zoom-btn" type="button" id="openLightbox" aria-label="Agrandir l’image">
+              <i class="fa fa-search-plus"></i><span>Zoom</span>
+            </button>
+          @else
+            <div class="media-placeholder">
+              <i class="fa fa-image fa-3x"></i>
+              <span class="visually-hidden">Aucune image disponible</span>
             </div>
           @endif
         </div>
 
-        {{-- RIGHT: Content --}}
-        <div class="sv-body-card">
-          <h2 class="sv-h2">{{ $service->name }}</h2>
-          @if(!empty($service->summary))
-            <h5 class="sv-lead">{{ $service->summary }}</h5>
-          @endif
-
-          @if(!empty($service->description))
-            <div class="prose mb-3">
-              {!! nl2br(e($service->description)) !!}
-            </div>
-          @endif
-
-          <div class="d-flex flex-wrap align-items-center gap-2 pt-2">
-            <a href="{{ url('/contact') }}" class="btn btn-accent">
-              <i class="fas fa-phone-alt me-2"></i> Contactez-nous
-            </a>
-            <a href="{{ route('services.index') }}" class="btn btn-outline-accent">
-              <i class="fas fa-arrow-left me-2"></i> Retour aux services
-            </a>
+        @if(!empty($service->updated_at))
+          <div class="meta mt-2">
+            Mis à jour le {{ $service->updated_at->format('d/m/Y') }}
           </div>
-        </div>
-
+        @endif
       </div>
-    </div>
-  </section>
 
-  {{-- Lightbox --}}
-  @if($src)
-    <div class="lb-backdrop" id="lightbox" aria-modal="true" role="dialog">
-      <button class="lb-close" id="closeLightbox" aria-label="Fermer">×</button>
-      <img src="{{ asset($src) }}" alt="{{ $service->name }}" class="lb-img">
+      {{-- RIGHT: Content --}}
+      <div class="sv-body-card">
+        <h2 class="sv-h2">{{ $service->name }}</h2>
+        @if(!empty($service->summary))
+          <h5 class="sv-lead">{{ $service->summary }}</h5>
+        @endif
+
+        @if(!empty($service->description))
+          <div class="prose mb-3">
+            {!! nl2br(e($service->description)) !!}
+          </div>
+        @endif
+
+        <div class="d-flex flex-wrap align-items-center gap-2 pt-2">
+          <a href="{{ url('/contact') }}" class="btn btn-accent">
+            <i class="fas fa-phone-alt me-2"></i> Contactez-nous
+          </a>
+          <a href="{{ route('services.index') }}" class="btn btn-outline-accent">
+            <i class="fas fa-arrow-left me-2"></i> Retour aux services
+          </a>
+        </div>
+      </div>
+
     </div>
-  @endif
+  </div>
+</section>
+
+{{-- Lightbox --}}
+@if($src)
+  <div class="lb-backdrop" id="lightbox" aria-modal="true" role="dialog">
+    <button class="lb-close" id="closeLightbox" aria-label="Fermer">×</button>
+    <img src="{{ asset($src) }}" alt="{{ $service->name }}" class="lb-img">
+  </div>
+@endif
 
 </section>
 
@@ -302,15 +291,13 @@
   })();
 </script>
 @endif
+
 {{-- Grande image en bas (depuis /public/img) --}}
 <div class="container-fluid px-0 sv-bottom-banner">
   <img class="banner-bg" src="{{ asset('img/greenn.png') }}" alt="" loading="lazy">
-
-  {{-- Bouton sous forme d'image, centré en bas (cliquable) --}}
   <a href="{{ url('/contact') }}" class="sv-banner-cta" aria-label="Contactez-nous">
     <img src="{{ asset('img/btn-cta.png') }}" alt="Contactez-nous">
   </a>
 </div>
-
 
 @endsection

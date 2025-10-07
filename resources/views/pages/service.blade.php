@@ -6,7 +6,6 @@
 <style>
 /* =========================================================
    Aisla Nova – Services Index (unified skin)
-   Scoped to this page only.
    ========================================================= */
 .page-services{
   --navy:#7CAE2A;
@@ -22,9 +21,11 @@
 }
 .page-services *{box-sizing:border-box}
 
-/* ---------- HERO (left-aligned + long pill breadcrumb) ---------- */
+/* ---------- HERO (split + image à droite) ---------- */
 .sx-hero{
-  background:var(--navy); color:#fff; padding:78px 0 92px; position:relative;
+  background:var(--navy); color:#fff;
+  padding: var(--sx-hero-pad, 140px) 0; /* hauteur du bandeau bleu */
+  position:relative; overflow:visible;
 }
 .sx-hero .sx-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
 .sx-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
@@ -32,7 +33,7 @@
 .sx-hero h1,.sx-hero .sx-title,.sx-hero p,.sx-hero .sx-sub{color:#fff !important}
 .sx-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
 
-/* breadcrumb pill */
+/* Breadcrumb (si besoin) */
 .sx-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
 .sx-bread{
   width:min(1180px, calc(100% - 48px));
@@ -45,6 +46,35 @@
 .sx-bread .sep{color:rgba(255,255,255,.85) !important}
 .sx-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
   background:rgba(255,255,255,.22);color:#fff !important;font-size:12px}
+
+/* Split hero — bloc texte + image */
+.sx-hero__inner{ position:relative; }
+.sx-hero__copy{ position:relative; z-index:2; margin-left: var(--sx-copy-x, 0); }
+
+/* Variables de contrôle */
+.sx-hero--split{
+  --sx-img-w: min(48vw, 820px)!important;     /* largeur de l'image */
+  --sx-img-right: 30px!important;             /* distance au bord droit (↓ pour aller à droite, ↑ pour aller à gauche) */
+  --sx-img-y: -30% !important;                 /* position verticale (-60% = plus haut, -40% = plus bas) */
+  --sx-img-radius: 22px!important;            /* arrondi des coins */
+}
+
+/* Image positionnée à droite, coins arrondis, sans effets */
+.sx-hero__media{
+  position: absolute;
+  right: var(--sx-img-right);
+  top: 50%;
+  transform: translateY(var(--sx-img-y));
+  width: var(--sx-img-w);
+  z-index: 3;
+  border-radius: var(--sx-img-radius);
+  overflow: hidden;                 /* masque l'arrondi */
+  background:#fff;                  /* au cas où l'image a de la transparence */
+}
+.sx-hero__media img{
+  display:block; width:100%; height:auto;
+  border:0; filter:none; mix-blend-mode:normal;
+}
 
 /* ---------- Section head ---------- */
 .sx-wrap{padding:70px 0 40px}
@@ -86,24 +116,65 @@
 
 .btn-accent{
   background:var(--accent); color:#fff; border:none; font-weight:800;
-  padding:10px 14px; border-radius:14px; 
+  padding:10px 14px; border-radius:14px;
 }
 .btn-accent:hover{ filter:brightness(.98) }
 
 /* Empty state */
 .svc-empty{background:#f8fafc;border:1px dashed #e5e7eb;border-radius:16px;padding:24px;text-align:center;color:#64748b}
+
+/* Mobile : l’image passe sous le texte si besoin */
+@media (max-width: 992px){
+  .sx-hero__media{ position:static; transform:none; width:100%; margin-top:18px; }
+}
+/* Hauteur fixe + largeur variable via variable */
+.sx-hero__media{
+  position: absolute;
+  right: var(--sx-img-right);
+  top: 50%;
+  transform: translateY(var(--sx-img-y));
+  height: var(--sx-img-h, 350px);   /* ← hauteur FIXE (ex: 320px) */
+  width: var(--sx-img-w, 250px) !important;    /* ← largeur contrôlée (on va la réduire) */
+  z-index: 3;
+  border-radius: var(--sx-img-radius);
+  overflow: hidden;
+  background:#fff;
+}
+
+/* L'image suit la hauteur, la largeur s'ajuste */
+.sx-hero__media img{
+  height: 100%;
+  width: auto;         /* ← garde la hauteur, réduit/augmente la largeur */
+  display: block;
+  object-fit: cover;   /* sécurité si l'image est plus petite */
+}
+
 </style>
 
 <section class="page-services">
 
-  {{-- HERO --}}
-  <header class="sx-hero">
-    <div class="sx-hgroup container">
-      <h1 class="sx-title">Services</h1>
-      <p class="sx-sub">Services built specifically for your business.</p>
+  {{-- HERO (tu règles ici les positions) --}}
+  <header class="sx-hero sx-hero--split"
+          style="
+            /* ⇩⇩ Modifie ces 2 valeurs pour ajuster “à droite / à gauche” ⇩⇩ */
+            --sx-img-right: 24px;    /* ↓ = plus à droite, ↑ = plus à gauche */
+            --sx-copy-x: -12px;      /* + = à droite,  - = à gauche  (texte) */
+            /* Autres réglages utiles */
+            --sx-img-w: min(50vw, 860px);
+            --sx-img-y: -50%;
+            --sx-hero-pad: 140px;
+          ">
+    <div class="container sx-hero__inner">
+      <div class="sx-hero__copy">
+        <h1 class="sx-title">Services</h1>
+        <p class="sx-sub">Services built specifically for your business.</p>
+      </div>
+
+      {{-- Image à droite --}}
+      <figure class="sx-hero__media">
+        <img src="{{ $heroBannerImg }}" alt="Services hero">
+      </figure>
     </div>
-
-
   </header>
 
   {{-- LIST --}}
@@ -166,7 +237,7 @@
           @endforeach
         </div>
 
-        {{-- Pagination (if using LengthAwarePaginator) --}}
+        {{-- Pagination (si LengthAwarePaginator) --}}
         @if(method_exists($services, 'links'))
           <div class="mt-4 d-flex justify-content-center">
             {{ $services->links() }}
@@ -184,7 +255,7 @@
 
 </section>
 
-{{-- Minimal client-side search (keeps your WOW.js intact) --}}
+{{-- Mini-filtre client --}}
 <script>
   (function(){
     const q = document.getElementById('sxQuery');
