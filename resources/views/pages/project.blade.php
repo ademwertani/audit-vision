@@ -83,18 +83,121 @@
   padding:10px 14px; border-radius:14px; 
 }
 .btn-accent:hover{filter:brightness(.98)}
+/* --- Epilogue --- */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+
+/* ===== HERO Projets (même principe que Service Details) ===== */
+.px-hero{
+  position: relative;
+  background: var(--navy);
+  color:#fff;
+  padding: var(--px-hero-pad, 160px) 0; /* hauteur bande */
+  overflow: visible;                     /* ne pas couper l’image */
+  z-index: 5;
+}
+/* voile au-dessus de l’image, sous le texte */
+.px-hero::after{
+  content:""; position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2; pointer-events:none;
+}
+/* espace sous le hero pour loger l’image qui déborde */
+.px-hero--split{
+  --px-img-drop: 220px;      /* ↓ descend, ↑ remonte */
+  margin-bottom: var(--px-img-drop);
+}
+/* le groupe texte est au-dessus du voile */
+.px-hero__inner{ position: relative; z-index: 3; }
+
+/* déplacement fin du texte via variables (x=→, y=↓) */
+.px-hero__copy{
+  position: relative;
+  transform: translate(var(--px-copy-x, 0), var(--px-copy-y, 0));
+  will-change: transform;
+}
+
+/* typo + tailles */
+.page-projects .px-title,
+.page-projects .px-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
+}
+.page-projects .px-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  margin:0 0 10px;
+}
+.page-projects .px-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity:.98 !important;
+  margin:0;
+}
+
+/* cadre image: taille/position figées + 4 coins arrondis */
+.px-hero__media{
+  position: absolute;
+  right: var(--px-img-right, 24px);
+  bottom: calc(-1 * var(--px-img-drop, 220px));
+  width: var(--px-img-w, 620px);     /* largeur cadre */
+  height: var(--px-img-h, 380px);    /* hauteur cadre */
+  border-radius: var(--px-img-radius, 22px);
+  overflow: hidden;                   /* masque coins */
+  background: transparent;
+  z-index: 1;                         /* sous le voile */
+}
+/* l’image remplit le cadre définitivement */
+.px-hero__media img{
+  width: 100%; height: 100%;
+  object-fit: cover; display:block; border:0;
+}
+
+/* mobile: image sous le texte avec hauteur fixe */
+@media (max-width: 992px){
+  .px-hero--split{ --px-img-drop: 40px; }
+  .px-hero__media{
+    position: static; right:auto; bottom:auto;
+    width: 100%;
+    height: var(--px-img-h-mobile, 280px);
+    margin-top: 18px;
+  }
+}
 </style>
 
 <section class="page-projects">
 
-  {{-- HERO --}}
-  <header class="px-hero">
-    <div class="px-hgroup container">
+@php
+  // image du header projets (utilise la tienne si tu en as une)
+  $heroBannerImg = isset($heroBannerImg)
+      ? $heroBannerImg
+      : asset('img/placeholder-hero.png');
+@endphp
+
+<header class="px-hero px-hero--split"
+        style="
+          /* réglages rapides : */
+          --px-hero-pad: 180px;   /* hauteur bandeau */
+          --px-img-drop: 240px;   /* dépassement vertical */
+          --px-img-right: 24px;   /* + => image plus à gauche */
+          --px-img-w: 620px;      /* largeur cadre image */
+          --px-img-h: 380px;      /* hauteur cadre image */
+          --px-img-radius: 22px;  /* arrondi 4 coins */
+          --px-copy-x: 8px;       /* texte un peu à droite */
+          --px-copy-y: -8px;      /* texte un peu plus haut */
+        ">
+  <div class="container px-hero__inner">
+    <div class="px-hero__copy">
       <h1 class="px-title">Projets</h1>
       <p class="px-sub">Nos réalisations récentes et études de cas pour nos clients.</p>
     </div>
 
-  </header>
+    <figure class="px-hero__media">
+      <img src="{{ $heroBannerImg }}" alt="Projets – hero">
+    </figure>
+  </div>
+</header>
+
 
   {{-- LIST --}}
   <div class="px-wrap">

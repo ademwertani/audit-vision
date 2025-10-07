@@ -133,31 +133,118 @@
   .pb-hero--split{ --pb-img-drop: 40px; }
   .pb-hero__media{ width: min(640px, 88vw); right: 12px; }
 }
+/* --- Epilogue --- */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
 
+/* ===== HERO Blog (même principe split) ===== */
+.pb-hero{
+  position: relative;
+  background: var(--navy, #242958);
+  color:#fff;
+  padding: var(--pb-hero-pad, 160px) 0;  /* hauteur bande */
+  overflow: visible;                      /* on laisse dépasser l'image */
+  z-index: 5;
+}
+/* voile au-dessus de l’image, sous le texte */
+.pb-hero::after{
+  content:""; position:absolute; inset:0;
+  background: var(--navy, #242958);
+  z-index: 2; pointer-events:none;
+}
+/* espace sous le hero pour loger l’image qui déborde */
+.pb-hero--split{
+  --pb-img-drop: 200px;         /* ↓ descend, ↑ remonte */
+  margin-bottom: var(--pb-img-drop);
+}
+/* le contenu texte est au-dessus */
+.pb-hero__inner{ position: relative; z-index: 3; }
+
+/* décalage fin du texte via variables */
+.pb-hero__copy{
+  position: relative;
+  transform: translate(var(--pb-copy-x, 8px), var(--pb-copy-y, -8px));
+  will-change: transform;
+}
+
+/* typo + tailles */
+.page-blog .pb-title,
+.page-blog .pb-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
+}
+.page-blog .pb-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  margin:0 0 10px;
+}
+.page-blog .pb-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity:.98 !important;
+  margin:0;
+}
+
+/* cadre image: taille/position figées + 4 coins arrondis */
+.pb-hero__media{
+  position: absolute;
+  right: var(--pb-img-right, 24px);
+  bottom: calc(-1 * var(--pb-img-drop, 200px));
+  width: var(--pb-img-w, 600px);     /* largeur du cadre */
+  height: var(--pb-img-h, 370px);    /* hauteur du cadre */
+  border-radius: var(--pb-img-radius, 22px);
+  overflow: hidden;                   /* masque les coins */
+  background: transparent;
+  z-index: 1;                         /* sous le voile */
+}
+/* l’image remplit le cadre, peu importe sa taille d’origine */
+.pb-hero__media img{
+  width: 100%; height: 100%;
+  object-fit: cover; display:block; border:0;
+  box-shadow:none !important; filter:none !important; transform:none !important;
+}
+
+/* mobile: image sous le texte avec hauteur fixe */
+@media (max-width: 992px){
+  .pb-hero--split{ --pb-img-drop: 40px; }
+  .pb-hero__media{
+    position: static; right:auto; bottom:auto;
+    width: 100%;
+    height: var(--pb-img-h-mobile, 280px);
+    margin-top: 18px;
+  }
+}
 </style>
 
 <section class="page-blog">
 
 @php
-  // Utilise $blogHeroImg si passé depuis le contrôleur, sinon un fallback
+  // image du header (garde ta logique existante si tu veux)
   $blogHeroImg = $blogHeroImg
       ?? (isset($banners) && $banners->count()
             ? (!empty($banners[0]->image) ? asset('storage/' . ltrim($banners[0]->image,'/')) : null)
             : null)
-      ?? asset('img/ima.png'); // image par défaut
+      ?? asset('img/ima.png');
 @endphp
 
-{{-- HERO --}}
-<header class="pb-hero pb-hero--split">
+<header class="pb-hero pb-hero--split"
+        style="
+          /* réglages rapides : */
+          --pb-hero-pad: 180px;   /* hauteur bandeau */
+          --pb-img-drop: 220px;   /* dépassement vertical */
+          --pb-img-right: 24px;   /* + => image plus à gauche */
+          --pb-img-w: 600px;      /* largeur cadre image */
+          --pb-img-h: 370px;      /* hauteur cadre image */
+          --pb-img-radius: 22px;  /* arrondi 4 coins */
+          --pb-copy-x: 8px;       /* texte un peu à droite */
+          --pb-copy-y: -8px;      /* texte un peu plus haut */
+        ">
   <div class="container pb-hero__inner">
     <div class="pb-hero__copy">
       <h1 class="pb-title">Notre blog</h1>
-      <p class="pb-sub">
-        Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.
-      </p>
+      <p class="pb-sub">Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.</p>
     </div>
 
-    {{-- Image sous la zone bleue, qui peut dépasser en bas --}}
     <figure class="pb-hero__media">
       <img src="{{ $blogHeroImg }}" alt="Blog hero">
     </figure>

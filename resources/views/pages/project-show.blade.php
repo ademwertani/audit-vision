@@ -222,21 +222,196 @@
     .btn-outline-accent:hover {
       background: #f8fafc
     }
+
+    
+/* “Split” : espace sous le hero pour loger l’image qui déborde */
+.sv-hero--split{
+  --sv-img-drop: 160px;          /* ↓ descend plus  ↑ remonte */
+  margin-bottom: var(--sv-img-drop);
+}
+
+/* Texte au-dessus */
+.sv-hero__inner{ position: relative; z-index: 3; }
+
+/* Couche verte “au-dessus” de l’image */
+.sv-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2;  /* au-dessus de l’image, sous le texte */
+  pointer-events:none;
+}
+
+/* === HERO image: taille/position figées + 4 coins arrondis === */
+.sv-hero__media{
+  position: absolute;
+  right: var(--sv-img-right, 24px);
+  bottom: calc(-1 * var(--sv-img-drop, 160px));
+  width: var(--sv-img-w, 560px);     /* ← largeur fixe (ou responsive via min()/clamp()) */
+  height: var(--sv-img-h, 380px);    /* ← hauteur fixe */
+  border-radius: var(--sv-img-radius, 22px); /* ← coins arrondis */
+  overflow: hidden;                  /* ← masque dans les coins */
+  background: transparent;           /* pas de fond */
+  z-index: 1;                        /* sous le voile du hero (qui est en ::after z-index:2) */
+}
+
+/* L’image remplit le cadre, sans dépendre de sa taille d’origine */
+.sv-hero__media img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;                 /* plein cadre */
+  border: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+/* ---------- HERO (split : texte + image qui dépasse) ---------- */
+.sv-hero{
+  position: relative;
+  background: var(--navy);
+  color:#fff;
+  padding: var(--sv-hero-pad, 140px) 0;  /* hauteur bande verte */
+  overflow: visible;                     /* ne pas couper l’image */
+  z-index: 5;
+}
+/* Mobile : si tu veux la faire passer sous le texte */
+@media (max-width: 992px){
+  .sv-hero__media{
+    position: static;
+    width: 100%;
+    height: var(--sv-img-h-mobile, 280px);
+    right: auto;
+    bottom: auto;
+    margin-top: 18px;
+  }
+}
+.page-service .sv-hero__copy{
+  position: relative;
+  transform: translate(-52px, -11px) !important; /* +x = droite, -y = haut */
+  will-change: transform;
+}
+/* --- Police Epilogue --- */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+
+/* HERO projet — même principe que Service details */
+.pr-hero{
+  position: relative;
+  background: var(--navy);
+  color:#fff;
+  padding: var(--pr-hero-pad, 160px) 0; /* hauteur bande */
+  overflow: visible;                     /* ne pas couper l’image */
+  z-index: 5;
+}
+/* Voile au-dessus de l’image, sous le texte */
+.pr-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2; /* sous le texte, au-dessus de l’image */
+  pointer-events:none;
+}
+/* Espace sous le hero pour loger l’image qui dépasse */
+.pr-hero--split{
+  --pr-img-drop: 220px;      /* ↓ descend, ↑ remonte */
+  margin-bottom: var(--pr-img-drop);
+}
+/* Le bloc texte est au-dessus du voile */
+.pr-hero__inner{ position: relative; z-index: 3; }
+
+/* Déplacement fin du texte via variables (x=→, y=↓) */
+.pr-hero__copy{
+  position: relative;
+  transform: translate(var(--pr-copy-x, 0), var(--pr-copy-y, 0));
+  will-change: transform;
+}
+
+/* Titre/sous-titre: Epilogue + tailles */
+.page-project .pr-title,
+.page-project .pr-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
+}
+.page-project .pr-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  margin:0 0 10px;
+}
+.page-project .pr-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity:.98 !important;
+  margin:0;
+}
+
+/* Cadre image: taille/position figées + 4 coins arrondis */
+.pr-hero__media{
+  position: absolute;
+  right: var(--pr-img-right, 24px);
+  bottom: calc(-1 * var(--pr-img-drop, 220px));
+  width: var(--pr-img-w, 620px);     /* largeur cadre */
+  height: var(--pr-img-h, 380px);    /* hauteur cadre */
+  border-radius: var(--pr-img-radius, 22px);
+  overflow: hidden;                   /* masque les coins */
+  background: transparent;
+  z-index: 1;                         /* sous le voile */
+}
+/* L’image remplit le cadre, quelle que soit sa source */
+.pr-hero__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border:0; box-shadow:none !important; filter:none !important; transform:none !important;
+}
+
+/* Mobile : image sous le texte avec hauteur fixe */
+@media (max-width: 992px){
+  .pr-hero--split{ --pr-img-drop: 40px; }
+  .pr-hero__media{
+    position: static; right:auto; bottom:auto;
+    width: 100%;
+    height: var(--pr-img-h-mobile, 280px);
+    margin-top: 18px;
+  }
+}
+
   </style>
 
   <section class="page-project">
+@php
+  $projectHeroImg = !empty($project->image)
+      ? asset('storage/' . ltrim($project->image, '/'))
+      : asset('img/placeholder-hero.png');
+@endphp
 
-    {{-- HERO --}}
-    <header class="pr-hero">
-      <div class="pr-hgroup container">
-        <h1 class="pr-title">{{ $project->name }}</h1>
-        @if(!empty($project->summary))
-          <p class="pr-sub">{{ $project->summary }}</p>
-        @endif
-      </div>
+<header class="pr-hero pr-hero--split"
+        style="
+          /* Ajustes vite fait ici : */
+          --pr-hero-pad: 180px;    /* hauteur du bandeau */
+          --pr-img-drop: 240px;    /* dépassement vertical */
+          --pr-img-right: 24px;    /* + => image plus à gauche */
+          --pr-img-w: 620px;       /* largeur cadre image */
+          --pr-img-h: 380px;       /* hauteur cadre image */
+          --pr-img-radius: 22px;   /* arrondi des coins */
+          --pr-copy-x: 8px;        /* texte légèrement à droite */
+          --pr-copy-y: -8px;       /* texte légèrement plus haut */
+        ">
+  <div class="container pr-hero__inner">
+    <div class="pr-hero__copy">
+      <h1 class="pr-title">{{ $project->name }}</h1>
+      @if(!empty($project->summary))
+        <p class="pr-sub">{{ $project->summary }}</p>
+      @endif
+    </div>
 
+    <figure class="pr-hero__media">
+      <img src="{{ $projectHeroImg }}" alt="{{ $project->name }}">
+    </figure>
+  </div>
+</header>
 
-    </header>
 
     {{-- DETAILS --}}
     <section class="pr-wrap">

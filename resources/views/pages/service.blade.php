@@ -3,9 +3,17 @@
 @section('title', 'Our Services')
 
 @section('content')
+@php
+  // Image du header (fournie par ton controller) + fallback
+  $heroBannerImg = isset($heroBannerImg) && $heroBannerImg
+      ? $heroBannerImg
+      : asset('img/placeholder-hero.png');
+@endphp
+
 <style>
 /* =========================================================
    Aisla Nova – Services Index (unified skin)
+   (Header identique au design "Service details")
    ========================================================= */
 .page-services{
   --navy:#7CAE2A;
@@ -21,69 +29,90 @@
 }
 .page-services *{box-sizing:border-box}
 
-/* ---------- HERO (split + image à droite) ---------- */
+/* ---------- HERO (split : texte + image qui dépasse) ---------- */
 .sx-hero{
-  background:var(--navy); color:#fff;
-  padding: var(--sx-hero-pad, 140px) 0; /* hauteur du bandeau bleu */
-  position:relative; overflow:visible;
+  position: relative;
+  background: var(--navy);
+  color:#fff;
+  padding: var(--sx-hero-pad, 140px) 0;   /* hauteur bande */
+  overflow: visible;                      /* ne pas couper l’image */
+  z-index: 5;
 }
-.sx-hero .sx-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
-.sx-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
-@media (min-width:992px){ .sx-title{font-size:56px} }
-.sx-hero h1,.sx-hero .sx-title,.sx-hero p,.sx-hero .sx-sub{color:#fff !important}
-.sx-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
 
-/* Breadcrumb (si besoin) */
-.sx-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
-.sx-bread{
-  width:min(1180px, calc(100% - 48px));
-  background:var(--sky); height:46px; border-radius:9999px;
-  display:flex; align-items:center; gap:18px; padding:0 22px;
-  font-weight:700; box-shadow:0 10px 18px rgba(3,102,140,.12);
+/* Voile vert au-dessus de l'image, sous le texte */
+.sx-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--navy);
+  z-index: 2; /* sous le texte, au-dessus de l’image */
+  pointer-events:none;
+}
+
+/* Conteneur texte au-dessus */
+.sx-hero__inner{ position:relative; z-index:3; }
+
+/* “Split” : espace sous le hero pour loger l’image qui déborde */
+.sx-hero--split{
+  --sx-img-drop: 200px;                  /* ↓ descend, ↑ remonte */
+  margin-bottom: var(--sx-img-drop);
+}
+
+/* Police Epilogue pour le titre + sous-titre */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+.page-services .sx-title,
+.page-services .sx-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
   color:#fff !important;
 }
-.sx-bread a,.sx-bread span{color:#fff !important}
-.sx-bread .sep{color:rgba(255,255,255,.85) !important}
-.sx-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
-  background:rgba(255,255,255,.22);color:#fff !important;font-size:12px}
 
-/* Split hero — bloc texte + image */
-.sx-hero__inner{ position:relative; }
-.sx-hero__copy{ position:relative; z-index:2; margin-left: var(--sx-copy-x, 0); }
-
-/* Variables de contrôle */
-.sx-hero--split{
-  --sx-img-w: min(48vw, 820px)!important;     /* largeur de l'image */
-  --sx-img-right: 30px!important;             /* distance au bord droit (↓ pour aller à droite, ↑ pour aller à gauche) */
-  --sx-img-y: -30% !important;                 /* position verticale (-60% = plus haut, -40% = plus bas) */
-  --sx-img-radius: 22px!important;            /* arrondi des coins */
+/* Tailles (mêmes principes que Service details) */
+.page-services .sx-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  margin:0 0 10px;
+}
+.page-services .sx-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity:.98 !important;
+  margin:0;
 }
 
-/* Image positionnée à droite, coins arrondis, sans effets */
+/* Déplacement fin du bloc texte (optionnel) via variables */
+.sx-hero__copy{
+  position: relative;
+  transform: translate(var(--sx-copy-x, 0), var(--sx-copy-y, 0)); /* +x droite / +y bas */
+  will-change: transform;
+}
+
+/* === HERO image: taille/position FIGÉES + 4 coins arrondis (comme service details) === */
 .sx-hero__media{
   position: absolute;
-  right: var(--sx-img-right);
-  top: 50%;
-  transform: translateY(var(--sx-img-y));
-  width: var(--sx-img-w);
-  z-index: 3;
-  border-radius: var(--sx-img-radius);
-  overflow: hidden;                 /* masque l'arrondi */
-  background:#fff;                  /* au cas où l'image a de la transparence */
+  right: var(--sx-img-right, 24px);
+  bottom: calc(-1 * var(--sx-img-drop, 200px));
+  width: var(--sx-img-w, 620px);        /* largeur cadre */
+  height: var(--sx-img-h, 380px);       /* hauteur cadre */
+  border-radius: var(--sx-img-radius, 22px);
+  overflow: hidden;                      /* masque coins arrondis */
+  background: transparent;               /* pas de fond */
+  z-index: 1;                            /* sous le voile */
 }
 .sx-hero__media img{
-  display:block; width:100%; height:auto;
-  border:0; filter:none; mix-blend-mode:normal;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit: cover;                     /* remplit le cadre */
+  border:0; box-shadow:none !important; filter:none !important; transform:none !important;
 }
 
-/* ---------- Section head ---------- */
+/* ---------- Section head / toolbar / grid (inchangés) ---------- */
 .sx-wrap{padding:70px 0 40px}
 .sx-head{text-align:center;max-width:820px;margin:0 auto 18px}
 .sx-kicker{color:var(--sky);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 .sx-h1{color:var(--ink);font-weight:800;line-height:1.14;margin:8px 0 0}
-.sx-tag{color:var(--muted);}
+.sx-tag{color:var(--muted)}
 
-/* ---------- Toolbar (search) ---------- */
 .sx-toolbar{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin:14px 0 24px}
 .sx-search{max-width:520px;width:100%;position:relative}
 .sx-search input{
@@ -94,7 +123,6 @@
 .sx-search .fa-search{ position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.7 }
 #sxCount{color:#64748b}
 
-/* ---------- Services grid ---------- */
 .svc-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
 .svc-col{grid-column:span 4}
 @media (max-width: 991.98px){.svc-col{grid-column:span 6}}
@@ -120,49 +148,31 @@
 }
 .btn-accent:hover{ filter:brightness(.98) }
 
-/* Empty state */
 .svc-empty{background:#f8fafc;border:1px dashed #e5e7eb;border-radius:16px;padding:24px;text-align:center;color:#64748b}
 
-/* Mobile : l’image passe sous le texte si besoin */
+/* Mobile : l’image passe sous le texte */
 @media (max-width: 992px){
-  .sx-hero__media{ position:static; transform:none; width:100%; margin-top:18px; }
+  .sx-hero--split{ --sx-img-drop: 40px; }
+  .sx-hero__media{
+    position: static; right:auto; bottom:auto; width:100%;
+    height: var(--sx-img-h-mobile, 280px); margin-top:18px;
+  }
 }
-/* Hauteur fixe + largeur variable via variable */
-.sx-hero__media{
-  position: absolute;
-  right: var(--sx-img-right);
-  top: 50%;
-  transform: translateY(var(--sx-img-y));
-  height: var(--sx-img-h, 350px);   /* ← hauteur FIXE (ex: 320px) */
-  width: var(--sx-img-w, 250px) !important;    /* ← largeur contrôlée (on va la réduire) */
-  z-index: 3;
-  border-radius: var(--sx-img-radius);
-  overflow: hidden;
-  background:#fff;
-}
-
-/* L'image suit la hauteur, la largeur s'ajuste */
-.sx-hero__media img{
-  height: 100%;
-  width: auto;         /* ← garde la hauteur, réduit/augmente la largeur */
-  display: block;
-  object-fit: cover;   /* sécurité si l'image est plus petite */
-}
-
 </style>
 
 <section class="page-services">
 
-  {{-- HERO (tu règles ici les positions) --}}
+  {{-- HERO — même principe que Service details --}}
   <header class="sx-hero sx-hero--split"
           style="
-            /* ⇩⇩ Modifie ces 2 valeurs pour ajuster “à droite / à gauche” ⇩⇩ */
-            --sx-img-right: 24px;    /* ↓ = plus à droite, ↑ = plus à gauche */
-            --sx-copy-x: -12px;      /* + = à droite,  - = à gauche  (texte) */
-            /* Autres réglages utiles */
-            --sx-img-w: min(50vw, 860px);
-            --sx-img-y: -50%;
-            --sx-hero-pad: 140px;
+            --sx-hero-pad: 180px;   /* hauteur du bandeau */
+            --sx-img-drop: 240px;   /* dépassement vers le bas */
+            --sx-img-right: 24px;   /* plus grand => plus à gauche */
+            --sx-img-w: 620px;      /* largeur cadre image */
+            --sx-img-h: 380px;      /* hauteur cadre image */
+            --sx-img-radius: 22px;  /* arrondi 4 coins */
+            --sx-copy-x: 8px;       /* ajuste finement le texte en X */
+            --sx-copy-y: -8px;      /* ajuste finement le texte en Y */
           ">
     <div class="container sx-hero__inner">
       <div class="sx-hero__copy">
@@ -170,13 +180,12 @@
         <p class="sx-sub">Services built specifically for your business.</p>
       </div>
 
-      {{-- Image à droite --}}
+      {{-- Image de header (taille/position figées + coins arrondis) --}}
       <figure class="sx-hero__media">
         <img src="{{ $heroBannerImg }}" alt="Services hero">
       </figure>
     </div>
   </header>
-
   {{-- LIST --}}
   <div class="sx-wrap">
     <div class="container">

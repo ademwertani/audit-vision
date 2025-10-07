@@ -43,11 +43,25 @@
   overflow: visible;                     /* ne pas couper l’image */
   z-index: 5;
 }
-.sv-hero .sv-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
-.sv-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
-@media (min-width:992px){ .sv-title{font-size:56px} }
-.sv-hero h1,.sv-hero .sv-title,.sv-hero p,.sv-hero .sv-sub{color:#fff !important}
-.sv-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
+/* ↑ Agrandir le titre et le sous-titre du hero (page service) */
+.page-service .sv-title{
+  font-size: clamp(40px, 6.5vw, 72px); /* max 72px sur desktop */
+  line-height: 1.06;
+  font-weight: 800;
+}
+
+.page-service .sv-sub{
+  font-size: clamp(16px, 1.6vw, 20px); /* monte à ~20px sur desktop */
+  line-height: 1.8;
+  opacity: .98; /* un poil plus lisible */
+}
+
+/* Optionnel : encore plus gros sur très grands écrans */
+@media (min-width: 1400px){
+  .page-service .sv-title{ font-size: 78px; }
+  .page-service .sv-sub{ font-size: 22px; }
+}
+
 
 /* “Split” : espace sous le hero pour loger l’image qui déborde */
 .sv-hero--split{
@@ -67,25 +81,41 @@
   pointer-events:none;
 }
 
-/* Image : sous la couche verte, dépasse en bas, SANS effet */
+/* === HERO image: taille/position figées + 4 coins arrondis === */
 .sv-hero__media{
   position: absolute;
-  right: var(--sv-img-right, 24px);          /* + → plus à gauche ; - → plus à droite */
+  right: var(--sv-img-right, 24px);
   bottom: calc(-1 * var(--sv-img-drop, 160px));
-  width: var(--sv-img-w, 460px);             /* largeur de l’image */
-  z-index: 1;                                 /* sous la couche verte */
-  border-radius: 0;                            /* coins carrés (change si tu veux) */
-  overflow: visible;                           /* on laisse dépasser proprement */
-}
-.sv-hero__media img{
-  display:block; width:100%; height:auto;
-  border:0; box-shadow:none !important; filter:none !important; transform:none !important;
+  width: var(--sv-img-w, 560px);     /* ← largeur fixe (ou responsive via min()/clamp()) */
+  height: var(--sv-img-h, 380px);    /* ← hauteur fixe */
+  border-radius: var(--sv-img-radius, 22px); /* ← coins arrondis */
+  overflow: hidden;                  /* ← masque dans les coins */
+  background: transparent;           /* pas de fond */
+  z-index: 1;                        /* sous le voile du hero (qui est en ::after z-index:2) */
 }
 
-/* Responsive */
+/* L’image remplit le cadre, sans dépendre de sa taille d’origine */
+.sv-hero__media img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;                 /* plein cadre */
+  border: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Mobile : si tu veux la faire passer sous le texte */
 @media (max-width: 992px){
-  .sv-hero--split{ --sv-img-drop: 40px; }
-  .sv-hero__media{ width: min(640px, 88vw); right: 12px; }
+  .sv-hero__media{
+    position: static;
+    width: 100%;
+    height: var(--sv-img-h-mobile, 280px);
+    right: auto;
+    bottom: auto;
+    margin-top: 18px;
+  }
 }
 
 /* ---------- Breadcrumb pill (si tu l’utilises) ---------- */
@@ -175,6 +205,63 @@
   padding:12px 18px; border-radius:14px;
 }
 .btn-outline-accent:hover{ background:#f8fafc }
+/* Police Epilogue */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800&display=swap');
+
+/* Appliquer Epilogue et garder le blanc */
+.page-service .sv-title,
+.page-service .sv-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:#fff !important;
+}
+
+/* Décaler le bloc texte (un peu à droite et un peu vers le haut) */
+.page-service .sv-hero__copy{
+  position: relative;
+  transform: translate(-52px, -11px) !important; /* +x = droite, -y = haut */
+  will-change: transform;
+}
+/* --- FINAL OVERRIDES (place at the end) --- */
+
+/* Use the variables you set on <header> to move the text */
+.page-service .sv-hero__copy{
+  position: relative;
+  transform: translate(var(--sv-copy-x, 0), var(--sv-copy-y, 0)); /* x=right/left, y=up/down */
+  will-change: transform;
+}
+
+/* Force Epilogue + keep white */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800&display=swap');
+.page-service .sv-title,
+.page-service .sv-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
+}
+
+/* Bigger sizes with high specificity */
+.page-service .sv-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;  /* increase max if needed */
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+}
+.page-service .sv-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity: .98 !important;
+}
+/* Titre (h1) */
+.page-service .sv-title{
+  font-size: clamp(40px, 6.5vw, 58px) !important; /* ← augmente surtout la 1re (mobile) et la 3e (desktop) */
+  line-height: 1.05 !important;
+}
+
+/* Sous-titre (summary) */
+.page-service .sv-sub{
+  font-size: clamp(18px, 1.8vw, 26px) !important; /* ← pareil : 18px (mobile), 26px (desktop) */
+  line-height: 1.7 !important;
+}
+
+
 </style>
 
 <section class="page-service">
@@ -189,10 +276,10 @@
 <header class="sv-hero sv-hero--split"
         style="
           /* ⇩⇩ Tu ajustes ici selon la page ⇩⇩ */
-          --sv-img-drop: 260px;
+          --sv-img-drop: 280px;
           --sv-img-right: 24px;
           --sv-img-w: 660px;
-          --sv-hero-pad: 140px;
+          --sv-hero-pad: 190px;
         ">
   <div class="container sv-hero__inner">
     <div class="sv-hero__copy">
