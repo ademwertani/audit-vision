@@ -26,21 +26,52 @@
           <li class="nav-item">
             <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
           </li>
-          <li class="nav-item dropdown">
-            <a href="{{ url('/services') }}"
-              class="nav-link dropdown-toggle {{ Request::is('services*') ? 'active' : '' }}"
-              data-bs-toggle="dropdown">Services</a>
-            <ul class="dropdown-menu">
-              @foreach(($services ?? []) as $service)
-                <li>
-                  <a href="{{ route('services.show', $service->id) }}"
-                    class="dropdown-item {{ Request::is('services/' . $service->id) ? 'active' : '' }}">
-                    {{ $service->name }}
-                  </a>
-                </li>
-              @endforeach
-            </ul>
+          <li class="nav-item dropdown d-flex align-items-center gap-1 position-relative">
+            <a href="{{ route('services.index') }}"
+              class="nav-link {{ Request::is('services') || Request::is('services/*') ? 'active' : '' }}">
+              Services
+            </a>
+            @if(!empty($services) && count($services))
+              <button class="btn btn-link p-0 dropdown-toggle dropdown-toggle-split nav-caret" type="button"
+                data-bs-toggle="dropdown" data-bs-offset="0,10" {{-- pousse le menu 10px vers le bas --}}
+                aria-expanded="false" aria-label="Voir la liste des services"></button>
+              <ul class="dropdown-menu">
+                @foreach($services as $service)
+                  <li>
+                    <a href="{{ route('services.show', $service->id) }}"
+                      class="dropdown-item {{ Request::is('services/' . $service->id) ? 'active' : '' }}">
+                      {{ $service->name }}
+                    </a>
+                  </li>
+                @endforeach
+              </ul>
+            @endif
           </li>
+          <style>
+            /* Ouvre au survol (desktop) sans affecter le clic du lien */
+            @media (min-width: 992px) {
+              .navbar .dropdown:hover>.dropdown-menu {
+                display: block;
+              }
+            }
+            /* Positionne le menu SOUS "Services", pas à la place */
+            .header-aisla .navbar .dropdown .dropdown-menu {
+              position: absolute !important;
+              top: calc(100% + 6px) !important;
+              /* juste sous la ligne de "Services" */
+              left: 0 !important;
+              right: auto !important;
+              transform: none !important;
+              /* neutralise les translate de Popper si présents */
+              margin: 0 !important;
+              z-index: 1050;
+              /* au-dessus du header */
+            }
+            /* Petite flèche compacte */
+            .nav-caret {
+              line-height: 1;
+            }
+          </style>
           <li class="nav-item">
             <a href="{{ route('projects.index') }}"
               class="nav-link {{ Request::is('projects*') ? 'active' : '' }}">Projects</a>
@@ -57,16 +88,14 @@
           </li>
         </ul>
         {{-- Boutons alignés à droite --}}
-<div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
-  <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
-
-  @if(!request()->is('quote'))
-    <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn">
-      Demander un devis
-    </a>
-  @endif
-</div>
-
+        <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0">
+          <a href="{{ url('contact') }}" class="btn btn-contact">Contact Us</a>
+          @if(!request()->is('quote'))
+            <a href="{{ url('quote') }}" class="btn btn-outline-contact quote-btn">
+              Demander un devis
+            </a>
+          @endif
+        </div>
       </div>
     </nav>
   </div>

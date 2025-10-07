@@ -1313,7 +1313,6 @@ body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
 .value-chip .dot{
   width:72px; height:72px; border-radius:50%;
   background: var(--green);
-  box-shadow: 0 10px 20px rgba(124,174,42,.35);
 }
 .value-chip .label{
   color:#cbd5df; font-weight:600; text-align:center; font-size:.98rem;
@@ -1337,4 +1336,88 @@ body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
 }
 .photo img{
   display:block; width:100%; height:auto; object-fit:cover;
+}
+
+
+
+
+
+.values-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.value-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+.about-media {
+  position: relative;
+  display: inline-block;
+}
+
+.navy-plate {
+  position: absolute;
+  
+  top: 0px;
+  left: 35px;
+  width: 300px;
+  height: 300px;
+  background-color: #1b2b57; /* bleu foncé */
+  border-radius: 12px;
+  z-index: 0;
+}
+
+/* --- image : opaque et au-dessus de la plaque --- */
+.about-image-box{
+  position: relative;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;          /* empêche toute transparence */
+  z-index: 2;                /* au-dessus du bleu */
+}
+.about-image-box img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  opacity: 1 !important;           /* opaque */
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+/* --- plaque bleue : un peu plus haut --- */
+.navy-plate{
+  position: absolute;
+  top: -12px;                /* ← monte/descends en changeant SEULEMENT cette valeur */
+  left: 25px;
+  width: 300px;
+  height: 300px;
+  background-color: #1b2b57;
+  border-radius: 12px;
+  z-index: 1;                /* sous l’image */
+}
+/* ↑ juste un peu plus grand */
+.about-image-box,
+.navy-plate{
+  width: 360px;   /* ← mets 340/360/380 selon ton goût */
+  height: 360px;
+}
+/* place CE BLOC tout à la fin de ton CSS */
+:root{ --about-shift-x: 118px; }          /* ← change juste cette valeur */
+
+.about-fei .about-media{
+  position: relative;                     /* déjà présent, mais on s’assure */
+  left: var(--about-shift-x) !important;  /* pousse le bloc vers la gauche */
 }

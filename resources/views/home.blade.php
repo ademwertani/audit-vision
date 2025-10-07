@@ -46,27 +46,70 @@
         <div class="hero-curve" aria-hidden="true"></div>
     </div>
     <script>
-        const banners = @json($bannerData);
-        let currentIndex = 0;
-        function updateHero(index) {
-            const heroTitle = document.querySelector('.hero-title');
-            const heroSub = document.querySelector('.hero-sub');
-            document.querySelector('.hero-aisla').style.setProperty(
-                '--hero-bg-img',
-                `url('${banners[index].image}')`
-            );
-            heroTitle.innerHTML = banners[index].title.replace(/\n/g, "<br>");
-            heroSub.textContent = banners[index].summary;
-        }
-        document.querySelector('.hero-arrow-left').addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + banners.length) % banners.length;
-            updateHero(currentIndex);
-        });
-        document.querySelector('.hero-arrow-right').addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % banners.length;
-            updateHero(currentIndex);
-        });
-    </script>
+  const banners = @json($bannerData);
+  let currentIndex = 0;
+
+  function updateHero(index) {
+    if (!banners || !banners.length) return;
+
+    const hero = document.querySelector('.hero-aisla');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroSub   = document.querySelector('.hero-sub');
+
+    hero.style.setProperty('--hero-bg-img', `url('${banners[index].image}')`);
+    heroTitle.innerHTML = (banners[index].title || '').replace(/\n/g, "<br>");
+    heroSub.textContent = banners[index].summary || '';
+  }
+
+  // Navigation
+  function prev() {
+    if (!banners || !banners.length) return;
+    currentIndex = (currentIndex - 1 + banners.length) % banners.length;
+    updateHero(currentIndex);
+  }
+  function next() {
+    if (!banners || !banners.length) return;
+    currentIndex = (currentIndex + 1) % banners.length;
+    updateHero(currentIndex);
+  }
+
+  // Flèches
+  document.querySelector('.hero-arrow-left')?.addEventListener('click', () => {
+    prev();
+    restartAutoplay();
+  });
+  document.querySelector('.hero-arrow-right')?.addEventListener('click', () => {
+    next();
+    restartAutoplay();
+  });
+
+  // Autoplay toutes les 2 secondes
+  const AUTOPLAY_MS = 2000;
+  let autoplayId = null;
+
+  function startAutoplay() {
+    if (autoplayId || !banners || banners.length <= 1) return;
+    autoplayId = setInterval(next, AUTOPLAY_MS);
+  }
+  function stopAutoplay() {
+    if (!autoplayId) return;
+    clearInterval(autoplayId);
+    autoplayId = null;
+  }
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  // (Optionnel mais pratique) : pause au survol du hero
+  const heroEl = document.querySelector('.hero-aisla');
+  heroEl?.addEventListener('mouseenter', stopAutoplay);
+  heroEl?.addEventListener('mouseleave', startAutoplay);
+
+  // Init
+  updateHero(currentIndex);
+  startAutoplay();
+</script>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
@@ -79,16 +122,19 @@
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
         }
+
         /* Optionnel : garde une légère superposition sombre sans blur */
         .hero-aisla .hero-overlay {
             background: rgba(0, 0, 0, .25);
             /* ajuste ou mets 0 si tu ne veux rien */
         }
+
         /* Si le flou venait d'un scale utilisé avec blur, on le neutralise aussi */
         .hero-aisla::before {
             transform: none !important;
             opacity: 1 !important;
         }
+
         /* Par sécurité, assure que l'image de fond est nette */
         .hero-aisla {
             background-image: var(--hero-bg-img);
@@ -173,33 +219,31 @@
                     </a>
                 @endif
                 {{-- ======= Bloc Stats (dynamique) ======= --}}
-<div class="stats-card grid-stats">
-    <h5 class="text-center mb-4">We have successfully powered over</h5>
-
-    <div class="stats-row">
-        @forelse($stats as $stat)
-            <div class="stat {{ $stat->is_accent ? 'stat--accent' : '' }}">
-                <div class="stat-number">{{ number_format($stat->value) }}</div>
-                <div class="stat-label">{{ $stat->label }}</div>
-            </div>
-        @empty
-            {{-- Fallback si aucune stat en base (à retirer si inutile) --}}
-            <div class="stat">
-                <div class="stat-number">0</div>
-                <div class="stat-label">Homes</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">0</div>
-                <div class="stat-label">Companies</div>
-            </div>
-            <div class="stat stat--accent">
-                <div class="stat-number">0</div>
-                <div class="stat-label">Farms</div>
-            </div>
-        @endforelse
-    </div>
-</div>
-
+                <div class="stats-card grid-stats">
+                    <h5 class="text-center mb-4">We have successfully powered over</h5>
+                    <div class="stats-row">
+                        @forelse($stats as $stat)
+                            <div class="stat {{ $stat->is_accent ? 'stat--accent' : '' }}">
+                                <div class="stat-number">{{ number_format($stat->value) }}</div>
+                                <div class="stat-label">{{ $stat->label }}</div>
+                            </div>
+                        @empty
+                            {{-- Fallback si aucune stat en base (à retirer si inutile) --}}
+                            <div class="stat">
+                                <div class="stat-number">0</div>
+                                <div class="stat-label">Homes</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">0</div>
+                                <div class="stat-label">Companies</div>
+                            </div>
+                            <div class="stat stat--accent">
+                                <div class="stat-number">0</div>
+                                <div class="stat-label">Farms</div>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -212,6 +256,7 @@
             --primary: #2d3281;
             --muted: #e9eef3;
         }
+
         /* ====== GRID LAYOUT AVEC ZONES ====== */
         .projects-grid {
             display: grid;
@@ -226,23 +271,28 @@
                 ".     stats";
             /* 3e rangée : stats sous le 3e projet */
         }
-        
+
         /* Raccorder les éléments aux zones */
         .grid-p1 {
             grid-area: p1;
         }
+
         .grid-promo {
             grid-area: promo;
         }
+
         .grid-p2 {
             grid-area: p2;
         }
+
         .grid-p3 {
             grid-area: p3;
         }
+
         .grid-stats {
             grid-area: stats;
         }
+
         /* ====== CARTES ====== */
         .proj-card,
         .promo-card {
@@ -254,29 +304,34 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
             background: #fff;
         }
-.stats-card {
-  padding: 20px;
-  margin-top: -200px;
-  margin-bottom: 400px; /* <= énorme espace sous les stats */
-}
 
+        .stats-card {
+            padding: 20px;
+            margin-top: -200px;
+            margin-bottom: 400px;
+            /* <= énorme espace sous les stats */
+        }
 
         /* hauteurs spécifiques pour coller au visuel */
         .proj-card--lg {
             min-height: 360px;
         }
+
         /* grand bloc (haut gauche) */
         .grid-promo {
             min-height: 120px;
         }
+
         /* ✅ bannière verte moins haute */
         .grid-p3 {
             min-height: 300px;
         }
+
         /* 3e projet plus haut visuellement */
         .grid-stats {
             min-height: 150px;
         }
+
         /* ====== IMAGES ====== */
         .proj-card img {
             width: 100%;
@@ -284,9 +339,11 @@
             object-fit: cover;
             transition: transform .6s ease;
         }
+
         .proj-card:hover img {
             transform: scale(1.04);
         }
+
         /* ====== OVERLAY + PILLS ====== */
         .proj-overlay {
             position: absolute;
@@ -297,6 +354,7 @@
             padding: 12px 14px;
             background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
         }
+
         .pill {
             border-radius: 999px;
             padding: 8px 12px;
@@ -305,14 +363,17 @@
             align-items: center;
             gap: 6px;
         }
+
         .pill--muted {
             background: rgba(255, 255, 255, .9);
             color: #2c313a;
         }
+
         .pill--action {
             background: var(--accent);
             color: #fff;
         }
+
         /* ====== PROMO ====== */
         .promo-card {
             background: #69bb36;
@@ -325,6 +386,7 @@
             justify-content: center;
             text-align: center;
         }
+
         .promo-dot {
             width: 35px;
             height: 30px;
@@ -334,35 +396,40 @@
             bottom: 0px;
             right: 0px;
         }
-        /* ====== STATS ====== */
-      
 
+        /* ====== STATS ====== */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
+
         .stat {
             background: #e8eef7;
             padding: 12px;
             border-radius: 10px;
             text-align: center;
         }
+
         .stat--accent {
             background: #e5f5e2;
         }
+
         .stat-number {
             font-size: 22px;
             font-weight: 700;
             color: var(--primary);
         }
+
         .stat--accent .stat-number {
             color: var(--accent);
         }
+
         .stat-label {
             font-size: 13px;
             color: #3f4759;
         }
+
         /* ====== RESPONSIVE ====== */
         @media (max-width: 992px) {
             .projects-grid {
@@ -374,100 +441,108 @@
                     "p3"
                     "stats";
             }
+
             .proj-card--lg {
                 min-height: 300px;
             }
+
             .grid-p3 {
                 min-height: 260px;
             }
         }
+
         /* Remonter uniquement la 3e carte (P3) */
         .grid-p3 {
             margin-top: -240px;
             margin-bottom: 240px;
             /* 🔥 ajuste la valeur selon la hauteur voulue */
         }
+
         /* Aligner le bouton avec le texte et le garder en bas */
-.blog-card__content{
-  display:flex;            /* déjà présent, on confirme */
-  flex-direction:column;
-  padding:24px;            /* même retrait que le texte */
-  padding-bottom:24px;     /* plus besoin de gros espace pour un bouton absolu */
-}
+        .blog-card__content {
+            display: flex;
+            /* déjà présent, on confirme */
+            flex-direction: column;
+            padding: 24px;
+            /* même retrait que le texte */
+            padding-bottom: 24px;
+            /* plus besoin de gros espace pour un bouton absolu */
+        }
 
-.blog-card__btn{
-  position: static !important;      /* sort du mode absolu */
-  inset: auto !important;           /* reset left/right/bottom/top */
-  align-self: flex-start;           /* aligne sur la même colonne que le texte */
-  margin-top: auto;                 /* pousse le bouton en bas du bloc */
-  display: inline-flex;             /* taille au contenu */
-  /* style existant du bouton conservé */
-}
-
+        .blog-card__btn {
+            position: static !important;
+            /* sort du mode absolu */
+            inset: auto !important;
+            /* reset left/right/bottom/top */
+            align-self: flex-start;
+            /* aligne sur la même colonne que le texte */
+            margin-top: auto;
+            /* pousse le bouton en bas du bloc */
+            display: inline-flex;
+            /* taille au contenu */
+            /* style existant du bouton conservé */
+        }
     </style>
     <!-- Projects End -->
     <!-- =============== ABOUT (comme la maquette) =============== -->
- @php
-  $aboutImg = $aboutImg
-      ?? (isset($banners) && $banners->count()
-            ? asset('storage/'.ltrim($banners->first()->image,'/'))
-            : asset('img/about.jpg')); // fallback
-@endphp
+    @php
+        $aboutImg = $aboutImg
+            ?? (isset($banners) && $banners->count()
+                ? asset('storage/' . ltrim($banners->first()->image, '/'))
+                : asset('img/about.jpg')); // fallback
+    @endphp
+    <section class="about-fei pt-2 pb-5">
+        <div class="container">
+            <div class="about-grid">
+                {{-- Colonne gauche : textes --}}
+                <div class="about-left">
+                    <div class="about-kicker">A PROPOS</div>
+                    <h2 class="about-title">Qui sommes nous?</h2>
+                    <p class="about-text">
+                        France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique
+                        Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et installations
+                        industrielles. Notre mission est claire : améliorer la performance énergétique, réduire les
+                        déperditions
+                        de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts énergétiques.
+                    </p>
+                    <div class="values-kicker">NOS VALEURS</div>
+                    <div class="values-row">
+                        <div class="value-chip">
+                            <img src="/img/im4.png" alt="Expertise" class="icon">
+                            <span class="label">L’expertise</span>
+                        </div>
+                        <div class="value-chip">
+                            <img src="/img/im3.png" alt="Qualité" class="icon">
+                            <span class="label">La qualité</span>
+                        </div>
+                        <div class="value-chip">
+                            <img src="/img/im2.png" alt="Innovation" class="icon">
+                            <span class="label">L’innovation</span>
+                        </div>
+                        <div class="value-chip">
+                            <img src="/img/im1.png" alt="Respect des délais" class="icon">
+                            <span class="label">Respect des délais</span>
+                        </div>
+                    </div>
+                    {{-- Ton bouton existant --}}
+                    <a href="{{ url('/about') }}" class="btn about-btn mt-3">
+                        En savoir plus
+                        <span class="btn-icon" aria-hidden="true">→</span>
+                    </a>
+                </div>
+                {{-- Colonne droite : image simple et carrée --}}
+                <div class="about-right">
+                    <div class="about-media">
+                        <div class="navy-plate" aria-hidden="true"></div>
+                        <div class="about-image-box">
+                            <img src="{{ $aboutImg }}" alt="Notre équipe sur le terrain">
+                        </div>
+                    </div>
+                </div>
 
-<section class="about-fei pt-2 pb-5">
-  <div class="container">
-    <div class="about-grid">
-      {{-- Colonne gauche : textes --}}
-      <div class="about-left">
-        <div class="about-kicker">A PROPOS</div>
-        <h2 class="about-title">Qui sommes nous?</h2>
-        <p class="about-text">
-            France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique
-          Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et installations
-          industrielles. Notre mission est claire : améliorer la performance énergétique, réduire les déperditions
-          de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts énergétiques.
-        </p>
-
-        <div class="values-kicker">NOS VALEURS</div>
-        <div class="values-row">
-          <div class="value-chip">
-            <span class="dot"></span>
-            <span class="label">L’expertise</span>
-          </div>
-          <div class="value-chip">
-            <span class="dot"></span>
-            <span class="label">La qualité</span>
-          </div>
-          <div class="value-chip">
-            <span class="dot"></span>
-            <span class="label">L’innovation</span>
-          </div>
-          <div class="value-chip">
-            <span class="dot"></span>
-            <span class="label">Respect des délais</span>
-          </div>
+            </div>
         </div>
-
-        {{-- Ton bouton existant --}}
-        <a href="{{ url('/about') }}" class="btn about-btn mt-3">
-          En savoir plus
-          <span class="btn-icon" aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      {{-- Colonne droite : image + plaque bleue derrière --}}
-      <div class="about-right">
-        <div class="about-media">
-          <div class="navy-plate" aria-hidden="true"></div>
-          <figure class="photo">
-            <img src="{{ $aboutImg }}" alt="Notre équipe sur le terrain">
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </section>
     {{-- =============== FEATURE CARDS (Updated with yellow accents) =============== --}}
     {{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
     <div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
@@ -512,42 +587,34 @@
             <span style="font-size:2rem; color:black;">&#10095;</span> {{-- › --}}
         </button>
     </div>
-{{-- pub --}}
-{{-- pub --}}
-<section class="pub-section pt-2 pb-5 mt-5">
-  <div class="full-width-img partners-wrap">
-    <img src="{{ asset('img/pubb.png') }}" alt="pub" class="partners-bg">
-
-    <div class="partners-overlay">
-      <h2 class="partners-title">Nos Partenaires</h2>
-
-      @if(!empty($partners) && $partners->count())
-        @php
-  $top = $partners->take(4);
-  $bottom = $partners->skip(4)->take(4);
-@endphp
-
-<div class="partners-logos partners-logos--two-rows">
-  @foreach($top as $p)
-    <span class="partner-logo-link" title="{{ $p->name }}">
-      <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
-    </span>
-  @endforeach
-@foreach($bottom as $p)
-  <span class="partner-logo-link" title="{{ $p->name }}">
-    <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
-  </span>
-@endforeach
-
-</div>
-      @endif
-    </div>
-  </div>
-</section>
-
-
-
-
+    {{-- pub --}}
+    {{-- pub --}}
+    <section class="pub-section pt-2 pb-5 mt-5">
+        <div class="full-width-img partners-wrap">
+            <img src="{{ asset('img/pubb.png') }}" alt="pub" class="partners-bg">
+            <div class="partners-overlay">
+                <h2 class="partners-title">Nos Partenaires</h2>
+                @if(!empty($partners) && $partners->count())
+                    @php
+                        $top = $partners->take(4);
+                        $bottom = $partners->skip(4)->take(4);
+                    @endphp
+                    <div class="partners-logos partners-logos--two-rows">
+                        @foreach($top as $p)
+                            <span class="partner-logo-link" title="{{ $p->name }}">
+                                <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
+                            </span>
+                        @endforeach
+                        @foreach($bottom as $p)
+                            <span class="partner-logo-link" title="{{ $p->name }}">
+                                <img src="{{ asset('storage/' . ltrim($p->logo, '/')) }}" alt="{{ $p->name }}" class="partner-logo">
+                            </span>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
     <!-- Blog Start -->
     <div class="container-fluid py-5 mb-5">
         <div class="container">
@@ -562,76 +629,70 @@
                 </a>
             </div>
             <div class="row g-4 justify-content-center">
-  @forelse($blogs->take(3) as $blog)
-    <div class="col-12 col-md-6 col-lg-4 d-flex">  {{-- <= important --}}
-      <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
-        <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
-          {{-- Image pleine largeur avec ratio fixe --}}
-          @if($blog->image)
-            <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="blog-card__img">
-          @else
-            <div class="blog-card__img blog-card__img--placeholder"></div>
-          @endif
-
-          {{-- Overlay (si tu l’utilises, tu peux le laisser) --}}
-          <div class="blog-card__overlay"></div>
-
-          {{-- Contenu --}}
-          <div class="blog-card__content d-flex flex-column flex-grow-1">
-            <p class="blog-card__cat text-uppercase mb-1">
-              {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
-            </p>
-            <h3 class="blog-card__title">{{ $blog->title }}</h3>
-
-            <div class="blog-card__meta mb-2">
-              <span class="blog-card__date">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
-                  <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                {{ $blog->created_at->translatedFormat('j F Y') }}
-              </span>
+                @forelse($blogs->take(3) as $blog)
+                    <div class="col-12 col-md-6 col-lg-4 d-flex"> {{-- <= important --}} <a
+                            href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
+                            <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
+                                {{-- Image pleine largeur avec ratio fixe --}}
+                                @if($blog->image)
+                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                                        class="blog-card__img">
+                                @else
+                                    <div class="blog-card__img blog-card__img--placeholder"></div>
+                                @endif
+                                {{-- Overlay (si tu l’utilises, tu peux le laisser) --}}
+                                <div class="blog-card__overlay"></div>
+                                {{-- Contenu --}}
+                                <div class="blog-card__content d-flex flex-column flex-grow-1">
+                                    <p class="blog-card__cat text-uppercase mb-1">
+                                        {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
+                                    </p>
+                                    <h3 class="blog-card__title">{{ $blog->title }}</h3>
+                                    <div class="blog-card__meta mb-2">
+                                        <span class="blog-card__date">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            {{ $blog->created_at->translatedFormat('j F Y') }}
+                                        </span>
+                                    </div>
+                                    <p class="blog-card__excerpt mb-3">
+                                        {{ Str::limit(strip_tags($blog->content), 120) }}
+                                    </p>
+                                    <span class="blog-card__btn mt-auto">
+                                        Lire Plus <span class="blog-card__btn-icon">→</span>
+                                    </span>
+                                </div>
+                            </article>
+                            </a>
+                    </div>
+                @empty
+                    <p class="text-center">Aucun article pour le moment.</p>
+                @endforelse
             </div>
-
-            <p class="blog-card__excerpt mb-3">
-              {{ Str::limit(strip_tags($blog->content), 120) }}
-            </p>
-
-            <span class="blog-card__btn mt-auto">
-              Lire Plus <span class="blog-card__btn-icon">→</span>
-            </span>
-          </div>
-        </article>
-      </a>
-    </div>
-  @empty
-    <p class="text-center">Aucun article pour le moment.</p>
-  @endforelse
-</div>
-
         </div>
     </div>
     <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.querySelector('.js-scroll-video');
-    if (!btn) return;
-
-    btn.addEventListener('click', function (e) {
-      const target = document.getElementById('video');
-      if (target) {
-        e.preventDefault();
-        const header = document.querySelector('.header-aisla');
-        const offset = header ? header.offsetHeight : 0;
-        const y = target.getBoundingClientRect().top + window.pageYOffset - offset - 8;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      } else {
-        // si la section vidéo n'est pas présente sur la home, on bascule vers /video
-        window.location.href = "{{ url('/video') }}";
-      }
-    });
-  });
-</script>
-
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.querySelector('.js-scroll-video');
+            if (!btn) return;
+            btn.addEventListener('click', function (e) {
+                const target = document.getElementById('video');
+                if (target) {
+                    e.preventDefault();
+                    const header = document.querySelector('.header-aisla');
+                    const offset = header ? header.offsetHeight : 0;
+                    const y = target.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                } else {
+                    // si la section vidéo n'est pas présente sur la home, on bascule vers /video
+                    window.location.href = "{{ url('/video') }}";
+                }
+            });
+        });
+    </script>
     <!-- Blog End -->
     <div class="position-relative">
         <div class="row justify-content-center align-items-center">
@@ -681,11 +742,13 @@
                                     height: 150px;
                                     object-fit: contain;
                                 }
+
                                 .uniform-title {
                                     color: var(--dark);
                                     font-size: 1.6rem;
                                     font-weight: 600;
                                 }
+
                                 .uniform-text {
                                     font-size: 1.2rem;
                                     color: #6c757d;
@@ -697,46 +760,39 @@
         @endif
             </div>
         </div>
-     <section class="hcw my-5">
-  <div class="container">
-    <h1 class="hcw-title text-center">
-      <span>Happy Customers,</span><br>
-      <span>Happy World</span>
-    </h1>
-
-    @if(!empty($customers) && $customers->count())
-      <div class="row g-4 mt-4">
-        @foreach($customers as $c)
-          <div class="col-12 col-md-6 col-lg-4 d-flex">
-            <article class="t-card w-100 rounded-4 d-flex flex-column">
-              {{-- Étoiles dynamiques (0 à 5) --}}
-
-@php $r = (int)($c->rating ?? $c->note ?? 0); @endphp
-<div class="t-stars" aria-label="Note {{ $r }} sur 5">
-  @for ($i = 1; $i <= 5; $i++)
-    <i class="{{ $i <= $r ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
-  @endfor
-</div>
-
-
-              {{-- Titre --}}
-              <h3 class="t-title mb-3">{{ $c->title }}</h3>
-
-              {{-- Commentaire --}}
-              <p class="t-comment mb-0 flex-grow-1">
-                {{ $c->comment }}
-              </p>
-
-              {{-- Auteur --}}
-              <div class="t-author mt-3">{{ $c->customer_name }}</div>
-            </article>
-          </div>
-        @endforeach
-      </div>
-    @endif
-  </div>
-</section>
-
+        <section class="hcw my-5">
+            <div class="container">
+                <h1 class="hcw-title text-center">
+                    <span>Happy Customers,</span><br>
+                    <span>Happy World</span>
+                </h1>
+                @if(!empty($customers) && $customers->count())
+                    <div class="row g-4 mt-4">
+                        @foreach($customers as $c)
+                            <div class="col-12 col-md-6 col-lg-4 d-flex">
+                                <article class="t-card w-100 rounded-4 d-flex flex-column">
+                                    {{-- Étoiles dynamiques (0 à 5) --}}
+                                    @php $r = (int) ($c->rating ?? $c->note ?? 0); @endphp
+                                    <div class="t-stars" aria-label="Note {{ $r }} sur 5">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="{{ $i <= $r ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
+                                        @endfor
+                                    </div>
+                                    {{-- Titre --}}
+                                    <h3 class="t-title mb-3">{{ $c->title }}</h3>
+                                    {{-- Commentaire --}}
+                                    <p class="t-comment mb-0 flex-grow-1">
+                                        {{ $c->comment }}
+                                    </p>
+                                    {{-- Auteur --}}
+                                    <div class="t-author mt-3">{{ $c->customer_name }}</div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </section>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const servicesSection = document.querySelector('.services-section');
@@ -778,20 +834,20 @@
                                 const col = document.createElement('div');
                                 col.className = 'col-md-6 mb-4';
                                 col.innerHTML = `
-                                                                                                            <div class="d-flex align-items-center team-card p-3 rounded">
-                                                                                                                <!-- Avatar avec cercle -->
-                                                                                                                <div class="team-photo position-relative me-3">
-                                                                                                                    <div class="circle-border">
-                                                                                                                        <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <!-- Infos -->
-                                                                                                                <div class="team-info flex-grow-1">
-                                                                                                                    <h4 class="fw-bold mb-1">${member.name}</h4>
-                                                                                                                    <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        `;
+                                                                                                                        <div class="d-flex align-items-center team-card p-3 rounded">
+                                                                                                                            <!-- Avatar avec cercle -->
+                                                                                                                            <div class="team-photo position-relative me-3">
+                                                                                                                                <div class="circle-border">
+                                                                                                                                    <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <!-- Infos -->
+                                                                                                                            <div class="team-info flex-grow-1">
+                                                                                                                                <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                                                                                                <p class="mb-2" style="color: #fe5716;">${member.role}</p>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    `;
                                 teamContainer.appendChild(col);
                             });
                             // Pagination + Progress bar
@@ -859,46 +915,56 @@
             body {
                 overflow-x: hidden;
             }
+
             img,
             iframe {
                 max-width: 100%;
                 height: auto;
                 display: block;
             }
+
             /* 🔒 Mobile only */
             @media (max-width: 575.98px) {
+
                 /* Garder padding vertical, réduire/annuler le padding horizontal */
                 .container,
                 .container-fluid {
                     padding-left: 12px !important;
                     padding-right: 12px !important;
                 }
+
                 .row {
                     margin-left: 0 !important;
                     margin-right: 0 !important;
                 }
+
                 [class^="col-"],
                 [class*=" col-"] {
                     padding-left: 8px !important;
                     padding-right: 8px !important;
                 }
+
                 /* Services / cartes : supprimer largeurs fixes */
                 .services-section .card {
                     width: 100% !important;
                 }
+
                 .services-section img {
                     max-width: 100%;
                     height: auto;
                 }
+
                 /* Projects : ta carte faisait 600px de large -> 100% sur mobile */
                 .project-item .card {
                     width: 100% !important;
                     height: auto !important;
                 }
+
                 .project-item img {
                     height: 180px !important;
                     object-fit: cover;
                 }
+
                 /* Bloc CONTACT (zone bleue) : l'image absolue débordait */
                 .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
                     position: static !important;
@@ -906,20 +972,24 @@
                     max-width: 320px !important;
                     margin: 16px auto 0 !important;
                 }
+
                 /* Image sous la zone bleue + marge négative */
                 img[alt="Image sous zone bleue"] {
                     width: 100% !important;
                     height: auto !important;
                 }
+
                 .text-center[style*="margin-top: -190px"] {
                     margin-top: 0 !important;
                 }
+
                 /* Icônes/visuels autour de la vidéo */
                 .uniform-img {
                     width: 96px !important;
                     height: 96px !important;
                     object-fit: contain;
                 }
+
                 /* Éviter tous débordements horizontaux restants */
                 .hero-aisla,
                 .about-aisla,
@@ -929,6 +999,7 @@
                 .services-section {
                     overflow-x: hidden !important;
                 }
+
                 @media (min-width: 576px) {
                     .project-item .card {
                         width: 600px;
@@ -937,18 +1008,17 @@
             }
         </style>
         <style>
-            
-  /* Réduit UNIQUEMENT l'espace sous le bloc stats, sans toucher au reste */
-  .projects-grid > .grid-stats.stats-card{
-    margin-bottom: 9px !important; /* ajuste 80–120px selon ton rendu */
-  }
+            /* Réduit UNIQUEMENT l'espace sous le bloc stats, sans toucher au reste */
+            .projects-grid>.grid-stats.stats-card {
+                margin-bottom: 9px !important;
+                /* ajuste 80–120px selon ton rendu */
+            }
 
-  /* Sur mobile, raccourcis un peu plus l’espace */
-  @media (max-width: 992px){
-    .projects-grid > .grid-stats.stats-card{
-      margin-bottom: 56px !important;
-    }
-  }
-</style>
-
+            /* Sur mobile, raccourcis un peu plus l’espace */
+            @media (max-width: 992px) {
+                .projects-grid>.grid-stats.stats-card {
+                    margin-bottom: 56px !important;
+                }
+            }
+        </style>
 @endsection

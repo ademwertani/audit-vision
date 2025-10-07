@@ -9,8 +9,8 @@
    Scoped to this page only.
    ========================================================= */
 .page-services{
-  --navy:#242958;
-  --navyDark:#1d2760;
+  --navy:#7CAE2A;
+  --navyDark:#7CAE2A;
   --sky:#7CAE2A;
   --accent:#7CAE2A;
   --ink:#0f172a;
