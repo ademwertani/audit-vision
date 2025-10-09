@@ -763,7 +763,7 @@ main,
   padding: 10px 18px;
   border-radius: 10px;
   text-decoration: none;
- /* ombre sous le bouton */
+  box-shadow: 0 8px 18px rgba(109,177,57,.35); /* ombre sous le bouton */
   transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
 

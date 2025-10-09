@@ -1050,6 +1050,31 @@
                     }
                 });
             });
+            /* Fige la largeur logique du site (effet: le zoom ne déclenche plus de breakpoint) */
+.stable-zoom {
+  min-width: 1280px;                 /* évite la reflow < 1280 */
+}
+
+/* Contenants Bootstrap : on les borne à 1280 */
+.stable-zoom .container,
+.stable-zoom .container-fluid {
+  max-width: 1280px !important;
+}
+
+/* Grilles: on force le “mode desktop” */
+.stable-zoom .col-lg-4 { flex: 0 0 auto; width: 33.333333% !important; }
+.stable-zoom .col-md-6 { flex: 0 0 auto; width: 50% !important; }
+/* (laisse .col-12 tel quel pour les pleines largeurs quand tu veux) */
+
+/* Héros et cartes: garde des hauteurs stables */
+.stable-zoom .hero-aisla { min-height: 520px; }
+.stable-zoom .service-card__img,
+.stable-zoom .blog-card__img { aspect-ratio: 16/9; object-fit: cover; }
+
+/* Évite les gros décalages liés aux marges négatives */
+.stable-zoom .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.stable-zoom .projects-grid > .grid-stats.stats-card { margin-bottom: 24px !important; }
+
         </script>
         <style>
             /* Règles globales de sécurité */
