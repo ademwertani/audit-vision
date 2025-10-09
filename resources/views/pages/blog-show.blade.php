@@ -190,7 +190,11 @@
 @endphp
 
 {{-- HERO (left-aligned) --}}
-<header class="pp-hero pp-hero--split">
+<header class="pp-hero pp-hero--split"
+        style="
+          --pp-hero-offset: 902px;  /* ↓ Descend la bande bleue de 32px */
+          --pp-img-drop: 200px;    /* ↓ Descend l’image sous la bande bleue */
+        ">
   <div class="pp-hgroup container pp-hero__inner">
     <div class="pp-hero__copy">
       <h1 class="pp-title">{{ $blog->title }}</h1>

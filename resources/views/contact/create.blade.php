@@ -199,13 +199,79 @@
   .cp-hero--split{ --cp-img-drop: 48px; }
   .cp-hero__media{ width: min(640px, 88vw); right: 12px; }
 }
+/* === HERO Contact : cadre image FIXE + position stable === */
+.contact-page .cp-hero--split{
+  --cp-img-drop: 240px; /* descend l’image sous la bande bleue */
+}
+
+.contact-page .cp-hero__media{
+  position: absolute;
+  right: var(--cp-img-right, 32px);
+  bottom: calc(-1 * var(--cp-img-drop, 240px));
+  width: var(--cp-img-w, 720px);     /* LARGEUR FIXE */
+  height: var(--cp-img-h, 460px);    /* HAUTEUR FIXE */
+  border-radius: var(--cp-img-radius, 22px);
+  overflow: hidden;
+  z-index: 4; /* au-dessus du bleu, sous le texte */
+}
+
+.contact-page .cp-hero__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* remplit le cadre proprement */
+  object-position: center; /* centre le cadrage */
+  display: block;
+  border: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* XL : un peu plus grand si tu veux */
+@media (min-width: 1400px){
+  .contact-page .cp-hero__media{
+    width: var(--cp-img-w-xl, 780px);
+    height: var(--cp-img-h-xl, 500px);
+    right: var(--cp-img-right-xl, 40px);
+  }
+}
+
+/* Mobile : cadre fixe plus raisonnable, en flux sous le texte */
+@media (max-width: 992px){
+  .contact-page .cp-hero--split{ --cp-img-drop: 56px; }
+  .contact-page .cp-hero__media{
+    position: static;
+    right: auto; bottom: auto;
+    width: 100%;
+    height: var(--cp-img-h-mobile, 320px);
+    margin-top: 18px;
+  }
+}
 
 </style>
 
 <section class="contact-page">
+@php
+  // Image héro = image de l'article, sinon fallback
+  $postHeroImg = !empty($blog->image)
+      ? asset('storage/' . ltrim($blog->image, '/'))
+      : asset('img/blog-post-hero.png'); // fallback
+@endphp
+<header class="cp-hero cp-hero--split"
+        style="
+          --cp-img-drop: 240px;       /* descente verticale */
+          --cp-img-right: 32px;       /* marge depuis la droite */
 
-{{-- HERO --}}
-<header class="cp-hero cp-hero--split">
+          /* Taille FIXE du cadre image (desktop) */
+          --cp-img-w: 720px;
+          --cp-img-h: 460px;
+          --cp-img-radius: 22px;
+
+          /* Optionnels */
+          --cp-img-w-xl: 780px;
+          --cp-img-h-xl: 500px;
+          --cp-img-h-mobile: 320px;
+        ">
   <div class="cp-hgroup container cp-hero__inner">
     <h1 class="cp-title">Contact Us</h1>
     <p class="cp-sub">
@@ -213,12 +279,14 @@
     </p>
   </div>
 
-  {{-- Image statique, même style/placement --}}
-  <figure class="cp-hero__media">
-    <img src="{{ asset('img/ima.png') }}" alt="Contact hero">
-    {{-- mets ici ton image statique (ex: public/img/contact-hero.png) --}}
-  </figure>
+<figure class="cp-hero__media">
+  <img src="{{ $heroBannerImg }}" alt="Contact hero">
+</figure>
+
+
+
 </header>
+
 
 
   {{-- CONTENT --}}

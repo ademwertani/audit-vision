@@ -23,12 +23,7 @@
 .page-about *{box-sizing:border-box}
 
 /* ---------- HERO (identical to contact page) ---------- */
-.pa-hero{
-  background:var(--navy);
-  color:#fff;
-  padding:78px 0 92px;
-  position:relative;
-}
+
 .pa-hero .pa-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
 .pa-title{font-size:80px;line-height:2.05;font-weight:800;margin:0 0 10px}
 .pa-hero h1,.pa-hero .pa-title,.pa-hero p,.pa-hero .pa-sub{color:#ffffff !important}
@@ -145,14 +140,7 @@
 .team-card .team-icon{display:flex;justify-content:center;gap:8px;padding:0 0 18px;}
 .team-card .btn{width:36px;height:36px;border-radius:50%}
 /* ===== HERO About : bande bleue + image qui dépasse vers le bas ===== */
-.pa-hero{
-  position: relative;
-  background: var(--navy, #242958);
-  color: #fff;
-  padding: 58px 0 -2px;     /* hauteur du bandeau bleu */
-  overflow: visible;        /* ne coupe pas l'image qui déborde */
-  z-index: 5;
-}
+
 
 /* Décrochage vertical + espace sous le hero pour laisser respirer l'image */
 .pa-hero--split{
@@ -164,13 +152,7 @@
 .pa-hero__inner{ position: relative; z-index: 3; }
 
 /* Couche bleue (derrière le texte, devant l’image) */
-.pa-hero::after{
-  content:"";
-  position: absolute; inset: 0;
-  background: var(--navy, #242958);
-  z-index: 2;               /* le bleu passe DEVANT l'image, le texte reste au-dessus */
-  pointer-events: none;
-}
+
 
 /* Image : à droite, dépasse vers le bas, sous la couche bleue */
 .pa-hero__media{
@@ -192,33 +174,185 @@
   .pa-hero__media{ width: min(640px, 88vw); right: 12px; }
 }
 
+/* --- Epilogue --- */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+
+/* ===== HERO About (split + image fixe arrondie) ===== */
+.pa-hero{
+  position: relative;
+  background: var(--navy, #242958);
+  color:#fff;
+  padding: var(--pa-hero-pad, 160px) 0;  /* hauteur bandeau */
+  overflow: visible;                      /* laisse dépasser l’image */
+  z-index: 5;
+}
+/* voile bleu au-dessus de l’image, sous le texte */
+.pa-hero::after{
+  content:""; position:absolute; inset:0;
+  background: var(--navy, #242958);
+  z-index: 2; pointer-events:none;
+}
+/* espace sous le hero pour loger l’image qui déborde */
+.pa-hero--split{
+  --pa-img-drop: 200px;       /* ↓ descend, ↑ remonte */
+  margin-bottom: var(--pa-img-drop);
+}
+
+/* texte (déplacement fin via variables) */
+.pa-hero__inner{ position: relative; z-index: 3; }
+.pa-hero__copy{
+  position: relative;
+  transform: translate(var(--pa-copy-x, 8px), var(--pa-copy-y, -8px));
+  will-change: transform;
+}
+
+/* typo + tailles + blanc */
+.page-about .pa-title,
+.page-about .pa-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
+}
+.page-about .pa-title{
+  font-size: clamp(44px, 6.5vw, 80px) !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  margin: 0 0 10px;
+}
+.page-about .pa-sub{
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  line-height: 1.7 !important;
+  opacity: .98 !important;
+  margin: 0;
+}
+
+/* CADRE IMAGE: taille/position figées + 4 coins arrondis */
+.pa-hero__media{
+  position: absolute;
+  right: var(--pa-img-right, 24px);
+  bottom: calc(-1 * var(--pa-img-drop, 200px));
+  width: var(--pa-img-w, 600px);     /* largeur du cadre */
+  height: var(--pa-img-h, 370px);    /* hauteur du cadre */
+  border-radius: var(--pa-img-radius, 22px);
+  overflow: hidden;                   /* masque les coins */
+  background: transparent;
+  z-index: 1;                         /* sous le voile */
+}
+/* l’image remplit le cadre (peu importe sa taille d’origine) */
+.pa-hero__media img{
+  width: 100%; height: 100%;
+  object-fit: cover; display:block; border:0;
+  box-shadow:none !important; filter:none !important; transform:none !important;
+}
+
+/* Mobile: image sous le texte avec hauteur fixe */
+@media (max-width: 992px){
+  .pa-hero--split{ --pa-img-drop: 40px; }
+  .pa-hero__media{
+    position: static; right:auto; bottom:auto;
+    width: 100%;
+    height: var(--pa-img-h-mobile, 280px);
+    margin-top: 18px;
+  }
+}
+/* --- HERO About: cadre image FIXE et plus grand --- */
+.page-about .pa-hero--split{
+  --pa-img-drop: 260px; /* descend l’image sous la bande bleue */
+}
+
+.page-about .pa-hero__media{
+  position: absolute;
+  right: var(--pa-img-right, 32px);
+  bottom: calc(-1 * var(--pa-img-drop, 260px));
+  width: var(--pa-img-w, 720px);     /* LARGEUR FIXE du cadre */
+  height: var(--pa-img-h, 460px);    /* HAUTEUR FIXE du cadre */
+  border-radius: var(--pa-img-radius, 22px);
+  overflow: hidden;
+  background: transparent;
+  z-index: 1;
+}
+
+.page-about .pa-hero__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* remplit le cadre, peu importe la photo */
+  object-position: center;     /* centre la zone visible */
+  display: block;
+  border: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Desktop XL: encore un peu plus grand si tu veux */
+@media (min-width: 1400px){
+  .page-about .pa-hero__media{
+    width: var(--pa-img-w-xl, 780px);
+    height: var(--pa-img-h-xl, 500px);
+    right: var(--pa-img-right-xl, 40px);
+  }
+}
+
+/* Mobile: cadre fixe mais plus bas et en plein flux */
+@media (max-width: 992px){
+  .page-about .pa-hero--split{ --pa-img-drop: 56px; }
+  .page-about .pa-hero__media{
+    position: static;
+    right: auto; bottom: auto;
+    width: 100%;
+    height: var(--pa-img-h-mobile, 320px); /* hauteur fixe mobile */
+    margin-top: 18px;
+  }
+}
+.page-about .pa-hero--compact{
+  --pa-img-w: 52px !important;
+  --pa-img-h: 32px !important;
+  --pa-img-drop: 20px !important;
+}
 </style>
+
+
 
 <section class="page-about">
 
 {{-- HERO (split : texte à gauche, image à droite) --}}
 @php
-  // Fallback si jamais $heroBannerImg n’a pas été passé
   $heroBannerImg = $heroBannerImg
       ?? (isset($banners) && $banners->count()
             ? asset('storage/'.ltrim($banners->first()->image,'/'))
             : asset('img/default-banner.jpg'));
 @endphp
 
-<header class="pa-hero pa-hero--split">
-  <div class="container pa-hero__inner">
-    {{-- Colonne gauche : texte --}}
-    <div class="pa-hero__copy">
-      <h1 class="pa-title">{{ $about->heading }}</h1>
-      <p class="pa-sub">{{ $about->summary }}</p>
-    </div>
+<header class="pa-hero pa-hero--split"
+        style="
+          --pa-hero-pad: 135px;
+          --pa-img-drop: 190px;     /* descente sous la bande bleue */
+          --pa-img-right: 32px;
 
-    {{-- Colonne droite : image banner --}}
+          /* ↓ rends l'image PLUS PETITE */
+          --pa-img-w: 520px;        /* largeur (avant 720px) */
+          --pa-img-h: 320px;        /* hauteur (avant 460px) */
+
+          --pa-img-radius: 22px;
+          --pa-copy-x: 8px;
+          --pa-copy-y: -8px;
+
+          /* optionnels */
+          --pa-img-w-xl: 600px;
+          --pa-img-h-xl: 400px;
+          --pa-img-h-mobile: 260px; /* mobile plus compact */
+        ">
+  <div class="container pa-hero__inner">
+    <div class="pa-hero__copy">
+      <h1 class="pa-title">{{ trim($about->heading ?? '') ?: 'À propos de nous' }}</h1>
+      <p class="pa-sub">{{ trim($about->summary ?? '') ?: 'Nous créons du confort durable grâce à des solutions sur-mesure.' }}</p>
+    </div>
     <figure class="pa-hero__media">
       <img src="{{ $heroBannerImg }}" alt="Hero banner">
     </figure>
   </div>
 </header>
+
+
 
 
   <section class="metrics">

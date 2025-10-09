@@ -6,8 +6,8 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Blog (same skin as Contact/About)
-   Scoped to this page only.
+   Aisla Nova – Blog (même skin Contact/About)
+   Styles SCOPÉS à .page-blog
    ========================================================= */
 .page-blog{
   --navy:#242958;
@@ -23,17 +23,80 @@
 }
 .page-blog *{box-sizing:border-box}
 
-/* ---------- HERO (identical pattern) ---------- */
-.pb-hero{
-  background:var(--navy); color:#fff; padding:78px 0 92px; position:relative;
+/* ---------- TYPO (Epilogue pour le hero) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+.page-blog .pb-title,
+.page-blog .pb-sub{
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color:#fff !important;
 }
-.pb-hero .pb-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
-.pb-title{font-size:56px;line-height:1.05;font-weight:800;margin:0 0 10px}
-.pb-hero h1,.pb-hero .pb-title,.pb-hero p,.pb-hero .pb-sub{color:#fff !important}
-.pb-sub{max-width:620px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
-@media (max-width:768px){.pb-title{font-size:40px}}
 
-/* breadcrumb pill */
+/* =========================================================
+   HERO Blog : bande bleue + image en cadre fixe (split)
+   ========================================================= */
+.pb-hero{
+  position: relative;
+  background: var(--navy, #242958);
+  color:#fff;
+  padding: var(--pb-hero-pad, 180px) 0;   /* ← hauteur du bandeau bleu (modifiable) */
+  overflow: visible;                      /* laisse dépasser l’image */
+  z-index: 5;
+}
+/* voile bleu au-dessus de l’image, sous le texte */
+.pb-hero::after{
+  content:""; position:absolute; inset:0;
+  background: var(--navy, #242958);
+  z-index: 2; pointer-events:none;
+}
+
+/* décrochage vertical de l'image (descente sous le bleu) */
+.pb-hero--split{
+  --pb-img-drop: 260px;        /* ← descend l’image (modifiable) */
+  margin-bottom: var(--pb-img-drop);
+}
+
+/* contenu texte au-dessus du bleu */
+.pb-hero__inner{ position: relative; z-index: 3; }
+.pb-hero__copy{
+  position: relative;
+  transform: translate(var(--pb-copy-x, 8px), var(--pb-copy-y, -8px)); /* micro-ajustements */
+  will-change: transform;
+}
+
+/* tailles de titre/sous-titre */
+.pb-title{
+  font-size: clamp(44px, 6.5vw, 80px);
+  line-height: 1.05;
+  font-weight: 900;
+  margin: 0 0 10px;
+}
+.pb-sub{
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.7;
+  opacity: .98;
+  margin: 0;
+}
+
+/* IMAGE : cadre fixe + coins arrondis + cover */
+.pb-hero__media{
+  position: absolute;
+  right: var(--pb-img-right, 24px);
+  bottom: calc(-1 * var(--pb-img-drop, 260px));
+  width: var(--pb-img-w, 620px);     /* ← largeur du cadre (modifiable) */
+  height: var(--pb-img-h, 390px);    /* ← hauteur du cadre (modifiable) */
+  border-radius: var(--pb-img-radius, 22px);
+  overflow: hidden;
+  background: transparent;
+  z-index: 1; /* sous le voile */
+}
+.pb-hero__media img{
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display:block; border:0;
+  box-shadow:none !important; filter:none !important; transform:none !important;
+}
+
+/* Breadcrumb pilule (comme Projets/About/Contact) */
 .pb-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
 .pb-bread{
   width:min(1180px, calc(100% - 48px));
@@ -44,16 +107,37 @@
 }
 .pb-bread a,.pb-bread span{color:#fff !important}
 .pb-bread .sep{color:rgba(255,255,255,.85) !important}
-.pb-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
-  background:rgba(255,255,255,.22);color:#fff !important;font-size:12px}
+.pb-bread .home-ico{
+  display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%;
+  background:rgba(255,255,255,.22); color:#fff !important; font-size:12px;
+}
 
-/* ---------- Section head ---------- */
+/* Responsive hero */
+@media (min-width: 1400px){
+  .pb-hero__media{
+    width: var(--pb-img-w-xl, 680px);
+    height: var(--pb-img-h-xl, 440px);
+    right: var(--pb-img-right-xl, 40px);
+  }
+}
+@media (max-width: 992px){
+  .pb-hero--split{ --pb-img-drop: 40px; }
+  .pb-hero__media{
+    position: static; right:auto; bottom:auto;
+    width: 100%;
+    height: var(--pb-img-h-mobile, 280px); /* hauteur fixe mobile */
+    margin-top: 18px;
+  }
+}
+
+/* =========================================================
+   Section head + grille des cartes
+   ========================================================= */
 .pb-wrap{padding:70px 0 40px}
 .pb-head{text-align:center;max-width:820px;margin:0 auto 26px}
 .pb-kicker{color:var(--sky);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 .pb-h1{color:var(--ink);font-weight:800;line-height:1.14;margin:8px 0 0}
 
-/* ---------- Blog grid ---------- */
 .blog-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
 .blog-col{grid-column:span 4}
 @media (max-width: 991.98px){.blog-col{grid-column:span 6}}
@@ -63,7 +147,7 @@
   background:var(--card); border:1px solid #eef2f6; border-radius:18px; overflow:hidden;
   box-shadow:var(--shadow); height:100%; display:flex; flex-direction:column;
 }
-.card-blog .thumb{aspect-ratio: 16/10; background:#f2f4f8; overflow:hidden}
+.card-blog .thumb{aspect-ratio:16/10; background:#f2f4f8; overflow:hidden}
 .card-blog .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .card-body{padding:18px 18px 14px}
 .card-title{font-size:1.125rem;font-weight:800;color:#0f172a;margin:0 0 8px}
@@ -72,173 +156,53 @@
 .card-footer{display:flex;align-items:center;justify-content:flex-start;padding:0 18px 18px}
 .btn-accent{
   background:var(--accent); color:#fff; border:none; font-weight:800;
-  padding:10px 16px; border-radius:14px; 
+  padding:10px 16px; border-radius:14px;
 }
 .btn-accent:hover{filter:brightness(.98)}
-/* HERO Blog : bande bleue, image dessous, pas d'effet */
-.pb-hero{
-  position: relative;
-  background: var(--navy, #242958);
-  color: #fff;
-  padding: 78px 0 92px;   /* hauteur du bandeau bleu */
-  overflow: visible;      /* IMPORTANT : ne pas couper l'image qui déborde */
-  z-index: 5;
+/* FORCE OVERRIDE : taille/position de l'image du hero */
+.page-blog header.pb-hero .pb-hero__media{
+  width: var(--pb-img-w, 620px) !important;
+  height: var(--pb-img-h, 390px) !important;
+  right: var(--pb-img-right, 24px) !important;
+  bottom: calc(-1 * var(--pb-img-drop, 260px)) !important;
 }
 
-/* Contrôle le “décrochage” de l’image sous le bleu */
-.pb-hero--split{
-  --pb-img-drop: 108px;              /* ajuste 40–100px selon ton rendu */
-  margin-bottom: var(--pb-img-drop);/* évite que la section suivante chevauche l’image */
+.page-blog header.pb-hero .pb-hero__media img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
 }
 
-/* Texte au-dessus du bleu */
-.pb-hero__inner{ position: relative; z-index: 3; }
-.pb-hero .pb-title{ margin:0 0 6px; font-weight:800; font-size: clamp(34px, 5vw, 64px); }
-.pb-hero .pb-sub{ max-width: 720px; opacity:.95; }
-
-/* Couche bleue par-dessus l'image mais sous le texte */
-.pb-hero::after{
-  content:"";
-  position:absolute; inset:0;
-  background: var(--navy, #242958);
-  z-index: 2;
-  pointer-events:none;
-}
-/* Coins arrondis pour l'image du hero (Blog) */
-.page-blog .pb-hero__media img{
-  border-radius: 18px !important;  /* ajuste 12px, 18px, 24px... */
-  box-shadow: none !important;     /* pas d’ombre */
-  filter: none !important;
-  transform: none !important;
-}
-
-/* L’image : sous la couche bleue, dépasse vers le bas, SANS effets */
-.pb-hero__media{
-  position: absolute;
-  right: clamp(16px, 3vw, 40px);
-  bottom: calc(-1 * var(--pb-img-drop));  /* la fait descendre sous la bande bleue */
-  width: min(520px, 50vw);
-  z-index: 1;                             /* sous la couche bleue */
-}
-.pb-hero__media img{
-  display:block; width:100%; height:auto;
-  border:0; border-radius:0 !important;
-  box-shadow:none !important;
-  filter:none !important;
-  transform:none !important;              /* aucun effet */
-}
-
-/* Responsive */
-@media (max-width: 992px){
-  .pb-hero--split{ --pb-img-drop: 40px; }
-  .pb-hero__media{ width: min(640px, 88vw); right: 12px; }
-}
-/* --- Epilogue --- */
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
-
-/* ===== HERO Blog (même principe split) ===== */
-.pb-hero{
-  position: relative;
-  background: var(--navy, #242958);
-  color:#fff;
-  padding: var(--pb-hero-pad, 160px) 0;  /* hauteur bande */
-  overflow: visible;                      /* on laisse dépasser l'image */
-  z-index: 5;
-}
-/* voile au-dessus de l’image, sous le texte */
-.pb-hero::after{
-  content:""; position:absolute; inset:0;
-  background: var(--navy, #242958);
-  z-index: 2; pointer-events:none;
-}
-/* espace sous le hero pour loger l’image qui déborde */
-.pb-hero--split{
-  --pb-img-drop: 200px;         /* ↓ descend, ↑ remonte */
-  margin-bottom: var(--pb-img-drop);
-}
-/* le contenu texte est au-dessus */
-.pb-hero__inner{ position: relative; z-index: 3; }
-
-/* décalage fin du texte via variables */
-.pb-hero__copy{
-  position: relative;
-  transform: translate(var(--pb-copy-x, 8px), var(--pb-copy-y, -8px));
-  will-change: transform;
-}
-
-/* typo + tailles */
-.page-blog .pb-title,
-.page-blog .pb-sub{
-  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-  color:#fff !important;
-}
-.page-blog .pb-title{
-  font-size: clamp(44px, 6.5vw, 80px) !important;
-  line-height: 1.05 !important;
-  font-weight: 900 !important;
-  margin:0 0 10px;
-}
-.page-blog .pb-sub{
-  font-size: clamp(18px, 1.8vw, 24px) !important;
-  line-height: 1.7 !important;
-  opacity:.98 !important;
-  margin:0;
-}
-
-/* cadre image: taille/position figées + 4 coins arrondis */
-.pb-hero__media{
-  position: absolute;
-  right: var(--pb-img-right, 24px);
-  bottom: calc(-1 * var(--pb-img-drop, 200px));
-  width: var(--pb-img-w, 600px);     /* largeur du cadre */
-  height: var(--pb-img-h, 370px);    /* hauteur du cadre */
-  border-radius: var(--pb-img-radius, 22px);
-  overflow: hidden;                   /* masque les coins */
-  background: transparent;
-  z-index: 1;                         /* sous le voile */
-}
-/* l’image remplit le cadre, peu importe sa taille d’origine */
-.pb-hero__media img{
-  width: 100%; height: 100%;
-  object-fit: cover; display:block; border:0;
-  box-shadow:none !important; filter:none !important; transform:none !important;
-}
-
-/* mobile: image sous le texte avec hauteur fixe */
-@media (max-width: 992px){
-  .pb-hero--split{ --pb-img-drop: 40px; }
-  .pb-hero__media{
-    position: static; right:auto; bottom:auto;
-    width: 100%;
-    height: var(--pb-img-h-mobile, 280px);
-    margin-top: 18px;
-  }
-}
 </style>
 
 <section class="page-blog">
 
 @php
-  // image du header (garde ta logique existante si tu veux)
-  $blogHeroImg = $blogHeroImg
-      ?? (isset($banners) && $banners->count()
-            ? (!empty($banners[0]->image) ? asset('storage/' . ltrim($banners[0]->image,'/')) : null)
-            : null)
-      ?? asset('img/ima.png');
+  // Image du hero (fournie depuis le contrôleur ou fallback)
+  $heroBannerImg = isset($heroBannerImg)
+      ? $heroBannerImg
+      : asset('img/placeholder-hero.png');
 @endphp
 
+{{-- HERO --}}
 <header class="pb-hero pb-hero--split"
         style="
-          /* réglages rapides : */
-          --pb-hero-pad: 180px;   /* hauteur bandeau */
-          --pb-img-drop: 220px;   /* dépassement vertical */
-          --pb-img-right: 24px;   /* + => image plus à gauche */
-          --pb-img-w: 600px;      /* largeur cadre image */
-          --pb-img-h: 370px;      /* hauteur cadre image */
-          --pb-img-radius: 22px;  /* arrondi 4 coins */
-          --pb-copy-x: 8px;       /* texte un peu à droite */
-          --pb-copy-y: -8px;      /* texte un peu plus haut */
+          --pb-hero-pad: 180px;
+          --pb-img-drop: 240px;  /* plus bas si tu veux 260–300 */
+
+          /* ↓ PLUS PETITE */
+          --pb-img-w: 600px;
+          --pb-img-h: 380px;
+
+          /* ↓ PLUS À DROITE (proche du bord) */
+          --pb-img-right: 7px;
+
+          --pb-img-radius: 22px;
+          --pb-copy-x: 8px;
+          --pb-copy-y: -8px;
         ">
+
   <div class="container pb-hero__inner">
     <div class="pb-hero__copy">
       <h1 class="pb-title">Notre blog</h1>
@@ -246,53 +210,52 @@
     </div>
 
     <figure class="pb-hero__media">
-      <img src="{{ $blogHeroImg }}" alt="Blog hero">
+      <img src="{{ $heroBannerImg }}" alt="Blog hero">
     </figure>
   </div>
 </header>
 
+{{-- LISTE DES ARTICLES --}}
+<div class="pb-wrap">
+  <div class="container">
 
-  {{-- LIST --}}
-  <div class="pb-wrap">
-    <div class="container">
-
-      <div class="pb-head">
-        <div class="pb-kicker">Notre blog</div>
-        <h2 class="pb-h1">Derniers articles et actualités</h2>
-      </div>
-
-      <div class="blog-grid">
-        @foreach($blogs as $blog)
-          <article class="blog-col">
-            <div class="card-blog">
-              @if($blog->image)
-                <div class="thumb">
-                  <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">
-                </div>
-              @endif
-
-              <div class="card-body">
-                <h3 class="card-title">{{ $blog->title }}</h3>
-                <div class="card-meta">
-                  {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('Y-m-d') : '' }}
-                </div>
-                <p class="card-excerpt">{{ Str::limit(strip_tags($blog->content), 140) }}</p>
-              </div>
-
-              <div class="card-footer">
-                <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-accent">Lire la suite</a>
-              </div>
-            </div>
-          </article>
-        @endforeach
-      </div>
-
-      <div class="mt-4 d-flex justify-content-center">
-        {{ $blogs->links() }}
-      </div>
-
+    <div class="pb-head">
+      <div class="pb-kicker">Notre blog</div>
+      <h2 class="pb-h1">Derniers articles et actualités</h2>
     </div>
+
+    <div class="blog-grid">
+      @foreach($blogs as $blog)
+        <article class="blog-col">
+          <div class="card-blog">
+            @if($blog->image)
+              <div class="thumb">
+                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">
+              </div>
+            @endif
+
+            <div class="card-body">
+              <h3 class="card-title">{{ $blog->title }}</h3>
+              <div class="card-meta">
+                {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('Y-m-d') : '' }}
+              </div>
+              <p class="card-excerpt">{{ Str::limit(strip_tags($blog->content), 140) }}</p>
+            </div>
+
+            <div class="card-footer">
+              <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-accent">Lire la suite</a>
+            </div>
+          </div>
+        </article>
+      @endforeach
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+      {{ $blogs->links() }}
+    </div>
+
   </div>
+</div>
 
 </section>
 @endsection

@@ -178,7 +178,7 @@
         style="
           /* réglages rapides : */
           --px-hero-pad: 180px;   /* hauteur bandeau */
-          --px-img-drop: 240px;   /* dépassement vertical */
+          --px-img-drop: 270px;   /* dépassement vertical */
           --px-img-right: 24px;   /* + => image plus à gauche */
           --px-img-w: 620px;      /* largeur cadre image */
           --px-img-h: 380px;      /* hauteur cadre image */
