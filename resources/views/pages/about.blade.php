@@ -308,6 +308,22 @@
   --pa-img-h: 32px !important;
   --pa-img-drop: 20px !important;
 }
+/* FORCE la taille du cadre image du hero About */
+.page-about header.pa-hero .pa-hero__media{
+  width: var(--pa-img-w, 600px) !important;
+  height: var(--pa-img-h, 370px) !important;
+  right: var(--pa-img-right, 24px) !important;
+  bottom: calc(-1 * var(--pa-img-drop, 200px)) !important;
+  border-radius: var(--pa-img-radius, 22px) !important;
+  overflow: hidden !important;
+}
+.page-about header.pa-hero .pa-hero__media img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
 </style>
 
 
@@ -324,22 +340,29 @@
 
 <header class="pa-hero pa-hero--split"
         style="
-          --pa-hero-pad: 135px;
-          --pa-img-drop: 190px;     /* descente sous la bande bleue */
-          --pa-img-right: 32px;
+          /* 1) Hauteur bandeau bleu */
+          --pa-hero-pad: 117px;
 
-          /* ↓ rends l'image PLUS PETITE */
-          --pa-img-w: 520px;        /* largeur (avant 720px) */
-          --pa-img-h: 320px;        /* hauteur (avant 460px) */
+          /* 2) Image : position verticale (plus grand = plus bas) */
+          --pa-img-drop: 170px;
 
+          /* 3) Image : décalage horizontal (plus petit = plus à droite) */
+          --pa-img-right: 16px;
+
+          /* 4) Image : taille du cadre (peu importe la photo) */
+          --pa-img-w: 600px;
+          --pa-img-h: 380px;
           --pa-img-radius: 22px;
+
+          /* 5) Texte : micro-décalage */
           --pa-copy-x: 8px;
           --pa-copy-y: -8px;
 
-          /* optionnels */
-          --pa-img-w-xl: 600px;
-          --pa-img-h-xl: 400px;
-          --pa-img-h-mobile: 260px; /* mobile plus compact */
+          /* 6) Mobile + XL (optionnel) */
+          --pa-img-h-mobile: 280px;
+          --pa-img-w-xl: 720px;
+          --pa-img-h-xl: 440px;
+          --pa-img-right-xl: 40px;
         ">
   <div class="container pa-hero__inner">
     <div class="pa-hero__copy">
@@ -452,33 +475,6 @@
   </div>
 </section>
 
-  {{-- TEAM (keeps your owl-carousel classes) --}}
-  <section class="team-wrap">
-    <div class="container">
-      <div class="team-head">
-        <h2 class="pa-h1">Our <span style="color: #7CAE2A;">Leadership</span></h2>
-      </div>
-
-      <div class="owl-carousel team-carousel">
-        @foreach($teams as $member)
-        <div class="team-card">
-          <div class="team-img">
-            <img src="{{ $member->image_url }}" alt="{{ $member->name }}">
-          </div>
-          <div class="team-name">
-            <h4>{{ $member->name }}</h4>
-            <p>{{ $member->role }}</p>
-          </div>
-          <div class="team-icon">
-            @if($member->linkedin)
-            <a class="btn btn-secondary text-white" href="{{ $member->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
-            @endif
-          </div>
-        </div>
-        @endforeach
-      </div>
-    </div>
-  </section>
 
 </section>
 @endsection

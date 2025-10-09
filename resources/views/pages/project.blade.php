@@ -103,7 +103,7 @@
 }
 /* espace sous le hero pour loger l’image qui déborde */
 .px-hero--split{
-  --px-img-drop: 220px;      /* ↓ descend, ↑ remonte */
+  --px-img-drop: 240px !important;      /* ↓ descend, ↑ remonte */
   margin-bottom: var(--px-img-drop);
 }
 /* le groupe texte est au-dessus du voile */

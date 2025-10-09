@@ -26,27 +26,33 @@
           <li class="nav-item">
             <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
           </li>
-          <li class="nav-item dropdown d-flex align-items-center gap-1 position-relative">
-            <a href="{{ route('services.index') }}"
-              class="nav-link {{ Request::is('services') || Request::is('services/*') ? 'active' : '' }}">
-              Services
-            </a>
-            @if(!empty($services) && count($services))
-              <button class="btn btn-link p-0 dropdown-toggle dropdown-toggle-split nav-caret" type="button"
-                data-bs-toggle="dropdown" data-bs-offset="0,10" {{-- pousse le menu 10px vers le bas --}}
-                aria-expanded="false" aria-label="Voir la liste des services"></button>
-              <ul class="dropdown-menu">
-                @foreach($services as $service)
-                  <li>
-                    <a href="{{ route('services.show', $service->id) }}"
-                      class="dropdown-item {{ Request::is('services/' . $service->id) ? 'active' : '' }}">
-                      {{ $service->name }}
-                    </a>
-                  </li>
-                @endforeach
-              </ul>
-            @endif
-          </li>
+          <li class="nav-item dropdown services-dd d-flex align-items-center gap-1 position-relative">
+  <a href="{{ route('services.index') }}"
+     class="nav-link {{ Request::is('services') || Request::is('services/*') ? 'active' : '' }}">
+     Services
+  </a>
+
+  @if(!empty($services) && count($services))
+    <button class="btn btn-link p-0 dropdown-toggle dropdown-toggle-split nav-caret"
+            type="button"
+            data-bs-toggle="dropdown"
+            data-bs-offset="0,10"
+            aria-expanded="false"
+            aria-label="Voir la liste des services"></button>
+
+    <ul class="dropdown-menu services-menu">
+      @foreach($services as $service)
+        <li>
+          <a href="{{ route('services.show', $service->id) }}"
+             class="dropdown-item {{ Request::is('services/' . $service->id) ? 'active' : '' }}">
+            {{ $service->name }}
+          </a>
+        </li>
+      @endforeach
+    </ul>
+  @endif
+</li>
+
           <style>
             /* Ouvre au survol (desktop) sans affecter le clic du lien */
             @media (min-width: 992px) {

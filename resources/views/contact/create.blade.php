@@ -247,6 +247,35 @@
     margin-top: 18px;
   }
 }
+/* === OVERRIDES SIMPLES (Contact) === */
+.contact-page header.cp-hero{
+  /* hauteur de la bande bleue + décalage vers le bas */
+  padding: var(--cp-hero-pad, 180px) 0 !important;
+  margin-top: var(--cp-hero-offset, 0) !important;   /* ↑ pousse TOUT le header vers le bas */
+}
+
+/* laisse la place sous le hero pour l'image qui déborde */
+.contact-page header.cp-hero.cp-hero--split{
+  margin-bottom: var(--cp-img-drop, 240px) !important;
+}
+
+/* TAILLE + POSITION de l'image du header (cadre fixe) */
+.contact-page header.cp-hero .cp-hero__media{
+  position: absolute !important;
+  right: var(--cp-img-right, 24px) !important;        /* + grand = plus à gauche ; + petit = plus à droite */
+  bottom: calc(-1 * var(--cp-img-drop, 240px)) !important;  /* ↑ augmente pour descendre l’image */
+  width: var(--cp-img-w, 520px) !important;           /* largeur image */
+  height: var(--cp-img-h, 320px) !important;          /* hauteur image */
+  border-radius: var(--cp-img-radius, 18px) !important;
+  overflow: hidden !important;
+  z-index: 4 !important;
+}
+.contact-page header.cp-hero .cp-hero__media img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
 
 </style>
 
@@ -258,20 +287,19 @@
       : asset('img/blog-post-hero.png'); // fallback
 @endphp
 <header class="cp-hero cp-hero--split"
-        style="
-          --cp-img-drop: 240px;       /* descente verticale */
-          --cp-img-right: 32px;       /* marge depuis la droite */
+  style="
+    /* bande bleue */
+    --cp-hero-offset: 24px;   /* pousse la bande bleue vers le BAS */
+    --cp-hero-pad: 190px;     /* hauteur de la bande bleue */
 
-          /* Taille FIXE du cadre image (desktop) */
-          --cp-img-w: 720px;
-          --cp-img-h: 460px;
-          --cp-img-radius: 22px;
+    /* image */
+    --cp-img-drop: 60px;     /* plus grand = image plus BAS */
+    --cp-img-right: 77px;     /* 0–10px = très à droite ; 40–120px = va vers la gauche */
+    --cp-img-w: 600px;        /* largeur (↓ pour plus petit) */
+    --cp-img-h: 380px;        /* hauteur (↓ pour plus petit) */
+    --cp-img-radius: 18px;    /* arrondi (option) */
+  ">
 
-          /* Optionnels */
-          --cp-img-w-xl: 780px;
-          --cp-img-h-xl: 500px;
-          --cp-img-h-mobile: 320px;
-        ">
   <div class="cp-hgroup container cp-hero__inner">
     <h1 class="cp-title">Contact Us</h1>
     <p class="cp-sub">

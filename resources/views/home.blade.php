@@ -142,6 +142,37 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        /* Parent en référence */
+  #blogCarousel{ position: relative; }
+
+  .bottom-controls{
+    position: absolute;
+    left: 50%;
+    bottom: 10px;                 /* ajuste la hauteur */
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .bottom-controls .bcb{
+    pointer-events: auto;
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
+    display: grid; place-items: center;
+    color: #111827;
+    transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
+  }
+  .bottom-controls .bcb:hover{ transform: translateY(-1px); }
+  .bottom-controls .bcb:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(15,23,42,.18); }
+
+  /* Option: masquer les flèches latérales si réactivées ailleurs
+  #blogCarousel .carousel-control-prev,
+  #blogCarousel .carousel-control-next{ display:none !important; } */
     </style>
     {{-- Section après le Hero --}}
     <section class="after-hero-text py-5">
@@ -482,6 +513,51 @@
             /* taille au contenu */
             /* style existant du bouton conservé */
         }
+        /* S'assure que le parent est la référence */
+#servicesCarousel{ position: relative; }
+
+/* Conteneur des icônes bas */
+.services-bottom-controls{
+  position: absolute;
+  left: 50%;
+  bottom: 10px;                 /* ajuste la hauteur */
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+  pointer-events: none;          /* laisse passer les clics en dehors des boutons */
+}
+
+/* Boutons ronds discrets */
+.services-bottom-controls .scb{
+  pointer-events: auto;          /* eux reçoivent les clics */
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
+  display: grid; place-items: center;
+  color: #111827;
+  transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
+}
+
+/* Hover / active */
+.services-bottom-controls .scb:hover{ transform: translateY(-1px); }
+.services-bottom-controls .scb:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(15,23,42,.18); }
+
+/* Option: légère transparence au repos sur desktop */
+@media (min-width: 992px){
+  .services-bottom-controls{ opacity: .98; }
+}
+
+/* Option: masquer les flèches latérales si tu ne veux que les icônes du bas */
+#servicesCarousel .carousel-control-prev,
+#servicesCarousel .carousel-control-next{
+  /* comment out si tu veux garder les flèches latérales */
+  /* display: none !important; */
+}
+
     </style>
     <!-- Projects End -->
     <!-- =============== ABOUT (comme la maquette) =============== -->
@@ -547,6 +623,27 @@
     {{-- =============== FEATURE CARDS (Navigation manuelle + cartes cliquables) =============== --}}
     <div id="servicesCarousel" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">
+            <!-- Contrôles bas centrés -->
+<div class="services-bottom-controls">
+  <button class="scb scb-prev" type="button"
+          data-bs-target="#servicesCarousel" data-bs-slide="prev"
+          aria-label="Précédent">
+    <!-- chevron left (SVG, pas de dépendance) -->
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <button class="scb scb-next" type="button"
+          data-bs-target="#servicesCarousel" data-bs-slide="next"
+          aria-label="Suivant">
+    <!-- chevron right -->
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
             @foreach($services->chunk(3) as $chunkIndex => $chunk)
                 <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
                     <div class="container py-4">
@@ -615,65 +712,109 @@
             </div>
         </div>
     </section>
-    <!-- Blog Start -->
-    <div class="container-fluid py-5 mb-5">
-        <div class="container">
-            <div class="blog-intro pb-4">
-                <h2 class="blog-intro__title">Blog</h2>
-                <p class="blog-intro__desc">
-                    Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
-                    en mettant l’accent sur la durabilité et l’autonomisation.
-                </p>
-                <a href="{{ route('blog.index') }}" class="blog-intro__cta">
-                    Tout voir <span class="blog-intro__cta-icon">→</span>
-                </a>
+<!-- Blog Start -->
+<div class="container-fluid py-5 mb-5">
+  <div class="container">
+    <div class="blog-intro pb-4">
+  <div>
+    <h2 class="blog-intro__title m-0">Blog</h2>
+    <p class="blog-intro__desc mb-0">
+      Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
+      en mettant l’accent sur la durabilité et l’autonomisation.<br>
+    </p>
+  </div>
+  <a href="{{ route('blog.index') }}" class="blog-intro__cta">
+    Tout voir <span class="blog-intro__cta-icon">→</span>
+  </a>
+</div>
+
+
+    {{-- ===== Carousel Blog ===== --}}
+    <div id="blogCarousel" class="carousel slide" data-bs-ride="false">
+      <div class="carousel-inner">
+        @php
+          $chunks = $blogs->take(9)->chunk(3); // 3 cartes par slide
+        @endphp
+
+        @foreach($chunks as $chunkIndex => $chunk)
+          <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+            <div class="container py-2">
+              <div class="row g-4 justify-content-center">
+                @foreach($chunk as $blog)
+                  <div class="col-12 col-md-6 col-lg-4 d-flex">
+                    <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
+                      <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
+                        {{-- Image --}}
+                        @if($blog->image)
+                          <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="blog-card__img">
+                        @else
+                          <div class="blog-card__img blog-card__img--placeholder"></div>
+                        @endif
+
+                        <div class="blog-card__overlay"></div>
+
+                        <div class="blog-card__content d-flex flex-column flex-grow-1">
+                          <p class="blog-card__cat text-uppercase mb-1">
+                            {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
+                          </p>
+                          <h3 class="blog-card__title">{{ $blog->title }}</h3>
+
+                          <div class="blog-card__meta mb-2">
+                            <span class="blog-card__date">
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                              {{ $blog->created_at->translatedFormat('j F Y') }}
+                            </span>
+                          </div>
+
+                          <p class="blog-card__excerpt mb-3">
+                            {{ Str::limit(strip_tags($blog->content), 120) }}
+                          </p>
+
+                          <span class="blog-card__btn mt-auto">
+                            Lire Plus <span class="blog-card__btn-icon">→</span>
+                          </span>
+                        </div>
+                      </article>
+                    </a>
+                  </div>
+                @endforeach
+              </div>
             </div>
-            <div class="row g-4 justify-content-center">
-                @forelse($blogs->take(3) as $blog)
-                    <div class="col-12 col-md-6 col-lg-4 d-flex"> {{-- <= important --}} <a
-                            href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
-                            <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
-                                {{-- Image pleine largeur avec ratio fixe --}}
-                                @if($blog->image)
-                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
-                                        class="blog-card__img">
-                                @else
-                                    <div class="blog-card__img blog-card__img--placeholder"></div>
-                                @endif
-                                {{-- Overlay (si tu l’utilises, tu peux le laisser) --}}
-                                <div class="blog-card__overlay"></div>
-                                {{-- Contenu --}}
-                                <div class="blog-card__content d-flex flex-column flex-grow-1">
-                                    <p class="blog-card__cat text-uppercase mb-1">
-                                        {{ $blog->title ?? 'GESTION D’ENVIRONNEMENT' }}
-                                    </p>
-                                    <h3 class="blog-card__title">{{ $blog->title }}</h3>
-                                    <div class="blog-card__meta mb-2">
-                                        <span class="blog-card__date">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
-                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            {{ $blog->created_at->translatedFormat('j F Y') }}
-                                        </span>
-                                    </div>
-                                    <p class="blog-card__excerpt mb-3">
-                                        {{ Str::limit(strip_tags($blog->content), 120) }}
-                                    </p>
-                                    <span class="blog-card__btn mt-auto">
-                                        Lire Plus <span class="blog-card__btn-icon">→</span>
-                                    </span>
-                                </div>
-                            </article>
-                            </a>
-                    </div>
-                @empty
-                    <p class="text-center">Aucun article pour le moment.</p>
-                @endforelse
-            </div>
-        </div>
+          </div>
+        @endforeach
+      </div>
+
+      {{-- Petites icônes bas (identiques à Services) --}}
+      <div class="bottom-controls">
+        <button class="bcb bcb-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev" aria-label="Précédent">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="bcb bcb-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next" aria-label="Suivant">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {{-- (Option) Flèches latérales par défaut Bootstrap: commente si tu ne les veux pas --}}
+      {{-- 
+      <button class="carousel-control-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+      --}}
     </div>
+  </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const btn = document.querySelector('.js-scroll-video');
@@ -693,6 +834,7 @@
             });
         });
     </script>
+    
     <!-- Blog End -->
     <div class="position-relative">
         <div class="row justify-content-center align-items-center">

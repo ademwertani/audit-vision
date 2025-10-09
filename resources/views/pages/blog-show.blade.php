@@ -177,6 +177,126 @@
   .pp-hero--split{ --pp-img-drop: 44px; }
   .pp-hero__media{ width: min(640px, 88vw); right: 12px; }
 }
+/* ====== HERO Post : piloté par variables ====== */
+.pp-hero{
+  --navy:#242958;
+  position: relative;
+  background: var(--navy);
+  color: #fff;
+  padding: var(--pp-hero-pad, 180px) 0;   /* ← hauteur bandeau via variable */
+  overflow: visible;                      /* laisse dépasser l’image */
+  z-index: 5;
+}
+.pp-hero::after{
+  content:""; position:absolute; inset:0;
+  background: var(--navy); z-index:2; pointer-events:none;
+}
+.pp-hero--split{
+  --pp-img-drop: 270px !important;                   /* valeur par défaut (sera écrasée inline) */
+  margin-bottom: var(--pp-img-drop);      /* espace pour l’image qui déborde */
+}
+.pp-hero__inner{ position: relative; z-index: 3; }
+
+/* ----- FORCE la taille/position du cadre image avec variables ----- */
+.pp-hero__media{
+  position: absolute;
+  right: var(--pp-img-right, 24px) !important;
+  bottom: calc(-1 * var(--pp-img-drop, 160px)) !important;
+  width: var(--pp-img-w, 600px) !important;
+  height: var(--pp-img-h, 380px) !important;
+  border-radius: var(--pp-img-radius, 22px) !important;
+  overflow: hidden !important;
+  background: transparent;
+  z-index: 1;
+}
+.pp-hero__media img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+
+  border: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Typo du hero (inchangée) */
+.pp-title{ margin:0 0 6px; font-weight:800; font-size: clamp(32px,5vw,56px); }
+.pp-sub{ max-width: 720px; opacity:.95; }
+
+/* Responsive presets */
+@media (min-width: 1400px){
+  .pp-hero__media{
+    width: var(--pp-img-w-xl, 720px) !important;
+    height: var(--pp-img-h-xl, 440px) !important;
+    right: var(--pp-img-right-xl, 40px) !important;
+  }
+}
+@media (max-width: 992px){
+  .pp-hero--split{ --pp-img-drop: 40px; }
+  .pp-hero__media{
+    position: static !important; right:auto !important; bottom:auto !important;
+    width: 100% !important;
+    height: var(--pp-img-h-mobile, 280px) !important; /* hauteur fixe mobile */
+    margin-top: 18px;
+  }
+}
+/* Overrides ultra-spécifiques pour le hero du post */
+#postHero .pp-hero__media{
+  position: absolute !important;
+  left: auto !important;                 /* neutralise un éventuel 'left' conflictuel */
+  right: var(--pp-img-right, 24px) !important;
+  bottom: calc(-1 * var(--pp-img-drop, 160px)) !important;
+
+  width: var(--pp-img-w, 600px) !important;
+  height: var(--pp-img-h, 380px) !important;
+
+  border-radius: var(--pp-img-radius, 22px) !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  z-index: 1 !important;
+}
+
+#postHero .pp-hero__media img{
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;            /* casse tout 'img { max-width:100% }' global */
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* XL */
+@media (min-width: 1400px){
+  #postHero .pp-hero__media{
+    width: var(--pp-img-w-xl, 720px) !important;
+    height: var(--pp-img-h-xl, 440px) !important;
+    right: var(--pp-img-right-xl, 40px) !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 992px){
+  #postHero.pp-hero--split{ --pp-img-drop: 40px !important; }
+  #postHero .pp-hero__media{
+    position: static !important;
+    right: auto !important; bottom: auto !important; left: auto !important;
+    width: 100% !important;
+    height: var(--pp-img-h-mobile, 280px) !important;
+    margin-top: 18px !important;
+  }
+}
+/* Post hero: ne toucher qu'à la taille et au placement horizontal */
+#postHero .pp-hero__media{
+  width: var(--pp-img-w, 600px) !important;   /* largeur image */
+  height: var(--pp-img-h, 380px) !important;  /* hauteur image */
+  right: var(--pp-img-right, 24px) !important;/* + grand = + à gauche, + petit = + à droite */
+  left: auto !important;                      /* évite tout conflit de "left:" */
+}
 
 </style>
 
@@ -190,13 +310,27 @@
 @endphp
 
 {{-- HERO (left-aligned) --}}
-<header class="pp-hero pp-hero--split"
+<header id="postHero" class="pp-hero pp-hero--split"
         style="
-          --pp-hero-offset: 902px;  /* ↓ Descend la bande bleue de 32px */
-          --pp-img-drop: 200px;    /* ↓ Descend l’image sous la bande bleue */
+          --pp-hero-pad: 200px;
+          --pp-img-drop: 270px;
+          --pp-img-right: 10px;
+          --pp-img-w: 600px;
+          --pp-img-h: 380px;
+          --pp-img-radius: 22px;
+          --pp-copy-x: 8px;
+          --pp-copy-y: -8px;
+          --pp-img-h-mobile: 280px;
+          --pp-img-w-xl: 720px;
+          --pp-img-h-xl: 440px;
+          --pp-img-right-xl: 40px;
+           --pp-img-w: 600px;     /* ← largeur (réduit pour rendre + petit) */
+          --pp-img-h: 360px;     /* ← hauteur */
+          --pp-img-right: -2px;  /* ← 0-10px = très à droite, 60-120px = va vers la gauche */
         ">
+
   <div class="pp-hgroup container pp-hero__inner">
-    <div class="pp-hero__copy">
+    <div class="pp-hero__copy" style="transform: translate(var(--pp-copy-x,0), var(--pp-copy-y,0));">
       <h1 class="pp-title">{{ $blog->title }}</h1>
 
       @if($publishedAt)
@@ -211,12 +345,12 @@
       @endif
     </div>
 
-    {{-- IMAGE sous la bande bleue (PAS d’effet) --}}
     <figure class="pp-hero__media">
       <img src="{{ $postHeroImg }}" alt="{{ $blog->title }}">
     </figure>
   </div>
 </header>
+
 
 
   {{-- ARTICLE --}}
