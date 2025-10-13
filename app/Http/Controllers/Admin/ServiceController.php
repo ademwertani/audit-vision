@@ -25,15 +25,18 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'summary' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
+            'summary'     => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'nullable|exists:categories,id'
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:categories,id',
+            'youtube_url' => ['nullable','url','max:255','regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
         ]);
 
+        // Tous les champs sauf le fichier
         $data = $request->except('image');
 
+        // Upload image si fournie
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('services', 'public');
         }
@@ -58,17 +61,27 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'summary' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
+            'summary'     => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'nullable|exists:categories,id'
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:categories,id',
+            'youtube_url' => ['nullable','url','max:255','regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
         ]);
 
-        $data = $request->except('image');
+        // On récupère tout sauf le fichier et la case "remove_image"
+        $data = $request->except('image', 'remove_image');
 
+        // Suppression de l'image existante si demandé
+        if ($request->boolean('remove_image')) {
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
+            $data['image'] = null;
+        }
+
+        // Upload d'une nouvelle image si fournie
         if ($request->hasFile('image')) {
-            // Delete old image if exists
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
@@ -81,10 +94,9 @@ class ServiceController extends Controller
             ->with('success', 'Service updated successfully');
     }
 
-
     public function destroy(Service $service)
     {
-        // Delete image if exists
+        // Supprimer l'image si elle existe
         if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }

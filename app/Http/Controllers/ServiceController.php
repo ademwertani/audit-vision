@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Banner;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -10,65 +11,47 @@ class ServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
-        $banner = \App\Models\Banner::latest()->first();
-    $heroBannerImg = $banner && $banner->image
-        ? asset('storage/'.ltrim($banner->image,'/'))
-        : asset('img/default-banner.jpg');
-        $services = Service::all(); // Get all services from database
-        return view('pages.service', compact('services','heroBannerImg'));
-    }
+        $banner = Banner::latest()->first();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $heroBannerImg = $banner && $banner->image
+            ? asset('storage/' . ltrim($banner->image, '/'))
+            : asset('img/default-banner.jpg');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        // Charger aussi la catégorie si tu l’affiches sur la page liste
+        $services = Service::with('category')->get();
+
+        return view('pages.service', compact('services', 'heroBannerImg'));
     }
 
     /**
      * Display the specified resource.
      */
-     public function show(Service $service)
+    public function show(Service $service)
     {
-        $banner = \App\Models\Banner::latest()->first();
-    $heroBannerImg = $banner && $banner->image
-        ? asset('storage/'.ltrim($banner->image,'/'))
-        : asset('img/default-banner.jpg');
-        return view('pages.service-show', compact('service','heroBannerImg'));
+        $banner = Banner::latest()->first();
+
+        $heroBannerImg = $banner && $banner->image
+            ? asset('storage/' . ltrim($banner->image, '/'))
+            : asset('img/default-banner.jpg');
+
+        // Si la vue a besoin de la catégorie :
+        $service->load('category');
+
+        return view('pages.service-show', compact('service', 'heroBannerImg'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    /* Les autres méthodes ne sont pas utilisées sur le front
+       (create/store/edit/update/destroy) et restent vides par défaut. */
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function create() { /* not used on front */ }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function store(Request $request) { /* not used on front */ }
+
+    public function edit(string $id) { /* not used on front */ }
+
+    public function update(Request $request, string $id) { /* not used on front */ }
+
+    public function destroy(string $id) { /* not used on front */ }
 }

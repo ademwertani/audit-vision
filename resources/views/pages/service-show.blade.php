@@ -379,11 +379,35 @@
 </script>
 @endif
 
-{{-- Grande image en bas (depuis /public/img) --}}
+{{-- Grande image en bas (avec vidéo ou image à gauche) --}}
 <div class="container-fluid px-0 sv-bottom-banner">
   <img class="banner-bg" src="{{ asset('img/Group.png') }}" alt="" loading="lazy">
 
-  <!-- Bloc texte + bouton alignés à droite -->
+  @php
+    $embed = method_exists($service,'getYoutubeEmbedAttribute') ? $service->youtube_embed : null;
+    $slotImg = !empty($service->image) ? asset('storage/' . ltrim($service->image, '/')) : null;
+  @endphp
+
+  {{-- === SLOT À GAUCHE : vidéo si dispo, sinon image du service === --}}
+  @if($embed || $slotImg)
+    <div class="sv-banner-slot-left">
+      @if($embed)
+        <div class="ratio-16x9">
+          <iframe
+            src="{{ $embed }}"
+            title="Vidéo du service"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      @else
+        <div class="ratio-16x9 sv-slot-img">
+          <img src="{{ $slotImg }}" alt="{{ $service->name }}">
+        </div>
+      @endif
+    </div>
+  @endif
+
+  <!-- Bloc texte + bouton alignés à droite (inchangé) -->
   <div class="sv-banner-right">
     <div class="sv-banner-copy">
       <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
@@ -395,6 +419,7 @@
     </a>
   </div>
 </div>
+
 
 <style>
 /* Contexte */
