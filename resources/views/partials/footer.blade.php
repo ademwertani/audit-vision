@@ -183,7 +183,7 @@
 
       <!-- Contact info -->
       <div class="col-lg-3 col-md-6">
-        <h4 class="section-title">Contact Info</h4>
+        <h4 class="section-title">Contact</h4>
         <ul class="contact-list mt-4">
           <li class="contact-item">
             <span class="icon"><i class="fas fa-phone"></i></span>

@@ -381,10 +381,111 @@
 
 {{-- Grande image en bas (depuis /public/img) --}}
 <div class="container-fluid px-0 sv-bottom-banner">
-  <img class="banner-bg" src="{{ asset('img/greenn.png') }}" alt="" loading="lazy">
-  <a href="{{ url('/contact') }}" class="sv-banner-cta" aria-label="Contactez-nous">
-    <img src="{{ asset('img/btn-cta.png') }}" alt="Contactez-nous">
-  </a>
+  <img class="banner-bg" src="{{ asset('img/Group.png') }}" alt="" loading="lazy">
+
+  <!-- Bloc texte + bouton alignés à droite -->
+  <div class="sv-banner-right">
+    <div class="sv-banner-copy">
+      <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
+      <p class="sv-banner-subb">Parlez-nous de votre projet énergétique.</p>
+    </div>
+
+    <a href="{{ url('/contact') }}" class="sv-banner-ctaa" aria-label="Contactez-nous">
+      <img src="{{ asset('img/btn-cta.png') }}" alt="Contactez-nous">
+    </a>
+  </div>
 </div>
+
+<style>
+/* Contexte */
+.sv-bottom-banner{ position: relative; overflow: hidden; }
+.sv-bottom-banner .banner-bg{
+  width: 100%; height: auto; display: block; object-fit: cover;
+}
+
+/* Wrapper à droite (texte au-dessus du bouton) */
+.sv-banner-right{
+  position: absolute;
+  right: min(40vw, 200px);     /* ajustable */
+  bottom: min(30vw, 208px);    /* position du bloc global */
+  display: flex;
+  flex-direction: column;      /* texte au-dessus du bouton */
+
+  /* === MODIF: étirer pour que le bouton ait la même largeur que le texte === */
+  align-items: stretch;
+
+  gap: 10px;
+  max-width: min(408ch, 420vw);/* évite un texte trop large */
+  z-index: 20;
+  --sv-space: 210px;           /* espace entre texte et bouton */
+  gap: var(--sv-space);
+}
+
+/* === MODIF: le texte reste aligné à droite === */
+.sv-banner-copy{
+  text-align: right;
+}
+
+/* Texte */
+.sv-banner-titlee{
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(60px, 2.2vw, 28px);
+  line-height: 1.15;
+  color: #0f172a;
+  text-align: right;
+}
+.sv-banner-subb{
+  margin: 2px 0 0 0;
+  font-size: clamp(13px, 1.3vw, 16px);
+  line-height: 1.4;
+  color: #334155;
+  text-align: right;
+}
+
+/* Bouton */
+/* === MODIF: le bouton prend la même largeur que le texte, image collée à droite === */
+.sv-banner-ctaa{
+  display: flex;
+  justify-content: flex-end;   /* pousse l'image à droite */
+  align-self: stretch;         /* même largeur que le bloc texte */
+  transform: translateY(0);
+  transition: transform .15s ease, filter .15s ease;
+}
+.sv-banner-ctaa:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+.sv-banner-ctaa img{
+  display: block;
+  height: auto;
+  max-width: clamp(140px, 18vw, 220px); /* taille responsive du bouton image */
+  transform: translateX(-270px);
+  
+}
+
+/* Mobile: centrer et remonter un peu */
+@media (max-width: 575.98px){
+  .sv-banner-right{
+    right: 50%;
+    transform: translateX(50%); /* centre horizontal */
+    bottom: 16px;
+
+    /* === MODIF: recentrer sur mobile === */
+    align-items: center;
+
+    text-align: center;
+    max-width: 88%;
+  }
+  /* === MODIF: cibler les bonnes classes === */
+  .sv-banner-titlee, .sv-banner-subb{ text-align: center; }
+
+  /* === MODIF: sur mobile, bouton centré === */
+  .sv-banner-ctaa{
+    align-self: auto;
+    justify-content: center;
+      padding-right: var(--cta-shift);
+  }
+}
+
+</style>
+
 
 @endsection
