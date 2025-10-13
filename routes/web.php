@@ -22,11 +22,14 @@ use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\Admin\StatController as AdminStatController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\CustomerController as AdminCustomerController; // <- un seul import, aliasé
-
+use App\Http\Controllers\ChatbotController;
 // Page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Pages publiques
+Route::get('/chatbot', [ChatbotController::class, 'show'])->name('chatbot.show');
+Route::post('/chatbot/send', [ChatbotController::class, 'send'])->name('chatbot.send');
+Route::post('/chatbot/reset', [ChatbotController::class, 'reset'])->name('chatbot.reset');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');

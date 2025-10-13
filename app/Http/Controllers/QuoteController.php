@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Log;  
+
+use Illuminate\Support\Facades\Log;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteSubmitted;
-// Si tu n’as pas d’alias "PDF" dans config/app.php, appelle la FQCN :
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 class QuoteController extends Controller
 {
     /**
@@ -18,7 +19,6 @@ class QuoteController extends Controller
     public function index()
     {
         $quotes = Quote::all();
-
         return view('pages.quote', compact('quotes'));
     }
 
@@ -27,7 +27,7 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        $secteurs = Quote::SECTEURS;
+        $secteurs   = Quote::SECTEURS;
         $secteurOps = Quote::SECTEUR_OPS;
 
         return view('pages.quote', compact('secteurs', 'secteurOps'));
@@ -37,70 +37,77 @@ class QuoteController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $rules = [
-        'nom_beneficiaire'    => ['required', 'string', 'max:255'],
-        'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
-        'email'               => ['nullable', 'email', 'max:255'],
-        'telephone'           => ['nullable', 'string', 'max:30'],
-        'raison_sociale'      => ['nullable', 'string', 'max:255'],
-        'adresse'             => ['nullable', 'string', 'max:255'],
-        'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
-        'operations'          => ['nullable', 'array'],
-        'operations.*'        => ['string'],
-        // on accepte aussi les questions dynamiques si présentes :
-        'qs'                  => ['nullable', 'array'],
-    ];
+    {
+        $rules = [
+            'nom_beneficiaire'    => ['required', 'string', 'max:255'],
+            'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
+            // 👉 email requis pour pouvoir envoyer au destinataire saisi
+            'email'               => ['required', 'email', 'max:255'],
+            'telephone'           => ['nullable', 'string', 'max:30'],
+            'raison_sociale'      => ['nullable', 'string', 'max:255'],
+            'adresse'             => ['nullable', 'string', 'max:255'],
+            'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
+            'operations'          => ['nullable', 'array'],
+            'operations.*'        => ['string'],
+            // on accepte aussi les questions dynamiques si présentes :
+            'qs'                  => ['nullable', 'array'],
+        ];
 
-    $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-    $validator->after(function ($v) use ($request) {
-        $secteur = $request->input('secteur');
-        $ops     = $request->input('operations', []);
+        $validator->after(function ($v) use ($request) {
+            $secteur = $request->input('secteur');
+            $ops     = $request->input('operations', []);
 
-        if ($secteur) {
-            $allowed = Quote::allowedOperationsFor($secteur);
-            if (!empty($ops)) {
-                $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
-                if ($invalid->isNotEmpty()) {
-                    $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
+            if ($secteur) {
+                $allowed = Quote::allowedOperationsFor($secteur);
+                if (!empty($ops)) {
+                    $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
+                    if ($invalid->isNotEmpty()) {
+                        $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
+                    }
                 }
             }
+        });
+
+        $validated = $validator->validate();
+
+        if (!empty($validated['operations'])) {
+            $validated['operations'] = array_values(array_unique($validated['operations']));
         }
-    });
 
-    $validated = $validator->validate();
+        // 1) Enregistre la demande
+        $quote = Quote::create($validated);
 
-    if (!empty($validated['operations'])) {
-        $validated['operations'] = array_values(array_unique($validated['operations']));
+        // 2) Génère le PDF
+        $operations = $validated['operations'] ?? [];
+        $questions  = $request->input('qs', []);
+
+        $pdf = PDF::loadView('pdf.quote', [
+            'quote'      => $quote,
+            'operations' => $operations,
+            'questions'  => $questions,
+        ]);
+
+        // 3) Envoie les emails
+        try {
+            // 👉 envoi AU CLIENT (adresse saisie dans le champ email)
+            Mail::to($validated['email'])
+                ->send(new QuoteSubmitted($quote, $pdf->output()));
+
+            // (Optionnel) copie interne à l’équipe
+            if ($admin = config('mail.from.address')) {
+                Mail::to($admin)->send(new QuoteSubmitted($quote, $pdf->output()));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Échec envoi email devis: '.$e->getMessage());
+            // on continue quand même : la création côté BDD est faite
+        }
+
+        return redirect()
+            ->route('pages.quote')
+            ->with('success', 'Quote ajoutée avec succès ! Le PDF a été envoyé à votre adresse email.');
     }
-
-    // 1) On enregistre
-    $quote = Quote::create($validated);
-
-    // 2) On génère le PDF à partir d’une vue dédiée
-    $operations = $validated['operations'] ?? [];
-    $questions  = $request->input('qs', []);
-
-    $pdf = PDF::loadView('pdf.quote', [
-        'quote'      => $quote,
-        'operations' => $operations,
-        'questions'  => $questions,
-    ]);
-
-    // 3) On envoie l’email avec le PDF en pièce jointe
-    try {
-        Mail::to('adem.wartani100@gmail.com')
-            ->send(new QuoteSubmitted($quote, $pdf->output()));
-    } catch (\Throwable $e) {
-        // En cas d’échec email, on log mais on ne casse pas le flux utilisateur
-        Log::error('Échec envoi email devis: '.$e->getMessage());
-        // (Optionnel) notifier en session:
-        // return back()->with('success', 'Quote ajoutée avec succès, mais l\'email n\'a pas pu être envoyé.')->withInput();
-    }
-
-    return redirect()->route('pages.quote')->with('success', 'Quote ajoutée avec succès ! Le PDF a été envoyé par email.');
-}
 
     /**
      * Display the specified resource.
@@ -128,7 +135,8 @@ class QuoteController extends Controller
         $rules = [
             'nom_beneficiaire'    => ['required', 'string', 'max:255'],
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
-            'email'               => ['nullable', 'email', 'max:255'],
+            // tu peux garder requis ici aussi si la MAJ doit préserver l’envoi
+            'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
@@ -164,7 +172,9 @@ class QuoteController extends Controller
         $quote = Quote::findOrFail($id);
         $quote->update($validated);
 
-        return redirect()->route('pages.quote')->with('success', 'Quote mise à jour avec succès !');
+        return redirect()
+            ->route('pages.quote')
+            ->with('success', 'Quote mise à jour avec succès !');
     }
 
     /**
@@ -175,6 +185,8 @@ class QuoteController extends Controller
         $quote = Quote::findOrFail($id);
         $quote->delete();
 
-        return redirect()->route('pages.quote')->with('success', 'Quote supprimée avec succès !');
+        return redirect()
+            ->route('pages.quote')
+            ->with('success', 'Quote supprimée avec succès !');
     }
 }
