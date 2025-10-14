@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteSubmitted;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -41,36 +40,18 @@ class QuoteController extends Controller
         $rules = [
             'nom_beneficiaire'    => ['required', 'string', 'max:255'],
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
-            // 👉 email requis pour pouvoir envoyer au destinataire saisi
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
-            'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
+            // Accepte tous les secteurs (plus de Rule::in)
+            'secteur'             => ['required', 'string', 'max:255'],
             'operations'          => ['nullable', 'array'],
             'operations.*'        => ['string'],
-            // on accepte aussi les questions dynamiques si présentes :
             'qs'                  => ['nullable', 'array'],
         ];
 
-        $validator = Validator::make($request->all(), $rules);
-
-        $validator->after(function ($v) use ($request) {
-            $secteur = $request->input('secteur');
-            $ops     = $request->input('operations', []);
-
-            if ($secteur) {
-                $allowed = Quote::allowedOperationsFor($secteur);
-                if (!empty($ops)) {
-                    $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
-                    if ($invalid->isNotEmpty()) {
-                        $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
-                    }
-                }
-            }
-        });
-
-        $validated = $validator->validate();
+        $validated = Validator::make($request->all(), $rules)->validate();
 
         if (!empty($validated['operations'])) {
             $validated['operations'] = array_values(array_unique($validated['operations']));
@@ -91,17 +72,16 @@ class QuoteController extends Controller
 
         // 3) Envoie les emails
         try {
-            // 👉 envoi AU CLIENT (adresse saisie dans le champ email)
+            // envoi au client (adresse saisie)
             Mail::to($validated['email'])
                 ->send(new QuoteSubmitted($quote, $pdf->output()));
 
-            // (Optionnel) copie interne à l’équipe
+            // copie interne (optionnelle)
             if ($admin = config('mail.from.address')) {
                 Mail::to($admin)->send(new QuoteSubmitted($quote, $pdf->output()));
             }
         } catch (\Throwable $e) {
             Log::error('Échec envoi email devis: '.$e->getMessage());
-            // on continue quand même : la création côté BDD est faite
         }
 
         return redirect()
@@ -135,35 +115,17 @@ class QuoteController extends Controller
         $rules = [
             'nom_beneficiaire'    => ['required', 'string', 'max:255'],
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
-            // tu peux garder requis ici aussi si la MAJ doit préserver l’envoi
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
-            'secteur'             => ['required', Rule::in(Quote::SECTEURS)],
+            // idem: accepte n'importe quel secteur
+            'secteur'             => ['required', 'string', 'max:255'],
             'operations'          => ['nullable', 'array'],
             'operations.*'        => ['string'],
         ];
 
-        $validator = Validator::make($request->all(), $rules);
-
-        $validator->after(function ($v) use ($request) {
-            $secteur = $request->input('secteur');
-            $ops     = $request->input('operations', []);
-
-            if ($secteur) {
-                $allowed = Quote::allowedOperationsFor($secteur);
-
-                if (!empty($ops)) {
-                    $invalid = collect($ops)->reject(fn($op) => in_array($op, $allowed, true));
-                    if ($invalid->isNotEmpty()) {
-                        $v->errors()->add('operations', 'Une ou plusieurs opérations ne sont pas autorisées pour le secteur choisi.');
-                    }
-                }
-            }
-        });
-
-        $validated = $validator->validate();
+        $validated = Validator::make($request->all(), $rules)->validate();
 
         if (!empty($validated['operations'])) {
             $validated['operations'] = array_values(array_unique($validated['operations']));

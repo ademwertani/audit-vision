@@ -49,7 +49,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-mail</label>
                                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                       value="{{ old('email') }}">
+                                       value="{{ old('email') }}" required>
                                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
@@ -240,7 +240,6 @@
 
                     <small class="text-muted d-block mt-2">
                       Choisissez <strong>Chambre froide</strong> ou <strong>Climatisation de confort</strong>, répondez ensuite.  
-                      Le formulaire passera si la réponse est <strong>Oui</strong> sur la branche sélectionnée.
                     </small>
                   </div>
                 `;
@@ -343,87 +342,13 @@
             if (!qsWrapper.children.length) qsContainer.style.display = 'none';
         }
 
-        // Validation bloquante à la soumission
+        // ===============================
+        // Validation à la soumission (NEW)
+        // → on NE bloque plus rien : toutes les réponses sont acceptées.
+        // ===============================
         form.addEventListener('submit', function (e) {
-            const checkedOps = Array.from(document.querySelectorAll('.op-check:checked')).map(i => i.value);
-
-            for (const op of checkedOps) {
-                const blk = qsWrapper.querySelector(`[data-op="${op}"]`);
-                if (!blk) {
-                    e.preventDefault();
-                    alert(`Veuillez répondre au questionnaire pour l'opération « ${op} ».`);
-                    blk?.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-
-                // util
-                const getVal = (name) => {
-                    const inp = blk.querySelector(`input[name="${name}"]:checked`);
-                    return inp ? inp.value : null;
-                };
-
-                if (op === 'destratificateur') {
-                    const h5  = getVal(`qs[${op}][hauteur_ge_5]`);
-                    const zst = getVal(`qs[${op}][zone_stockage]`);
-                    if (h5 !== 'oui') {
-                        e.preventDefault();
-                        alert("Pour 'Destratificateur' : la hauteur sous plafond doit être ≥ 5 m (répondez Oui).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                    if (zst !== 'non') {
-                        e.preventDefault();
-                        alert("Pour 'Destratificateur' : ce ne doit pas être une zone de stockage (répondez Non).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                }
-
-                if (op === 'deshumidificateur') {
-                    const sm = getVal(`qs[${op}][secteur_marche]`);
-                    const s200 = getVal(`qs[${op}][surface_ge_200]`);
-                    if (sm !== 'oui') {
-                        e.preventDefault();
-                        alert("Pour 'Déshumidificateur' : vous devez être dans le secteur agriculture maraîchère  (répondez Oui).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                    if (s200 !== 'oui') {
-                        e.preventDefault();
-                        alert("Pour 'Déshumidificateur' : la surface doit être ≥ 200 m² (répondez Oui).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                }
-
-                if (op === 'variateur') {
-                    const type = getVal(`qs[${op}][type_froid]`);
-                    if (!type) {
-                        e.preventDefault();
-                        alert("Pour 'Variateur' : veuillez choisir 'Chambre froide' ou 'Climatique'.");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-
-                    if (type === 'chambre') {
-                        const ch = getVal(`qs[${op}][chambre_ge_10]`);
-                        if (ch !== 'oui') {
-                            e.preventDefault();
-                            alert("Pour 'Variateur' (Chambre froide) : la puissance doit être ≥ 10 kW (répondez Oui).");
-                            blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                            return;
-                        }
-                    } else if (type === 'climatique') {
-                        const cl = getVal(`qs[${op}][clim_ge_880]`);
-                        if (cl !== 'oui') {
-                            e.preventDefault();
-                            alert("Pour 'Variateur' (Climatique) : la climatisation doit être ≥ 80 kW (répondez Oui).");
-                            blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                            return;
-                        }
-                    }
-                }
-            }
+            // pas de preventDefault, pas d'alert — on laisse envoyer.
+            // Les `required` natifs s'appliquent toujours (une option doit être cochée).
         });
 
         // Init

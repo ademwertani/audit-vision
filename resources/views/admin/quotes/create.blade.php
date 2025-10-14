@@ -124,7 +124,7 @@
                 @error('operations')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
             </div>
 
-            {{-- Questionnaires par opération --}}
+            {{-- Questionnaires par opération (non bloquants) --}}
             <div class="mb-3" id="operation-questions" style="display:none;">
                 <label class="form-label">Questions supplémentaires</label>
                 <div id="questions-wrapper" class="d-flex flex-column gap-3"></div>
@@ -163,7 +163,7 @@
         return v === val ? 'checked' : '';
     }
 
-    // Génère un bloc questionnaire selon l'opération
+    // Génère un bloc questionnaire (AUCUN required ici => non bloquant)
     function questionBlock(op) {
         const slug = op;
         const nice = op.charAt(0).toUpperCase() + op.slice(1);
@@ -176,11 +176,11 @@
                 <div class="mb-2">
                   <label class="form-label d-block">La hauteur sous plafond est-elle ≥ 5 m ?</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][hauteur_ge_5]" id="${slug}_h_oui" value="oui" ${checkedAttr(slug,'hauteur_ge_5','oui')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][hauteur_ge_5]" id="${slug}_h_oui" value="oui" ${checkedAttr(slug,'hauteur_ge_5','oui')}>
                     <label class="form-check-label" for="${slug}_h_oui">Oui</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][hauteur_ge_5]" id="${slug}_h_non" value="non" ${checkedAttr(slug,'hauteur_ge_5','non')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][hauteur_ge_5]" id="${slug}_h_non" value="non" ${checkedAttr(slug,'hauteur_ge_5','non')}>
                     <label class="form-check-label" for="${slug}_h_non">Non</label>
                   </div>
                 </div>
@@ -188,11 +188,11 @@
                 <div class="mb-0">
                   <label class="form-label d-block">Est-ce une zone de stockage ?</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][zone_stockage]" id="${slug}_zs_oui" value="oui" ${checkedAttr(slug,'zone_stockage','oui')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][zone_stockage]" id="${slug}_zs_oui" value="oui" ${checkedAttr(slug,'zone_stockage','oui')}>
                     <label class="form-check-label" for="${slug}_zs_oui">Oui</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][zone_stockage]" id="${slug}_zs_non" value="non" ${checkedAttr(slug,'zone_stockage','non')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][zone_stockage]" id="${slug}_zs_non" value="non" ${checkedAttr(slug,'zone_stockage','non')}>
                     <label class="form-check-label" for="${slug}_zs_non">Non</label>
                   </div>
                 </div>
@@ -208,11 +208,11 @@
                 <div class="mb-2">
                   <label class="form-label d-block">Êtes-vous dans le secteur marché ?</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][secteur_marche]" id="${slug}_sm_oui" value="oui" ${checkedAttr(slug,'secteur_marche','oui')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][secteur_marche]" id="${slug}_sm_oui" value="oui" ${checkedAttr(slug,'secteur_marche','oui')}>
                     <label class="form-check-label" for="${slug}_sm_oui">Oui</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][secteur_marche]" id="${slug}_sm_non" value="non" ${checkedAttr(slug,'secteur_marche','non')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][secteur_marche]" id="${slug}_sm_non" value="non" ${checkedAttr(slug,'secteur_marche','non')}>
                     <label class="form-check-label" for="${slug}_sm_non">Non</label>
                   </div>
                 </div>
@@ -220,11 +220,11 @@
                 <div class="mb-0">
                   <label class="form-label d-block">La surface est-elle ≥ 200 m² ?</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][surface_ge_200]" id="${slug}_s_oui" value="oui" ${checkedAttr(slug,'surface_ge_200','oui')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][surface_ge_200]" id="${slug}_s_oui" value="oui" ${checkedAttr(slug,'surface_ge_200','oui')}>
                     <label class="form-check-label" for="${slug}_s_oui">Oui</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][surface_ge_200]" id="${slug}_s_non" value="non" ${checkedAttr(slug,'surface_ge_200','non')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][surface_ge_200]" id="${slug}_s_non" value="non" ${checkedAttr(slug,'surface_ge_200','non')}>
                     <label class="form-check-label" for="${slug}_s_non">Non</label>
                   </div>
                 </div>
@@ -240,11 +240,11 @@
                 <div class="mb-2">
                   <label class="form-label d-block">Avez-vous un groupe froid qui alimente une chambre froide ou une installation climatisation de confort ?</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][type_froid]" id="${slug}_type_chambre" value="chambre" ${checkedAttr(slug,'type_froid','chambre')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][type_froid]" id="${slug}_type_chambre" value="chambre" ${checkedAttr(slug,'type_froid','chambre')}>
                     <label class="form-check-label" for="${slug}_type_chambre">Chambre froide</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="qs[${slug}][type_froid]" id="${slug}_type_clim" value="climatique" ${checkedAttr(slug,'type_froid','climatique')} required>
+                    <input class="form-check-input" type="radio" name="qs[${slug}][type_froid]" id="${slug}_type_clim" value="climatique" ${checkedAttr(slug,'type_froid','climatique')}>
                     <label class="form-check-label" for="${slug}_type_clim">Climatique</label>
                   </div>
                 </div>
@@ -274,7 +274,7 @@
                 </div>
 
                 <small class="text-muted d-block mt-2">
-                  Le formulaire passe si la réponse est <strong>Oui</strong> sur la branche sélectionnée (Chambre ≥ 10 kW ou Climatique ≥ 80 kW).
+                  (Ces questions sont facultatives côté enregistrement.)
                 </small>
               </div>
             `;
@@ -283,7 +283,7 @@
         return '';
     }
 
-    // Variateur: afficher sous-questions selon le type choisi
+    // Variateur: afficher sous-questions selon le type choisi (sans required)
     function attachVariateurHandlers(blockEl) {
         const typeRadios = blockEl.querySelectorAll('input[name="qs[variateur][type_froid]"]');
         const subChambre = blockEl.querySelector('[data-sub="chambre"]');
@@ -294,15 +294,11 @@
 
             subChambre.style.display = 'none';
             subClim.style.display = 'none';
-            subChambre.querySelectorAll('.sub-req').forEach(i => i.required = false);
-            subClim.querySelectorAll('.sub-req').forEach(i => i.required = false);
 
             if (type === 'chambre') {
                 subChambre.style.display = 'block';
-                subChambre.querySelectorAll('.sub-req').forEach(i => i.required = true);
             } else if (type === 'climatique') {
                 subClim.style.display = 'block';
-                subClim.querySelectorAll('.sub-req').forEach(i => i.required = true);
             }
         }
 
@@ -371,86 +367,8 @@
         if (!qsWrapper.children.length) qsContainer.style.display = 'none';
     }
 
-    // Validation front stricte avant envoi
-    document.getElementById('admin-quote-create').addEventListener('submit', function (e) {
-        const checkedOps = Array.from(document.querySelectorAll('.op-check:checked')).map(i => i.value);
-
-        for (const op of checkedOps) {
-            const blk = qsWrapper.querySelector(`[data-op="${op}"]`);
-            if (!blk) {
-                e.preventDefault();
-                alert(`Veuillez répondre au questionnaire pour l'opération « ${op} ».`);
-                blk?.scrollIntoView({behavior: 'smooth', block: 'center'});
-                return;
-            }
-
-            const getVal = (name) => {
-                const inp = blk.querySelector(`input[name="${name}"]:checked`);
-                return inp ? inp.value : null;
-            };
-
-            if (op === 'destratificateur') {
-                const h5  = getVal(`qs[${op}][hauteur_ge_5]`);
-                const zst = getVal(`qs[${op}][zone_stockage]`);
-                if (h5 !== 'oui') {
-                    e.preventDefault();
-                    alert("Pour 'Destratificateur' : hauteur sous plafond ≥ 5 m requise (Oui).");
-                    blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-                if (zst !== 'non') {
-                    e.preventDefault();
-                    alert("Pour 'Destratificateur' : la zone ne doit pas être une zone de stockage (Non).");
-                    blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-            }
-
-            if (op === 'deshumidificateur') {
-                const sm   = getVal(`qs[${op}][secteur_marche]`);
-                const s200 = getVal(`qs[${op}][surface_ge_200]`);
-                if (sm !== 'oui') {
-                    e.preventDefault();
-                    alert("Pour 'Déshumidificateur' : secteur marché requis (Oui).");
-                    blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-                if (s200 !== 'oui') {
-                    e.preventDefault();
-                    alert("Pour 'Déshumidificateur' : surface ≥ 200 m² requise (Oui).");
-                    blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-            }
-
-            if (op === 'variateur') {
-                const type = getVal(`qs[${op}][type_froid]`);
-                if (!type) {
-                    e.preventDefault();
-                    alert("Pour 'Variateur' : choisissez 'Chambre froide' ou 'Climatique'.");
-                    blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    return;
-                }
-                if (type === 'chambre') {
-                    const ch = getVal(`qs[${op}][chambre_ge_10]`);
-                    if (ch !== 'oui') {
-                        e.preventDefault();
-                        alert("Pour 'Variateur' (Chambre froide) : puissance ≥ 10 kW requise (Oui).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                } else if (type === 'climatique') {
-                    const cl = getVal(`qs[${op}][clim_ge_80]`);
-                    if (cl !== 'oui') {
-                        e.preventDefault();
-                        alert("Pour 'Variateur' (Climatique) : climatisation ≥ 80 kW requise (Oui).");
-                        blk.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        return;
-                    }
-                }
-            }
-        }
-    });
+    // ► IMPORTANT : aucune validation bloquante côté front.
+    // (On supprime l'écouteur 'submit' qui faisait des alertes et des e.preventDefault)
 
     // Init
     secteurSelect.addEventListener('change', updateOperations);

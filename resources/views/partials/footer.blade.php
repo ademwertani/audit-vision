@@ -148,6 +148,16 @@
   .footer-aisla .footer-links a:first-child {
     margin-left: 0;
   }
+.footer-aisla .social-icons .btn-square {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  transition: transform .15s ease, opacity .15s ease;
+}
+.footer-aisla .social-icons .btn-square:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
 
   /* ===== Newsletter pill EXACTLY like screenshot ===== */
 </style>
@@ -164,6 +174,25 @@
         <p class="about-text">
           At Mentary, we believe in the <br> power of renewable energy to <br>create a more sustainable <br>future.
         </p>
+        <div class="social-icons mt-3">
+          <a href="https://www.facebook.com/tonpage" class="btn-square rounded-circle me-2" aria-label="Facebook"
+            target="_blank" rel="noopener">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/tonprofil" class="btn-square rounded-circle me-2" aria-label="Instagram"
+            target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.youtube.com/@ta-chaine" class="btn-square rounded-circle me-2" aria-label="YouTube"
+            target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ta-page" class="btn-square rounded-circle" aria-label="LinkedIn"
+            target="_blank" rel="noopener">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+
       </div>
 
 
