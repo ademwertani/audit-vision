@@ -19,6 +19,7 @@
             </form>
         </div>
     </div>
+
     <div class="card-body">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
@@ -30,10 +31,13 @@
                     </div>
                 @endif
             </div>
+
             <div class="col-md-8">
                 <h3>{{ $project->name }}</h3>
                 <h5 class="text-muted">{{ $project->summary }}</h5>
-                <div class="mb-3">
+
+                {{-- Category --}}
+                <div class="mb-2">
                     <strong>Category:</strong>
                     @if($project->category)
                         <span class="badge bg-primary">{{ $project->category->name }}</span>
@@ -41,8 +45,29 @@
                         <span class="text-muted">Uncategorized</span>
                     @endif
                 </div>
+
+                {{-- Secteur (AJOUT) --}}
+                <div class="mb-3">
+                    <strong>Secteur:</strong>
+                    @if($project->secteur)
+                        @php
+                            $map = [
+                                'Tertiaire' => 'bg-info',
+                                'Industrie' => 'bg-warning text-dark',
+                                'Agricole'  => 'bg-success',
+                            ];
+                            $cls = $map[$project->secteur] ?? 'bg-secondary';
+                        @endphp
+                        <span class="badge {{ $cls }}">{{ $project->secteur }}</span>
+                    @else
+                        <span class="text-muted">—</span>
+                    @endif
+                </div>
+
                 <hr>
+
                 <p>{{ $project->description }}</p>
+
                 <div class="mt-4">
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary">
                         <i class="fas fa-arrow-left me-2"></i>Back to List

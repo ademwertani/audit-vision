@@ -11,6 +11,8 @@
         <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
+            {{-- Name --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Name *</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" 
@@ -19,6 +21,8 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- Summary --}}
             <div class="mb-3">
                 <label for="summary" class="form-label">Summary *</label>
                 <input type="text" class="form-control @error('summary') is-invalid @enderror" 
@@ -27,6 +31,8 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- Description --}}
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" 
@@ -35,6 +41,26 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- Secteur (NOUVEAU) --}}
+            <div class="mb-3">
+                <label for="secteur" class="form-label">Secteur</label>
+                <select class="form-select @error('secteur') is-invalid @enderror" 
+                        id="secteur" name="secteur">
+                    <option value="">-- Select Secteur --</option>
+                    @foreach(\App\Models\Project::SECTEURS as $sec)
+                        <option value="{{ $sec }}" {{ old('secteur', $project->secteur) === $sec ? 'selected' : '' }}>
+                            {{ $sec }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('secteur')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <small class="text-muted">Choisissez parmi : Tertiaire, Industrie, Agricole.</small>
+            </div>
+
+            {{-- Category --}}
             <div class="mb-3">
                 <label for="category_id" class="form-label">Category</label>
                 <select class="form-select @error('category_id') is-invalid @enderror" 
@@ -51,6 +77,8 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- Image --}}
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 @if($project->image)
@@ -69,6 +97,8 @@
                 @enderror
                 <small class="text-muted">Leave blank to keep current image</small>
             </div>
+
+            {{-- Actions --}}
             <div class="d-flex justify-content-between">
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left me-2"></i>Cancel

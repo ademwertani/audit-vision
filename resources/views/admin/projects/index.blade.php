@@ -13,13 +13,14 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="table-responsive">
-            <table id='table' class="table table-hover">
+            <table id="table" class="table table-hover">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Secteur</th> {{-- ⇦ AJOUT --}}
                         <th>Summary</th>
                         <th>Actions</th>
                     </tr>
@@ -30,7 +31,7 @@
                             <td>{{ $project->id }}</td>
                             <td>
                                 @if($project->image)
-                                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
                                 @else
                                     <span class="text-muted">No image</span>
                                 @endif
@@ -41,6 +42,21 @@
                                     <span class="badge bg-primary">{{ $project->category->name }}</span>
                                 @else
                                     <span class="text-muted">Uncategorized</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($project->secteur)
+                                    @php
+                                        $map = [
+                                            'Tertiaire' => 'bg-info',
+                                            'Industrie' => 'bg-warning text-dark',
+                                            'Agricole'  => 'bg-success',
+                                        ];
+                                        $cls = $map[$project->secteur] ?? 'bg-secondary';
+                                    @endphp
+                                    <span class="badge {{ $cls }}">{{ $project->secteur }}</span>
+                                @else
+                                    <span class="text-muted">—</span>
                                 @endif
                             </td>
                             <td>{{ $project->summary }}</td>
@@ -66,6 +82,13 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- Pagination si nécessaire --}}
+        @if(method_exists($projects, 'links'))
+            <div class="mt-3">
+                {{ $projects->links() }}
+            </div>
+        @endif
     </div>
 </div>
 @endsection

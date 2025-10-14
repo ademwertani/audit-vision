@@ -9,12 +9,15 @@ class Project extends Model
 {
     use HasFactory;
 
+    public const SECTEURS = ['Tertiaire', 'Industrie', 'Agricole'];
+
     protected $fillable = [
         'name',
         'summary',
         'description',
         'image',
-        'category_id'
+        'category_id',
+        'secteur', // 👈 ajouté
     ];
 
     public function category()

@@ -33,6 +33,8 @@ Route::post('/chatbot/reset', [ChatbotController::class, 'reset'])->name('chatbo
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/projects/sectors', [ProjectController::class, 'sectors'])
+    ->name('projects.sectors');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/team', fn() => view('pages.team'))->name('team');
