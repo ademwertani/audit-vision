@@ -19,7 +19,7 @@
 
 <style>
 /* =========================================================
-   Aisla Nova – Blog Post (same skin as Contact/About/Blog)
+   France Isolation – Blog Post (same skin as Contact/About/Blog)
    Styles scoped to this page only.
    ========================================================= */
 .page-post{

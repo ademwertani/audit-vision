@@ -5,7 +5,7 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Page shell (same skin as Contact page)
+   France Isolation – Page shell (same skin as Contact page)
    Scoped so it won't leak elsewhere.
    ========================================================= */
 .page-about{
@@ -370,7 +370,7 @@
       <p class="pa-sub">{{ trim($about->summary ?? '') ?: 'Nous créons du confort durable grâce à des solutions sur-mesure.' }}</p>
     </div>
     <figure class="pa-hero__media">
-      <img src="{{ $heroBannerImg }}" alt="Hero banner">
+      <img src="{{ $heroBannerImg }}" alt="Bannière principale">
     </figure>
   </div>
 </header>
@@ -413,17 +413,17 @@
       {{-- Colonne gauche : titre + grande image --}}
       <div class="col-lg-7">
         <div class="values-head">
-          <div class="kicker">ABOUT</div>
+          <div class="kicker">À PROPOS</div>
           <h2 class="values-title">
-            We stand by<br>
-            <span class="accent">Our Values</span>
+            Nous défendons<br>
+            <span class="accent">Nos valeurs</span>
           </h2>
         </div>
 
         {{-- Image grande avec coins arrondis --}}
         <img
           src="{{ asset('img/ta.png') }}"
-          alt="Solar values"
+          alt="Nos valeurs"
           class="values-img">
       </div>
 
@@ -436,7 +436,7 @@
               <i class="fa-solid fa-seedling"></i>
             </div>
             <div>
-              <h4 class="value-title">Integrity</h4>
+              <h4 class="value-title">Intégrité</h4>
               <p class="value-text">
                 Nous opérons avec transparence et responsabilité à chaque étape.
               </p>
@@ -449,7 +449,7 @@
               <i class="fa-solid fa-dollar-sign"></i>
             </div>
             <div>
-              <h4 class="value-title">Quality</h4>
+              <h4 class="value-title">Qualité</h4>
               <p class="value-text">
                 Des matériaux certifiés et une exécution maîtrisée pour durer.
               </p>
@@ -462,7 +462,7 @@
               <i class="fa-solid fa-bolt"></i>
             </div>
             <div>
-              <h4 class="value-title">Commitment</h4>
+              <h4 class="value-title">Engagement</h4>
               <p class="value-text">
                 Engagement total envers la performance, la sécurité et l’environnement.
               </p>

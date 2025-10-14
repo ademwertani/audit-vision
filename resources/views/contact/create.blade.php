@@ -5,7 +5,7 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Contact (matches the provided mock)
+   France Isolation – Contact (matches the provided mock)
    All styles are scoped to avoid leaking to other pages.
    ========================================================= */
 .contact-page{

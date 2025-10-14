@@ -17,7 +17,7 @@
 
 <style>
 /* =========================================================
-   Aisla Nova – Service Details (same skin as Contact/About/Blog/Projects)
+   France Isolation – Service Details (same skin as Contact/About/Blog/Projects)
    Styles scoped to this page only.
    ========================================================= */
 .page-service{

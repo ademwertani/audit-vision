@@ -6,7 +6,7 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Blog (même skin Contact/About)
+   France Isolation – Blog (même skin Contact/About)
    Styles SCOPÉS à .page-blog
    ========================================================= */
 .page-blog{
@@ -206,7 +206,7 @@
   <div class="container pb-hero__inner">
     <div class="pb-hero__copy">
       <h1 class="pb-title">Notre blog</h1>
-      <p class="pb-sub">Derniers articles, conseils et actualités autour de la relation client et de l’efficacité opérationnelle.</p>
+      <p class="pb-sub">Derniers articles, conseils et actualités <br>autour de la relation client et de l’efficacité opérationnelle.</p>
     </div>
 
     <figure class="pb-hero__media">

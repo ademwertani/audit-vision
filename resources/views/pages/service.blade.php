@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Our Services')
+@section('title', 'Nos Services')
 
 @section('content')
 @php
@@ -12,7 +12,7 @@
 
 <style>
 /* =========================================================
-   Aisla Nova – Services Index (unified skin)
+   France Isolation – Services Index (unified skin)
    (Header identique au design "Service details")
    ========================================================= */
 .page-services{
@@ -177,35 +177,36 @@
     <div class="container sx-hero__inner">
       <div class="sx-hero__copy">
         <h1 class="sx-title">Services</h1>
-        <p class="sx-sub">Services built specifically for your business.</p>
+        <p class="sx-sub">Des services conçus spécifiquement pour votre entreprise.</p>
       </div>
 
       {{-- Image de header (taille/position figées + coins arrondis) --}}
       <figure class="sx-hero__media">
-        <img src="{{ $heroBannerImg }}" alt="Services hero">
+        <img src="{{ $heroBannerImg }}" alt="Image de couverture des services">
       </figure>
     </div>
   </header>
-  {{-- LIST --}}
+
+  {{-- LISTE --}}
   <div class="sx-wrap">
     <div class="container">
 
       <div class="sx-head">
-        <div class="sx-kicker">Our services</div>
-        <h2 class="sx-h1">Services Built Specifically For Your Business</h2>
-        <p class="sx-tag mt-1">Browse and click any card to see full details.</p>
+        <div class="sx-kicker">Nos services</div>
+        <h2 class="sx-h1">Des services conçus spécifiquement pour votre entreprise</h2>
+        <p class="sx-tag mt-1">Parcourez et cliquez sur une carte pour voir les détails complets.</p>
       </div>
 
-      {{-- Toolbar --}}
+      {{-- Barre d’outils --}}
       <div class="sx-toolbar">
         <div class="sx-search">
           <i class="fa fa-search"></i>
-          <input id="sxQuery" type="search" placeholder="Search by name or keywords…" aria-label="Search services">
+          <input id="sxQuery" type="search" placeholder="Rechercher par nom ou mots-clés…" aria-label="Rechercher des services">
         </div>
         <div id="sxCount" aria-live="polite"></div>
       </div>
 
-      {{-- Grid --}}
+      {{-- Grille --}}
       @if($services->count())
         <div class="svc-grid">
           @foreach($services as $service)
@@ -228,7 +229,7 @@
                 @else
                   <div class="thumb d-flex align-items-center justify-content-center">
                     <i class="fa fa-image fa-2x text-muted"></i>
-                    <span class="visually-hidden">Service image placeholder</span>
+                    <span class="visually-hidden">Image du service indisponible</span>
                   </div>
                 @endif
 
@@ -238,7 +239,7 @@
                     <p class="sum">{{ $service->summary }}</p>
                   @endif
                   <a href="{{ route('services.show', $service->id) }}" class="btn btn-accent">
-                    Read More
+                    Voir plus
                   </a>
                 </div>
               </div>
@@ -254,8 +255,8 @@
         @endif
       @else
         <div class="svc-empty">
-          <p class="h5 mb-1">No services available yet.</p>
-          <p class="mb-0">Please check back soon or <a href="{{ url('/contact') }}">contact us</a> for a custom request.</p>
+          <p class="h5 mb-1">Aucun service disponible pour le moment.</p>
+          <p class="mb-0">Revenez bientôt ou <a href="{{ url('/contact') }}">contactez-nous</a> pour une demande sur mesure.</p>
         </div>
       @endif
 
@@ -274,7 +275,9 @@
 
     const updateCount = (n) => {
       const total = items.length;
-      count.textContent = n===total ? '' : `${n} result${n!==1?'s':''} of ${total}`;
+      count.textContent = n===total || !q.value.trim()
+        ? ''
+        : `${n} résultat${n!==1?'s':''} sur ${total}`;
     };
 
     const filter = () => {

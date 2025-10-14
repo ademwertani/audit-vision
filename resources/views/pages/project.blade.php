@@ -5,7 +5,7 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Projects Index (same skin as Contact/About/Blog)
+   France Isolation – Projects Index (same skin as Contact/About/Blog)
    Scoped to this page only.
    ========================================================= */
 .page-projects{

@@ -5,7 +5,7 @@
 @section('content')
 <style>
 /* =========================================================
-   Aisla Nova – Team (unified skin like Contact/About/Blog)
+   France Isolation – Team (unified skin like Contact/About/Blog)
    Scoped to this page only.
    ========================================================= */
 .page-team{
