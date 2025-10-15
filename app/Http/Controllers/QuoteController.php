@@ -72,11 +72,11 @@ class QuoteController extends Controller
 
         // 3) Envoie les emails
         try {
-            // envoi au client (adresse saisie)
-            Mail::to($validated['email'])
+            // 🔔 ENVOI À L’ADRESSE COMMERCIALE (au lieu de l'adresse saisie)
+            Mail::to('commercial@franceexpertisolation.fr')
                 ->send(new QuoteSubmitted($quote, $pdf->output()));
 
-            // copie interne (optionnelle)
+            // Copie interne (optionnelle) via config si tu veux la conserver
             if ($admin = config('mail.from.address')) {
                 Mail::to($admin)->send(new QuoteSubmitted($quote, $pdf->output()));
             }
@@ -86,7 +86,7 @@ class QuoteController extends Controller
 
         return redirect()
             ->route('pages.quote')
-            ->with('success', 'Quote ajoutée avec succès ! Le PDF a été envoyé à votre adresse email.');
+            ->with('success', 'Quote ajoutée avec succès ! Le PDF a été envoyé.');
     }
 
     /**

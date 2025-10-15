@@ -29,7 +29,7 @@
                     <div class="card-body p-4">
                         <h3 class="mb-4">Remplissez vos informations</h3>
 
-                        <form id="quote-form" action="{{ route('pages.quote') }}" method="POST">
+                        <form id="quote-form" action="{{ route('pages.quote') }}" method="POST" novalidate>
                             @csrf
 
                             <div class="mb-3">
@@ -62,9 +62,23 @@
 
                             <div class="mb-3">
                                 <label for="raison_sociale" class="form-label">Raison sociale</label>
-                                <input type="text" name="raison_sociale" class="form-control @error('raison_sociale') is-invalid @enderror"
-                                       value="{{ old('raison_sociale') }}">
-                                @error('raison_sociale')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                <input
+                                    type="text"
+                                    id="raison_sociale"
+                                    name="raison_sociale"
+                                    class="form-control @error('raison_sociale') is-invalid @enderror"
+                                    value="{{ old('raison_sociale') }}"
+                                    minlength="2"
+                                    maxlength="255"
+                                    pattern="^[\p{L}\p{N}\s&'’\-,./()]+$"
+                                    title="2 à 255 caractères. Lettres, chiffres, espaces et & ' - , . / ( ) autorisés."
+                                    inputmode="text"
+                                    autocomplete="organization"
+                                >
+                                <div class="invalid-feedback" id="rs-help">
+                                    2 à 255 caractères. Lettres, chiffres, espaces et & ' ’ - , . / ( ) autorisés.
+                                </div>
+                                @error('raison_sociale')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                             </div>
 
                             <div class="mb-3">
@@ -124,6 +138,38 @@
         const qsContainer     = document.getElementById('operation-questions');
         const qsWrapper       = document.getElementById('questions-wrapper');
         const form            = document.getElementById('quote-form');
+
+        // === Contrôle de saisie "Raison sociale" (client) ===
+        const rsInput = document.getElementById('raison_sociale');
+        const RS_MIN = 2, RS_MAX = 255;
+        // Lettres (toutes langues), chiffres, espaces, et & ' ’ - , . / ( )
+        const RS_REGEX = /^[\p{L}\p{N}\s&'’\-,./()]+$/u;
+
+        function validateRS(showFeedback = true){
+            if(!rsInput) return true;
+            const val = (rsInput.value || '').trim();
+            let ok = true;
+            let msg = '';
+
+            if(val.length && val.length < RS_MIN){
+                ok = false; msg = `Minimum ${RS_MIN} caractères.`;
+            } else if(val.length > RS_MAX){
+                ok = false; msg = `Maximum ${RS_MAX} caractères.`;
+            } else if(val.length && !RS_REGEX.test(val)){
+                ok = false; msg = `Caractères autorisés : lettres, chiffres, espaces et & ' ’ - , . / ( ).`;
+            }
+
+            if(showFeedback){
+                rsInput.classList.toggle('is-invalid', !ok);
+                rsInput.classList.toggle('is-valid', ok && val.length > 0);
+                const help = document.getElementById('rs-help');
+                if(help && msg) help.textContent = msg;
+                else if(help) help.textContent = `2 à 255 caractères. Lettres, chiffres, espaces et & ' ’ - , . / ( ) autorisés.`;
+            }
+            return ok;
+        }
+        rsInput?.addEventListener('input', () => validateRS(true));
+        rsInput?.addEventListener('blur',  () => validateRS(true));
 
         // Génère le HTML de questionnaire pour une opération
         function questionBlock(op) {
@@ -343,16 +389,23 @@
         }
 
         // ===============================
-        // Validation à la soumission (NEW)
-        // → on NE bloque plus rien : toutes les réponses sont acceptées.
+        // Validation à la soumission
         // ===============================
         form.addEventListener('submit', function (e) {
-            // pas de preventDefault, pas d'alert — on laisse envoyer.
-            // Les `required` natifs s'appliquent toujours (une option doit être cochée).
+            // Valide "Raison sociale" si renseignée
+            const okRS = validateRS(true);
+            if(!okRS){
+                e.preventDefault();
+                rsInput?.focus();
+                return false;
+            }
+            // Les `required` natifs restent actifs pour le reste du formulaire.
         });
 
         // Init
         secteurSelect.addEventListener('change', updateOperations);
         if (oldSecteur) updateOperations();
+        // Validation initiale discrète
+        validateRS(false);
     </script>
 @endsection
