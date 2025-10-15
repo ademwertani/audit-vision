@@ -80,7 +80,26 @@
                     @error('raison_sociale')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                {{-- 🔹 SIRET (14 chiffres) --}}
                 <div class="col-md-6">
+                    <label for="siret" class="form-label">SIRET</label>
+                    <input
+                        type="text"
+                        class="form-control @error('siret') is-invalid @enderror"
+                        id="siret"
+                        name="siret"
+                        value="{{ old('siret', $quote->siret) }}"
+                        inputmode="numeric"
+                        maxlength="14"
+                        pattern="^\d{14}$"
+                        placeholder="Ex. 73282932000074"
+                        autocomplete="off"
+                    >
+                    <div class="form-text">14 chiffres (sans espaces ni séparateurs).</div>
+                    @error('siret')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-md-12">
                     <label for="adresse" class="form-label">Adresse</label>
                     <input type="text"
                            class="form-control @error('adresse') is-invalid @enderror"

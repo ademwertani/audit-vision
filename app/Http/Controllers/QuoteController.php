@@ -42,6 +42,7 @@ class QuoteController extends Controller
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
+            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'], // ← contrôle SIRET (14 chiffres)
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
             // Accepte tous les secteurs (plus de Rule::in)
@@ -72,11 +73,11 @@ class QuoteController extends Controller
 
         // 3) Envoie les emails
         try {
-            // 🔔 ENVOI À L’ADRESSE COMMERCIALE (au lieu de l'adresse saisie)
+            // Envoi vers l’adresse commerciale
             Mail::to('commercial@franceexpertisolation.fr')
                 ->send(new QuoteSubmitted($quote, $pdf->output()));
 
-            // Copie interne (optionnelle) via config si tu veux la conserver
+            // Copie interne (optionnelle)
             if ($admin = config('mail.from.address')) {
                 Mail::to($admin)->send(new QuoteSubmitted($quote, $pdf->output()));
             }
@@ -117,6 +118,7 @@ class QuoteController extends Controller
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
+            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'], // ← contrôle SIRET (14 chiffres)
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
             // idem: accepte n'importe quel secteur

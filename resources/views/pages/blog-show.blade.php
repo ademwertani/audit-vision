@@ -297,7 +297,18 @@
   right: var(--pp-img-right, 24px) !important;/* + grand = + à gauche, + petit = + à droite */
   left: auto !important;                      /* évite tout conflit de "left:" */
 }
-
+/* Décaler le texte du hero un peu à gauche (desktop uniquement) */
+@media (min-width: 992px){
+  /* supprime le padding gauche du container dans le hero */
+  #postHero .pp-hgroup.container{
+    padding-left: 0 !important;
+  }
+  /* (GARDÉ) règle originale, mais on va l'écraser inline juste en dessous */
+  #postHero .pp-hero__copy{
+    position: relative;
+    left: -32px !important;
+  }
+}
 </style>
 
 <section class="page-post">
@@ -318,31 +329,19 @@
           --pp-img-w: 600px;
           --pp-img-h: 380px;
           --pp-img-radius: 22px;
-          --pp-copy-x: 8px;
+          --pp-copy-x: -24px;   /* ← juste ceci : texte un peu plus à gauche */
           --pp-copy-y: -8px;
           --pp-img-h-mobile: 280px;
           --pp-img-w-xl: 720px;
           --pp-img-h-xl: 440px;
           --pp-img-right-xl: 40px;
-           --pp-img-w: 600px;     /* ← largeur (réduit pour rendre + petit) */
+          --pp-img-w: 600px;     /* ← largeur */
           --pp-img-h: 360px;     /* ← hauteur */
-          --pp-img-right: -2px;  /* ← 0-10px = très à droite, 60-120px = va vers la gauche */
+          --pp-img-right: -151px;  /* ← placement horizontal de l'image */
         ">
-
   <div class="pp-hgroup container pp-hero__inner">
     <div class="pp-hero__copy" style="transform: translate(var(--pp-copy-x,0), var(--pp-copy-y,0));">
       <h1 class="pp-title">{{ $blog->title }}</h1>
-
-      @if($publishedAt)
-        <p class="pp-sub">
-          Publié le
-          <time datetime="{{ $publishedAt->toDateString() }}">{{ $publishedAt->isoFormat('DD/MM/YYYY') }}</time>
-          • {{ $readingMinutes }} min de lecture
-          @isset($blog->author) • Par <strong>{{ e($blog->author) }}</strong> @endisset
-        </p>
-      @else
-        <p class="pp-sub text-warning">Brouillon • {{ $readingMinutes }} min de lecture</p>
-      @endif
     </div>
 
     <figure class="pp-hero__media">
@@ -350,7 +349,6 @@
     </figure>
   </div>
 </header>
-
 
 
   {{-- ARTICLE --}}
@@ -391,7 +389,6 @@
 
             <div class="divider"></div>
 
-            {{-- Contenu (sécurisé). Si vous stockez du HTML validé, remplacez par: {!! $blog->content !!} --}}
             <div class="prose">
               {!! nl2br(e($blog->content)) !!}
             </div>
@@ -423,7 +420,7 @@
           </div>
         </div>
 
-        {{-- Navigation entre articles (facultatif : $prev / $next depuis le contrôleur) --}}
+        {{-- Navigation entre articles --}}
         @if(!empty($prev) || !empty($next))
           <div class="row g-3 mt-4 nav-article">
             <div class="col-md-6">

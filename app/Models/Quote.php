@@ -45,6 +45,7 @@ class Quote extends Model
         'prenom_beneficiaire',
         'email',
         'telephone',
+        'siret',            // ← AJOUT
         'raison_sociale',
         'adresse',
         'secteur',

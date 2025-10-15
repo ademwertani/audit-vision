@@ -260,6 +260,24 @@
   font-size: clamp(18px, 1.8vw, 26px) !important; /* ← pareil : 18px (mobile), 26px (desktop) */
   line-height: 1.7 !important;
 }
+/* === Service hero: léger downsize du titre & sous-titre === */
+.page-service .sv-title{
+  font-size: clamp(24px, 4.8vw, 32px) !important;  /* avant: jusqu'à 80/58px */
+  line-height: 1.06 !important;
+  font-weight: 900 !important;
+}
+.page-service .sv-sub{
+  font-size: clamp(16px, 1.5vw, 22px) !important;  /* avant: jusqu'à 24/26px */
+  line-height: 1.7 !important;
+  opacity: .98 !important;
+}
+
+/* Assure que les variables de décalage s'appliquent (prend la main) */
+.page-service .sv-hero__copy{
+  position: relative;
+  transform: translate(var(--sv-copy-x, 0), var(--sv-copy-y, 0)) !important;
+  will-change: transform;
+}
 
 
 </style>
@@ -275,12 +293,16 @@
 {{-- HERO --}}
 <header class="sv-hero sv-hero--split"
         style="
-          /* ⇩⇩ Tu ajustes ici selon la page ⇩⇩ */
           --sv-img-drop: 280px;
-          --sv-img-right: 24px;
+          --sv-img-right: -24px;
           --sv-img-w: 660px;
           --sv-hero-pad: 190px;
+
+          /* ↓↓ nouveau : décalage fin du texte */
+          --sv-copy-x: -80px;  /* un peu vers la gauche (mets -20/-24 si tu veux plus) */
+          --sv-copy-y: -6px;   /* un poil vers le haut */
         ">
+
   <div class="container sv-hero__inner">
     <div class="sv-hero__copy">
       <h1 class="sv-title">{{ $service->name }}</h1>

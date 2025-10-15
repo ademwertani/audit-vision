@@ -25,11 +25,26 @@
                             <th>Opérations</th>
                             <th>Adresse</th>
                             <th>Raison sociale</th>
+                            <th>SIRET</th>
                             <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($quotes as $quote)
+                            @php
+                                // Format SIRET "123 456 789 01234"
+                                $siretDigits = preg_replace('/\D/', '', (string)($quote->siret ?? ''));
+                                if (preg_match('/^(\d{3})(\d{3})(\d{3})(\d{5})$/', $siretDigits, $m)) {
+                                    $siretFmt = "{$m[1]} {$m[2]} {$m[3]} {$m[4]}";
+                                } else {
+                                    $siretFmt = $siretDigits !== '' ? $siretDigits : '—';
+                                }
+
+                                // Robustesse : si cast JSON actif -> array ; sinon tenter json_decode
+                                $ops = is_array($quote->operations)
+                                    ? $quote->operations
+                                    : (json_decode($quote->operations, true) ?: []);
+                            @endphp
                             <tr>
                                 <td>{{ $quote->id }}</td>
                                 <td>{{ $quote->nom_beneficiaire ?? '—' }}</td>
@@ -44,12 +59,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @php
-                                        // Robustesse : si cast JSON actif -> array ; sinon tenter json_decode
-                                        $ops = is_array($quote->operations)
-                                            ? $quote->operations
-                                            : (json_decode($quote->operations, true) ?: []);
-                                    @endphp
                                     @if(!empty($ops))
                                         @foreach($ops as $op)
                                             <span class="badge bg-secondary text-capitalize me-1">{{ $op }}</span>
@@ -60,6 +69,7 @@
                                 </td>
                                 <td>{{ $quote->adresse ?? '—' }}</td>
                                 <td>{{ $quote->raison_sociale ?? '—' }}</td>
+                                <td>{{ $siretFmt }}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('admin.quotes.show', $quote) }}" class="btn btn-sm btn-info" title="Voir">
@@ -82,7 +92,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10" class="text-center text-muted">
+                                <td colspan="11" class="text-center text-muted">
                                     Aucune demande de devis pour le moment.
                                 </td>
                             </tr>

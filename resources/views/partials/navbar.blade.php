@@ -54,30 +54,44 @@
 </li>
 
           <style>
-            /* Ouvre au survol (desktop) sans affecter le clic du lien */
-            @media (min-width: 992px) {
-              .navbar .dropdown:hover>.dropdown-menu {
-                display: block;
-              }
-            }
-            /* Positionne le menu SOUS "Services", pas à la place */
-            .header-aisla .navbar .dropdown .dropdown-menu {
-              position: absolute !important;
-              top: calc(100% + 6px) !important;
-              /* juste sous la ligne de "Services" */
-              left: 0 !important;
-              right: auto !important;
-              transform: none !important;
-              /* neutralise les translate de Popper si présents */
-              margin: 0 !important;
-              z-index: 1050;
-              /* au-dessus du header */
-            }
-            /* Petite flèche compacte */
-            .nav-caret {
-              line-height: 1;
-            }
-          </style>
+  /* Ouvre au survol (desktop) */
+  @media (min-width: 992px) {
+    .header-aisla .services-dd:hover > .dropdown-menu,
+    .header-aisla .services-dd .dropdown-menu:hover{
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  /* Place le menu immédiatement sous "Services" (plus de trou) */
+  .header-aisla .navbar .dropdown .dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;          /* ← au lieu de calc(100% + 6px) */
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    z-index: 1050;
+  }
+
+  /* Petite flèche (inchangé) */
+  .nav-caret { line-height: 1; }
+
+  /* Pont invisible : comble 10px entre le lien et le menu pour éviter le flicker */
+  .header-aisla .services-dd {
+    position: relative; /* déjà présent via "position-relative", on le renforce */
+  }
+  .header-aisla .services-dd::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 10px;      /* zone tampon sous le lien */
+  }
+</style>
+
           <li class="nav-item">
             <a href="{{ route('projects.index') }}"
               class="nav-link {{ Request::is('projects*') ? 'active' : '' }}">Projects</a>

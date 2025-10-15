@@ -3,6 +3,21 @@
 @section('title', 'View Quote')
 
 @section('content')
+@php
+    // Mise en forme SIRET : "123 456 789 01234"
+    $siretDigits = preg_replace('/\D/', '', (string)($quote->siret ?? ''));
+    if (preg_match('/^(\d{3})(\d{3})(\d{3})(\d{5})$/', $siretDigits, $m)) {
+        $siretFmt = "{$m[1]} {$m[2]} {$m[3]} {$m[4]}";
+    } else {
+        $siretFmt = $siretDigits !== '' ? $siretDigits : '—';
+    }
+
+    // Sécurise l'accès aux opérations (array/json)
+    $ops = is_array($quote->operations)
+        ? $quote->operations
+        : (json_decode($quote->operations, true) ?: []);
+@endphp
+
 <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Quote #{{ $quote->id }}</h4>
@@ -41,6 +56,10 @@
                         {{ $quote->raison_sociale ?? '—' }}
                     </li>
                     <li class="list-group-item">
+                        <strong>SIRET :</strong>
+                        {{ $siretFmt }}
+                    </li>
+                    <li class="list-group-item">
                         <strong>Adresse :</strong>
                         {{ $quote->adresse ?? '—' }}
                     </li>
@@ -54,11 +73,6 @@
                     </li>
                     <li class="list-group-item">
                         <strong>Opérations :</strong>
-                        @php
-                            $ops = is_array($quote->operations)
-                                ? $quote->operations
-                                : (json_decode($quote->operations, true) ?: []);
-                        @endphp
                         @if(!empty($ops))
                             @foreach($ops as $op)
                                 <span class="badge bg-secondary text-capitalize ms-1">{{ $op }}</span>
