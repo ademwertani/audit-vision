@@ -171,13 +171,12 @@
   #blogCarousel .carousel-control-prev,
   #blogCarousel .carousel-control-next{ display:none !important; } */
     </style>
-
     {{-- Section après le Hero --}}
     <section class="after-hero-text py-5">
         <div class="container">
             <h2 class="big-title">
-                <div class="text-green text-start">Pionniers des</div>
-                <div class="text-darkblue text-center">solutions d’énergie solaire</div>
+                <div class="text-green text-start">Votre confort</div>
+                <div class="text-darkblue text-center">notre expertise</div>
             </h2>
         </div>
     </section>

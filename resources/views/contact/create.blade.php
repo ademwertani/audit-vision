@@ -388,7 +388,7 @@
             <div class="cp-ico"><i class="fa fa-envelope"></i></div>
             <div>
               <h5>Email Address:</h5>
-              <a href="mailto:commercial@eco-call.fr">commercial@eco-call.fr</a>
+              <a href="mailto:commercial@franceexpertisolation.fr">commercial@franceexpertisolation.fr</a>
             </div>
           </div>
         </aside>

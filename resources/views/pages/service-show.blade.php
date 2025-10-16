@@ -279,6 +279,30 @@
   will-change: transform;
 }
 
+.sv-banner-copy{
+  transform: translateY(6px);     /* Descend légèrement tout le bloc texte */
+}
+
+/* Sous-texte : un peu plus à gauche + lisible sur image */
+.sv-banner-subb{
+  color:#fff !important;
+  opacity: .95;
+  transform: translateX(-14px);   /* décale légèrement à gauche */
+  max-width: 40ch;                /* colonne lisible */
+}
+
+/* ===== OVERRIDES (à coller tout en bas) ===== */
+
+/* 2e texte : en noir + un peu décalé à droite */
+.sv-bottom-banner .sv-banner-subb{
+  color: #192646 !important;   /* noir, écrase l'ancien !important blanc */
+  transform: translateX(13px); /* + grand = plus à droite (ex: 16px, 20px) */
+}
+
+/* Bouton : un peu plus à droite (réduire l’offset gauche) */
+.sv-bottom-banner .sv-banner-ctaa img{
+  transform: translateX(-150px); /* avant: -270px. Approche-toi encore: -180px, -160px… */
+}
 
 </style>
 
@@ -429,17 +453,22 @@
     </div>
   @endif
 
-  <!-- Bloc texte + bouton alignés à droite (inchangé) -->
-  <div class="sv-banner-right">
-    <div class="sv-banner-copy">
-      <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
-      <p class="sv-banner-subb">Parlez-nous de votre projet énergétique.</p>
-    </div>
-
-    <a href="{{ url('/contact') }}" class="sv-banner-ctaa" aria-label="Contactez-nous">
-      <img src="{{ asset('img/btn-cta.png') }}" alt="Contactez-nous">
-    </a>
+<!-- Bloc texte + bouton alignés à droite (inchangé) -->
+<div class="sv-banner-right">
+  <div class="sv-banner-copy">
+    <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
+    <p class="sv-banner-subb">
+      Dites-nous en plus sur votre projet d’isolation et vos objectifs :
+      confort thermique, économies d’énergie, conformité ou rénovation globale.
+      Nos experts vous orientent vers la solution la plus pertinente.
+    </p>
   </div>
+
+  <a href="{{ url('/contact') }}" class="sv-banner-ctaa" aria-label="Contactez-nous">
+    <img src="{{ asset('img/cont.png') }}" alt="Contactez-nous">
+  </a>
+</div>
+
 </div>
 
 
@@ -471,6 +500,7 @@
 /* === MODIF: le texte reste aligné à droite === */
 .sv-banner-copy{
   text-align: right;
+  transform: translateY(122px) !important; 
 }
 
 /* Texte */
@@ -479,7 +509,7 @@
   font-weight: 800;
   font-size: clamp(60px, 2.2vw, 28px);
   line-height: 1.15;
-  color: #0f172a;
+  color: #ffffff;
   text-align: right;
 }
 .sv-banner-subb{
