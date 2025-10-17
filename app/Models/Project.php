@@ -12,16 +12,14 @@ class Project extends Model
     public const SECTEURS = ['Tertiaire', 'Industrie', 'Agricole'];
 
     protected $fillable = [
-        'name',
-        'summary',
-        'description',
-        'image',
-        'category_id',
-        'secteur', // 👈 ajouté
+        'name', 'summary', 'description', 'image',
+        'service_id',        // ⬅️ replace category_id
+        'secteur',
     ];
 
-    public function category()
+    // ⬇️ Replace category() with service()
+    public function service()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Service::class);
     }
 }

@@ -42,7 +42,7 @@
                 @enderror
             </div>
 
-            {{-- Secteur (NOUVEAU) --}}
+            {{-- Secteur --}}
             <div class="mb-3">
                 <label for="secteur" class="form-label">Secteur</label>
                 <select class="form-select @error('secteur') is-invalid @enderror" 
@@ -60,20 +60,20 @@
                 <small class="text-muted">Choisissez parmi : Tertiaire, Industrie, Agricole.</small>
             </div>
 
-            {{-- Category --}}
+            {{-- Service (remplace Category) --}}
             <div class="mb-3">
-                <label for="category_id" class="form-label">Category</label>
-                <select class="form-select @error('category_id') is-invalid @enderror" 
-                        id="category_id" name="category_id">
-                    <option value="">-- Select Category --</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" 
-                            {{ old('category_id', $project->category_id) == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
+                <label for="service_id" class="form-label">Service *</label>
+                <select class="form-select @error('service_id') is-invalid @enderror" 
+                        id="service_id" name="service_id" required>
+                    <option value="">-- Select Service --</option>
+                    @foreach($services as $service)
+                        <option value="{{ $service->id }}" 
+                            {{ old('service_id', $project->service_id) == $service->id ? 'selected' : '' }}>
+                            {{ $service->name }}
                         </option>
                     @endforeach
                 </select>
-                @error('category_id')
+                @error('service_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

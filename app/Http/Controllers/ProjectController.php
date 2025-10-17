@@ -50,18 +50,18 @@ class ProjectController extends Controller
             ? asset('storage/' . ltrim($banner->image, '/'))
             : asset('img/default-banner.jpg');
 
-        // Filtre par secteur et (optionnel) pagination
-        $projects = Project::where('secteur', $currentSecteur)
+        // Filtre par secteur + eager load du service (évite N+1)
+        $projects = Project::with('service')
+            ->where('secteur', $currentSecteur)
             ->latest()
             ->paginate(12);
 
-        // Ta vue existante d’index : resources/views/pages/project.blade.php
-        // On lui passe $currentSecteur pour pouvoir l’afficher en titre si tu veux
+        // Vue index: resources/views/pages/project.blade.php
         return view('pages.project', compact('projects', 'heroBannerImg', 'currentSecteur'));
     }
 
     /**
-     * Show projet (inchangé).
+     * Show projet.
      */
     public function show(Project $project)
     {
@@ -69,6 +69,9 @@ class ProjectController extends Controller
         $heroBannerImg = $banner && $banner->image
             ? asset('storage/' . ltrim($banner->image, '/'))
             : asset('img/default-banner.jpg');
+
+        // Charger la relation service pour l’affichage
+        $project->load('service');
 
         return view('pages.project-show', compact('project', 'heroBannerImg'));
     }

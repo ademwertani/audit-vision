@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Category;
+use App\Models\Service; // ⬅️ remplace Category par Service
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -13,16 +13,17 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('category')->latest()->paginate(10);
+        // ⬅️ eager-load service au lieu de category
+        $projects = Project::with('service')->latest()->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
     public function create()
     {
-        $categories = Category::all();
-        // On passera la constante des secteurs à la vue si besoin d'afficher le <select>
+        // ⬅️ charger la liste des services pour le <select>
+        $services = Service::orderBy('name')->get();
         $secteurs = Project::SECTEURS;
-        return view('admin.projects.create', compact('categories', 'secteurs'));
+        return view('admin.projects.create', compact('services', 'secteurs'));
     }
 
     public function store(Request $request)
@@ -32,11 +33,12 @@ class ProjectController extends Controller
             'summary'     => ['required','string','max:255'],
             'description' => ['nullable','string'],
             'image'       => ['nullable','image','mimes:jpeg,png,jpg,gif','max:2048'],
-            'category_id' => ['nullable','exists:categories,id'],
-            'secteur'     => ['nullable', Rule::in(Project::SECTEURS)], // 👈 nouveau
+            // ⬅️ remplace category_id par service_id
+            'service_id'  => ['required','exists:services,id'],
+            'secteur'     => ['nullable', Rule::in(Project::SECTEURS)],
         ]);
 
-        // contient déjà 'secteur' (on exclut seulement l'image)
+        // contient déjà service_id et secteur; on exclut seulement l'image
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
@@ -51,14 +53,16 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        // Facultatif : s’assurer que la relation est disponible
+        $project->load('service');
         return view('admin.projects.show', compact('project'));
     }
 
     public function edit(Project $project)
     {
-        $categories = Category::all();
-        $secteurs   = Project::SECTEURS; // pour le <select> dans la vue
-        return view('admin.projects.edit', compact('project', 'categories', 'secteurs'));
+        $services = Service::orderBy('name')->get();
+        $secteurs = Project::SECTEURS;
+        return view('admin.projects.edit', compact('project', 'services', 'secteurs'));
     }
 
     public function update(Request $request, Project $project)
@@ -68,8 +72,8 @@ class ProjectController extends Controller
             'summary'     => ['required','string','max:255'],
             'description' => ['nullable','string'],
             'image'       => ['nullable','image','mimes:jpeg,png,jpg,gif','max:2048'],
-            'category_id' => ['nullable','exists:categories,id'],
-            'secteur'     => ['nullable', Rule::in(Project::SECTEURS)], // 👈 nouveau
+            'service_id'  => ['required','exists:services,id'], // ⬅️
+            'secteur'     => ['nullable', Rule::in(Project::SECTEURS)],
         ]);
 
         $data = $request->except('image');

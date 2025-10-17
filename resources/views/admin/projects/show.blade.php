@@ -36,17 +36,17 @@
                 <h3>{{ $project->name }}</h3>
                 <h5 class="text-muted">{{ $project->summary }}</h5>
 
-                {{-- Category --}}
+                {{-- Service (remplace Category) --}}
                 <div class="mb-2">
-                    <strong>Category:</strong>
-                    @if($project->category)
-                        <span class="badge bg-primary">{{ $project->category->name }}</span>
+                    <strong>Service:</strong>
+                    @if($project->service)
+                        <span class="badge bg-primary">{{ $project->service->name }}</span>
                     @else
-                        <span class="text-muted">Uncategorized</span>
+                        <span class="text-muted">No service</span>
                     @endif
                 </div>
 
-                {{-- Secteur (AJOUT) --}}
+                {{-- Secteur --}}
                 <div class="mb-3">
                     <strong>Secteur:</strong>
                     @if($project->secteur)
@@ -67,6 +67,19 @@
                 <hr>
 
                 <p>{{ $project->description }}</p>
+
+                {{-- Vidéo YouTube du service (si définie) --}}
+                @if(optional($project->service)->youtube_embed)
+                    <div class="ratio ratio-16x9 my-3">
+                        <iframe
+                            src="{{ $project->service->youtube_embed }}"
+                            title="Service video"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                @endif
 
                 <div class="mt-4">
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary">

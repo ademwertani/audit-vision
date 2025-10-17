@@ -19,8 +19,8 @@
                         <th>ID</th>
                         <th>Image</th>
                         <th>Name</th>
-                        <th>Category</th>
-                        <th>Secteur</th> {{-- ⇦ AJOUT --}}
+                        <th>Service</th> {{-- ⬅️ remplace Category --}}
+                        <th>Secteur</th>
                         <th>Summary</th>
                         <th>Actions</th>
                     </tr>
@@ -38,10 +38,10 @@
                             </td>
                             <td>{{ $project->name }}</td>
                             <td>
-                                @if($project->category)
-                                    <span class="badge bg-primary">{{ $project->category->name }}</span>
+                                @if($project->service)
+                                    <span class="badge bg-primary">{{ $project->service->name }}</span>
                                 @else
-                                    <span class="text-muted">Uncategorized</span>
+                                    <span class="text-muted">No service</span>
                                 @endif
                             </td>
                             <td>
