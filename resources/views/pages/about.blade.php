@@ -735,8 +735,8 @@
         <div class="row g-5 align-items-center">
           <div class="col-lg-5 col-md-6">
             <div class="about-imgs">
-              <img src="{{ asset('img/rect2.png') }}" alt="EcoCall" class="img-a">
-              <img src="{{ asset('img/rect.png') }}" alt="Formation" class="img-b">
+              <img src="{{ asset('img/rect22.png') }}" alt="EcoCall" class="img-a">
+              <img src="{{ asset('img/rectt.png') }}" alt="Formation" class="img-b">
             </div>
           </div>
           <div class="col-lg-7 col-md-6">
@@ -779,7 +779,7 @@
             </div>
 
             {{-- Image grande avec coins arrondis --}}
-            <img src="{{ asset('img/ta.png') }}" alt="Nos valeurs" class="values-img">
+            <img src="{{ asset('img/taa.png') }}" alt="Nos valeurs" class="values-img">
           </div>
 
           {{-- Colonne droite : 3 valeurs --}}

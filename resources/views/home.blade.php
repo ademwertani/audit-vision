@@ -166,6 +166,53 @@
   }
   .bottom-controls .bcb:hover{ transform: translateY(-1px); }
   .bottom-controls .bcb:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(15,23,42,.18); }
+/* ---- Ajuste l’offset vertical de P3 ---- */
+.projects-grid .grid-p3 {
+  /* décale P3 vers le bas */
+  margin-top: 22px;              /* ajuste 10–40px selon rendu */
+  align-self: start;             /* évite un recentrage vertical inattendu */
+}
+
+/* ---- Taille fixe uniquement pour la carte P3 ---- */
+.projects-grid .grid-p3.proj-card--md {
+  width: 700px;                  /* largeur fixe */
+  height: 680px;                 /* hauteur fixe */
+}
+
+/* L'image remplit la carte proprement */
+.projects-grid .grid-p3.proj-card--md > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* L’overlay suit la hauteur fixe */
+.projects-grid .grid-p3.proj-card--md .proj-overlay {
+  position: absolute;            /* si ce n'est pas déjà le cas dans ton skin */
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+}
+@media (max-width: 768px) {
+  .projects-grid .grid-p3 { margin-top: 12px; }
+  .projects-grid .grid-p3.proj-card--md {
+    width: 100%;
+    height: 220px;               /* ou auto si tu préfères */
+  }
+}
+/* Remonter P3 (override) */
+.projects-grid .grid-p3 {
+  margin-top: -180px !important;   /* mets 0, -6, -12, -20 selon le rendu souhaité */
+}
+
+/* Optionnel : sur mobile on reste léger */
+@media (max-width: 768px) {
+  .projects-grid .grid-p3 {
+    margin-top: -4px !important;
+  }
+}
 
   /* Option: masquer les flèches latérales si réactivées ailleurs
   #blogCarousel .carousel-control-prev,
@@ -427,6 +474,7 @@
         #servicesCarousel .carousel-control-next{
           /* display: none !important; */ /* décommente pour masquer les flèches latérales */
         }
+        
     </style>
     <!-- Projects End -->
 
@@ -633,9 +681,7 @@
                             </span>
                           </div>
 
-                          <p class="blog-card__excerpt mb-3">
-                            {{ Str::limit(strip_tags($blog->content), 120) }}
-                          </p>
+                          
 
                           <span class="blog-card__btn mt-auto">
                             Lire plus <span class="blog-card__btn-icon">→</span>
