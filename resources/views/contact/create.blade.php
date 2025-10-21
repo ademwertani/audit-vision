@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us')
+@section('title', 'Contactez-nous')
 
 @section('content')
 <style>
@@ -301,9 +301,9 @@
   ">
 
   <div class="cp-hgroup container cp-hero__inner">
-    <h1 class="cp-title">Contact Us</h1>
+    <h1 class="cp-title">Contactez-nous</h1>
     <p class="cp-sub">
-      Practical renewable energy technology that reduces costs and helps the environment
+      Des technologies d’énergies renouvelables pratiques qui réduisent les coûts et protègent l’environnement.
     </p>
   </div>
 
@@ -322,16 +322,15 @@
     <div class="container">
 
       <div class="cp-head">
-        <div class="cp-kicker">Request a quote</div>
+        <div class="cp-kicker">Demande de devis</div>
         <h2 class="cp-h1">
-          Talk About How We Can Help<br>
-          You 
+          Parlons de la façon dont nous pouvons vous aider
         </h2>
 
         @if(session('success'))
           <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
           </div>
         @endif
       </div>
@@ -343,23 +342,23 @@
           <form method="POST" action="{{ route('contact.store') }}" class="cp-form">
             @csrf
             <div class="mb-3">
-              <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Complete Name" required>
+              <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Nom complet" required>
               @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
-              <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Email Address" required>
+              <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Adresse e-mail" required>
               @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
-              <input type="text" name="subject" value="{{ old('subject') }}" class="form-control @error('subject') is-invalid @enderror" placeholder="Subject" required>
+              <input type="text" name="subject" value="{{ old('subject') }}" class="form-control @error('subject') is-invalid @enderror" placeholder="Objet" required>
               @error('subject') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
             <div class="mb-4">
-              <textarea name="message" class="form-control @error('message') is-invalid @enderror" rows="6" placeholder="Your Message" required>{{ old('message') }}</textarea>
+              <textarea name="message" class="form-control @error('message') is-invalid @enderror" rows="6" placeholder="Votre message" required>{{ old('message') }}</textarea>
               @error('message') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
             <button type="submit" class="cp-btn">
-              <i class="fas fa-paper-plane me-2"></i> Send Message
+              <i class="fas fa-paper-plane me-2"></i> Envoyer le message
             </button>
           </form>
         </div>
@@ -369,7 +368,7 @@
           <div class="cp-info">
             <div class="cp-ico"><i class="fa fa-phone"></i></div>
             <div>
-              <h5>Phone No:</h5>
+              <h5>Téléphone&nbsp;:</h5>
               <a href="tel:+330948160487">+33 09 48 16 04 87</a>
             </div>
           </div>
@@ -377,7 +376,7 @@
           <div class="cp-info">
             <div class="cp-ico"><i class="fas fa-map-marker-alt"></i></div>
             <div>
-              <h5>Location:</h5>
+              <h5>Adresse&nbsp;:</h5>
               <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" rel="noopener">
                 171 route de Bezons, 78420 Carrières-sur-Seine, France
               </a>
@@ -387,7 +386,7 @@
           <div class="cp-info">
             <div class="cp-ico"><i class="fa fa-envelope"></i></div>
             <div>
-              <h5>Email Address:</h5>
+              <h5>Adresse e-mail&nbsp;:</h5>
               <a href="mailto:commercial@franceexpertisolation.fr">commercial@franceexpertisolation.fr</a>
             </div>
           </div>

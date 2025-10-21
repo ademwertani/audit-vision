@@ -17,8 +17,8 @@
 
 <style>
 /* =========================================================
-   France Isolation – Service Details (same skin as Contact/About/Blog/Projects)
-   Styles scoped to this page only.
+   France Isolation – Service Details (même skin)
+   Styles scoped à cette page.
    ========================================================= */
 .page-service{
   --navy:#7CAE2A;
@@ -39,33 +39,28 @@
   position: relative;
   background: var(--navy);
   color:#fff;
-  padding: var(--sv-hero-pad, 140px) 0;  /* hauteur bande verte */
-  overflow: visible;                     /* ne pas couper l’image */
+  padding: var(--sv-hero-pad, 140px) 0;
+  overflow: visible;
   z-index: 5;
 }
-/* ↑ Agrandir le titre et le sous-titre du hero (page service) */
 .page-service .sv-title{
-  font-size: clamp(40px, 6.5vw, 72px); /* max 72px sur desktop */
+  font-size: clamp(40px, 6.5vw, 72px);
   line-height: 1.06;
   font-weight: 800;
 }
-
 .page-service .sv-sub{
-  font-size: clamp(16px, 1.6vw, 20px); /* monte à ~20px sur desktop */
+  font-size: clamp(16px, 1.6vw, 20px);
   line-height: 1.8;
-  opacity: .98; /* un poil plus lisible */
+  opacity: .98;
 }
-
-/* Optionnel : encore plus gros sur très grands écrans */
 @media (min-width: 1400px){
   .page-service .sv-title{ font-size: 78px; }
   .page-service .sv-sub{ font-size: 22px; }
 }
 
-
 /* “Split” : espace sous le hero pour loger l’image qui déborde */
 .sv-hero--split{
-  --sv-img-drop: 160px;          /* ↓ descend plus  ↑ remonte */
+  --sv-img-drop: 160px;
   margin-bottom: var(--sv-img-drop);
 }
 
@@ -81,44 +76,24 @@
   pointer-events:none;
 }
 
-/* === HERO image: taille/position figées + 4 coins arrondis === */
+/* === HERO image (coins arrondis) === */
 .sv-hero__media{
   position: absolute;
   right: var(--sv-img-right, 24px);
   bottom: calc(-1 * var(--sv-img-drop, 160px));
-  width: var(--sv-img-w, 560px);     /* ← largeur fixe (ou responsive via min()/clamp()) */
-  height: var(--sv-img-h, 380px);    /* ← hauteur fixe */
-  border-radius: var(--sv-img-radius, 22px); /* ← coins arrondis */
-  overflow: hidden;                  /* ← masque dans les coins */
-  background: transparent;           /* pas de fond */
-  z-index: 1;                        /* sous le voile du hero (qui est en ::after z-index:2) */
+  width: var(--sv-img-w, 560px);
+  height: var(--sv-img-h, 380px);
+  border-radius: var(--sv-img-radius, 22px);
+  overflow: hidden;
+  background: transparent;
+  z-index: 1;
 }
-
-/* L’image remplit le cadre, sans dépendre de sa taille d’origine */
 .sv-hero__media img{
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;                 /* plein cadre */
-  border: 0;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
+  width: 100%; height: 100%; display: block; object-fit: cover;
+  border: 0; box-shadow: none !important; filter: none !important; transform: none !important;
 }
 
-/* Mobile : si tu veux la faire passer sous le texte */
-@media (max-width: 992px){
-  .sv-hero__media{
-    position: static;
-    width: 100%;
-    height: var(--sv-img-h-mobile, 280px);
-    right: auto;
-    bottom: auto;
-    margin-top: 18px;
-  }
-}
-
-/* ---------- Breadcrumb pill (si tu l’utilises) ---------- */
+/* ---------- Breadcrumb pill ---------- */
 .sv-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
 .sv-bread{
   width:min(1180px, calc(100% - 48px));
@@ -205,32 +180,8 @@
   padding:12px 18px; border-radius:14px;
 }
 .btn-outline-accent:hover{ background:#f8fafc }
-/* Police Epilogue */
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800&display=swap');
 
-/* Appliquer Epilogue et garder le blanc */
-.page-service .sv-title,
-.page-service .sv-sub{
-  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:#fff !important;
-}
-
-/* Décaler le bloc texte (un peu à droite et un peu vers le haut) */
-.page-service .sv-hero__copy{
-  position: relative;
-  transform: translate(-52px, -11px) !important; /* +x = droite, -y = haut */
-  will-change: transform;
-}
-/* --- FINAL OVERRIDES (place at the end) --- */
-
-/* Use the variables you set on <header> to move the text */
-.page-service .sv-hero__copy{
-  position: relative;
-  transform: translate(var(--sv-copy-x, 0), var(--sv-copy-y, 0)); /* x=right/left, y=up/down */
-  will-change: transform;
-}
-
-/* Force Epilogue + keep white */
+/* Police Epilogue (titre + sous-titre) */
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800&display=swap');
 .page-service .sv-title,
 .page-service .sv-sub{
@@ -238,72 +189,31 @@
   color:#fff !important;
 }
 
-/* Bigger sizes with high specificity */
-.page-service .sv-title{
-  font-size: clamp(44px, 6.5vw, 80px) !important;  /* increase max if needed */
-  line-height: 1.05 !important;
-  font-weight: 900 !important;
-}
-.page-service .sv-sub{
-  font-size: clamp(18px, 1.8vw, 24px) !important;
-  line-height: 1.7 !important;
-  opacity: .98 !important;
-}
-/* Titre (h1) */
-.page-service .sv-title{
-  font-size: clamp(40px, 6.5vw, 58px) !important; /* ← augmente surtout la 1re (mobile) et la 3e (desktop) */
-  line-height: 1.05 !important;
-}
-
-/* Sous-titre (summary) */
-.page-service .sv-sub{
-  font-size: clamp(18px, 1.8vw, 26px) !important; /* ← pareil : 18px (mobile), 26px (desktop) */
-  line-height: 1.7 !important;
-}
-/* === Service hero: léger downsize du titre & sous-titre === */
-.page-service .sv-title{
-  font-size: clamp(24px, 4.8vw, 32px) !important;  /* avant: jusqu'à 80/58px */
-  line-height: 1.06 !important;
-  font-weight: 900 !important;
-}
-.page-service .sv-sub{
-  font-size: clamp(16px, 1.5vw, 22px) !important;  /* avant: jusqu'à 24/26px */
-  line-height: 1.7 !important;
-  opacity: .98 !important;
-}
-
-/* Assure que les variables de décalage s'appliquent (prend la main) */
+/* Décalage fin du bloc texte (piloté par variables inline) */
 .page-service .sv-hero__copy{
   position: relative;
-  transform: translate(var(--sv-copy-x, 0), var(--sv-copy-y, 0)) !important;
+  transform: translate(var(--sv-copy-x, 0), var(--sv-copy-y, 0));
   will-change: transform;
 }
 
-.sv-banner-copy{
-  transform: translateY(6px);     /* Descend légèrement tout le bloc texte */
+/* =============== FIX MOBILE : supprimer l’espace blanc après le header =============== */
+@media (max-width: 991.98px){
+  /* 1) L’image passe dans le flux normal (déjà prévu) */
+  .sv-hero__media{
+    position: static;
+    width: 100%;
+    height: var(--sv-img-h-mobile, 280px);
+    right: auto; bottom: auto;
+    margin-top: 12px; /* léger espace sous le texte */
+  }
+  /* 2) On supprime l’espace “split” sous le hero */
+  .sv-hero--split{ margin-bottom: 0 !important; }
+  /* 3) On réduit le padding bas du hero pour coller le contenu */
+  .sv-hero{ padding-bottom: 18px !important; }
+  /* 4) Option : resserrer un peu le haut du contenu */
+  .sv-wrap{ padding-top: 24px !important; }
 }
-
-/* Sous-texte : un peu plus à gauche + lisible sur image */
-.sv-banner-subb{
-  color:#fff !important;
-  opacity: .95;
-  transform: translateX(-14px);   /* décale légèrement à gauche */
-  max-width: 40ch;                /* colonne lisible */
-}
-
-/* ===== OVERRIDES (à coller tout en bas) ===== */
-
-/* 2e texte : en noir + un peu décalé à droite */
-.sv-bottom-banner .sv-banner-subb{
-  color: #192646 !important;   /* noir, écrase l'ancien !important blanc */
-  transform: translateX(13px); /* + grand = plus à droite (ex: 16px, 20px) */
-}
-
-/* Bouton : un peu plus à droite (réduire l’offset gauche) */
-.sv-bottom-banner .sv-banner-ctaa img{
-  transform: translateX(-150px); /* avant: -270px. Approche-toi encore: -180px, -160px… */
-}
-
+/* ================================================================================ */
 </style>
 
 <section class="page-service">
@@ -321,12 +231,9 @@
           --sv-img-right: -24px;
           --sv-img-w: 660px;
           --sv-hero-pad: 190px;
-
-          /* ↓↓ nouveau : décalage fin du texte */
-          --sv-copy-x: -80px;  /* un peu vers la gauche (mets -20/-24 si tu veux plus) */
-          --sv-copy-y: -6px;   /* un poil vers le haut */
+          --sv-copy-x: -80px;
+          --sv-copy-y: -6px;
         ">
-
   <div class="container sv-hero__inner">
     <div class="sv-hero__copy">
       <h1 class="sv-title">{{ $service->name }}</h1>
@@ -335,7 +242,7 @@
       @endif
     </div>
 
-    {{-- Image sous la zone verte, qui peut déborder en bas --}}
+    {{-- Image sous la zone verte, peut déborder en bas (desktop) --}}
     <figure class="sv-hero__media">
       <img src="{{ $serviceHeroImg }}" alt="{{ $service->name }}">
     </figure>
@@ -409,7 +316,7 @@
 
 </section>
 
-{{-- Minimal JS for the lightbox (only if image exists) --}}
+{{-- Minimal JS for the lightbox --}}
 @if($src)
 <script>
   (function(){
@@ -425,144 +332,118 @@
 </script>
 @endif
 
-{{-- Grande image en bas (avec vidéo ou image à gauche) --}}
-<div class="container-fluid px-0 sv-bottom-banner">
-  <img class="banner-bg" src="{{ asset('img/Group.png') }}" alt="" loading="lazy">
-
-  @php
-    $embed = method_exists($service,'getYoutubeEmbedAttribute') ? $service->youtube_embed : null;
-    $slotImg = !empty($service->image) ? asset('storage/' . ltrim($service->image, '/')) : null;
-  @endphp
-
-  {{-- === SLOT À GAUCHE : vidéo si dispo, sinon image du service === --}}
-  @if($embed || $slotImg)
-    <div class="sv-banner-slot-left">
-      @if($embed)
-        <div class="ratio-16x9">
-          <iframe
-            src="{{ $embed }}"
-            title="Vidéo du service"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-      @else
-        <div class="ratio-16x9 sv-slot-img">
-          <img src="{{ $slotImg }}" alt="{{ $service->name }}">
-        </div>
-      @endif
-    </div>
-  @endif
-
-<!-- Bloc texte + bouton alignés à droite (inchangé) -->
-<div class="sv-banner-right">
-  <div class="sv-banner-copy">
-    <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
-    <p class="sv-banner-subb">
-      Dites-nous en plus sur votre projet d’isolation et vos objectifs :
-      confort thermique, économies d’énergie, conformité ou rénovation globale.
-      Nos experts vous orientent vers la solution la plus pertinente.
-    </p>
-  </div>
-
-  <a href="{{ url('/contact') }}" class="sv-banner-ctaa" aria-label="Contactez-nous">
-    <img src="{{ asset('img/cont.png') }}" alt="Contactez-nous">
-  </a>
-</div>
-
-</div>
-
-
+{{-- ====== BANNIÈRE BAS (design conservé) ====== --}}
 <style>
-/* Contexte */
-.sv-bottom-banner{ position: relative; overflow: hidden; }
-.sv-bottom-banner .banner-bg{
-  width: 100%; height: auto; display: block; object-fit: cover;
-}
+  .pc-lock-1280 {
+    --pcw: 1280;
+    position: relative;
+    width: calc(var(--pcw) * 1px);
+    margin: 0 auto;
+    transform-origin: top left;
+  }
+  @media (max-width: 1280px){
+    .pc-lock-1280 { transform: scale(calc(100vw / calc(var(--pcw) * 1px))); }
+    html, body { overflow-x: hidden; }
+  }
 
-/* Wrapper à droite (texte au-dessus du bouton) */
-.sv-banner-right{
-  position: absolute;
-  right: min(40vw, 200px);     /* ajustable */
-  bottom: min(30vw, 208px);    /* position du bloc global */
-  display: flex;
-  flex-direction: column;      /* texte au-dessus du bouton */
+  .sv-bottom-banner{ position: relative; overflow: hidden; margin: 40px 0 0; }
+  .sv-bottom-banner .banner-bg{ width:100%; height:auto; display:block; object-fit:cover; }
 
-  /* === MODIF: étirer pour que le bouton ait la même largeur que le texte === */
-  align-items: stretch;
+  .sv-banner-slot-left{
+    position:absolute;
+    left: 60px;
+    bottom: 120px;
+    width: 540px;
+  }
+  .ratio-16x9{ position:relative; width:100%; padding-top:56.25% }
+  .ratio-16x9 > iframe,
+  .ratio-16x9 > img{
+    position:absolute; inset:0; width:100%; height:100%; border:0; display:block; object-fit:cover;
+  }
 
-  gap: 10px;
-  max-width: min(408ch, 420vw);/* évite un texte trop large */
-  z-index: 20;
-  --sv-space: 210px;           /* espace entre texte et bouton */
-  gap: var(--sv-space);
-}
-
-/* === MODIF: le texte reste aligné à droite === */
-.sv-banner-copy{
-  text-align: right;
-  transform: translateY(122px) !important; 
-}
-
-/* Texte */
-.sv-banner-titlee{
-  margin: 0;
-  font-weight: 800;
-  font-size: clamp(60px, 2.2vw, 28px);
-  line-height: 1.15;
-  color: #ffffff;
-  text-align: right;
-}
-.sv-banner-subb{
-  margin: 2px 0 0 0;
-  font-size: clamp(13px, 1.3vw, 16px);
-  line-height: 1.4;
-  color: #334155;
-  text-align: right;
-}
-
-/* Bouton */
-/* === MODIF: le bouton prend la même largeur que le texte, image collée à droite === */
-.sv-banner-ctaa{
-  display: flex;
-  justify-content: flex-end;   /* pousse l'image à droite */
-  align-self: stretch;         /* même largeur que le bloc texte */
-  transform: translateY(0);
-  transition: transform .15s ease, filter .15s ease;
-}
-.sv-banner-ctaa:hover{ transform: translateY(-2px); filter: brightness(1.02); }
-.sv-banner-ctaa img{
-  display: block;
-  height: auto;
-  max-width: clamp(140px, 18vw, 220px); /* taille responsive du bouton image */
-  transform: translateX(-270px);
-  
-}
-
-/* Mobile: centrer et remonter un peu */
-@media (max-width: 575.98px){
   .sv-banner-right{
-    right: 50%;
-    transform: translateX(50%); /* centre horizontal */
-    bottom: 16px;
-
-    /* === MODIF: recentrer sur mobile === */
-    align-items: center;
-
-    text-align: center;
-    max-width: 88%;
+    position: absolute;
+    right: 200px;
+    bottom: 208px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    max-width: 520px;
+    z-index: 20;
   }
-  /* === MODIF: cibler les bonnes classes === */
-  .sv-banner-titlee, .sv-banner-subb{ text-align: center; }
+  .sv-banner-copy{ text-align: right; transform: translateY(6px); }
+  .sv-banner-titlee{
+    margin: 0; font-weight: 800; font-size: 32px; line-height: 1.15; color: #ffffff; text-align: right;
+  }
+  .sv-banner-subb{
+    margin: 2px 0 0 0; font-size: 16px; line-height: 1.45; color: #192646; text-align: right;
+  }
 
-  /* === MODIF: sur mobile, bouton centré === */
   .sv-banner-ctaa{
-    align-self: auto;
-    justify-content: center;
-      padding-right: var(--cta-shift);
+    display: flex; justify-content: flex-end; align-self: stretch;
+    transition: transform .15s ease, filter .15s ease;
   }
-}
+  .sv-banner-ctaa:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+  .sv-banner-ctaa img{
+    display:block; height:auto; max-width: 220px; transform: translateX(-150px);
+  }
 
+  /* Adaptations responsive (sans changer le design) */
+  @media (max-width: 575.98px){
+    .sv-banner-right{
+      right: 50%; transform: translateX(50%);
+      bottom: 16px; align-items: center; text-align: center; max-width: 88%;
+    }
+    .sv-banner-titlee, .sv-banner-subb{ text-align: center; }
+    .sv-banner-ctaa{ align-self: auto; justify-content: center; }
+  }
 </style>
 
+<div class="pc-lock-1280">
+  <div class="container-fluid px-0 sv-bottom-banner">
+    <img class="banner-bg" src="{{ asset('img/Group.png') }}" alt="" loading="lazy">
+
+    @php
+      $embed   = method_exists($service,'getYoutubeEmbedAttribute') ? $service->youtube_embed : null;
+      $slotImg = !empty($service->image) ? asset('storage/' . ltrim($service->image, '/')) : null;
+    @endphp
+
+    {{-- SLOT GAUCHE : vidéo si dispo, sinon image du service (design conservé) --}}
+    @if($embed || $slotImg)
+      <div class="sv-banner-slot-left">
+        @if($embed)
+          <div class="ratio-16x9">
+            <iframe
+              src="{{ $embed }}"
+              title="Vidéo du service"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        @else
+          <div class="ratio-16x9">
+            <img src="{{ $slotImg }}" alt="{{ $service->name }}">
+          </div>
+        @endif
+      </div>
+    @endif
+
+    {{-- Bloc texte + bouton à droite (inchangé) --}}
+    <div class="sv-banner-right">
+      <div class="sv-banner-copy">
+        <h6 class="sv-banner-titlee">Prêt à démarrer ?</h6>
+        <p class="sv-banner-subb">
+          Dites-nous en plus sur votre projet d’isolation et vos objectifs :
+          confort thermique, économies d’énergie, conformité ou rénovation globale.
+          Nos experts vous orientent vers la solution la plus pertinente.
+        </p>
+      </div>
+
+      <a href="{{ url('/contact') }}" class="sv-banner-ctaa" aria-label="Contactez-nous">
+        <img src="{{ asset('img/cont.png') }}" alt="Contactez-nous">
+      </a>
+    </div>
+  </div>
+</div>
 
 @endsection
