@@ -81,12 +81,19 @@
     .pr-hero__inner{ position:relative; z-index:3; }
     .pr-hero__copy{ position:relative; transform:translate(var(--pr-copy-x,0), var(--pr-copy-y,0)); will-change:transform; }
     .page-project .pr-title,.page-project .pr-sub{ font-family:"Epilogue",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif!important; color:#fff!important; }
-    .page-project .pr-title{ font-size:clamp(44px,6.5vw,80px)!important; line-height:1.05!important; font-weight:900!important; margin:0 0 10px; }
+    .page-project .pr-title{ font-size:clamp(24px,4.5vw,60px)!important; line-height:1.05!important; font-weight:900!important; margin:0 0 10px; }
     .page-project .pr-sub{ font-size:clamp(18px,1.8vw,24px)!important; line-height:1.7!important; opacity:.98!important; margin:0; }
     .pr-hero__media{ position:absolute; right:var(--pr-img-right,24px); bottom:calc(-1 * var(--pr-img-drop,220px)); width:var(--pr-img-w,620px);
       height:var(--pr-img-h,380px); border-radius:var(--pr-img-radius,22px); overflow:hidden; background:transparent; z-index:1; }
     .pr-hero__media img{ width:100%; height:100%; object-fit:cover; display:block; border:0; box-shadow:none!important; filter:none!important; transform:none!important; }
     @media (max-width: 992px){ .pr-hero--split{ --pr-img-drop:40px; } .pr-hero__media{ position:static; right:auto; bottom:auto; width:100%; height:var(--pr-img-h-mobile,280px); margin-top:18px; } }
+  /* AVANT  : padding: var(--pr-hero-pad,160px) 0; */
+/* APRES : haut et bas indépendants, avec rétro-compatibilité */
+.pr-hero{
+  padding: var(--pr-hero-pad-top, var(--pr-hero-pad,160px)) 0
+           var(--pr-hero-pad-bottom, var(--pr-hero-pad,160px));
+}
+
   </style>
 
   <section class="page-project">
@@ -97,16 +104,18 @@
 @endphp
 
 <header class="pr-hero pr-hero--split"
-        style="
-          --pr-hero-pad: 180px;
-          --pr-img-drop: 240px;
-          --pr-img-right: 24px;
-          --pr-img-w: 620px;
-          --pr-img-h: 380px;
-          --pr-img-radius: 22px;
-          --pr-copy-x: 8px;
-          --pr-copy-y: -8px;
-        ">
+  style="
+    --pr-hero-pad-top: 70px;     /* header plus haut */
+    --pr-hero-pad-bottom: 190px;  /* garde un peu d'air en bas */
+    --pr-img-drop: 273px;        /* remonte l'image */
+    --pr-img-right: 24px;
+    --pr-img-w: 620px;
+    --pr-img-h: 380px;
+    --pr-img-radius: 22px;
+    --pr-copy-x: 8px;
+    --pr-copy-y: -4px;
+  ">
+
   <div class="container pr-hero__inner">
     <div class="pr-hero__copy">
       <h1 class="pr-title">{{ $project->name }}</h1>
@@ -238,9 +247,6 @@
 
     <!-- Citation -->
     <div class="quote bg-primary text-white p-4 rounded mb-5 d-flex align-items-center">
-      <!-- Image -->
-      <img src="/img/energy.png" alt="Icon" 
-           style="width: 60px; height: 60px; margin-right: 15px;">
       <!-- Texte -->
       <p class="mb-0 fs-4">
         <strong>“L’efficacité énergétique est un investissement durable, au service de la performance et de l’environnement.”</strong>

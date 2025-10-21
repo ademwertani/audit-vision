@@ -932,10 +932,6 @@
                 });
             });
 
-        </script>
-
-        <style>
-            
             /* Mode "zoom stable" (désactive les changements de breakpoint au zoom) */
             .stable-zoom { min-width: 1280px; }
             .stable-zoom .container, .stable-zoom .container-fluid { max-width: 1280px !important; }
@@ -945,6 +941,9 @@
             .stable-zoom .service-card__img, .stable-zoom .blog-card__img { aspect-ratio: 16/9; object-fit: cover; }
             .stable-zoom .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
             .stable-zoom .projects-grid > .grid-stats.stats-card { margin-bottom: 24px !important; }
+        </script>
+
+        <style>
             /* Règles globales de sécurité */
             html, body { overflow-x: hidden; }
             img, iframe { max-width: 100%; height: auto; display: block; }
@@ -991,70 +990,4 @@
                 }
             }
         </style>
-        <style id="mobile-hero-and-grid-fixes">
-  /* —— Reprise du bloc "stable-zoom" qui était dans <script> —— */
-  .stable-zoom { min-width: 1280px; }
-  .stable-zoom .container, .stable-zoom .container-fluid { max-width: 1280px !important; }
-  .stable-zoom .col-lg-4 { flex: 0 0 auto; width: 33.333333% !important; }
-  .stable-zoom .col-md-6 { flex: 0 0 auto; width: 50% !important; }
-  .stable-zoom .hero-aisla { min-height: 520px; }
-  .stable-zoom .service-card__img, .stable-zoom .blog-card__img { aspect-ratio: 16/9; object-fit: cover; }
-  .stable-zoom .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
-  .stable-zoom .projects-grid > .grid-stats.stats-card { margin-bottom: 24px !important; }
-
-  /* —— HERO : rendu stable et lisible —— */
-  .hero-aisla{
-    position: relative;
-    min-height: 64vh; /* desktop/tablette */
-    background-image: var(--hero-bg-img);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  .hero-aisla .hero-overlay{
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,.28);
-  }
-  .hero-aisla .hero-copy{ padding-top: 56px; padding-bottom: 32px; }
-  .hero-aisla .hero-title{ line-height: 1.05; margin-bottom: 12px; }
-  .hero-aisla .hero-sub{ font-size: clamp(14px, 2.6vw, 18px); opacity: .95; }
-
-  /* —— Grille projets : valeurs par défaut (desktop) plus douces —— */
-  .grid-p3 { margin-top: -120px; margin-bottom: 120px; } /* remplace l’ancien -240/240 */
-  .projects-grid > .grid-stats.stats-card { margin-bottom: 24px; }
-
-  /* —— Corrections Mobile (≤575.98px) —— */
-  @media (max-width: 575.98px){
-    .hero-aisla{
-      min-height: 440px;          /* hauteur confortable téléphone */
-      background-position: center top;
-    }
-    .hero-aisla .container{ padding-top: 24px; padding-bottom: 24px; }
-    .hero-aisla .hero-copy{ padding-top: 18px; padding-bottom: 16px; text-align: left; }
-    .hero-aisla .hero-title{ font-size: 28px; letter-spacing: .2px; }
-    .hero-aisla .hero-buttons{ gap: 10px !important; }
-
-    .projects-grid{ gap: 16px; }
-    .projects-grid .grid-p3{
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
-      min-height: 220px;
-    }
-    .projects-grid > .grid-stats.stats-card{
-      margin-top: 0 !important;
-      margin-bottom: 16px !important;
-      padding: 16px !important;
-    }
-    .proj-card--lg{ min-height: 260px; }
-    .proj-overlay{ padding: 10px 12px; }
-    .pill{ padding: 7px 10px; font-size: .78rem; }
-
-    /* Boutons de carrousel en bas (blog + services) */
-    .bottom-controls,
-    .services-bottom-controls{ bottom: 6px; gap: 8px; }
-    .bottom-controls .bcb,
-    .services-bottom-controls .scb{ width: 32px; height: 32px; }
-  }
-</style>
-
 @endsection

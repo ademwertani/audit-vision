@@ -276,6 +276,14 @@
   object-fit: cover !important;
   object-position: center !important;
 }
+/* === Contact hero: décalage fin du texte === */
+.contact-page .cp-hero__inner{
+  position: relative;
+  transform: translateX(var(--cp-copy-x, 0));
+}
+@media (max-width: 992px){
+  .contact-page .cp-hero__inner{ transform: none; } /* pas de décalage en mobile */
+}
 
 </style>
 
@@ -289,15 +297,18 @@
 <header class="cp-hero cp-hero--split"
   style="
     /* bande bleue */
-    --cp-hero-offset: 24px;   /* pousse la bande bleue vers le BAS */
-    --cp-hero-pad: 190px;     /* hauteur de la bande bleue */
+    --cp-hero-offset: 24px;
+    --cp-hero-pad: 190px;
 
     /* image */
-    --cp-img-drop: 60px;     /* plus grand = image plus BAS */
-    --cp-img-right: 77px;     /* 0–10px = très à droite ; 40–120px = va vers la gauche */
-    --cp-img-w: 600px;        /* largeur (↓ pour plus petit) */
-    --cp-img-h: 380px;        /* hauteur (↓ pour plus petit) */
-    --cp-img-radius: 18px;    /* arrondi (option) */
+    --cp-img-drop: 60px;
+    --cp-img-right: 77px;
+    --cp-img-w: 600px;
+    --cp-img-h: 380px;
+    --cp-img-radius: 18px;
+
+    /* ↓↓ décale le texte du header un peu à GAUCHE */
+    --cp-copy-x: -48px; /* essaie -16 | -24 | -32 selon ton goût */
   ">
 
   <div class="cp-hgroup container cp-hero__inner">
