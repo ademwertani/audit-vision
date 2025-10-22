@@ -19,3 +19,7 @@ yarn-error.log
 /.idea
 /.vscode
 france_isolation.zip
+*.zip
+*.7z
+*.rar
+*.zip
