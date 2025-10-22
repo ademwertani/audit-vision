@@ -318,6 +318,7 @@
     </p>
   </div>
 
+
 <figure class="cp-hero__media">
   <img src="{{ $heroBannerImg }}" alt="Contact hero">
 </figure>
