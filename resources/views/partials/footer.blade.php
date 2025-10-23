@@ -209,7 +209,7 @@
         <ul class="contact-list mt-4">
           <li class="contact-item">
             <span class="icon"><i class="fas fa-phone"></i></span>
-            <a href="tel:+000000000">01234 525 407 · 01234 525 407</a>
+            <a href="tel:+000000000">+33184808124 · 01 84 80 81 24</a>
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-envelope"></i></span>

@@ -158,6 +158,36 @@
     height: var(--sx-img-h-mobile, 280px); margin-top:18px;
   }
 }
+/* === FIX espace blanc sous le header (Services) === */
+@media (max-width: 991.98px) {
+  /* 1) Ne pas réserver d'espace quand l'image est statique */
+  header.sx-hero.sx-hero--split {
+    margin-bottom: 0 !important;
+  }
+
+  /* 2) Image en flux normal, hauteur fixe mobile */
+  .sx-hero__media {
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: var(--sx-img-h-mobile, 280px) !important;
+    margin-top: 18px !important;
+  }
+
+  /* 3) Rapprocher la section suivante (optionnel) */
+  .sx-wrap {
+    padding-top: 24px !important; /* au lieu de 70px si tu veux moins d'espace */
+  }
+}
+
+/* Optionnel : sur tablettes, garder un petit coussin */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  header.sx-hero.sx-hero--split {
+    margin-bottom: 40px !important; /* petit espace plutôt qu’un grand vide */
+  }
+}
+
 </style>
 
 <section class="page-services">

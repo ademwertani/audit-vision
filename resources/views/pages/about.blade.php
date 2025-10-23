@@ -667,6 +667,36 @@
       object-fit: cover !important;
       object-position: center !important;
     }
+    /* === FIX: espace blanc sous le header (About) === */
+@media (max-width: 991.98px) {
+  /* 1) Annuler l'espace réservé au débordement de l'image quand elle devient "statique" */
+  header.pa-hero.pa-hero--split {
+    margin-bottom: 0 !important;
+  }
+
+  /* 2) On garde l'image visible après le texte (déjà statique chez toi) */
+  .page-about .pa-hero__media {
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: var(--pa-img-h-mobile, 320px) !important;
+    margin-top: 18px !important;
+  }
+
+  /* 3) Rapprocher la section suivante si besoin */
+  .page-about .metrics {
+    padding-top: 24px !important;   /* était 64px */
+  }
+}
+
+/* (Optionnel) Si tu vois encore un léger blanc sur tablettes */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  header.pa-hero.pa-hero--split {
+    margin-bottom: 40px !important; /* petit coussin au lieu d’un grand trou */
+  }
+}
+
   </style>
 
 
