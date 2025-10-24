@@ -217,7 +217,7 @@
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-            <span>171 Rue de Bezons, 78420 Carrières-sur-Seine, France</span>
+            <span>171 Route de Bezons, 78420 Carrières-sur-Seine, France</span>
           </li>
         </ul>
       </div>
