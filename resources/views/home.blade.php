@@ -989,5 +989,162 @@
                     margin-bottom: 56px !important;
                 }
             }
+            /* === Partners: mobile layout — logos juste sous l'image === */
+@media (max-width: 575.98px) {
+  .partners-wrap { position: relative; }
+  .partners-bg { display: block; width: 100%; height: auto; }
+
+  /* L’overlay descend sous l’image au lieu de la recouvrir */
+  .partners-overlay {
+    position: static !important;
+    margin-top: -10px;            /* remonte un peu le bloc sous l'image */
+    padding: 12px 14px 6px !important;
+    background: transparent !important; /* pas de voile foncé sur mobile */
+    text-align: center;
+  }
+
+  .partners-title {
+    font-size: 1.15rem;
+    margin: 6px 0 8px;
+    line-height: 1.2;
+  }
+
+  /* Grille compacte de logos, juste après l’image */
+  .partners-logos,
+  .partners-logos.partners-logos--two-rows {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);  /* 2 rangées × 4 colonnes si 8 logos */
+    gap: 10px 10px;
+    margin: 4px auto 0;
+    max-width: 100%;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .partner-logo-link { display: block; }
+
+  .partner-logo {
+    max-height: 30px;   /* lisible mais compact */
+    width: auto;
+    object-fit: contain;
+    filter: none !important; /* garde les couleurs d’origine */
+  }
+}
+@media (max-width: 768px) {
+  .partners-overlay {
+    margin-top: -280px !important;
+  }
+}
+
+/* Mobile : remonter SEULEMENT les 4 derniers logos (2e rangée) */
+@media (max-width: 575.98px) {
+  .partners-logos.partners-logos--two-rows > .partner-logo-link:nth-child(n+5) {
+    margin-top: -100px !important;   /* ← monte la 2e rangée (ajuste à -6px, -8px, -12px…) */
+    /* ou, si tu préfères: transform: translateY(-10px) !important; */
+  }
+}
+/* Mobile : pousser l'image et la bande bleue (navy-plate) vers la gauche */
+@media (max-width: 575.98px) {
+  .about-right .about-media { position: relative; overflow: visible; }
+
+  /* valeur unique à ajuster */
+  .about-right .about-media {
+    --about-shift: 60px; /* ← mets 8, 12, 16, 20px selon ton rendu */
+  }
+
+  /* décale l'image */
+  .about-right .about-image-box img {
+    display: block;
+    transform: translateX(calc(-1 * var(--about-shift)));
+    /* si tu veux éviter une bande blanche à droite : */
+    width: calc(100% + var(--about-shift));
+  }
+
+  /* décale la bande bleue exactement de la même valeur */
+  .about-right .navy-plate {
+    position: absolute;           /* au cas où elle ne l'est pas déjà */
+    left: calc(-1 * var(--about-shift));
+    /* tu peux aussi faire: transform: translateX(calc(-1 * var(--about-shift))); */
+    z-index: 0;                   /* derrière l'image */
+  }
+
+  /* s'assurer que l'image reste au-dessus de la plaque */
+  .about-right .about-image-box { position: relative; z-index: 1; }
+}
+/* 📱 Mobile : stats plus petites et titre à gauche */
+@media (max-width: 575.98px) {
+  /* Titre aligné à gauche */
+  .grid-stats h5,
+  .stats-card h5 {
+    text-align: left !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Carte stats compacte (évite aussi le clipping) */
+  .projects-grid > .grid-stats.stats-card,
+  .stats-card {
+    padding: 12px !important;
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+    min-height: unset !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  /* Grille plus dense : 3 colonnes (mets 2 si les libellés sont longs) */
+  .stats-row {
+    grid-template-columns: repeat(1, 1fr) !important; /* ← mets repeat(2,1fr) si besoin */
+    gap: 8px !important; /* espace entre cartes */
+  }
+
+  /* Cartes plus petites */
+  .stat {
+    padding: 8px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Tailles de texte réduites pour tenir sur une ligne */
+  .stat-number {
+    font-size: 16px !important;   /* avant ~22px */
+    line-height: 1.1 !important;
+  }
+  .stat-label {
+    font-size: 11px !important;   /* avant 13px */
+    line-height: 1.15 !important;
+    white-space: nowrap;           /* évite les retours à la ligne */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Sécurité : annule tout décalage agressif pouvant cacher la section */
+  .projects-grid .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
+}
+/* 📱 Mobile : aligner chiffres et libellés à gauche dans les stats */
+@media (max-width: 575.98px) {
+  /* Titre déjà demandé à gauche */
+  .grid-stats h5,
+  .stats-card h5 {
+    text-align: left !important;
+  }
+
+  /* Chaque carte stat : alignement gauche */
+  .stats-row { justify-items: stretch !important; }   /* les cartes prennent toute la largeur de leur colonne */
+  .stat {
+    text-align: left !important;      /* override du center */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px;
+  }
+
+  /* Chiffres et libellés bien calés à gauche */
+  .stat-number,
+  .stat-label {
+    display: block;
+    text-align: left !important;
+  }
+}
+
+
         </style>
 @endsection
