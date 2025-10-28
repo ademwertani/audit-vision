@@ -222,8 +222,8 @@
     <section class="after-hero-text py-5">
         <div class="container">
             <h2 class="big-title">
-                <div class="text-green text-start">Votre confort</div>
-                <div class="text-darkblue text-center">notre expertise</div>
+                <div class="text-green text-start"> Votre confort </div>
+                <div class="text-darkblue text-center"> notre expertise </div>
             </h2>
         </div>
     </section>
@@ -254,8 +254,8 @@
                 {{-- ======= Bloc statique : Bannière verte (haut droite) ======= --}}
                 <div class="promo-card grid-promo">
                     <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
-                        Fiers de servir la communauté de Pennsylvanie<br>
-                        avec nos solutions solaires de premier plan.
+                        France Expert Isolation vous accompagne de A à Z : </br>
+                         étude technique, montage du dossier CEE, réalisation des travaux et suivi post-intervention.
                     </p>
                     <span class="promo-dot"></span>
                 </div>
