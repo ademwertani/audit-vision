@@ -381,7 +381,7 @@
             <div class="cp-ico"><i class="fa fa-phone"></i></div>
             <div>
               <h5>Téléphone&nbsp;:</h5>
-              <a href="tel:+330948160487">+33184808124</a>
+              <a href="tel:+330948160487">+01 84 80 81 24</a>
             </div>
           </div>
 

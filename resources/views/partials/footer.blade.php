@@ -209,11 +209,11 @@
         <ul class="contact-list mt-4">
           <li class="contact-item">
             <span class="icon"><i class="fas fa-phone"></i></span>
-            <a href="tel:+000000000">+33184808124 · 01 84 80 81 24</a>
+            <a href="tel:+000000000">01 84 80 81 24</a>
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-envelope"></i></span>
-            <a href="mailto:contact@ecocall.tn">contact@ecocall.tn</a>
+            <a href="mailto:commercial@franceexpertisolation.fr">commercial@franceexpertisolation.fr</a>
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
