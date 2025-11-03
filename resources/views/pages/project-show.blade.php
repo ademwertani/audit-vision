@@ -135,18 +135,39 @@
       <div class="container">
         <div class="pr-grid">
 
-          {{-- LEFT: Image --}}
-          <div class="media-card">
-            @if($project->image)
-              <figure class="media-thumb">
-                <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
-              </figure>
-            @else
-              <div class="media-placeholder">
-                <i class="fa fa-image fa-3x"></i>
-              </div>
-            @endif
-          </div>
+{{-- LEFT: Image + mini-galerie --}}
+<div class="media-card">
+
+    {{-- Image principale --}}
+    @if($project->image)
+      <figure class="media-thumb mb-2">
+        <a data-fancybox="galerie" href="{{ asset('storage/' . $project->image) }}">
+          <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}">
+        </a>
+      </figure>
+    @else
+      <div class="media-placeholder mb-2">
+        <i class="fa fa-image fa-3x"></i>
+      </div>
+    @endif
+
+    {{-- ✅ Mini-images horizontales cliquables --}}
+    @if(!empty($project->images))
+      <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;">
+        {{-- inclure aussi la première image --}}
+        <a data-fancybox="galerie" href="{{ asset('storage/' . $project->image) }}">
+          <img src="{{ asset('storage/' . $project->image) }}" style="height:70px;width:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid #e5e7eb;">
+        </a>
+
+        @foreach($project->images as $img)
+          <a data-fancybox="galerie" href="{{ Storage::url($img) }}">
+            <img src="{{ Storage::url($img) }}" style="height:70px;width:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid #e5e7eb;">
+          </a>
+        @endforeach
+      </div>
+    @endif
+
+</div>
 
           {{-- RIGHT: Content --}}
           <div class="pr-body-card">
@@ -289,4 +310,7 @@
     </section>
 
   </section>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
 @endsection

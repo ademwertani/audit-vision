@@ -13,13 +13,24 @@ class Project extends Model
 
     protected $fillable = [
         'name', 'summary', 'description', 'image',
-        'service_id',        // ⬅️ replace category_id
+        'service_id',
         'secteur',
+        'images', // galerie d’images
     ];
 
-    // ⬇️ Replace category() with service()
+    protected $casts = [
+        'images' => 'array', // convertir JSON → tableau
+    ];
+
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    // URLs complètes des images
+    public function getImagesUrlsAttribute(): array
+    {
+        $files = $this->images ?? [];
+        return array_map(fn ($path) => \Illuminate\Support\Facades\Storage::url($path), $files);
     }
 }

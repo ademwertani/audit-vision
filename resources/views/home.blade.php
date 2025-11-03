@@ -588,13 +588,7 @@
                 </div>
             @endforeach
         </div>
-        {{-- Flèches navigation personnalisées --}}
-        <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev" aria-label="Précédent">
-            <span style="font-size:2rem; color:black;">&#10094;</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next" aria-label="Suivant">
-            <span style="font-size:2rem; color:black;">&#10095;</span>
-        </button>
+      
     </div>
 
     {{-- pub --}}
@@ -761,7 +755,7 @@
                         <div class="text-center mb-5">
                             <p class="fw-light mb-1" style="color: var(--dark); font-size: 26px;">
                                 Rejoignez notre communauté de clients satisfaits et découvrez la beauté<br>
-                                et les avantages de l’énergie solaire.
+                                et les avantages de l’isolation thermique.
                             </p>
                         </div>
                         <div class="row g-4 align-items-center">

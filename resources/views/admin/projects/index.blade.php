@@ -13,13 +13,14 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="table" class="table table-hover">
+            <table id="table" class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
                         <th>Image</th>
+                        <th>Galerie</th> {{-- ✅ nouvelle colonne --}}
                         <th>Name</th>
-                        <th>Service</th> {{-- ⬅️ remplace Category --}}
+                        <th>Service</th>
                         <th>Secteur</th>
                         <th>Summary</th>
                         <th>Actions</th>
@@ -29,6 +30,8 @@
                     @foreach($projects as $project)
                         <tr>
                             <td>{{ $project->id }}</td>
+
+                            {{-- Image principale --}}
                             <td>
                                 @if($project->image)
                                     <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
@@ -36,7 +39,25 @@
                                     <span class="text-muted">No image</span>
                                 @endif
                             </td>
+
+                            {{-- ✅ Galerie (affichage badge + mini preview on hover) --}}
+                            <td>
+                                @if(!empty($project->images))
+                                    <span class="badge bg-success">{{ count($project->images) }} imgs</span>
+
+                                    {{-- Mini preview au survol --}}
+                                    <div class="d-flex gap-1 mt-1">
+                                        @foreach(array_slice($project->images, 0, 3) as $img)
+                                            <img src="{{ Storage::url($img) }}" class="rounded border" style="width:30px;height:30px;object-fit:cover;" alt="gallery img">
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <span class="text-muted">—</span>
+                                @endif
+                            </td>
+
                             <td>{{ $project->name }}</td>
+
                             <td>
                                 @if($project->service)
                                     <span class="badge bg-primary">{{ $project->service->name }}</span>
@@ -44,6 +65,7 @@
                                     <span class="text-muted">No service</span>
                                 @endif
                             </td>
+
                             <td>
                                 @if($project->secteur)
                                     @php
@@ -59,7 +81,9 @@
                                     <span class="text-muted">—</span>
                                 @endif
                             </td>
+
                             <td>{{ $project->summary }}</td>
+
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-sm btn-info">
@@ -83,7 +107,6 @@
             </table>
         </div>
 
-        {{-- Pagination si nécessaire --}}
         @if(method_exists($projects, 'links'))
             <div class="mt-3">
                 {{ $projects->links() }}

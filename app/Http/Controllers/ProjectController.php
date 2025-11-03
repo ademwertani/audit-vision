@@ -70,9 +70,18 @@ class ProjectController extends Controller
             ? asset('storage/' . ltrim($banner->image, '/'))
             : asset('img/default-banner.jpg');
 
-        // Charger la relation service pour l’affichage
+        // Charger la relation service
         $project->load('service');
 
-        return view('pages.project-show', compact('project', 'heroBannerImg'));
+        // Récupération galerie
+        $gallery = $project->images ?? [];          // tableau de chemins
+        $galleryUrls = $project->images_urls ?? []; // URLs publiques (Storage::url)
+
+        return view('pages.project-show', compact(
+            'project',
+            'heroBannerImg',
+            'gallery',
+            'galleryUrls'
+        ));
     }
 }

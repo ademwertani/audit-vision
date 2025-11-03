@@ -16,9 +16,7 @@
                 <label for="name" class="form-label">Name *</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                        id="name" name="name" value="{{ old('name') }}" required>
-                @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
             {{-- Summary --}}
@@ -26,9 +24,7 @@
                 <label for="summary" class="form-label">Summary *</label>
                 <input type="text" class="form-control @error('summary') is-invalid @enderror"
                        id="summary" name="summary" value="{{ old('summary') }}" required>
-                @error('summary')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                @error('summary')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
             {{-- Description --}}
@@ -36,9 +32,7 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control @error('description') is-invalid @enderror"
                           id="description" name="description" rows="4">{{ old('description') }}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
             {{-- Secteur --}}
@@ -53,13 +47,10 @@
                         </option>
                     @endforeach
                 </select>
-                @error('secteur')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-                <small class="text-muted">Choisissez parmi : Tertiaire, Industrie, Agricole.</small>
+                @error('secteur')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
-            {{-- Service (remplace Category) --}}
+            {{-- Service --}}
             <div class="mb-3">
                 <label for="service_id" class="form-label">Service *</label>
                 <select class="form-select @error('service_id') is-invalid @enderror"
@@ -71,20 +62,29 @@
                         </option>
                     @endforeach
                 </select>
-                @error('service_id')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                @error('service_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
-            {{-- Image --}}
+            {{-- Image principale --}}
             <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
+                <label for="image" class="form-label">Main Image</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror"
                        id="image" name="image" accept="image/*">
-                @error('image')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 <small class="text-muted">Max 2MB (JPEG, PNG, JPG, GIF)</small>
+            </div>
+
+            {{-- ✅ Galerie images --}}
+            <div class="mb-3">
+                <label class="form-label">Gallery Images (max 5)</label>
+                <input type="file" class="form-control @error('images') is-invalid @enderror"
+                       name="images[]" multiple accept="image/*">
+                @error('images')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                @error('images.*')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <small class="text-muted">You can upload up to 5 images</small>
+
+                {{-- ✅ Preview zone --}}
+                <div id="preview-area" class="row g-2 mt-2 d-none"></div>
             </div>
 
             {{-- Actions --}}
@@ -99,4 +99,24 @@
         </form>
     </div>
 </div>
+
+{{-- ✅ Preview Script --}}
+<script>
+document.querySelector('input[name="images[]"]').addEventListener('change', function(e) {
+    const preview = document.getElementById('preview-area');
+    preview.innerHTML = '';
+    preview.classList.remove('d-none');
+
+    [...e.target.files].slice(0, 5).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = evt => {
+            preview.innerHTML += `
+                <div class="col-4 col-md-2">
+                    <img src="${evt.target.result}" class="img-fluid rounded border" style="height:90px;object-fit:cover;">
+                </div>`;
+        };
+        reader.readAsDataURL(file);
+    });
+});
+</script>
 @endsection
