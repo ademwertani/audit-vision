@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema; // For setting default string length
 use Illuminate\Pagination\Paginator; // For pagination styling
 use App\Http\Controllers\SettingsController;
-
+use App\Models\Category;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,9 +33,9 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         // If you're using Laravel 8+ and having mixed content issues on HTTPS
-        if ($this->app->environment('production')) {
-            \URL::forceScheme('https');
-        }
+        //if ($this->app->environment('production')) {
+        //    \URL::forceScheme('https');
+      //  }
 
         // You can add view composers here if needed
         // View::composer('view.name', function ($view) {
@@ -47,5 +47,11 @@ class AppServiceProvider extends ServiceProvider
         view()->share('about', $sharedData['about']);
         view()->share('social', $sharedData['social']);
         view()->share('services', $sharedData['services']);
+        // ↓ Nouveau : catégories + services pour le menu
+    $navCategories = Category::with([
+        'services:id,category_id,name' // ou name,slug si tu utilises des slugs
+    ])->orderBy('name')->get(['id','name']);
+
+    view()->share('navCategories', $navCategories);
     }
 }
