@@ -499,24 +499,25 @@
                         déperditions de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts énergétiques.
                     </p>
                     <div class="values-kicker">NOS VALEURS</div>
-                    <div class="values-row">
-                        <div class="value-chip">
-                            <img src="/img/im4.png" alt="Expertise" class="icon">
-                            <span class="label">L’expertise</span>
-                        </div>
-                        <div class="value-chip">
-                            <img src="/img/im3.png" alt="Qualité" class="icon">
-                            <span class="label">La qualité</span>
-                        </div>
-                        <div class="value-chip">
-                            <img src="/img/im2.png" alt="Innovation" class="icon">
-                            <span class="label">L’innovation</span>
-                        </div>
-                        <div class="value-chip">
-                            <img src="/img/im1.png" alt="Respect des délais" class="icon">
-                            <span class="label">Respect des délais</span>
-                        </div>
-                    </div>
+<div class="values-row">
+    <div class="value-chip">
+        <img src="/img/im1.png" alt="Expertise" class="icon">
+        <span class="label">L’expertise</span>
+    </div>
+    <div class="value-chip">
+        <img src="/img/im2.png" alt="Qualité" class="icon">
+        <span class="label">La qualité</span>
+    </div>
+    <div class="value-chip lower">   <!-- 🔥 AJOUT -->
+        <img src="/img/im3.png" alt="Innovation" class="icon">
+        <span class="label">L’innovation</span>
+    </div>
+    <div class="value-chip lowerr">
+        <img src="/img/im4.png" alt="Respect des délais" class="icon">
+        <span class="label">Respect des délais</span>
+    </div>
+</div>
+
                     {{-- Ton bouton existant --}}
                     <a href="{{ url('/about') }}" class="btn about-btn mt-3">
                         En savoir plus
@@ -781,8 +782,8 @@
         <section class="hcw my-5">
             <div class="container">
                 <h1 class="hcw-title text-center">
-                    <span>Clients heureux,</span><br>
-                    <span>monde heureux</span>
+                    <span>Clients heureux</span><br>
+                    
                 </h1>
                 @if(!empty($customers) && $customers->count())
                     <div class="row g-4 mt-4">

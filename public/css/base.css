@@ -1570,3 +1570,15 @@ body{ padding-top: 72px; } /* adapte à la hauteur réelle du header */
     bottom: calc(32px + min(96vw, 620px) * 0.5625 + 20px); /* garde l'empilement propre */
   }
 }
+.value-chip .label {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #000; /* texte noir */
+    font-weight: 500;
+}
+.value-chip.lower {
+    margin-top: 8px; /* ajuste la valeur comme tu veux */
+}
+.value-chip.lowerr {
+    margin-top: 5px; /* ajuste la valeur comme tu veux */
+}
