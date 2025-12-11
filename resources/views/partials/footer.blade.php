@@ -173,7 +173,7 @@
         </p>
 
         <div class="social-icons mt-3">
-          <a href="https://www.facebook.com/tonpage" class="btn-square rounded-circle me-2" aria-label="Facebook"
+          <a href="https://www.facebook.com/profile.php?id=61582684408428" class="btn-square rounded-circle me-2" aria-label="Facebook"
             target="_blank" rel="noopener">
             <i class="fab fa-facebook-f"></i>
           </a>

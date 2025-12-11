@@ -46,70 +46,70 @@
         <div class="hero-curve" aria-hidden="true"></div>
     </div>
     <script>
-  const banners = @json($bannerData);
-  let currentIndex = 0;
+        const banners = @json($bannerData);
+        let currentIndex = 0;
 
-  function updateHero(index) {
-    if (!banners || !banners.length) return;
+        function updateHero(index) {
+            if (!banners || !banners.length) return;
 
-    const hero = document.querySelector('.hero-aisla');
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSub   = document.querySelector('.hero-sub');
+            const hero = document.querySelector('.hero-aisla');
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSub = document.querySelector('.hero-sub');
 
-    hero.style.setProperty('--hero-bg-img', `url('${banners[index].image}')`);
-    heroTitle.innerHTML = (banners[index].title || '').replace(/\n/g, "<br>");
-    heroSub.textContent = banners[index].summary || '';
-  }
+            hero.style.setProperty('--hero-bg-img', `url('${banners[index].image}')`);
+            heroTitle.innerHTML = (banners[index].title || '').replace(/\n/g, "<br>");
+            heroSub.textContent = banners[index].summary || '';
+        }
 
-  // Navigation
-  function prev() {
-    if (!banners || !banners.length) return;
-    currentIndex = (currentIndex - 1 + banners.length) % banners.length;
-    updateHero(currentIndex);
-  }
-  function next() {
-    if (!banners || !banners.length) return;
-    currentIndex = (currentIndex + 1) % banners.length;
-    updateHero(currentIndex);
-  }
+        // Navigation
+        function prev() {
+            if (!banners || !banners.length) return;
+            currentIndex = (currentIndex - 1 + banners.length) % banners.length;
+            updateHero(currentIndex);
+        }
+        function next() {
+            if (!banners || !banners.length) return;
+            currentIndex = (currentIndex + 1) % banners.length;
+            updateHero(currentIndex);
+        }
 
-  // Flèches
-  document.querySelector('.hero-arrow-left')?.addEventListener('click', () => {
-    prev();
-    restartAutoplay();
-  });
-  document.querySelector('.hero-arrow-right')?.addEventListener('click', () => {
-    next();
-    restartAutoplay();
-  });
+        // Flèches
+        document.querySelector('.hero-arrow-left')?.addEventListener('click', () => {
+            prev();
+            restartAutoplay();
+        });
+        document.querySelector('.hero-arrow-right')?.addEventListener('click', () => {
+            next();
+            restartAutoplay();
+        });
 
-  // Lecture automatique toutes les 2 secondes
-  const AUTOPLAY_MS = 2000;
-  let autoplayId = null;
+        // Lecture automatique toutes les 2 secondes
+        const AUTOPLAY_MS = 2000;
+        let autoplayId = null;
 
-  function startAutoplay() {
-    if (autoplayId || !banners || banners.length <= 1) return;
-    autoplayId = setInterval(next, AUTOPLAY_MS);
-  }
-  function stopAutoplay() {
-    if (!autoplayId) return;
-    clearInterval(autoplayId);
-    autoplayId = null;
-  }
-  function restartAutoplay() {
-    stopAutoplay();
-    startAutoplay();
-  }
+        function startAutoplay() {
+            if (autoplayId || !banners || banners.length <= 1) return;
+            autoplayId = setInterval(next, AUTOPLAY_MS);
+        }
+        function stopAutoplay() {
+            if (!autoplayId) return;
+            clearInterval(autoplayId);
+            autoplayId = null;
+        }
+        function restartAutoplay() {
+            stopAutoplay();
+            startAutoplay();
+        }
 
-  // Pause au survol du hero
-  const heroEl = document.querySelector('.hero-aisla');
-  heroEl?.addEventListener('mouseenter', stopAutoplay);
-  heroEl?.addEventListener('mouseleave', startAutoplay);
+        // Pause au survol du hero
+        const heroEl = document.querySelector('.hero-aisla');
+        heroEl?.addEventListener('mouseenter', stopAutoplay);
+        heroEl?.addEventListener('mouseleave', startAutoplay);
 
-  // Init
-  updateHero(currentIndex);
-  startAutoplay();
-</script>
+        // Init
+        updateHero(currentIndex);
+        startAutoplay();
+    </script>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
@@ -139,84 +139,110 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+
         /* Parent en référence */
-  #blogCarousel{ position: relative; }
+        #blogCarousel {
+            position: relative;
+        }
 
-  .bottom-controls{
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 5;
-    pointer-events: none;
-  }
-  .bottom-controls .bcb{
-    pointer-events: auto;
-    width: 36px; height: 36px;
-    border-radius: 999px;
-    border: 1px solid #e5e7eb;
-    background: rgba(255,255,255,.92);
-    box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
-    display: grid; place-items: center;
-    color: #111827;
-    transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
-  }
-  .bottom-controls .bcb:hover{ transform: translateY(-1px); }
-  .bottom-controls .bcb:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(15,23,42,.18); }
-/* ---- Ajuste l’offset vertical de P3 ---- */
-.projects-grid .grid-p3 {
-  /* décale P3 vers le bas */
-  margin-top: 22px;              /* ajuste 10–40px selon rendu */
-  align-self: start;             /* évite un recentrage vertical inattendu */
-}
+        .bottom-controls {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 5;
+            pointer-events: none;
+        }
 
-/* ---- Taille fixe uniquement pour la carte P3 ---- */
-.projects-grid .grid-p3.proj-card--md {
-  width: 700px;                  /* largeur fixe */
-  height: 680px;                 /* hauteur fixe */
-}
+        .bottom-controls .bcb {
+            pointer-events: auto;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            border: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, .92);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
+            display: grid;
+            place-items: center;
+            color: #111827;
+            transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
+        }
 
-/* L'image remplit la carte proprement */
-.projects-grid .grid-p3.proj-card--md > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+        .bottom-controls .bcb:hover {
+            transform: translateY(-1px);
+        }
 
-/* L’overlay suit la hauteur fixe */
-.projects-grid .grid-p3.proj-card--md .proj-overlay {
-  position: absolute;            /* si ce n'est pas déjà le cas dans ton skin */
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 14px;
-}
-@media (max-width: 768px) {
-  .projects-grid .grid-p3 { margin-top: 12px; }
-  .projects-grid .grid-p3.proj-card--md {
-    width: 100%;
-    height: 220px;               /* ou auto si tu préfères */
-  }
-}
-/* Remonter P3 (override) */
-.projects-grid .grid-p3 {
-  margin-top: -180px !important;   /* mets 0, -6, -12, -20 selon le rendu souhaité */
-}
+        .bottom-controls .bcb:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(15, 23, 42, .18);
+        }
 
-/* Optionnel : sur mobile on reste léger */
-@media (max-width: 768px) {
-  .projects-grid .grid-p3 {
-    margin-top: -4px !important;
-  }
-}
+        /* ---- Ajuste l’offset vertical de P3 ---- */
+        .projects-grid .grid-p3 {
+            /* décale P3 vers le bas */
+            margin-top: 22px;
+            /* ajuste 10–40px selon rendu */
+            align-self: start;
+            /* évite un recentrage vertical inattendu */
+        }
 
-  /* Option: masquer les flèches latérales si réactivées ailleurs
-  #blogCarousel .carousel-control-prev,
-  #blogCarousel .carousel-control-next{ display:none !important; } */
+        /* ---- Taille fixe uniquement pour la carte P3 ---- */
+        .projects-grid .grid-p3.proj-card--md {
+            width: 700px;
+            /* largeur fixe */
+            height: 680px;
+            /* hauteur fixe */
+        }
+
+        /* L'image remplit la carte proprement */
+        .projects-grid .grid-p3.proj-card--md>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* L’overlay suit la hauteur fixe */
+        .projects-grid .grid-p3.proj-card--md .proj-overlay {
+            position: absolute;
+            /* si ce n'est pas déjà le cas dans ton skin */
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid .grid-p3 {
+                margin-top: 12px;
+            }
+
+            .projects-grid .grid-p3.proj-card--md {
+                width: 100%;
+                height: 220px;
+                /* ou auto si tu préfères */
+            }
+        }
+
+        /* Remonter P3 (override) */
+        .projects-grid .grid-p3 {
+            margin-top: -180px !important;
+            /* mets 0, -6, -12, -20 selon le rendu souhaité */
+        }
+
+        /* Optionnel : sur mobile on reste léger */
+        @media (max-width: 768px) {
+            .projects-grid .grid-p3 {
+                margin-top: -4px !important;
+            }
+        }
+
+        /* Option: masquer les flèches latérales si réactivées ailleurs
+      #blogCarousel .carousel-control-prev,
+      #blogCarousel .carousel-control-next{ display:none !important; } */
     </style>
     {{-- Section après le Hero --}}
     <section class="after-hero-text py-5">
@@ -255,7 +281,7 @@
                 <div class="promo-card grid-promo">
                     <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
                         France Expert Isolation vous accompagne de A à Z : </br>
-                         étude technique, montage du dossier CEE, réalisation des travaux et suivi post-intervention.
+                        étude technique, montage du dossier CEE, réalisation des travaux et suivi post-intervention.
                     </p>
                     <span class="promo-dot"></span>
                 </div>
@@ -331,7 +357,8 @@
     <style>
         :root {
             --radius: 18px;
-            --gap: 28px; /* espace entre les cartes */
+            --gap: 28px;
+            /* espace entre les cartes */
             --accent: #7CAE2A;
             --primary: #2d3281;
             --muted: #e9eef3;
@@ -340,7 +367,8 @@
         /* ====== GRID LAYOUT AVEC ZONES ====== */
         .projects-grid {
             display: grid;
-            grid-template-columns: 1.05fr 1fr; /* léger avantage à gauche */
+            grid-template-columns: 1.05fr 1fr;
+            /* léger avantage à gauche */
             gap: var(--gap);
             grid-template-areas:
                 "p1    promo"
@@ -348,14 +376,29 @@
                 ".     stats";
         }
 
-        .grid-p1 { grid-area: p1; }
-        .grid-promo { grid-area: promo; }
-        .grid-p2 { grid-area: p2; }
-        .grid-p3 { grid-area: p3; }
-        .grid-stats { grid-area: stats; }
+        .grid-p1 {
+            grid-area: p1;
+        }
+
+        .grid-promo {
+            grid-area: promo;
+        }
+
+        .grid-p2 {
+            grid-area: p2;
+        }
+
+        .grid-p3 {
+            grid-area: p3;
+        }
+
+        .grid-stats {
+            grid-area: stats;
+        }
 
         /* ====== CARTES ====== */
-        .proj-card, .promo-card {
+        .proj-card,
+        .promo-card {
             min-height: 240px;
             border-radius: var(--radius);
             overflow: hidden;
@@ -367,57 +410,123 @@
         .stats-card {
             padding: 20px;
             margin-top: -200px;
-            margin-bottom: 400px; /* <= espace sous les stats (sera réduit plus bas) */
+            margin-bottom: 400px;
+            /* <= espace sous les stats (sera réduit plus bas) */
         }
 
-        .proj-card--lg { min-height: 360px; }
-        .grid-promo { min-height: 120px; }
-        .grid-p3 { min-height: 300px; }
-        .grid-stats { min-height: 150px; }
+        .proj-card--lg {
+            min-height: 360px;
+        }
+
+        .grid-promo {
+            min-height: 120px;
+        }
+
+        .grid-p3 {
+            min-height: 300px;
+        }
+
+        .grid-stats {
+            min-height: 150px;
+        }
 
         /* ====== IMAGES ====== */
         .proj-card img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform .6s ease;
         }
-        .proj-card:hover img { transform: scale(1.04); }
+
+        .proj-card:hover img {
+            transform: scale(1.04);
+        }
 
         /* ====== OVERLAY + PILLS ====== */
         .proj-overlay {
-            position: absolute; inset: auto 0 0 0;
-            display: flex; justify-content: space-between; align-items: center;
+            position: absolute;
+            inset: auto 0 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 12px 14px;
             background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
         }
+
         .pill {
-            border-radius: 999px; padding: 8px 12px; font-size: .8rem;
-            display: inline-flex; align-items: center; gap: 6px;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: .8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .pill--muted { background: rgba(255,255,255,.9); color: #2c313a; }
-        .pill--action { background: var(--accent); color: #fff; }
+
+        .pill--muted {
+            background: rgba(255, 255, 255, .9);
+            color: #2c313a;
+        }
+
+        .pill--action {
+            background: var(--accent);
+            color: #fff;
+        }
 
         /* ====== PROMO ====== */
         .promo-card {
-            background: #69bb36; color: #fff;
-            width: 700px; height: 180px; padding: 20px;
-            display: flex; align-items: center; justify-content: center; text-align: center;
+            background: #69bb36;
+            color: #fff;
+            width: 700px;
+            height: 180px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
+
         .promo-dot {
-            width: 35px; height: 30px; background: #1d2a78; border-radius: 4px;
-            position: absolute; bottom: 0; right: 0;
+            width: 35px;
+            height: 30px;
+            background: #1d2a78;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
 
         /* ====== STATS ====== */
         .stats-row {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
+
         .stat {
-            background: #e8eef7; padding: 12px; border-radius: 10px; text-align: center;
+            background: #e8eef7;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
         }
-        .stat--accent { background: #e5f5e2; }
-        .stat-number { font-size: 22px; font-weight: 700; color: var(--primary); }
-        .stat--accent .stat-number { color: var(--accent); }
-        .stat-label { font-size: 13px; color: #3f4759; }
+
+        .stat--accent {
+            background: #e5f5e2;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat--accent .stat-number {
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #3f4759;
+        }
 
         /* ====== RESPONSIVE ====== */
         @media (max-width: 992px) {
@@ -430,51 +539,90 @@
                     "p3"
                     "stats";
             }
-            .proj-card--lg { min-height: 300px; }
-            .grid-p3 { min-height: 260px; }
+
+            .proj-card--lg {
+                min-height: 300px;
+            }
+
+            .grid-p3 {
+                min-height: 260px;
+            }
         }
 
         /* Remonter uniquement la 3e carte (P3) */
-        .grid-p3 { margin-top: -240px; margin-bottom: 240px; }
+        .grid-p3 {
+            margin-top: -240px;
+            margin-bottom: 240px;
+        }
 
         /* Aligner le bouton avec le texte et le garder en bas (blog) */
         .blog-card__content {
-            display: flex; flex-direction: column; padding: 24px; padding-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            padding-bottom: 24px;
         }
+
         .blog-card__btn {
-            position: static !important; inset: auto !important;
-            align-self: flex-start; margin-top: auto; display: inline-flex;
+            position: static !important;
+            inset: auto !important;
+            align-self: flex-start;
+            margin-top: auto;
+            display: inline-flex;
         }
 
         /* S'assure que le parent est la référence */
-        #servicesCarousel{ position: relative; }
+        #servicesCarousel {
+            position: relative;
+        }
 
         /* Contrôles bas centrés */
-        .services-bottom-controls{
-          position: absolute;
-          left: 50%;
-          bottom: 10px;
-          transform: translateX(-50%);
-          display: flex; align-items: center; gap: 10px;
-          z-index: 5; pointer-events: none;
+        .services-bottom-controls {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 5;
+            pointer-events: none;
         }
-        .services-bottom-controls .scb{
-          pointer-events: auto;
-          width: 36px; height: 36px; border-radius: 999px;
-          border: 1px solid #e5e7eb; background: rgba(255,255,255,.92);
-          box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
-          display: grid; place-items: center; color: #111827;
-          transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
+
+        .services-bottom-controls .scb {
+            pointer-events: auto;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            border: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, .92);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
+            display: grid;
+            place-items: center;
+            color: #111827;
+            transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease, opacity .2s ease;
         }
-        .services-bottom-controls .scb:hover{ transform: translateY(-1px); }
-        .services-bottom-controls .scb:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(15,23,42,.18); }
-        @media (min-width: 992px){ .services-bottom-controls{ opacity: .98; } }
+
+        .services-bottom-controls .scb:hover {
+            transform: translateY(-1px);
+        }
+
+        .services-bottom-controls .scb:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(15, 23, 42, .18);
+        }
+
+        @media (min-width: 992px) {
+            .services-bottom-controls {
+                opacity: .98;
+            }
+        }
 
         #servicesCarousel .carousel-control-prev,
-        #servicesCarousel .carousel-control-next{
-          /* display: none !important; */ /* décommente pour masquer les flèches latérales */
+        #servicesCarousel .carousel-control-next {
+            /* display: none !important; */
+            /* décommente pour masquer les flèches latérales */
         }
-        
     </style>
     <!-- Projects End -->
 
@@ -496,27 +644,28 @@
                         France Expert Isolation – Spécialiste de l’isolation thermique et de l’efficacité énergétique.
                         Nous sommes une entreprise spécialisée dans l’isolation thermique des bâtiments et installations
                         industrielles. Notre mission est claire : améliorer la performance énergétique, réduire les
-                        déperditions de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts énergétiques.
+                        déperditions de chaleur et optimiser le confort tout en contribuant à la maîtrise des coûts
+                        énergétiques.
                     </p>
                     <div class="values-kicker">NOS VALEURS</div>
-<div class="values-row">
-    <div class="value-chip">
-        <img src="/img/im1.png" alt="Expertise" class="icon">
-        <span class="label">L’expertise</span>
-    </div>
-    <div class="value-chip">
-        <img src="/img/im2.png" alt="Qualité" class="icon">
-        <span class="label">La qualité</span>
-    </div>
-    <div class="value-chip lower">   <!-- 🔥 AJOUT -->
-        <img src="/img/im3.png" alt="Innovation" class="icon">
-        <span class="label">L’innovation</span>
-    </div>
-    <div class="value-chip lowerr">
-        <img src="/img/im4.png" alt="Respect des délais" class="icon">
-        <span class="label">Respect des délais</span>
-    </div>
-</div>
+                    <div class="values-row">
+                        <div class="value-chip">
+                            <img src="/img/im1.png" alt="Expertise" class="icon">
+                            <span class="label">L’expertise</span>
+                        </div>
+                        <div class="value-chip">
+                            <img src="/img/im2.png" alt="Qualité" class="icon">
+                            <span class="label">La qualité</span>
+                        </div>
+                        <div class="value-chip lower"> <!-- 🔥 AJOUT -->
+                            <img src="/img/im3.png" alt="Innovation" class="icon">
+                            <span class="label">L’innovation</span>
+                        </div>
+                        <div class="value-chip lowerr">
+                            <img src="/img/im4.png" alt="Respect des délais" class="icon">
+                            <span class="label">Respect des délais</span>
+                        </div>
+                    </div>
 
                     {{-- Ton bouton existant --}}
                     <a href="{{ url('/about') }}" class="btn about-btn mt-3">
@@ -543,21 +692,21 @@
         <div class="carousel-inner">
             <!-- Contrôles bas centrés -->
             <div class="services-bottom-controls">
-              <button class="scb scb-prev" type="button"
-                      data-bs-target="#servicesCarousel" data-bs-slide="prev"
-                      aria-label="Précédent">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
+                <button class="scb scb-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev"
+                    aria-label="Précédent">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
 
-              <button class="scb scb-next" type="button"
-                      data-bs-target="#servicesCarousel" data-bs-slide="next"
-                      aria-label="Suivant">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
+                <button class="scb scb-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next"
+                    aria-label="Suivant">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
             </div>
 
             @foreach($services->chunk(3) as $chunkIndex => $chunk)
@@ -589,7 +738,7 @@
                 </div>
             @endforeach
         </div>
-      
+
     </div>
 
     {{-- pub --}}
@@ -620,94 +769,104 @@
         </div>
     </section>
 
-<!-- Blog Start -->
-<div class="container-fluid py-5 mb-5">
-  <div class="container">
-    <div class="blog-intro pb-4">
-      <div>
-        <h2 class="blog-intro__title m-0">Blog</h2>
-        <p class="blog-intro__desc mb-0">
-          Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
-          en mettant l’accent sur la durabilité et l’autonomisation.<br>
-        </p>
-      </div>
-      <a href="{{ route('blog.index') }}" class="blog-intro__cta">
-        Tout voir <span class="blog-intro__cta-icon">→</span>
-      </a>
-    </div>
-
-    {{-- ===== Carousel Blog ===== --}}
-    <div id="blogCarousel" class="carousel slide" data-bs-ride="false">
-      <div class="carousel-inner">
-        @php
-          $chunks = $blogs->take(9)->chunk(3); // 3 cartes par slide
-        @endphp
-
-        @foreach($chunks as $chunkIndex => $chunk)
-          <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
-            <div class="container py-2">
-              <div class="row g-4 justify-content-center">
-                @foreach($chunk as $blog)
-                  <div class="col-12 col-md-6 col-lg-4 d-flex">
-                    <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}" class="text-decoration-none w-100">
-                      <article class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
-                        {{-- Image --}}
-                        @if($blog->image)
-                          <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="blog-card__img">
-                        @else
-                          <div class="blog-card__img blog-card__img--placeholder"></div>
-                        @endif
-
-                        <div class="blog-card__overlay"></div>
-
-                        <div class="blog-card__content d-flex flex-column flex-grow-1">
-                          <p class="blog-card__cat text-uppercase mb-1">
-                            {{ $blog->title ?? 'GESTION DE L’ENVIRONNEMENT' }}
-                          </p>
-                          <h3 class="blog-card__title">{{ $blog->title }}</h3>
-
-                          <div class="blog-card__meta mb-2">
-                            <span class="blog-card__date">
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
-                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                              {{ $blog->created_at->translatedFormat('j F Y') }}
-                            </span>
-                          </div>
-
-                          
-
-                          <span class="blog-card__btn mt-auto">
-                            Lire plus <span class="blog-card__btn-icon">→</span>
-                          </span>
-                        </div>
-                      </article>
-                    </a>
-                  </div>
-                @endforeach
-              </div>
+    <!-- Blog Start -->
+    <div class="container-fluid py-5 mb-5">
+        <div class="container">
+            <div class="blog-intro pb-4">
+                <div>
+                    <h2 class="blog-intro__title m-0">Blog</h2>
+                    <p class="blog-intro__desc mb-0">
+                        Chaque programme que nous menons est pensé pour répondre aux besoins spécifiques des communautés,
+                        en mettant l’accent sur la durabilité et l’autonomisation.<br>
+                    </p>
+                </div>
+                <a href="{{ route('blog.index') }}" class="blog-intro__cta">
+                    Tout voir <span class="blog-intro__cta-icon">→</span>
+                </a>
             </div>
-          </div>
-        @endforeach
-      </div>
 
-      {{-- Petites icônes bas --}}
-      <div class="bottom-controls">
-        <button class="bcb bcb-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev" aria-label="Précédent">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="bcb bcb-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next" aria-label="Suivant">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
+            {{-- ===== Carousel Blog ===== --}}
+            <div id="blogCarousel" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                    @php
+                        $chunks = $blogs->take(9)->chunk(3); // 3 cartes par slide
+                    @endphp
+
+                    @foreach($chunks as $chunkIndex => $chunk)
+                        <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                            <div class="container py-2">
+                                <div class="row g-4 justify-content-center">
+                                    @foreach($chunk as $blog)
+                                        <div class="col-12 col-md-6 col-lg-4 d-flex">
+                                            <a href="{{ route('blog.show', $blog->slug ?? $blog->id) }}"
+                                                class="text-decoration-none w-100">
+                                                <article
+                                                    class="blog-card rounded-4 overflow-hidden position-relative h-100 d-flex flex-column">
+                                                    {{-- Image --}}
+                                                    @if($blog->image)
+                                                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                                                            class="blog-card__img">
+                                                    @else
+                                                        <div class="blog-card__img blog-card__img--placeholder"></div>
+                                                    @endif
+
+                                                    <div class="blog-card__overlay"></div>
+
+                                                    <div class="blog-card__content d-flex flex-column flex-grow-1">
+                                                        <p class="blog-card__cat text-uppercase mb-1">
+                                                            {{ $blog->title ?? 'GESTION DE L’ENVIRONNEMENT' }}
+                                                        </p>
+                                                        <h3 class="blog-card__title">{{ $blog->title }}</h3>
+
+                                                        <div class="blog-card__meta mb-2">
+                                                            <span class="blog-card__date">
+                                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                                    aria-hidden="true">
+                                                                    <circle cx="12" cy="12" r="9" stroke="currentColor"
+                                                                        stroke-width="1.8" />
+                                                                    <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                                {{ $blog->created_at->translatedFormat('j F Y') }}
+                                                            </span>
+                                                        </div>
+
+
+
+                                                        <span class="blog-card__btn mt-auto">
+                                                            Lire plus <span class="blog-card__btn-icon">→</span>
+                                                        </span>
+                                                    </div>
+                                                </article>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- Petites icônes bas --}}
+                <div class="bottom-controls">
+                    <button class="bcb bcb-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev"
+                        aria-label="Précédent">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="bcb bcb-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next"
+                        aria-label="Suivant">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -769,9 +928,22 @@
                                 </div>
                             </div>
                             <style>
-                                .uniform-img { width: 150px; height: 150px; object-fit: contain; }
-                                .uniform-title { color: var(--dark); font-size: 1.6rem; font-weight: 600; }
-                                .uniform-text { font-size: 1.2rem; color: #6c757d; }
+                                .uniform-img {
+                                    width: 150px;
+                                    height: 150px;
+                                    object-fit: contain;
+                                }
+
+                                .uniform-title {
+                                    color: var(--dark);
+                                    font-size: 1.6rem;
+                                    font-weight: 600;
+                                }
+
+                                .uniform-text {
+                                    font-size: 1.2rem;
+                                    color: #6c757d;
+                                }
                             </style>
                         </div>
             @endif
@@ -783,7 +955,7 @@
             <div class="container">
                 <h1 class="hcw-title text-center">
                     <span>Clients heureux</span><br>
-                    
+
                 </h1>
                 @if(!empty($customers) && $customers->count())
                     <div class="row g-4 mt-4">
@@ -852,18 +1024,18 @@
                                 const col = document.createElement('div');
                                 col.className = 'col-md-6 mb-4';
                                 col.innerHTML = `
-                                    <div class="d-flex align-items-center team-card p-3 rounded">
-                                        <div class="team-photo position-relative me-3">
-                                            <div class="circle-border">
-                                                <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                        <div class="d-flex align-items-center team-card p-3 rounded">
+                                            <div class="team-photo position-relative me-3">
+                                                <div class="circle-border">
+                                                    <img src="${member.image_url}" class="img-fluid rounded-circle" alt="${member.name}">
+                                                </div>
+                                            </div>
+                                            <div class="team-info flex-grow-1">
+                                                <h4 class="fw-bold mb-1">${member.name}</h4>
+                                                <p class="mb-2" style="color: #fe5716;">${member.role}</p>
                                             </div>
                                         </div>
-                                        <div class="team-info flex-grow-1">
-                                            <h4 class="fw-bold mb-1">${member.name}</h4>
-                                            <p class="mb-2" style="color: #fe5716;">${member.role}</p>
-                                        </div>
-                                    </div>
-                                `;
+                                    `;
                                 teamContainer.appendChild(col);
                             });
                             teamPage = data.current_page;
@@ -927,49 +1099,105 @@
                 });
             });
 
-            /* Mode "zoom stable" (désactive les changements de breakpoint au zoom) */
-            .stable-zoom { min-width: 1280px; }
-            .stable-zoom .container, .stable-zoom .container-fluid { max-width: 1280px !important; }
-            .stable-zoom .col-lg-4 { flex: 0 0 auto; width: 33.333333% !important; }
-            .stable-zoom .col-md-6 { flex: 0 0 auto; width: 50% !important; }
-            .stable-zoom .hero-aisla { min-height: 520px; }
-            .stable-zoom .service-card__img, .stable-zoom .blog-card__img { aspect-ratio: 16/9; object-fit: cover; }
-            .stable-zoom .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
-            .stable-zoom .projects-grid > .grid-stats.stats-card { margin-bottom: 24px !important; }
+                /* Mode "zoom stable" (désactive les changements de breakpoint au zoom) */
+                .stable - zoom { min - width: 1280px; }
+                .stable - zoom.container, .stable - zoom.container - fluid { max - width: 1280px!important; }
+                .stable - zoom.col - lg - 4 { flex: 0 0 auto; width: 33.333333 % !important; }
+                .stable - zoom.col - md - 6 { flex: 0 0 auto; width: 50 % !important; }
+                .stable - zoom.hero - aisla { min - height: 520px; }
+                .stable - zoom.service - card__img, .stable - zoom.blog - card__img { aspect - ratio: 16 / 9; object - fit: cover; }
+                .stable - zoom.grid - p3 { margin - top: 0!important; margin - bottom: 0!important; }
+                .stable - zoom.projects - grid > .grid - stats.stats - card { margin - bottom: 24px!important; }
         </script>
 
         <style>
             /* Règles globales de sécurité */
-            html, body { overflow-x: hidden; }
-            img, iframe { max-width: 100%; height: auto; display: block; }
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            img,
+            iframe {
+                max-width: 100%;
+                height: auto;
+                display: block;
+            }
 
             /* 🔒 Mobile only */
             @media (max-width: 575.98px) {
-                .container, .container-fluid { padding-left: 12px !important; padding-right: 12px !important; }
-                .row { margin-left: 0 !important; margin-right: 0 !important; }
-                [class^="col-"], [class*=" col-"] { padding-left: 8px !important; padding-right: 8px !important; }
 
-                .services-section .card { width: 100% !important; }
-                .services-section img { max-width: 100%; height: auto; }
-
-                .project-item .card { width: 100% !important; height: auto !important; }
-                .project-item img { height: 180px !important; object-fit: cover; }
-
-                .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
-                    position: static !important; width: 70vw !important; max-width: 320px !important; margin: 16px auto 0 !important;
+                .container,
+                .container-fluid {
+                    padding-left: 12px !important;
+                    padding-right: 12px !important;
                 }
 
-                img[alt="Image sous zone bleue"] { width: 100% !important; height: auto !important; }
-                .text-center[style*="margin-top: -190px"] { margin-top: 0 !important; }
+                .row {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                }
 
-                .uniform-img { width: 96px !important; height: 96px !important; object-fit: contain; }
+                [class^="col-"],
+                [class*=" col-"] {
+                    padding-left: 8px !important;
+                    padding-right: 8px !important;
+                }
 
-                .hero-aisla, .about-aisla, .blog, .team, .project-carousel, .services-section {
+                .services-section .card {
+                    width: 100% !important;
+                }
+
+                .services-section img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                .project-item .card {
+                    width: 100% !important;
+                    height: auto !important;
+                }
+
+                .project-item img {
+                    height: 180px !important;
+                    object-fit: cover;
+                }
+
+                .container-fluid[style*="background: var(--primary)"] img[alt="Contact Image"] {
+                    position: static !important;
+                    width: 70vw !important;
+                    max-width: 320px !important;
+                    margin: 16px auto 0 !important;
+                }
+
+                img[alt="Image sous zone bleue"] {
+                    width: 100% !important;
+                    height: auto !important;
+                }
+
+                .text-center[style*="margin-top: -190px"] {
+                    margin-top: 0 !important;
+                }
+
+                .uniform-img {
+                    width: 96px !important;
+                    height: 96px !important;
+                    object-fit: contain;
+                }
+
+                .hero-aisla,
+                .about-aisla,
+                .blog,
+                .team,
+                .project-carousel,
+                .services-section {
                     overflow-x: hidden !important;
                 }
 
                 @media (min-width: 576px) {
-                    .project-item .card { width: 600px; }
+                    .project-item .card {
+                        width: 600px;
+                    }
                 }
             }
         </style>
@@ -979,167 +1207,402 @@
             .projects-grid>.grid-stats.stats-card {
                 margin-bottom: 9px !important;
             }
+
             @media (max-width: 992px) {
                 .projects-grid>.grid-stats.stats-card {
                     margin-bottom: 56px !important;
                 }
             }
+
             /* === Partners: mobile layout — logos juste sous l'image === */
+            @media (max-width: 575.98px) {
+                .partners-wrap {
+                    position: relative;
+                }
+
+                .partners-bg {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+
+                /* L’overlay descend sous l’image au lieu de la recouvrir */
+                .partners-overlay {
+                    position: static !important;
+                    margin-top: -10px;
+                    /* remonte un peu le bloc sous l'image */
+                    padding: 12px 14px 6px !important;
+                    background: transparent !important;
+                    /* pas de voile foncé sur mobile */
+                    text-align: center;
+                }
+
+                .partners-title {
+                    font-size: 1.15rem;
+                    margin: 6px 0 8px;
+                    line-height: 1.2;
+                }
+
+                /* Grille compacte de logos, juste après l’image */
+                .partners-logos,
+                .partners-logos.partners-logos--two-rows {
+                    display: grid !important;
+                    grid-template-columns: repeat(4, 1fr);
+                    /* 2 rangées × 4 colonnes si 8 logos */
+                    gap: 10px 10px;
+                    margin: 4px auto 0;
+                    max-width: 100%;
+                    align-items: center;
+                    justify-items: center;
+                }
+
+                .partner-logo-link {
+                    display: block;
+                }
+
+                .partner-logo {
+                    max-height: 30px;
+                    /* lisible mais compact */
+                    width: auto;
+                    object-fit: contain;
+                    filter: none !important;
+                    /* garde les couleurs d’origine */
+                }
+            }
+
+            @media (max-width: 768px) {
+                .partners-overlay {
+                    margin-top: -280px !important;
+                }
+            }
+
+            /* Mobile : remonter SEULEMENT les 4 derniers logos (2e rangée) */
+            @media (max-width: 575.98px) {
+                .partners-logos.partners-logos--two-rows>.partner-logo-link:nth-child(n+5) {
+                    margin-top: -100px !important;
+                    /* ← monte la 2e rangée (ajuste à -6px, -8px, -12px…) */
+                    /* ou, si tu préfères: transform: translateY(-10px) !important; */
+                }
+            }
+
+            /* Mobile : pousser l'image et la bande bleue (navy-plate) vers la gauche */
+            @media (max-width: 575.98px) {
+                .about-right .about-media {
+                    position: relative;
+                    overflow: visible;
+                }
+
+                /* valeur unique à ajuster */
+                .about-right .about-media {
+                    --about-shift: 60px;
+                    /* ← mets 8, 12, 16, 20px selon ton rendu */
+                }
+
+                /* décale l'image */
+                .about-right .about-image-box img {
+                    display: block;
+                    transform: translateX(calc(-1 * var(--about-shift)));
+                    /* si tu veux éviter une bande blanche à droite : */
+                    width: calc(100% + var(--about-shift));
+                }
+
+                /* décale la bande bleue exactement de la même valeur */
+                .about-right .navy-plate {
+                    position: absolute;
+                    /* au cas où elle ne l'est pas déjà */
+                    left: calc(-1 * var(--about-shift));
+                    /* tu peux aussi faire: transform: translateX(calc(-1 * var(--about-shift))); */
+                    z-index: 0;
+                    /* derrière l'image */
+                }
+
+                /* s'assurer que l'image reste au-dessus de la plaque */
+                .about-right .about-image-box {
+                    position: relative;
+                    z-index: 1;
+                }
+            }
+
+            /* 📱 Mobile : stats plus petites et titre à gauche */
+            @media (max-width: 575.98px) {
+
+                /* Titre aligné à gauche */
+                .grid-stats h5,
+                .stats-card h5 {
+                    text-align: left !important;
+                    margin-bottom: 10px !important;
+                }
+
+                /* Carte stats compacte (évite aussi le clipping) */
+                .projects-grid>.grid-stats.stats-card,
+                .stats-card {
+                    padding: 12px !important;
+                    margin-top: 12px !important;
+                    margin-bottom: 12px !important;
+                    min-height: unset !important;
+                    position: relative !important;
+                    z-index: 2 !important;
+                }
+
+                /* Grille plus dense : 3 colonnes (mets 2 si les libellés sont longs) */
+                .stats-row {
+                    grid-template-columns: repeat(1, 1fr) !important;
+                    /* ← mets repeat(2,1fr) si besoin */
+                    gap: 8px !important;
+                    /* espace entre cartes */
+                }
+
+                /* Cartes plus petites */
+                .stat {
+                    padding: 8px !important;
+                    border-radius: 8px !important;
+                }
+
+                /* Tailles de texte réduites pour tenir sur une ligne */
+                .stat-number {
+                    font-size: 16px !important;
+                    /* avant ~22px */
+                    line-height: 1.1 !important;
+                }
+
+                .stat-label {
+                    font-size: 11px !important;
+                    /* avant 13px */
+                    line-height: 1.15 !important;
+                    white-space: nowrap;
+                    /* évite les retours à la ligne */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                /* Sécurité : annule tout décalage agressif pouvant cacher la section */
+                .projects-grid .grid-p3 {
+                    margin-top: 0 !important;
+                    margin-bottom: 0 !important;
+                }
+            }
+
+            /* 📱 Mobile : aligner chiffres et libellés à gauche dans les stats */
+            @media (max-width: 575.98px) {
+
+                /* Titre déjà demandé à gauche */
+                .grid-stats h5,
+                .stats-card h5 {
+                    text-align: left !important;
+                }
+
+                /* Chaque carte stat : alignement gauche */
+                .stats-row {
+                    justify-items: stretch !important;
+                }
+
+                /* les cartes prennent toute la largeur de leur colonne */
+                .stat {
+                    text-align: left !important;
+                    /* override du center */
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    gap: 2px;
+                }
+
+                /* Chiffres et libellés bien calés à gauche */
+                .stat-number,
+                .stat-label {
+                    display: block;
+                    text-align: left !important;
+                }
+            }
+
+            /* =====================================================
+       📱 MOBILE — FIX FINAL POUR LES BOUTONS DU HERO
+       ===================================================== */
+            @media (max-width: 575.98px) {
+
+                /* 🔥 Forcer l'annulation du centrage vertical */
+                .hero-aisla .row.h-100.align-items-center {
+                    align-items: flex-start !important;
+                    height: auto !important;
+                }
+
+                /* 🔥 Ajuster la zone du texte */
+                .hero-aisla .hero-copy {
+                    margin-top: 0 !important;
+                    margin-bottom: 15px !important;
+                }
+
+                /* =====================================================
+           🔥🔥 FORCER LA POSITION DES BOUTONS (Méthode Ultime)
+           ===================================================== */
+                .hero-aisla .hero-buttons {
+                    position: relative !important;
+                    top: 290px !important;
+                    /* ⇦ AUGMENTER pour descendre plus bas : 80px / 100px */
+                    left: 121px !important;
+                    display: flex !important;
+                    justify-content: center !important;
+                    gap: 8px !important;
+                }
+
+                /* 🔥 Réduire les boutons */
+                .hero-aisla .hero-buttons .btn {
+                    padding: 8px 14px !important;
+                    font-size: 0.75rem !important;
+                    border-radius: 50px !important;
+                }
+
+                /* 🔥 Réduire taille des textes du hero */
+                .hero-aisla .hero-title {
+                    font-size: 1.28rem !important;
+                    line-height: 1.2 !important;
+                }
+
+                .hero-aisla .hero-sub {
+                    font-size: 0.78rem !important;
+                    line-height: 1.25 !important;
+                }
+
+                /* =====================================================
+           📌 AJUSTEMENT DU HEADER (Mobile)
+           ===================================================== */
+                .header-aisla {
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
+                }
+
+                .header-aisla .nav-link,
+                .header-aisla .btn {
+                    font-size: 0.70rem !important;
+                    padding: 4px 6px !important;
+                }
+
+                .header-aisla .btn-accent {
+                    padding: 6px 12px !important;
+                    font-size: 0.72rem !important;
+                }
+            }
+
+            /* =====================================================
+       📱 VERSION MOBILE — MINI ULTRA EXTREME + GAUCHE
+       ===================================================== */
+            @media (max-width: 575.98px) {
+
+                /* Décaler toute la section vers la gauche */
+                .projects-grid {
+                    transform: translateX(-19px);
+                    /* ⇦ augmente: -15px / -20px si tu veux plus gauche */
+                    gap: 6px !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+
+                /* Hauteur ultra réduite des cartes */
+                .proj-card--lg,
+                .proj-card--md,
+                .promo-card,
+                .stats-card {
+                    min-height: 90px !important;
+                    height: 90px !important;
+                }
+
+                /* Réduire images */
+                .proj-card img {
+                    height: 90px !important;
+                    object-fit: cover !important;
+                }
+
+                /* Overlay minuscule */
+                .proj-overlay {
+                    padding: 3px !important;
+                }
+
+                /* Pills minuscules */
+                .pill {
+                    font-size: 0.48rem !important;
+                    padding: 2px 4px !important;
+                    border-radius: 999px !important;
+                }
+
+                .pill i {
+                    font-size: 0.48rem !important;
+                }
+
+                /* Promo card ultra compacte */
+                .promo-card {
+                    padding: 4px !important;
+                    min-height: 70px !important;
+                    height: auto !important;
+                    font-size: 0.65rem !important;
+                    line-height: 1.1 !important;
+                }
+
+                .promo-card p {
+                    font-size: 0.65rem !important;
+                    line-height: 1.1 !important;
+                }
+
+                /* Stats ultra petites */
+                .stats-card {
+                    padding: 4px !important;
+                    margin-top: 4px !important;
+                    margin-bottom: 4px !important;
+                }
+
+                .stats-row {
+                    grid-template-columns: repeat(3, 1fr) !important;
+                    gap: 3px !important;
+                }
+
+                .stat {
+                    padding: 3px !important;
+                }
+
+                .stat-number {
+                    font-size: 0.6rem !important;
+                }
+
+                .stat-label {
+                    font-size: 0.48rem !important;
+                }
+
+                /* Nettoyage des marges */
+                .grid-p1,
+                .grid-p2,
+                .grid-p3,
+                .grid-promo,
+                .grid-stats {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .grid-p3 {
+                    margin-top: 0 !important;
+                    margin-bottom: 0 !important;
+                }
+            }
+            /* =====================================================
+   📱 MOBILE — Décaler l'image + le cadre bleu à gauche
+   ===================================================== */
 @media (max-width: 575.98px) {
-  .partners-wrap { position: relative; }
-  .partners-bg { display: block; width: 100%; height: auto; }
 
-  /* L’overlay descend sous l’image au lieu de la recouvrir */
-  .partners-overlay {
-    position: static !important;
-    margin-top: -10px;            /* remonte un peu le bloc sous l'image */
-    padding: 12px 14px 6px !important;
-    background: transparent !important; /* pas de voile foncé sur mobile */
-    text-align: center;
-  }
+    /* 🔵 déplacer le bloc complet (image + plaque bleue) */
+    .about-right .about-media {
+        transform: translateX(-40px) !important; /* ⇦ valeur à modifier pour le bloc complet */
+        position: relative !important;
+    }
 
-  .partners-title {
-    font-size: 1.15rem;
-    margin: 6px 0 8px;
-    line-height: 1.2;
-  }
+    /* 🖼️ déplacer l'image */
+    .about-right .about-image-box img {
+        transform: translateX(-40px) !important;  /* ⇦ valeur à modifier pour l'image */
+        width: calc(100% + 40px) !important;      /* évite espace blanc */
+    }
 
-  /* Grille compacte de logos, juste après l’image */
-  .partners-logos,
-  .partners-logos.partners-logos--two-rows {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr);  /* 2 rangées × 4 colonnes si 8 logos */
-    gap: 10px 10px;
-    margin: 4px auto 0;
-    max-width: 100%;
-    align-items: center;
-    justify-items: center;
-  }
-
-  .partner-logo-link { display: block; }
-
-  .partner-logo {
-    max-height: 30px;   /* lisible mais compact */
-    width: auto;
-    object-fit: contain;
-    filter: none !important; /* garde les couleurs d’origine */
-  }
+    /* 🔷 déplacer la plaque bleue */
+    .about-right .navy-plate {
+        transform: translateX(-5px) !important;  /* ⇦ valeur à modifier pour la plaque bleue */
+    }
 }
-@media (max-width: 768px) {
-  .partners-overlay {
-    margin-top: -280px !important;
-  }
-}
-
-/* Mobile : remonter SEULEMENT les 4 derniers logos (2e rangée) */
-@media (max-width: 575.98px) {
-  .partners-logos.partners-logos--two-rows > .partner-logo-link:nth-child(n+5) {
-    margin-top: -100px !important;   /* ← monte la 2e rangée (ajuste à -6px, -8px, -12px…) */
-    /* ou, si tu préfères: transform: translateY(-10px) !important; */
-  }
-}
-/* Mobile : pousser l'image et la bande bleue (navy-plate) vers la gauche */
-@media (max-width: 575.98px) {
-  .about-right .about-media { position: relative; overflow: visible; }
-
-  /* valeur unique à ajuster */
-  .about-right .about-media {
-    --about-shift: 60px; /* ← mets 8, 12, 16, 20px selon ton rendu */
-  }
-
-  /* décale l'image */
-  .about-right .about-image-box img {
-    display: block;
-    transform: translateX(calc(-1 * var(--about-shift)));
-    /* si tu veux éviter une bande blanche à droite : */
-    width: calc(100% + var(--about-shift));
-  }
-
-  /* décale la bande bleue exactement de la même valeur */
-  .about-right .navy-plate {
-    position: absolute;           /* au cas où elle ne l'est pas déjà */
-    left: calc(-1 * var(--about-shift));
-    /* tu peux aussi faire: transform: translateX(calc(-1 * var(--about-shift))); */
-    z-index: 0;                   /* derrière l'image */
-  }
-
-  /* s'assurer que l'image reste au-dessus de la plaque */
-  .about-right .about-image-box { position: relative; z-index: 1; }
-}
-/* 📱 Mobile : stats plus petites et titre à gauche */
-@media (max-width: 575.98px) {
-  /* Titre aligné à gauche */
-  .grid-stats h5,
-  .stats-card h5 {
-    text-align: left !important;
-    margin-bottom: 10px !important;
-  }
-
-  /* Carte stats compacte (évite aussi le clipping) */
-  .projects-grid > .grid-stats.stats-card,
-  .stats-card {
-    padding: 12px !important;
-    margin-top: 12px !important;
-    margin-bottom: 12px !important;
-    min-height: unset !important;
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  /* Grille plus dense : 3 colonnes (mets 2 si les libellés sont longs) */
-  .stats-row {
-    grid-template-columns: repeat(1, 1fr) !important; /* ← mets repeat(2,1fr) si besoin */
-    gap: 8px !important; /* espace entre cartes */
-  }
-
-  /* Cartes plus petites */
-  .stat {
-    padding: 8px !important;
-    border-radius: 8px !important;
-  }
-
-  /* Tailles de texte réduites pour tenir sur une ligne */
-  .stat-number {
-    font-size: 16px !important;   /* avant ~22px */
-    line-height: 1.1 !important;
-  }
-  .stat-label {
-    font-size: 11px !important;   /* avant 13px */
-    line-height: 1.15 !important;
-    white-space: nowrap;           /* évite les retours à la ligne */
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Sécurité : annule tout décalage agressif pouvant cacher la section */
-  .projects-grid .grid-p3 { margin-top: 0 !important; margin-bottom: 0 !important; }
-}
-/* 📱 Mobile : aligner chiffres et libellés à gauche dans les stats */
-@media (max-width: 575.98px) {
-  /* Titre déjà demandé à gauche */
-  .grid-stats h5,
-  .stats-card h5 {
-    text-align: left !important;
-  }
-
-  /* Chaque carte stat : alignement gauche */
-  .stats-row { justify-items: stretch !important; }   /* les cartes prennent toute la largeur de leur colonne */
-  .stat {
-    text-align: left !important;      /* override du center */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 2px;
-  }
-
-  /* Chiffres et libellés bien calés à gauche */
-  .stat-number,
-  .stat-label {
-    display: block;
-    text-align: left !important;
-  }
-}
-
 
         </style>
+
 @endsection

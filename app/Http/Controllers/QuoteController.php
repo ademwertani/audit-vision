@@ -13,7 +13,7 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class QuoteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the form
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the create form
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created quote
      */
     public function store(Request $request)
     {
@@ -42,10 +42,9 @@ class QuoteController extends Controller
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
-            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'], // ← contrôle SIRET (14 chiffres)
+            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'],
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
-            // Accepte tous les secteurs (plus de Rule::in)
             'secteur'             => ['required', 'string', 'max:255'],
             'operations'          => ['nullable', 'array'],
             'operations.*'        => ['string'],
@@ -54,14 +53,15 @@ class QuoteController extends Controller
 
         $validated = Validator::make($request->all(), $rules)->validate();
 
+        // Évite les doublons
         if (!empty($validated['operations'])) {
             $validated['operations'] = array_values(array_unique($validated['operations']));
         }
 
-        // 1) Enregistre la demande
+        // 1) Sauvegarde en base
         $quote = Quote::create($validated);
 
-        // 2) Génère le PDF
+        // 2) Génération du PDF
         $operations = $validated['operations'] ?? [];
         $questions  = $request->input('qs', []);
 
@@ -71,18 +71,13 @@ class QuoteController extends Controller
             'questions'  => $questions,
         ]);
 
-        // 3) Envoie les emails
+        // 3) Envoi du mail principal
         try {
-            // Envoi vers l’adresse commerciale
             Mail::to('commercial@franceexpertisolation.fr')
                 ->send(new QuoteSubmitted($quote, $pdf->output()));
 
-            // Copie interne (optionnelle)
-            if ($admin = config('mail.from.address')) {
-                Mail::to($admin)->send(new QuoteSubmitted($quote, $pdf->output()));
-            }
         } catch (\Throwable $e) {
-            Log::error('Échec envoi email devis: '.$e->getMessage());
+            Log::error('Échec envoi email devis: ' . $e->getMessage());
         }
 
         return redirect()
@@ -91,7 +86,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a specific quote
      */
     public function show(string $id)
     {
@@ -100,7 +95,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show edit page
      */
     public function edit(string $id)
     {
@@ -109,7 +104,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a quote
      */
     public function update(Request $request, string $id)
     {
@@ -118,10 +113,9 @@ class QuoteController extends Controller
             'prenom_beneficiaire' => ['nullable', 'string', 'max:255'],
             'email'               => ['required', 'email', 'max:255'],
             'telephone'           => ['nullable', 'string', 'max:30'],
-            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'], // ← contrôle SIRET (14 chiffres)
+            'siret'               => ['nullable', 'string', 'regex:/^\d{14}$/'],
             'raison_sociale'      => ['nullable', 'string', 'max:255'],
             'adresse'             => ['nullable', 'string', 'max:255'],
-            // idem: accepte n'importe quel secteur
             'secteur'             => ['required', 'string', 'max:255'],
             'operations'          => ['nullable', 'array'],
             'operations.*'        => ['string'],
@@ -142,7 +136,7 @@ class QuoteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a quote
      */
     public function destroy(string $id)
     {
