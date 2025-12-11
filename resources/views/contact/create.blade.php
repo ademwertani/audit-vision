@@ -284,6 +284,61 @@
 @media (max-width: 992px){
   .contact-page .cp-hero__inner{ transform: none; } /* pas de décalage en mobile */
 }
+/* =====================================================
+   📱 MOBILE — Déplacer l'image du hero contact
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+    .cp-hero__media {
+        position: relative !important;
+        top: 115px !important;     /* ⇦ monte l’image */
+        left: -10px !important;     /* ⇦ pousse l’image à droite */
+    }
+
+    .cp-hero__media img {
+        display: block !important;
+        width: auto !important;
+        max-width: 90% !important; /* optionnel si تريد أصغر */
+    }
+}
+/* =====================================================
+   📱 MOBILE — Réduire cp-aside + décaler à gauche
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+    /* 🔵 rendre tout l'aside plus petit + à gauche */
+    .cp-aside {
+        transform: translateX(-15px) !important;  /* ⇦ vers la gauche */
+        font-size: 0.85rem !important;            /* ⇦ texte plus petit */
+    }
+
+    /* 🔵 réduire l’espace entre les cartes */
+    .cp-info {
+        padding: 6px 0 !important;                
+    }
+
+    /* 🔵 réduire les icônes */
+    .cp-info .cp-ico i {
+        font-size: 1rem !important;               /* ⇦ icônes plus petites */
+        width: 28px !important;
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* 🔵 réduire les titres */
+    .cp-info h5 {
+        font-size: 0.85rem !important;            /* ⇦ plus petit */
+        margin-bottom: 2px !important;
+    }
+
+    /* 🔵 réduire les liens */
+    .cp-info a {
+        font-size: 0.82rem !important;            /* ⇦ plus petit */
+        line-height: 1.2 !important;
+    }
+}
 
 </style>
 

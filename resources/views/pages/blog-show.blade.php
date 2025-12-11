@@ -309,6 +309,53 @@
     left: -32px !important;
   }
 }
+
+/* =====================================================
+   📱 MOBILE — FIX ULTIME IMAGE + TEXTE
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+    /* --------------------------------------------------
+       🔥 IMAGE — réduire et déplacer (force ultime)
+       -------------------------------------------------- */
+
+    /* réduire image fortement */
+    .pp-hgroup figure.pp-hero__media img {
+        width: 50% !important;            /* ⇦ التصغير */
+        max-width: 50% !important;
+        height: auto !important;
+        flex-shrink: 0 !important;
+        display: block !important;
+    }
+
+    /* déplacer الصورة لليسار بقوة */
+    .pp-hgroup figure.pp-hero__media {
+        position: relative !important;
+        left: -30px !important;           /* ⇦ حرك الصورة لليسار */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+
+    /* --------------------------------------------------
+       🔥 TEXTE — réduire + déplacer إلى droite
+       -------------------------------------------------- */
+
+    /* تصغير حجم النص */
+    .pp-hgroup .pp-hero__copy .pp-title {
+        font-size: 1.1rem !important;     /* ⇦ حجم أصغر */
+        line-height: 1.2 !important;
+        transform: none !important;       /* تعطيل transform الأصلي */
+    }
+
+    /* تحريك النص نحو اليمين */
+    .pp-hgroup .pp-hero__copy {
+        position: relative !important;
+        left: 25px !important;            /* ⇦ يمين */
+    }
+}
+
 </style>
 
 <section class="page-post">

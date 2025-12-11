@@ -173,6 +173,22 @@
   object-fit: cover !important;
   object-position: center !important;
 }
+/* =====================================================
+   📱 MOBILE — Réduire et déplacer l'image du hero blog
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+    /* Réduire la taille de l'image */
+    .pb-hero__media img {
+        width: 70% !important;    /* ⇦ diminue la taille de l'image */
+        max-width: 70% !important;
+    }
+
+    /* Décaler l'image vers la gauche */
+    .pb-hero__media {
+        transform: translateX(-20px) !important; /* ⇦ valeur à modifier si tu veux plus gauche */
+    }
+}
 
 </style>
 
