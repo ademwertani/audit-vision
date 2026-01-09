@@ -29,7 +29,7 @@
   padding:78px 0 92px;
   position:relative;
 }
-.cp-hero .cp-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
+.cp-hero .cp-hgroup{max-inline-size:1100px;margin:0 auto;padding:0 12px}
 .cp-title{
   font-size:56px; line-height:1.05; font-weight:800; margin:0 0 10px;
 }
@@ -39,15 +39,15 @@
 .cp-hero .cp-sub{ color:#fff !important; }  /* force white in hero */
 @media (max-width:768px){ .cp-title{font-size:40px} }
 .cp-sub{
-  max-width:560px; font-size:15px; line-height:1.7; margin:0; opacity:.95;
+  max-inline-size:560px; font-size:15px; line-height:1.7; margin:0; opacity:.95;
 }
 
 /* Long rounded breadcrumb bar (sits at hero bottom like the mock) */
-.cp-bread-wrap{position:absolute; left:0; right:0; bottom:-28px; display:flex; justify-content:center}
+.cp-bread-wrap{position:absolute; inset-inline-start:0; inset-inline-end:0; inset-block-end:-28px; display:flex; justify-content:center}
 .cp-bread{
-  width:min(1180px, calc(100% - 48px));
+  inline-size:min(1180px, calc(100% - 48px));
   background:var(--sky);
-  height:46px; border-radius:9999px;
+  block-size:46px; border-radius:9999px;
   display:flex; align-items:center; gap:18px;
   padding:0 22px; font-weight:700; box-shadow:0 10px 18px rgba(3,102,140,.12);
   color:#fff !important;              /* base text color white */
@@ -56,18 +56,18 @@
 .cp-bread span{ color:#fff !important; }  /* make “Home” + “Contact Us” white */
 .cp-bread .sep{ color:rgba(255,255,255,.85) !important; }
 .cp-bread .home-ico{
-  display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%;
+  display:inline-grid; place-items:center; inline-size:26px; block-size:26px; border-radius:50%;
   background:rgba(255,255,255,.22); color:#fff !important; font-size:12px;
 }
 
 /* ---------- SECTION HEAD ---------- */
 .cp-wrap{padding:70px 0 40px}
-.cp-head{max-width:820px;margin:0 auto 8px;text-align:center}
+.cp-head{max-inline-size:820px;margin:0 auto 8px;text-align:center}
 .cp-kicker{color:var(--sky);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 .cp-h1{color:var(--ink);font-weight:800;line-height:1.14;margin:8px 0 0}
 
 /* ---------- GRID ---------- */
-.cp-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:28px;align-items:start;margin-top:26px}
+.cp-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:28px;align-items:start;margin-block-start:26px}
 @media (max-width: 991.98px){.cp-grid{grid-template-columns:1fr}}
 
 /* ---------- FORM CARD ---------- */
@@ -77,7 +77,7 @@
   padding:14px 16px!important; font-size:1rem;
 }
 .cp-form .form-control:focus{background:#fff!important;border-color:var(--ring)!important;box-shadow:none!important}
-.cp-form textarea.form-control{min-height:160px;resize:vertical}
+.cp-form textarea.form-control{min-block-size:160px;resize:vertical}
 .cp-btn{
   background:var(--accent); border:none; color:#fff; font-weight:800;
   padding:14px 22px; border-radius:14px; transition:.2s;
@@ -92,7 +92,7 @@
   padding:22px; display:flex; gap:16px; align-items:flex-start;
 }
 .cp-ico{
-  width:56px; height:56px; border-radius:50%; display:grid; place-items:center;
+  inline-size:56px; block-size:56px; border-radius:50%; display:grid; place-items:center;
   background:var(--accent); color:#fff; font-size:22px; flex-shrink:0;
 }
 .cp-info h5{ margin:0 0 6px; font-weight:800; font-size:1rem; color:#fff !important; }  /* force white */
@@ -100,8 +100,8 @@
 .cp-info a:hover{ text-decoration:underline }
 
 /* ---------- MAP ---------- */
-.cp-map{margin-top:34px;background:#f4f7ff;border-radius:20px;box-shadow:0 8px 18px rgba(0,0,0,.06);padding:10px}
-.cp-map iframe{width:100%;height:440px;border:0;border-radius:12px}
+.cp-map{margin-block-start:34px;background:#f4f7ff;border-radius:20px;box-shadow:0 8px 18px rgba(0,0,0,.06);padding:10px}
+.cp-map iframe{inline-size:100%;block-size:440px;border:0;border-radius:12px}
 /* ---------- HERO Contact : bande bleue + image qui dépasse ---------- */
 .cp-hero{
   position: relative;
@@ -115,12 +115,12 @@
 /* Contrôle le “décrochage” de l’image sous le bleu */
 .cp-hero--split{
   --cp-img-drop: 108px;      /* ajuste 60–140px selon le rendu */
-  margin-bottom: var(--cp-img-drop);
+  margin-block-end: var(--cp-img-drop);
 }
 
 .cp-hero__inner{ position: relative; z-index: 3; }
 .cp-hero .cp-title{ margin:0 0 6px; font-weight:800; font-size: clamp(34px, 5vw, 64px); }
-.cp-hero .cp-sub{ max-width: 720px; opacity:.95; }
+.cp-hero .cp-sub{ max-inline-size: 720px; opacity:.95; }
 
 /* Couche bleue (sous le texte, au-dessus de l’image) */
 .cp-hero::after{
@@ -134,13 +134,13 @@
 /* L’image : à droite, dépasse vers le bas, SANS effets */
 .cp-hero__media{
   position: absolute;
-  right: clamp(16px, 3vw, 40px);
-  bottom: calc(-1 * var(--cp-img-drop));
-  width: min(520px, 50vw);   /* largeur de l’image */
+  inset-inline-end: clamp(16px, 3vw, 40px);
+  inset-block-end: calc(-1 * var(--cp-img-drop));
+  inline-size: min(520px, 50vw);   /* largeur de l’image */
   z-index: 1;                /* sous la couche bleue */
 }
 .cp-hero__media img{
-  display:block; width:100%; height:auto;
+  display:block; inline-size:100%; block-size:auto;
   border: 0;
   border-radius: 0;          /* laisse droit (mets 18px si tu veux arrondi) */
   box-shadow: none; filter:none; transform:none;
@@ -149,7 +149,7 @@
 /* Responsive */
 @media (max-width: 992px){
   .cp-hero--split{ --cp-img-drop: 48px; }
-  .cp-hero__media{ width: min(640px, 88vw); right: 12px; }
+  .cp-hero__media{ inline-size: min(640px, 88vw); inset-inline-end: 12px; }
 }
 /* ---------- HERO Contact : image AU-DESSUS + coins arrondis ---------- */
 .cp-hero{
@@ -164,7 +164,7 @@
 /* Décrochage vertical de l'image */
 .cp-hero--split{
   --cp-img-drop: 17px;        /* ↑ baisse l’image ; 60–140px selon ton rendu */
-  margin-bottom: var(--cp-img-drop);
+  margin-block-end: var(--cp-img-drop);
 }
 
 /* Calques : texte tout en haut, image devant le bleu, bleu derrière tout */
@@ -180,13 +180,13 @@
 /* Image : à droite, dépasse vers le bas, AU-DESSUS de la bande bleue */
 .cp-hero__media{
   position: absolute;
-  right: clamp(16px, 3vw, 40px);
-  bottom: calc(-1 * var(--cp-img-drop)); /* fait dépasser vers le bas */
-  width: min(520px, 50vw);
+  inset-inline-end: clamp(16px, 3vw, 40px);
+  inset-block-end: calc(-1 * var(--cp-img-drop)); /* fait dépasser vers le bas */
+  inline-size: min(520px, 50vw);
   z-index: 4;                                  /* > au bleu, < au texte */
 }
 .cp-hero__media img{
-  display:block; width:100%; height:auto;
+  display:block; inline-size:100%; block-size:auto;
   border: 0;
   border-radius: 18px !important;              /* coins arrondis */
   box-shadow: none !important;
@@ -197,7 +197,7 @@
 /* Responsive */
 @media (max-width: 992px){
   .cp-hero--split{ --cp-img-drop: 48px; }
-  .cp-hero__media{ width: min(640px, 88vw); right: 12px; }
+  .cp-hero__media{ inline-size: min(640px, 88vw); inset-inline-end: 12px; }
 }
 /* === HERO Contact : cadre image FIXE + position stable === */
 .contact-page .cp-hero--split{
@@ -206,18 +206,18 @@
 
 .contact-page .cp-hero__media{
   position: absolute;
-  right: var(--cp-img-right, 32px);
-  bottom: calc(-1 * var(--cp-img-drop, 240px));
-  width: var(--cp-img-w, 720px);     /* LARGEUR FIXE */
-  height: var(--cp-img-h, 460px);    /* HAUTEUR FIXE */
+  inset-inline-end: var(--cp-img-right, 32px);
+  inset-block-end: calc(-1 * var(--cp-img-drop, 240px));
+  inline-size: var(--cp-img-w, 720px);     /* LARGEUR FIXE */
+  block-size: var(--cp-img-h, 460px);    /* HAUTEUR FIXE */
   border-radius: var(--cp-img-radius, 22px);
   overflow: hidden;
   z-index: 4; /* au-dessus du bleu, sous le texte */
 }
 
 .contact-page .cp-hero__media img{
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;       /* remplit le cadre proprement */
   object-position: center; /* centre le cadrage */
   display: block;
@@ -230,9 +230,9 @@
 /* XL : un peu plus grand si tu veux */
 @media (min-width: 1400px){
   .contact-page .cp-hero__media{
-    width: var(--cp-img-w-xl, 780px);
-    height: var(--cp-img-h-xl, 500px);
-    right: var(--cp-img-right-xl, 40px);
+    inline-size: var(--cp-img-w-xl, 780px);
+    block-size: var(--cp-img-h-xl, 500px);
+    inset-inline-end: var(--cp-img-right-xl, 40px);
   }
 }
 
@@ -241,38 +241,38 @@
   .contact-page .cp-hero--split{ --cp-img-drop: 56px; }
   .contact-page .cp-hero__media{
     position: static;
-    right: auto; bottom: auto;
-    width: 100%;
-    height: var(--cp-img-h-mobile, 320px);
-    margin-top: 18px;
+    inset-inline-end: auto; inset-block-end: auto;
+    inline-size: 100%;
+    block-size: var(--cp-img-h-mobile, 320px);
+    margin-block-start: 18px;
   }
 }
 /* === OVERRIDES SIMPLES (Contact) === */
 .contact-page header.cp-hero{
   /* hauteur de la bande bleue + décalage vers le bas */
   padding: var(--cp-hero-pad, 180px) 0 !important;
-  margin-top: var(--cp-hero-offset, 0) !important;   /* ↑ pousse TOUT le header vers le bas */
+  margin-block-start: var(--cp-hero-offset, 0) !important;   /* ↑ pousse TOUT le header vers le bas */
 }
 
 /* laisse la place sous le hero pour l'image qui déborde */
 .contact-page header.cp-hero.cp-hero--split{
-  margin-bottom: var(--cp-img-drop, 240px) !important;
+  margin-block-end: var(--cp-img-drop, 240px) !important;
 }
 
 /* TAILLE + POSITION de l'image du header (cadre fixe) */
 .contact-page header.cp-hero .cp-hero__media{
   position: absolute !important;
-  right: var(--cp-img-right, 24px) !important;        /* + grand = plus à gauche ; + petit = plus à droite */
-  bottom: calc(-1 * var(--cp-img-drop, 240px)) !important;  /* ↑ augmente pour descendre l’image */
-  width: var(--cp-img-w, 520px) !important;           /* largeur image */
-  height: var(--cp-img-h, 320px) !important;          /* hauteur image */
+  inset-inline-end: var(--cp-img-right, 24px) !important;        /* + grand = plus à gauche ; + petit = plus à droite */
+  inset-block-end: calc(-1 * var(--cp-img-drop, 240px)) !important;  /* ↑ augmente pour descendre l’image */
+  inline-size: var(--cp-img-w, 520px) !important;           /* largeur image */
+  block-size: var(--cp-img-h, 320px) !important;          /* hauteur image */
   border-radius: var(--cp-img-radius, 18px) !important;
   overflow: hidden !important;
   z-index: 4 !important;
 }
 .contact-page header.cp-hero .cp-hero__media img{
-  width: 100% !important;
-  height: 100% !important;
+  inline-size: 100% !important;
+  block-size: 100% !important;
   object-fit: cover !important;
   object-position: center !important;
 }
@@ -291,14 +291,14 @@
 
     .cp-hero__media {
         position: relative !important;
-        top: 115px !important;     /* ⇦ monte l’image */
-        left: -10px !important;     /* ⇦ pousse l’image à droite */
+        inset-block-start: 115px !important;     /* ⇦ monte l’image */
+        inset-inline-start: -10px !important;     /* ⇦ pousse l’image à droite */
     }
 
     .cp-hero__media img {
         display: block !important;
-        width: auto !important;
-        max-width: 90% !important; /* optionnel si تريد أصغر */
+        inline-size: auto !important;
+        max-inline-size: 90% !important; /* optionnel si تريد أصغر */
     }
 }
 /* =====================================================
@@ -320,8 +320,8 @@
     /* 🔵 réduire les icônes */
     .cp-info .cp-ico i {
         font-size: 1rem !important;               /* ⇦ icônes plus petites */
-        width: 28px !important;
-        height: 28px !important;
+        inline-size: 28px !important;
+        block-size: 28px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -330,7 +330,7 @@
     /* 🔵 réduire les titres */
     .cp-info h5 {
         font-size: 0.85rem !important;            /* ⇦ plus petit */
-        margin-bottom: 2px !important;
+        margin-block-end: 2px !important;
     }
 
     /* 🔵 réduire les liens */
@@ -404,7 +404,7 @@
 
       <div class="cp-grid">
 
-        {{-- LEFT: FORM (keep backend fields only) --}}
+        {{-- inset-inline-start: FORM (keep backend fields only) --}}
         <div class="cp-card">
           <form method="POST" action="{{ route('contact.store') }}" class="cp-form">
             @csrf
@@ -430,7 +430,7 @@
           </form>
         </div>
 
-        {{-- RIGHT: INFO CARDS --}}
+        {{-- inset-inline-end: INFO CARDS --}}
         <aside class="cp-aside">
           <div class="cp-info">
             <div class="cp-ico"><i class="fa fa-phone"></i></div>
@@ -461,12 +461,31 @@
       </div>
 
       {{-- MAP --}}
-      <div class="cp-map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.102419139038!2d2.1990053!3d48.9134409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa5cd521a7a2aeb3%3A0x53a81c81da566b1a!2sEco%20Call!5e0!3m2!1sfr!2stn!4v1753705033700!5m2!1sfr!2stn"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-        </iframe>
-      </div>
+<div class="cp-map">
+
+  {{-- Branding au-dessus de la map --}}
+  <h5 class="mb-2 fw-bold">France Expert Isolation</h5>
+  <p class="text-muted mb-3">
+    171 route de Bezons, 78420 Carrières-sur-Seine, France
+  </p>
+
+  <a class="btn btn-outline-primary mb-3"
+     target="_blank"
+     rel="noopener"
+     href="https://www.google.com/maps?q=France%20Expert%20Isolation%20171%20route%20de%20Bezons%2078420%20Carri%C3%A8res-sur-Seine">
+     Ouvrir dans Google Maps
+  </a>
+
+  {{-- Google Map --}}
+  <iframe
+    src="https://www.google.com/maps?q=171%20route%20de%20Bezons%2C%2078420%20Carri%C3%A8res-sur-Seine%2C%20France&output=embed"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen>
+  </iframe>
+
+</div>
+
 
     </div>
   </div>

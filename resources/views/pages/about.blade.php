@@ -28,7 +28,7 @@
     /* ---------- HERO (identical to contact page) ---------- */
 
     .pa-hero .pa-hgroup {
-      max-width: 1100px;
+      max-inline-size: 1100px;
       margin: 0 auto;
       padding: 0 12px
     }
@@ -48,14 +48,14 @@
     }
 
     .pa-sub {
-      max-width: 620px;
+      max-inline-size: 620px;
       font-size: 15px;
       line-height: 1.7;
       margin: 0;
       opacity: .95
     }
 
-    @media (max-width:768px) {
+    @media (max-inline-size:768px) {
       .pa-title {
         font-size: 40px
       }
@@ -64,17 +64,17 @@
     /* breadcrumb pill */
     .pa-bread-wrap {
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -28px;
+      inset-inline-start: 0;
+      inset-inline-end: 0;
+      inset-block-end: -28px;
       display: flex;
       justify-content: center
     }
 
     .pa-bread {
-      width: min(1180px, calc(100% - 48px));
+      inline-size: min(1180px, calc(100% - 48px));
       background: var(--sky);
-      height: 46px;
+      block-size: 46px;
       border-radius: 9999px;
       display: flex;
       align-items: center;
@@ -97,8 +97,8 @@
     .pa-bread .home-ico {
       display: inline-grid;
       place-items: center;
-      width: 26px;
-      height: 26px;
+      inline-size: 26px;
+      block-size: 26px;
       border-radius: 50%;
       background: rgba(255, 255, 255, .22);
       color: #fff !important;
@@ -148,13 +148,13 @@
       gap: 18px
     }
 
-    @media (max-width:991.98px) {
+    @media (max-inline-size:991.98px) {
       .metric-grid {
         grid-template-columns: repeat(2, 1fr)
       }
     }
 
-    @media (max-width:575.98px) {
+    @media (max-inline-size:575.98px) {
       .metric-grid {
         grid-template-columns: 1fr
       }
@@ -191,21 +191,21 @@
 
     .about-imgs {
       position: relative;
-      height: 100%
+      block-size: 100%
     }
 
     .about-imgs .img-a {
-      width: 75%;
+      inline-size: 75%;
       border-radius: 16px;
       box-shadow: var(--shadow);
-      margin-bottom: 25%
+      margin-block-end: 25%
     }
 
     .about-imgs .img-b {
       position: absolute;
-      top: 25%;
-      left: 25%;
-      width: 75%;
+      inset-block-start: 25%;
+      inset-inline-start: 25%;
+      inline-size: 75%;
       border-radius: 16px;
       box-shadow: var(--shadow)
     }
@@ -246,13 +246,13 @@
     }
 
     .values-img {
-      width: 100%;
+      inline-size: 100%;
       border-radius: 28px;
       box-shadow: 0 20px 40px rgba(16, 24, 40, .08);
       display: block;
-      margin-top: 20px;
+      margin-block-start: 20px;
       object-fit: cover;
-      max-height: 520px;
+      max-block-size: 520px;
     }
 
     /* liste de 3 valeurs à droite */
@@ -270,8 +270,8 @@
     }
 
     .value-ico {
-      width: 92px;
-      height: 92px;
+      inline-size: 92px;
+      block-size: 92px;
       border-radius: 50%;
       display: grid;
       place-items: center;
@@ -316,38 +316,38 @@
     }
 
     /* Décale la colonne des valeurs un peu vers le bas (desktop only) */
-    @media (min-width: 992px) {
+    @media (min-inline-size: 992px) {
       .values-col {
-        margin-top: 32px;
+        margin-block-start: 32px;
       }
 
       /* ~32px */
     }
 
-    @media (min-width: 1400px) {
+    @media (min-inline-size: 1400px) {
       .values-col {
-        margin-top: 56px;
+        margin-block-start: 56px;
       }
 
       /* un peu plus sur très grands écrans */
     }
 
     /* Option : si tu préfères un décalage léger aussi sur tablette large */
-    @media (min-width: 768px) and (max-width: 991.98px) {
+    @media (min-inline-size: 768px) and (max-inline-size: 991.98px) {
       .values-col {
-        margin-top: 16px;
+        margin-block-start: 16px;
       }
     }
 
     /* responsive */
-    @media (max-width: 991.98px) {
+    @media (max-inline-size: 991.98px) {
       .value-item {
         grid-template-columns: 78px 1fr;
       }
 
       .value-ico {
-        width: 78px;
-        height: 78px;
+        inline-size: 78px;
+        block-size: 78px;
       }
 
       .value-ico i {
@@ -355,9 +355,9 @@
       }
     }
 
-    @media (max-width: 575.98px) {
+    @media (max-inline-size: 575.98px) {
       .values-img {
-        max-height: 360px;
+        max-block-size: 360px;
       }
     }
 
@@ -368,7 +368,7 @@
 
     .team-head {
       text-align: center;
-      margin-bottom: 26px
+      margin-block-end: 26px
     }
 
     .team-card {
@@ -380,16 +380,16 @@
     }
 
     .team-card .team-img {
-      width: 140px;
-      height: 140px;
+      inline-size: 140px;
+      block-size: 140px;
       margin: 22px auto 0;
       border-radius: 50%;
       overflow: hidden
     }
 
     .team-card .team-img img {
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       object-fit: cover
     }
 
@@ -416,8 +416,8 @@
     }
 
     .team-card .btn {
-      width: 36px;
-      height: 36px;
+      inline-size: 36px;
+      block-size: 36px;
       border-radius: 50%
     }
 
@@ -428,7 +428,7 @@
     .pa-hero--split {
       --pa-img-drop: 108px;
       /* ↓ augmente/diminue la descente de l’image (ex: 80–140px) */
-      margin-bottom: var(--pa-img-drop);
+      margin-block-end: var(--pa-img-drop);
     }
 
     /* Texte au-dessus du bleu */
@@ -443,18 +443,18 @@
     /* Image : à droite, dépasse vers le bas, sous la couche bleue */
     .pa-hero__media {
       position: absolute;
-      right: clamp(16px, 3vw, 40px);
-      bottom: calc(-1 * var(--pa-img-drop));
+      inset-inline-end: clamp(16px, 3vw, 40px);
+      inset-block-end: calc(-1 * var(--pa-img-drop));
       /* la fait “sortir” sous la bande bleue */
-      width: min(520px, 50vw);
+      inline-size: min(520px, 50vw);
       z-index: 1;
       /* sous la couche bleue, mais visible en dessous */
     }
 
     .pa-hero__media img {
       display: block;
-      width: 100%;
-      height: auto;
+      inline-size: 100%;
+      block-size: auto;
       border-radius: 18px;
       /* coins arrondis */
       border: 0;
@@ -464,14 +464,14 @@
     }
 
     /* Responsive */
-    @media (max-width: 992px) {
+    @media (max-inline-size: 992px) {
       .pa-hero--split {
         --pa-img-drop: 48px;
       }
 
       .pa-hero__media {
-        width: min(640px, 88vw);
-        right: 12px;
+        inline-size: min(640px, 88vw);
+        inset-inline-end: 12px;
       }
     }
 
@@ -504,7 +504,7 @@
     .pa-hero--split {
       --pa-img-drop: 200px;
       /* ↓ descend, ↑ remonte */
-      margin-bottom: var(--pa-img-drop);
+      margin-block-end: var(--pa-img-drop);
     }
 
     /* texte (déplacement fin via variables) */
@@ -543,11 +543,11 @@
     /* CADRE IMAGE: taille/position figées + 4 coins arrondis */
     .pa-hero__media {
       position: absolute;
-      right: var(--pa-img-right, 24px);
-      bottom: calc(-1 * var(--pa-img-drop, 200px));
-      width: var(--pa-img-w, 600px);
+      inset-inline-end: var(--pa-img-right, 24px);
+      inset-block-end: calc(-1 * var(--pa-img-drop, 200px));
+      inline-size: var(--pa-img-w, 600px);
       /* largeur du cadre */
-      height: var(--pa-img-h, 370px);
+      block-size: var(--pa-img-h, 370px);
       /* hauteur du cadre */
       border-radius: var(--pa-img-radius, 22px);
       overflow: hidden;
@@ -559,8 +559,8 @@
 
     /* l’image remplit le cadre (peu importe sa taille d’origine) */
     .pa-hero__media img {
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       object-fit: cover;
       display: block;
       border: 0;
@@ -570,18 +570,18 @@
     }
 
     /* Mobile: image sous le texte avec hauteur fixe */
-    @media (max-width: 992px) {
+    @media (max-inline-size: 992px) {
       .pa-hero--split {
         --pa-img-drop: 40px;
       }
 
       .pa-hero__media {
         position: static;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        height: var(--pa-img-h-mobile, 280px);
-        margin-top: 18px;
+        inset-inline-end: auto;
+        inset-block-end: auto;
+        inline-size: 100%;
+        block-size: var(--pa-img-h-mobile, 280px);
+        margin-block-start: 18px;
       }
     }
 
@@ -593,11 +593,11 @@
 
     .page-about .pa-hero__media {
       position: absolute;
-      right: var(--pa-img-right, 32px);
-      bottom: calc(-1 * var(--pa-img-drop, 260px));
-      width: var(--pa-img-w, 720px);
+      inset-inline-end: var(--pa-img-right, 32px);
+      inset-block-end: calc(-1 * var(--pa-img-drop, 260px));
+      inline-size: var(--pa-img-w, 720px);
       /* LARGEUR FIXE du cadre */
-      height: var(--pa-img-h, 460px);
+      block-size: var(--pa-img-h, 460px);
       /* HAUTEUR FIXE du cadre */
       border-radius: var(--pa-img-radius, 22px);
       overflow: hidden;
@@ -606,8 +606,8 @@
     }
 
     .page-about .pa-hero__media img {
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       object-fit: cover;
       /* remplit le cadre, peu importe la photo */
       object-position: center;
@@ -620,28 +620,28 @@
     }
 
     /* Desktop XL: encore un peu plus grand si tu veux */
-    @media (min-width: 1400px) {
+    @media (min-inline-size: 1400px) {
       .page-about .pa-hero__media {
-        width: var(--pa-img-w-xl, 780px);
-        height: var(--pa-img-h-xl, 500px);
-        right: var(--pa-img-right-xl, 40px);
+        inline-size: var(--pa-img-w-xl, 780px);
+        block-size: var(--pa-img-h-xl, 500px);
+        inset-inline-end: var(--pa-img-right-xl, 40px);
       }
     }
 
     /* Mobile: cadre fixe mais plus bas et en plein flux */
-    @media (max-width: 992px) {
+    @media (max-inline-size: 992px) {
       .page-about .pa-hero--split {
         --pa-img-drop: 56px;
       }
 
       .page-about .pa-hero__media {
         position: static;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        height: var(--pa-img-h-mobile, 320px);
+        inset-inline-end: auto;
+        inset-block-end: auto;
+        inline-size: 100%;
+        block-size: var(--pa-img-h-mobile, 320px);
         /* hauteur fixe mobile */
-        margin-top: 18px;
+        margin-block-start: 18px;
       }
     }
 
@@ -653,17 +653,17 @@
 
     /* FORCE la taille du cadre image du hero About */
     .page-about header.pa-hero .pa-hero__media {
-      width: var(--pa-img-w, 600px) !important;
-      height: var(--pa-img-h, 370px) !important;
-      right: var(--pa-img-right, 24px) !important;
-      bottom: calc(-1 * var(--pa-img-drop, 200px)) !important;
+      inline-size: var(--pa-img-w, 600px) !important;
+      block-size: var(--pa-img-h, 370px) !important;
+      inset-inline-end: var(--pa-img-right, 24px) !important;
+      inset-block-end: calc(-1 * var(--pa-img-drop, 200px)) !important;
       border-radius: var(--pa-img-radius, 22px) !important;
       overflow: hidden !important;
     }
 
     .page-about header.pa-hero .pa-hero__media img {
-      width: 100% !important;
-      height: 100% !important;
+      inline-size: 100% !important;
+      block-size: 100% !important;
       object-fit: cover !important;
       object-position: center !important;
     }
@@ -671,29 +671,90 @@
 @media (max-width: 991.98px) {
   /* 1) Annuler l'espace réservé au débordement de l'image quand elle devient "statique" */
   header.pa-hero.pa-hero--split {
-    margin-bottom: 0 !important;
+    margin-block-end: 0 !important;
   }
 
   /* 2) On garde l'image visible après le texte (déjà statique chez toi) */
   .page-about .pa-hero__media {
     position: static !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    height: var(--pa-img-h-mobile, 320px) !important;
-    margin-top: 18px !important;
+    inset-inline-end: auto !important;
+    inset-block-end: auto !important;
+    inline-size: 100% !important;
+    block-size: var(--pa-img-h-mobile, 320px) !important;
+    margin-block-start: 18px !important;
   }
 
   /* 3) Rapprocher la section suivante si besoin */
   .page-about .metrics {
-    padding-top: 24px !important;   /* était 64px */
+    padding-block-start: 24px !important;   /* était 64px */
   }
 }
 
 /* (Optionnel) Si tu vois encore un léger blanc sur tablettes */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   header.pa-hero.pa-hero--split {
-    margin-bottom: 40px !important; /* petit coussin au lieu d’un grand trou */
+    margin-block-end: 40px !important; /* petit coussin au lieu d’un grand trou */
+  }
+}
+/* ===== VALUES – Layout horizontal ===== */
+
+.values-image-wrap {
+  margin: 30px 0 60px;
+}
+
+.values-img--large {
+  inline-size: 100%;
+  max-block-size: 620px;
+  object-fit: cover;
+  border-radius: 32px;
+  box-shadow: 0 24px 48px rgba(16,24,40,.12);
+}
+
+/* Valeurs horizontales */
+.values-horizontal {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+/* Carte valeur */
+.value-card {
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 42px 32px;
+  text-align: center;
+  box-shadow: 0 18px 36px rgba(0,0,0,.06);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 48px rgba(0,0,0,.12);
+}
+
+.value-card .value-ico {
+  margin: 0 auto 18px;
+}
+
+.value-card .value-title {
+  margin: 12px 0 10px;
+  font-size: 1.15rem;
+}
+
+.value-card .value-text {
+  font-size: .98rem;
+  line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .values-horizontal {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .values-img--large {
+    max-block-size: 380px;
   }
 }
 
@@ -783,7 +844,7 @@
               mesure alliant efficacité énergétique, économies durables et respect de l’environnement.
               Nos travaux peuvent bénéficier de la <strong>prime CEE</strong> subventionnée, permettant ainsi à nos
               clients de réduire considérablement le coût de leurs projets d’isolation.
-            </p>
+            </p> 
             <p class="mb-4">
               Notre engagement : offrir à chaque client une isolation optimale et un confort thermique tout au long de
               l’année.
@@ -796,69 +857,62 @@
     </section>
     {{-- OUR VALUES section (placer AVANT .team-wrap) --}}
     <section class="values-wrap">
-      <div class="container">
-        <div class="row g-5 align-items-center">
-          {{-- Colonne gauche : titre + grande image --}}
-          <div class="col-lg-7">
-            <div class="values-head">
-              <div class="kicker">À PROPOS</div>
-              <h2 class="values-title">
-                Nous défendons<br>
-                <span class="accent">Nos valeurs</span>
-              </h2>
-            </div>
+  <div class="container">
 
-            {{-- Image grande avec coins arrondis --}}
-            <img src="{{ asset('img/taa.png') }}" alt="Nos valeurs" class="values-img">
-          </div>
+    {{-- Titre + image --}}
+    <div class="values-head text-center">
+      <div class="kicker">À PROPOS</div>
+      <h2 class="values-title">
+        Nous défendons<br>
+        <span class="accent">Nos valeurs</span>
+      </h2>
+    </div>
 
-          {{-- Colonne droite : 3 valeurs --}}
-          <div class="col-lg-3 values-col">
-            <div class="value-list">
-              {{-- Valeur 1 --}}
-              <div class="value-item">
-                <div class="value-ico">
-                  <i class="fa-solid fa-seedling"></i>
-                </div>
-                <div>
-                  <h4 class="value-title">Intégrité</h4>
-                  <p class="value-text">
-                    Nous opérons avec transparence et responsabilité à chaque étape.
-                  </p>
-                </div>
-              </div>
+    {{-- Image plus grande --}}
+    <div class="values-image-wrap">
+      <img src="{{ asset('img/taa.png') }}" alt="Nos valeurs" class="values-img values-img--large">
+    </div>
 
-              {{-- Valeur 2 --}}
-              <div class="value-item">
-                <div class="value-ico">
-                  <i class="fa-solid fa-dollar-sign"></i>
-                </div>
-                <div>
-                  <h4 class="value-title">Qualité</h4>
-                  <p class="value-text">
-                    Des matériaux certifiés et une exécution maîtrisée pour durer.
-                  </p>
-                </div>
-              </div>
-
-              {{-- Valeur 3 --}}
-              <div class="value-item">
-                <div class="value-ico">
-                  <i class="fa-solid fa-bolt"></i>
-                </div>
-                <div>
-                  <h4 class="value-title">Engagement</h4>
-                  <p class="value-text">
-                    Engagement total envers la performance, la sécurité et l’environnement.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {{-- /col droite --}}
+    {{-- Valeurs horizontales --}}
+    <div class="values-horizontal">
+      
+      {{-- Valeur 1 --}}
+      <div class="value-card">
+        <div class="value-ico">
+          <i class="fa-solid fa-seedling"></i>
         </div>
+        <h4 class="value-title">Intégrité</h4>
+        <p class="value-text">
+          Nous opérons avec transparence et responsabilité à chaque étape.
+        </p>
       </div>
-    </section>
+
+      {{-- Valeur 2 --}}
+      <div class="value-card">
+        <div class="value-ico">
+          <i class="fa-solid fa-dollar-sign"></i>
+        </div>
+        <h4 class="value-title">Qualité</h4>
+        <p class="value-text">
+          Des matériaux certifiés et une exécution maîtrisée pour durer.
+        </p>
+      </div>
+
+      {{-- Valeur 3 --}}
+      <div class="value-card">
+        <div class="value-ico">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h4 class="value-title">Engagement</h4>
+        <p class="value-text">
+          Engagement total envers la performance, la sécurité et l’environnement.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 
   </section>

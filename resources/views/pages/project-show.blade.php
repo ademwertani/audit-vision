@@ -3,9 +3,9 @@
 @section('content')
   <style>
     /* =========================================================
-           France Isolation – Project Details (same skin as Contact/About/Blog)
-           Scoped to this page only.
-           ========================================================= */
+                 France Isolation – Project Details (same skin as Contact/About/Blog)
+                 Scoped to this page only.
+                 ========================================================= */
     .page-project {
       --navy: #242958;
       --navyDark: #1d2760;
@@ -18,9 +18,11 @@
       --shadow-lg: 0 24px 48px rgba(16, 24, 40, .12);
       --shadow: 0 10px 18px rgba(0, 0, 0, .08);
     }
+
     .page-project * {
       box-sizing: border-box
     }
+
     /* ---------- HERO (left-aligned + long pill breadcrumb) ---------- */
     .pr-hero {
       background: var(--navy);
@@ -28,28 +30,33 @@
       padding: 78px 0 92px;
       position: relative;
     }
+
     .pr-hero .pr-hgroup {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 12px
     }
+
     .pr-title {
       font-size: 48px;
       line-height: 1.08;
       font-weight: 800;
       margin: 0 0 10px
     }
+
     @media (min-width:992px) {
       .pr-title {
         font-size: 56px
       }
     }
+
     .pr-hero h1,
     .pr-hero .pr-title,
     .pr-hero p,
     .pr-hero .pr-sub {
       color: #fff !important
     }
+
     .pr-sub {
       max-width: 680px;
       font-size: 15px;
@@ -57,6 +64,7 @@
       margin: 0;
       opacity: .95
     }
+
     .pr-bread-wrap {
       position: absolute;
       left: 0;
@@ -65,6 +73,7 @@
       display: flex;
       justify-content: center
     }
+
     .pr-bread {
       width: min(1180px, calc(100% - 48px));
       background: var(--sky);
@@ -78,13 +87,16 @@
       box-shadow: 0 10px 18px rgba(3, 102, 140, .12);
       color: #fff !important;
     }
+
     .pr-bread a,
     .pr-bread span {
       color: #fff !important
     }
+
     .pr-bread .sep {
       color: rgba(255, 255, 255, .85) !important
     }
+
     .pr-bread .home-ico {
       display: inline-grid;
       place-items: center;
@@ -95,21 +107,25 @@
       color: #fff !important;
       font-size: 12px
     }
+
     /* ---------- Content ---------- */
     .pr-wrap {
       padding: 70px 0 60px
     }
+
     .pr-grid {
       display: grid;
       grid-template-columns: 1.05fr .95fr;
       gap: 28px;
       align-items: start
     }
+
     @media (max-width: 991.98px) {
       .pr-grid {
         grid-template-columns: 1fr
       }
     }
+
     /* Media */
     .media-card {
       background: var(--card);
@@ -118,17 +134,20 @@
       overflow: hidden;
       box-shadow: var(--shadow);
     }
+
     .media-thumb {
       position: relative;
       aspect-ratio: 4/3;
       background: #f2f4f8
     }
+
     .media-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block
     }
+
     .media-placeholder {
       display: grid;
       place-items: center;
@@ -136,6 +155,7 @@
       background: #f8fafc;
       color: #94a3b8
     }
+
     /* Text */
     .pr-body-card {
       background: var(--card);
@@ -144,29 +164,35 @@
       box-shadow: var(--shadow);
       padding: 22px;
     }
+
     @media (min-width:992px) {
       .pr-body-card {
         padding: 28px
       }
     }
+
     .pr-h2 {
       font-weight: 800;
       color: #0f172a;
       margin: 0 0 8px
     }
+
     .pr-lead {
       color: #0ea5e9;
       margin: 0 0 12px;
       font-weight: 700
     }
+
     .prose {
       color: #1f2937;
       line-height: 1.75;
       font-size: 1.05rem
     }
+
     .prose p {
       margin-bottom: 1rem
     }
+
     /* Buttons */
     .btn-accent {
       background: var(--accent);
@@ -176,9 +202,11 @@
       padding: 12px 18px;
       border-radius: 14px;
     }
+
     .btn-accent:hover {
       filter: brightness(.98)
     }
+
     .btn-outline-accent {
       background: #fff;
       color: #0f1e3d;
@@ -187,18 +215,22 @@
       padding: 12px 18px;
       border-radius: 14px;
     }
+
     .btn-outline-accent:hover {
       background: #f8fafc
     }
+
     /* Split hero (aligné avec Services) */
     .sv-hero--split {
       --sv-img-drop: 160px;
       margin-bottom: var(--sv-img-drop);
     }
+
     .sv-hero__inner {
       position: relative;
       z-index: 3;
     }
+
     .sv-hero::after {
       content: "";
       position: absolute;
@@ -207,6 +239,7 @@
       z-index: 2;
       pointer-events: none;
     }
+
     .sv-hero__media {
       position: absolute;
       right: var(--sv-img-right, 24px);
@@ -218,6 +251,7 @@
       background: transparent;
       z-index: 1;
     }
+
     .sv-hero__media img {
       width: 100%;
       height: 100%;
@@ -228,6 +262,7 @@
       filter: none !important;
       transform: none !important;
     }
+
     .sv-hero {
       position: relative;
       background: var(--navy);
@@ -236,6 +271,7 @@
       overflow: visible;
       z-index: 5;
     }
+
     @media (max-width: 992px) {
       .sv-hero__media {
         position: static;
@@ -246,12 +282,15 @@
         margin-top: 18px;
       }
     }
+
     .page-service .sv-hero__copy {
       position: relative;
       transform: translate(-52px, -11px) !important;
       will-change: transform;
     }
+
     @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;800;900&display=swap');
+
     /* HERO projet */
     .pr-hero {
       position: relative;
@@ -261,6 +300,7 @@
       overflow: visible;
       z-index: 5;
     }
+
     .pr-hero::after {
       content: "";
       position: absolute;
@@ -269,36 +309,43 @@
       z-index: 2;
       pointer-events: none;
     }
+
     .pr-hero--split {
       --pr-img-drop: 220px;
       margin-bottom: var(--pr-img-drop);
     }
+
     .pr-hero__inner {
       position: relative;
       z-index: 3;
     }
+
     .pr-hero__copy {
       position: relative;
       transform: translate(var(--pr-copy-x, 0), var(--pr-copy-y, 0));
       will-change: transform;
     }
+
     .page-project .pr-title,
     .page-project .pr-sub {
       font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
       color: #fff !important;
     }
+
     .page-project .pr-title {
       font-size: clamp(24px, 4.5vw, 60px) !important;
       line-height: 1.05 !important;
       font-weight: 900 !important;
       margin: 0 0 10px;
     }
+
     .page-project .pr-sub {
       font-size: clamp(18px, 1.8vw, 24px) !important;
       line-height: 1.7 !important;
       opacity: .98 !important;
       margin: 0;
     }
+
     .pr-hero__media {
       position: absolute;
       right: var(--pr-img-right, 24px);
@@ -310,6 +357,7 @@
       background: transparent;
       z-index: 1;
     }
+
     .pr-hero__media img {
       width: 100%;
       height: 100%;
@@ -320,10 +368,12 @@
       filter: none !important;
       transform: none !important;
     }
+
     @media (max-width: 992px) {
       .pr-hero--split {
         --pr-img-drop: 40px;
       }
+
       .pr-hero__media {
         position: static;
         right: auto;
@@ -333,14 +383,17 @@
         margin-top: 18px;
       }
     }
+
     /* AVANT  : padding: var(--pr-hero-pad,160px) 0; */
     /* APRES : haut et bas indépendants, avec rétro-compatibilité */
     .pr-hero {
       padding: var(--pr-hero-pad-top, var(--pr-hero-pad, 160px)) 0 var(--pr-hero-pad-bottom, var(--pr-hero-pad, 160px));
     }
+
     .media-rotator img {
       transition: opacity .35s ease;
     }
+
     .media-rotator img.is-fading {
       opacity: 0;
     }
@@ -352,16 +405,16 @@
         : asset('img/placeholder-hero.png');
     @endphp
     <header class="pr-hero pr-hero--split" style="
-      --pr-hero-pad-top: 70px;     /* header plus haut */
-      --pr-hero-pad-bottom: 190px;  /* garde un peu d'air en bas */
-      --pr-img-drop: 273px;        /* remonte l'image */
-      --pr-img-right: 24px;
-      --pr-img-w: 620px;
-      --pr-img-h: 380px;
-      --pr-img-radius: 22px;
-      --pr-copy-x: 8px;
-      --pr-copy-y: -4px;
-    ">
+            --pr-hero-pad-top: 70px;     /* header plus haut */
+            --pr-hero-pad-bottom: 190px;  /* garde un peu d'air en bas */
+            --pr-img-drop: 300px;        /* remonte l'image */
+            --pr-img-right: 10px;
+            --pr-img-w: 560px;
+      --pr-img-h: 340px;
+            --pr-img-radius: 22px;
+            --pr-copy-x: 8px;
+            --pr-copy-y: -4px;
+          ">
       <div class="container pr-hero__inner">
         <div class="pr-hero__copy">
           <h1 class="pr-title">{{ $project->name }}</h1>

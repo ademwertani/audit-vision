@@ -239,6 +239,25 @@
                 margin-top: -4px !important;
             }
         }
+.stat {
+    padding: 20px;
+    font-size: 1.2rem;
+    min-width: 180px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat--offset {
+        margin-left: 10px !important;
+        background: #ffe; /* pour visualiser si appliqué */
+    }
+.stat--accent {
+    background-color: #f0f0f0; /* Exemple */
+    font-weight: bold;
+}
 
         /* Option: masquer les flèches latérales si réactivées ailleurs
       #blogCarousel .carousel-control-prev,
@@ -280,8 +299,8 @@
                 {{-- ======= Bloc statique : Bannière verte (haut droite) ======= --}}
                 <div class="promo-card grid-promo">
                     <p class="m-0" style="font-size: 1.5rem; font-weight: 600;">
-                        France Expert Isolation vous accompagne de A à Z : </br>
-                        étude technique, montage du dossier CEE, réalisation des travaux et suivi post-intervention.
+                        France Expert Isolation vous accompagne à chaque étape de votre projet : 
+                        de l’étude technique à la constitution du dossier CEE, jusqu’à la réalisation des travaux et le suivi post-intervention.
                     </p>
                     <span class="promo-dot"></span>
                 </div>
@@ -326,10 +345,10 @@
 
                 {{-- ======= Bloc Stats (dynamique) ======= --}}
                 <div class="stats-card grid-stats">
-                    <h5 class="text-center mb-4">Nous avons déjà alimenté avec succès</h5>
+                    <h5 class="text-start mb-4 ps-2">Nous avons déjà alimenté avec succès</h5>
                     <div class="stats-row">
                         @forelse($stats as $stat)
-                            <div class="stat {{ $stat->is_accent ? 'stat--accent' : '' }}">
+                            <div class="stat {{ $stat->is_accent ? 'stat--accent' : '' }} {{ $loop->index === 1 ? 'stat--offset' : '' }}">
                                 <div class="stat-number">{{ number_format($stat->value) }}</div>
                                 <div class="stat-label">{{ $stat->label }}</div>
                             </div>
@@ -623,6 +642,7 @@
             /* display: none !important; */
             /* décommente pour masquer les flèches latérales */
         }
+        
     </style>
     <!-- Projects End -->
 
@@ -950,7 +970,7 @@
         @endif
             </div>
         </div>
-
+{{--
         <section class="hcw my-5">
             <div class="container">
                 <h1 class="hcw-title text-center">
@@ -980,7 +1000,7 @@
                 @endif
             </div>
         </section>
-
+--}}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const servicesSection = document.querySelector('.services-section');
