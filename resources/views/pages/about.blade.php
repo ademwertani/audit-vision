@@ -831,26 +831,37 @@
             </div>
           </div>
           <div class="col-lg-7 col-md-6">
-            <div class="pa-kicker"><span style="color: #7CAE2A;">Qui sommes-nous ?</span></div>
-            <h1 class="pa-h1">France Expert Isolation, votre spécialiste de l’isolation thermique</h1>
-            <p class="mt-3">
-              France Expert Isolation est une entreprise experte dans l’isolation thermique des bâtiments tertiaires,
-              industriels et agricoles.
-              Notre mission est simple : réduire durablement les déperditions d’énergie, améliorer le confort intérieur et
-              accompagner activement la transition énergétique.
-            </p>
-            <p class="mb-4">
-              Grâce à notre savoir-faire et à l’utilisation de matériaux performants, nous proposons des solutions sur
-              mesure alliant efficacité énergétique, économies durables et respect de l’environnement.
-              Nos travaux peuvent bénéficier de la <strong>prime CEE</strong> subventionnée, permettant ainsi à nos
-              clients de réduire considérablement le coût de leurs projets d’isolation.
-            </p> 
-            <p class="mb-4">
-              Notre engagement : offrir à chaque client une isolation optimale et un confort thermique tout au long de
-              l’année.
-            </p>
-            <a href="{{ url('/formation') }}" class="btn btn-accent">Découvrir nos solutions</a>
-          </div>
+    <div class="pa-kicker">
+        <span style="color: #7CAE2A;">Qui sommes‑nous&nbsp;?</span>
+    </div>
+
+    <h1 class="pa-h1">France Expert Isolation, expert en isolation thermique</h1>
+
+    <p class="mt-3">
+        France Expert Isolation accompagne les professionnels des secteurs tertiaire, industriel et agricole 
+        dans l’amélioration de la performance énergétique de leurs bâtiments. Notre objectif est clair : limiter durablement 
+        les déperditions de chaleur, optimiser le confort thermique et contribuer activement à la transition énergétique.
+    </p>
+
+    <p class="mb-4">
+        Nous concevons et mettons en œuvre des solutions d’isolation sur mesure, fondées sur des matériaux performants 
+        et des techniques éprouvées. Ces solutions permettent de réaliser des économies d’énergie durables tout en 
+        respectant les exigences environnementales actuelles.  
+    </p>
+
+    <p class="mb-4">
+        Nos travaux sont éligibles aux dispositifs de financement CEE, offrant à nos clients la possibilité 
+        de réduire significativement le coût de leurs projets d’isolation.
+    </p>
+
+    <p class="mb-4">
+        Notre engagement : garantir une isolation efficace, un confort thermique optimal toute l’année 
+        et un accompagnement professionnel à chaque étape du projet.
+    </p>
+
+    <a href="{{ url('/services') }}" class="btn btn-accent">Découvrir nos solutions</a>
+</div>
+
 
         </div>
       </div>
@@ -861,9 +872,9 @@
 
     {{-- Titre + image --}}
     <div class="values-head text-center">
-      <div class="kicker">À PROPOS</div>
+      <div class="kicker" style="color: #000331;">À PROPOS</div>
+
       <h2 class="values-title">
-        Nous défendons<br>
         <span class="accent">Nos valeurs</span>
       </h2>
     </div>
@@ -883,7 +894,7 @@
         </div>
         <h4 class="value-title">Intégrité</h4>
         <p class="value-text">
-          Nous opérons avec transparence et responsabilité à chaque étape.
+          Nous agissons avec transparence, éthique et responsabilité à chaque étape de nos interventions. 
         </p>
       </div>
 
@@ -894,7 +905,7 @@
         </div>
         <h4 class="value-title">Qualité</h4>
         <p class="value-text">
-          Des matériaux certifiés et une exécution maîtrisée pour durer.
+          Nous sélectionnons des matériaux certifiés et garantissons une mise en œuvre rigoureuse pour des performances durables.
         </p>
       </div>
 
@@ -905,7 +916,7 @@
         </div>
         <h4 class="value-title">Engagement</h4>
         <p class="value-text">
-          Engagement total envers la performance, la sécurité et l’environnement.
+          Un engagement constant en faveur de la performance, de la sécurité et du respect de l’environnement. 
         </p>
       </div>
 
