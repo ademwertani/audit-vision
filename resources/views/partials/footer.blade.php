@@ -164,7 +164,7 @@
       <!-- Logo + présentation -->
       <div class="col-lg-4 col-md-6">
         <a href="{{ url('/') }}">
-          <img src="{{ asset('img/newl.png') }}" alt="France Expert Isolation" class="logo-navbar">
+          <img src="{{ asset('img/logoo.png') }}" alt="France Expert Isolation" class="logo-navbar">
         </a>
         <p class="about-text">
           Chez France Expert Isolation, nous croyons au <br>

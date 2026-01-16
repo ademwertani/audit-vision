@@ -8,5 +8,7 @@ class YoutubeVideo extends Model
 {
     protected $fillable = [
         'url',
+        'title',
+        'description',
     ];
 }

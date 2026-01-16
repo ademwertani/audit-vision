@@ -863,7 +863,11 @@
   <i class="fa-solid fa-users"></i>
   <span class="nav-text">Customers</span>
 </a>
-
+<a class="nav-link @if(Route::is('admin.certificats.*')) active @endif"
+   href="{{ route('admin.certificats.index') }}" data-tooltip="Certificats">
+  <i class="fa-solid fa-certificate"></i>
+  <span class="nav-text">Certificats</span>
+</a>
 
                 </a>
             </div>
@@ -901,11 +905,13 @@
                     <i class="fab fa-facebook"></i>
                     <span class="nav-text">Social Links</span>
                 </a>
-                <a class="nav-link @if(Route::is('admin.video.*')) active @endif" href="{{ route('admin.video.edit') }}"
-                    data-tooltip="YouTube Video">
-                    <i class="fab fa-youtube"></i>
-                    <span class="nav-text">YouTube Video</span>
-                </a>
+                <a class="nav-link @if(Route::is('admin.videos.*')) active @endif"
+    href="{{ route('admin.videos.index') }}"
+    data-tooltip="YouTube Video">
+    <i class="fab fa-youtube"></i>
+    <span class="nav-text">YouTube Video</span>
+</a>
+
                 <a class="nav-link @if(Route::is('admin.stats.*')) active @endif"
                     href="{{ route('admin.stats.index') }}" data-tooltip="Stats">
                     <i class="fas fa-chart-line float-lg-start"></i>

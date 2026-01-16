@@ -18,10 +18,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Image</th>
-                        <th>Galerie</th> {{-- ✅ nouvelle colonne --}}
                         <th>Name</th>
-                        <th>Service</th>
-                        <th>Secteur</th>
                         <th>Summary</th>
                         <th>Actions</th>
                     </tr>
@@ -34,55 +31,20 @@
                             {{-- Image principale --}}
                             <td>
                                 @if($project->image)
-                                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
+                                    <img src="{{ asset('storage/' . $project->image) }}"
+                                         alt="{{ $project->name }}"
+                                         class="img-thumbnail"
+                                         style="width:60px;height:60px;object-fit:cover;">
                                 @else
                                     <span class="text-muted">No image</span>
-                                @endif
-                            </td>
-
-                            {{-- ✅ Galerie (affichage badge + mini preview on hover) --}}
-                            <td>
-                                @if(!empty($project->images))
-                                    <span class="badge bg-success">{{ count($project->images) }} imgs</span>
-
-                                    {{-- Mini preview au survol --}}
-                                    <div class="d-flex gap-1 mt-1">
-                                        @foreach(array_slice($project->images, 0, 3) as $img)
-                                            <img src="{{ Storage::url($img) }}" class="rounded border" style="width:30px;height:30px;object-fit:cover;" alt="gallery img">
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <span class="text-muted">—</span>
                                 @endif
                             </td>
 
                             <td>{{ $project->name }}</td>
 
                             <td>
-                                @if($project->service)
-                                    <span class="badge bg-primary">{{ $project->service->name }}</span>
-                                @else
-                                    <span class="text-muted">No service</span>
-                                @endif
+                                {{ \Illuminate\Support\Str::limit($project->summary, 80) }}
                             </td>
-
-                            <td>
-                                @if($project->secteur)
-                                    @php
-                                        $map = [
-                                            'Tertiaire' => 'bg-info',
-                                            'Industrie' => 'bg-warning text-dark',
-                                            'Agricole'  => 'bg-success',
-                                        ];
-                                        $cls = $map[$project->secteur] ?? 'bg-secondary';
-                                    @endphp
-                                    <span class="badge {{ $cls }}">{{ $project->secteur }}</span>
-                                @else
-                                    <span class="text-muted">—</span>
-                                @endif
-                            </td>
-
-                            <td>{{ $project->summary }}</td>
 
                             <td>
                                 <div class="btn-group" role="group">
@@ -95,7 +57,9 @@
                                     <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

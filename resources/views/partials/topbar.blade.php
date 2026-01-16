@@ -17,7 +17,7 @@
                 @if($about->summary)
                 <small>{{ Str::limit($about->summary, 50) }}</small>
                 @else
-                <small>Isolation avec eco call</small>
+                <small>Audit vision</small>
                 @endif
             </div>
             <div class="top-link">

@@ -24,34 +24,42 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        // Set default string length for MySQL
-        Schema::defaultStringLength(191);
+   public function boot()
+{
+    // Set default string length for MySQL
+    Schema::defaultStringLength(191);
 
-        // Use Bootstrap for pagination views
-        Paginator::useBootstrap();
+    // Use Bootstrap for pagination views
+    Paginator::useBootstrap();
 
-        // If you're using Laravel 8+ and having mixed content issues on HTTPS
-        //if ($this->app->environment('production')) {
-        //    \URL::forceScheme('https');
-      //  }
+    // ✨ مهم: ما تعمل حتى query وقت artisan (migrate, db:seed, ...)
+    if ($this->app->runningInConsole()) {
+        return;
+    }
 
-        // You can add view composers here if needed
-        // View::composer('view.name', function ($view) {
-        //     $view->with('key', 'value');
-        // });
-        $settingsController = new SettingsController();
-        $sharedData = $settingsController->getSharedData();
-        
-        view()->share('about', $sharedData['about']);
-        view()->share('social', $sharedData['social']);
-        view()->share('services', $sharedData['services']);
-        // ↓ Nouveau : catégories + services pour le menu
+    // تأكد اللي الجداول موجودة قبل ما تستعملها
+    if (
+        !Schema::hasTable('abouts') ||
+        !Schema::hasTable('socials') ||
+        !Schema::hasTable('services') ||
+        !Schema::hasTable('categories')
+    ) {
+        return;
+    }
+
+    // نفس الكود متاعك، لكن توا آمن
+    $settingsController = new SettingsController();
+    $sharedData = $settingsController->getSharedData();
+
+    view()->share('about', $sharedData['about'] ?? null);
+    view()->share('social', $sharedData['social'] ?? null);
+    view()->share('services', $sharedData['services'] ?? null);
+
+    // ↓ catégories + services pour le menu
     $navCategories = Category::with([
-        'services:id,category_id,name' // ou name,slug si tu utilises des slugs
+        'services:id,category_id,name' // أو حسب الأعمدة اللي عندك
     ])->orderBy('name')->get(['id','name']);
 
     view()->share('navCategories', $navCategories);
-    }
+}
 }

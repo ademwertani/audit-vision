@@ -9,59 +9,24 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     /**
-     * Page d’atterrissage secteurs (3 boutons).
-     */
-    public function sectors()
-    {
-        $banner = Banner::latest()->first();
-        $heroBannerImg = $banner && $banner->image
-            ? asset('storage/' . ltrim($banner->image, '/'))
-            : asset('img/default-banner.jpg');
-
-        // Liste des secteurs autorisés (assure-toi d’avoir la constante dans le modèle)
-        $sectors = Project::SECTEURS ?? ['Tertiaire', 'Industrie', 'Agricole'];
-
-        // Vue à créer : resources/views/pages/project-sectors.blade.php
-        return view('pages.project-sectors', compact('heroBannerImg', 'sectors'));
-    }
-
-    /**
-     * Index projets. Si aucun secteur n’est fourni, on redirige vers /projects/sectors.
-     * Si ?secteur=… est présent et valide, on filtre.
+     * Liste des projets (page /projects).
      */
     public function index(Request $request)
     {
-        $currentSecteur = $request->query('secteur');
-
-        // Si pas de secteur → page secteurs
-        if (!$currentSecteur) {
-            return redirect()->route('projects.sectors');
-        }
-
-        // Vérifie que le secteur demandé est valide
-        $allowed = Project::SECTEURS ?? ['Tertiaire', 'Industrie', 'Agricole'];
-        if (!in_array($currentSecteur, $allowed, true)) {
-            // Secteur invalide → retourne à la page secteurs
-            return redirect()->route('projects.sectors');
-        }
-
         $banner = Banner::latest()->first();
         $heroBannerImg = $banner && $banner->image
             ? asset('storage/' . ltrim($banner->image, '/'))
             : asset('img/default-banner.jpg');
 
-        // Filtre par secteur + eager load du service (évite N+1)
-        $projects = Project::with('service')
-            ->where('secteur', $currentSecteur)
-            ->latest()
-            ->paginate(12);
+        // On récupère tous les projets, les plus récents d'abord
+        $projects = Project::latest()->paginate(12);
 
-        // Vue index: resources/views/pages/project.blade.php
-        return view('pages.project', compact('projects', 'heroBannerImg', 'currentSecteur'));
+        // Vue : resources/views/pages/project.blade.php
+        return view('pages.project', compact('projects', 'heroBannerImg'));
     }
 
     /**
-     * Show projet.
+     * Page détail d’un projet ( /projects/{project} ).
      */
     public function show(Project $project)
     {
@@ -70,18 +35,7 @@ class ProjectController extends Controller
             ? asset('storage/' . ltrim($banner->image, '/'))
             : asset('img/default-banner.jpg');
 
-        // Charger la relation service
-        $project->load('service');
-
-        // Récupération galerie
-        $gallery = $project->images ?? [];          // tableau de chemins
-        $galleryUrls = $project->images_urls ?? []; // URLs publiques (Storage::url)
-
-        return view('pages.project-show', compact(
-            'project',
-            'heroBannerImg',
-            'gallery',
-            'galleryUrls'
-        ));
+        // Plus de service, plus de galerie → projet simple
+        return view('pages.project-show', compact('project', 'heroBannerImg'));
     }
 }

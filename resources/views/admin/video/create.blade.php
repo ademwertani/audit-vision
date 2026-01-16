@@ -1,20 +1,19 @@
 @extends('layouts.back')
 
-@section('title', 'YouTube Video')
+@section('title', 'Ajouter une vidéo YouTube')
 
 @section('content')
 <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Modifier la vidéo YouTube</h4>
+        <h4 class="mb-0">Ajouter une vidéo YouTube</h4>
         <a href="{{ route('admin.videos.index') }}" class="btn btn-sm btn-secondary">
             <i class="fas fa-arrow-left me-1"></i> Retour à la liste
         </a>
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.videos.update', $video->id) }}" method="POST">
+        <form action="{{ route('admin.videos.store') }}" method="POST">
             @csrf
-            @method('PUT')
 
             {{-- URL --}}
             <div class="mb-3">
@@ -24,7 +23,7 @@
                     class="form-control @error('url') is-invalid @enderror"
                     id="url"
                     name="url"
-                    value="{{ old('url', $video->url) }}"
+                    value="{{ old('url') }}"
                     placeholder="https://www.youtube.com/watch?v=..."
                     required
                 >
@@ -41,7 +40,7 @@
                     class="form-control @error('title') is-invalid @enderror"
                     id="title"
                     name="title"
-                    value="{{ old('title', $video->title) }}"
+                    value="{{ old('title') }}"
                     placeholder="Titre de la vidéo"
                 >
                 @error('title')
@@ -58,14 +57,14 @@
                     name="description"
                     rows="4"
                     placeholder="Description de la vidéo (optionnel)"
-                >{{ old('description', $video->description) }}</textarea>
+                >{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save me-2"></i> Enregistrer les modifications
+                <i class="fas fa-save me-2"></i> Enregistrer
             </button>
         </form>
     </div>
