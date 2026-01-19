@@ -33,18 +33,18 @@
   /* Titres de section avec soulignement vert */
   .footer-aisla .section-title {
     color: #fff;
-    margin-bottom: .75rem;
+    margin-block-end: .75rem;
     position: relative;
   }
 
   .footer-aisla .section-title::after {
     content: "";
     display: block;
-    width: 56px;
-    height: 3px;
+    inline-size: 56px;
+    block-size: 3px;
     background: var(--accent);
     border-radius: 2px;
-    margin-top: 8px;
+    margin-block-start: 8px;
   }
 
   /* Texte secondaire vert uniquement dans le footer */
@@ -54,8 +54,8 @@
 
   /* Boutons réseaux sociaux : cercles blancs */
   .footer-aisla .btn-square {
-    width: 42px;
-    height: 42px;
+    inline-size: 42px;
+    block-size: 42px;
     border: 0;
     display: inline-flex;
     align-items: center;
@@ -87,7 +87,7 @@
   /* Liste de contact avec icônes vertes circulaires */
   .footer-aisla .contact-list {
     list-style: none;
-    padding-left: 0;
+    padding-inline-start: 0;
     margin: 0;
   }
 
@@ -95,12 +95,12 @@
     display: flex;
     align-items: center;
     gap: .75rem;
-    margin-bottom: .75rem;
+    margin-block-end: .75rem;
   }
 
   .footer-aisla .contact-item .icon {
-    width: 36px;
-    height: 36px;
+    inline-size: 36px;
+    block-size: 36px;
     border-radius: 50%;
     background: var(--accent);
     color: #fff;
@@ -119,32 +119,32 @@
     color: #E9EDFF;
     font-size: 0.95rem;
     line-height: 1.6;
-    margin-top: 0rem;
+    margin-block-start: 0rem;
     opacity: 0.9;
   }
 
   .footer-aisla .footer-links a {
     color: var(--muted);
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
   }
 
   .footer-aisla .logo-navbar {
-    max-height: 520px;
-    margin-bottom: 2rem;
+    max-block-size: 520px;
+    margin-block-end: 2rem;
     display: block;
   }
 
   .footer-aisla .col-lg-4.col-md-6 {
-    margin-top: 10px;
+    margin-block-start: 10px;
   }
 
   .footer-aisla .footer-links a:first-child {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 
   .footer-aisla .social-icons .btn-square {
-    width: 42px;
-    height: 42px;
+    inline-size: 42px;
+    block-size: 42px;
     border-radius: 50%;
     transition: transform .15s ease, opacity .15s ease;
   }
@@ -164,10 +164,10 @@
       <!-- Logo + présentation -->
       <div class="col-lg-4 col-md-6">
         <a href="{{ url('/') }}">
-          <img src="{{ asset('img/logoo.png') }}" alt="France Expert Isolation" class="logo-navbar">
+          <img src="{{ asset('img/logoo.png') }}" alt="Audit vision" class="logo-navbar">
         </a>
         <p class="about-text">
-          Chez France Expert Isolation, nous croyons au <br>
+          Chez Audit vision, nous croyons au <br>
           pouvoir des énergies renouvelables pour <br>
           construire un avenir plus durable.
         </p>
@@ -242,7 +242,7 @@
       <!-- Bas de page -->
       <div class="row align-items-center gy-3">
         <div class="col-lg-6 text-center text-lg-start">
-          <span class="text-light">Copyright © 2025 France Expert Isolation</span>
+          <span class="text-light">Copyright © 2025 Audit vision</span>
         </div>
       </div>
     </div>

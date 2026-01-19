@@ -835,10 +835,10 @@
         <span style="color: #7CAE2A;">Qui sommes‑nous&nbsp;?</span>
     </div>
 
-    <h1 class="pa-h1">France Expert Isolation, expert en isolation thermique</h1>
+    <h1 class="pa-h1">Audit vision, expert en isolation thermique</h1>
 
     <p class="mt-3">
-        France Expert Isolation accompagne les professionnels des secteurs tertiaire, industriel et agricole 
+        Audit vision accompagne les professionnels des secteurs tertiaire, industriel et agricole 
         dans l’amélioration de la performance énergétique de leurs bâtiments. Notre objectif est clair : limiter durablement 
         les déperditions de chaleur, optimiser le confort thermique et contribuer activement à la transition énergétique.
     </p>

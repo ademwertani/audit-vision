@@ -390,8 +390,103 @@
         </div>
 
     </div>
+    
 </section>
 @endif
+{{-- =============== CONTACT & PLAN D'ACCÈS =============== --}}
+<section class="contact-map-av py-5" id="contact-map">
+    <div class="container">
+        <div class="row g-4 align-items-stretch">
+            {{-- Formulaire à gauche --}}
+            <div class="col-lg-6">
+                <div class="contact-map-card h-100">
+                    <h2 class="contact-map-title">Contactez-nous</h2>
+                    <p class="contact-map-text">
+                        AUDIT VISION – Bureau d’Études Énergétiques<br>
+                        38 Avenue Villemain – 75014 Paris<br>
+                        SIREN : 982 511 644<br>
+                        Assurance RC Pro : Markel Insurance SE, contrat conforme à la qualification OPQIBI 1911
+                        et aux normes NF EN 16247-1 et NF EN 16247-2.
+                    </p>
+
+                    {{-- Formulaire "dummy" (n’envoie rien pour le moment) --}}
+                    <form method="POST" action="{{ route('contact.store') }}">
+    @csrf
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" name="first_name" class="form-control contact-input"
+                                       placeholder="Prénom" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="last_name" class="form-control contact-input"
+                                       placeholder="Nom" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="email" name="email" class="form-control contact-input"
+                                       placeholder="E-mail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="phone" class="form-control contact-input"
+                                       placeholder="Téléphone">
+                            </div>
+
+                            <div class="col-12">
+                                <select name="subject" class="form-select contact-input">
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="audit_energetique">Audit énergétique</option>
+                                    <option value="accompagnement_tertiaire">Accompagnement tertiaire</option>
+                                    <option value="conseil_collectivites">Conseil collectivités</option>
+                                    <option value="autre">Autre demande</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="text" name="company" class="form-control contact-input"
+                                       placeholder="Société (facultatif)">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="city" class="form-control contact-input"
+                                       placeholder="Ville (facultatif)">
+                            </div>
+
+                            <div class="col-12">
+                                <textarea name="message" rows="4"
+                                          class="form-control contact-textarea"
+                                          placeholder="Votre message..." required></textarea>
+                            </div>
+
+                            <div class="col-12 mt-2">
+                                <button type="submit" class="btn contact-map-btn">
+                                    Envoyer
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {{-- Carte à droite --}}
+            <div class="col-lg-6">
+                <div class="contact-map-wrapper h-100">
+                    <div class="contact-map-iframe-wrap">
+                        <iframe
+                            src="https://www.google.com/maps?q=38%20Avenue%20Villemain%2075014%20Paris&output=embed"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ================== SCRIPTS ================== --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -637,7 +732,6 @@ document.addEventListener('DOMContentLoaded', function () {
     font-weight: 500;
     text-decoration: none;
     border: none;
-    box-shadow: 0 10px 20px rgba(124, 174, 42, 0.28);
     transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
@@ -1079,6 +1173,92 @@ document.addEventListener('DOMContentLoaded', function () {
 @keyframes partnerFadeIn {
     from { opacity: 0; transform: scale(0.7) translateY(20px); }
     to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+/* ---------- CONTACT + MAP ---------- */
+.contact-map-av {
+    background: #ffffff;
+}
+
+.contact-map-card {
+    background: #f5f7fb;
+    border-radius: 20px;
+    padding: 24px 26px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.contact-map-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0b2340;
+    margin-bottom: 12px;
+}
+
+.contact-map-text {
+    font-size: 0.9rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.contact-input,
+.contact-textarea {
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 0.9rem;
+    padding: 0.55rem 0.9rem;
+    background-color: #ffffff;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+    border-color: #7CAE2A;
+    box-shadow: 0 0 0 0.1rem rgba(124, 174, 42, 0.25);
+}
+
+.contact-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-map-btn {
+    background: #7CAE2A;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 0.55rem 2.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.contact-map-btn:hover {
+    background: #6aa227;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(124, 174, 42, 0.25);
+}
+
+/* Bloc map */
+.contact-map-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    background: #e5e7eb;
+}
+
+.contact-map-iframe-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+}
+
+.contact-map-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 20px;
 }
 
 /* ---------- Responsive ---------- */

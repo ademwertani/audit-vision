@@ -10,28 +10,34 @@ class ContactController extends Controller
 {
     public function create()
     {
-        // Récupérer la première bannière si elle existe, sinon image par défaut
+        // Récupérer la bannière
         $heroBannerImg = optional(Banner::query()->orderByDesc('id')->first())->image;
         $heroBannerImg = $heroBannerImg
             ? asset('storage/' . ltrim($heroBannerImg, '/'))
-            : asset('img/ima.png'); // <-- mets ici ton fallback (ex: img/contact-hero.jpg)
+            : asset('img/ima.png');
 
         return view('contact.create', compact('heroBannerImg'));
     }
 
     public function store(Request $request)
     {
+        // Validation conforme au formulaire
         $validated = $request->validate([
-            'name'    => ['required','string','max:255'],
-            'email'   => ['required','email','max:255'],
-            'subject' => ['required','string','max:255'],
-            'message' => ['required','string'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name'  => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'email', 'max:255'],
+            'phone'      => ['nullable', 'string', 'max:255'],
+            'subject'    => ['nullable', 'string', 'max:255'],
+            'company'    => ['nullable', 'string', 'max:255'],
+            'city'       => ['nullable', 'string', 'max:255'],
+            'message'    => ['required', 'string'],
         ]);
 
-        Contact::create($validated); // Assure-toi que le modèle Contact a bien ces champs dans $fillable
+        // Enregistrement en base
+        Contact::create($validated);
 
         return redirect()
             ->back()
-            ->with('success', 'Your message has been sent successfully!');
+            ->with('success', 'Votre message a été envoyé avec succès !');
     }
 }
