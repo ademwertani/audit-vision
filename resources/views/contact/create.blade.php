@@ -157,34 +157,6 @@
 
 <section class="contact-page">
 
-<header class="cp-hero cp-hero--split"
-  style="
-    --cp-hero-offset: 24px;
-    --cp-hero-pad: 190px;
-
-    --cp-img-drop: 60px;
-    --cp-img-right: 77px;
-    --cp-img-w: 600px;
-    --cp-img-h: 380px;
-    --cp-img-radius: 18px;
-
-    --cp-copy-x: -48px;
-  ">
-
-  <div class="cp-hgroup container cp-hero__inner">
-    <h1 class="cp-title">Contactez-nous</h1>
-    <p class="cp-sub">
-      Des solutions d’efficacité énergétique pour réduire vos coûts et votre empreinte carbone.
-    </p>
-  </div>
-
-  {{-- Image hero fournie par le contrôleur (bannière ou fallback) --}}
-  <figure class="cp-hero__media">
-    <img src="{{ $heroBannerImg }}" alt="Contact hero">
-  </figure>
-
-</header>
-
   {{-- CONTENT --}}
   <div class="cp-wrap">
     <div class="container">

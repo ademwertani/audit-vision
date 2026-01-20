@@ -9,487 +9,555 @@
 
   // Dates & reading time
   $publishedAt    = $blog->published_at ? Carbon::parse($blog->published_at) : null;
-  $readingMinutes = max(1, (int)ceil(str_word_count(strip_tags($blog->content)) / 200));
 
   // Share links
   $canonicalUrl = route('blog.show', $blog->slug);
   $encodedUrl   = urlencode($canonicalUrl);
   $encodedTitle = urlencode($blog->title);
-@endphp
 
+  // Image hero (même image que l’article)
+  $postHeroImg = !empty($blog->image)
+      ? asset('storage/' . ltrim($blog->image, '/'))
+      : asset('img/blog-placeholder.jpg');
+@endphp
 <style>
 /* =========================================================
-   France Isolation – Blog Post (same skin as Contact/About/Blog)
-   Styles scoped to this page only.
+   PAGE ARTICLE – France Isolation (version animée)
    ========================================================= */
 .page-post{
-  --navy:#2f3582;
-  --navyDark:#1d2760;
-  --sky:#7CAE2A;
-  --accent:#ff6b35;
-  --ink:#0f172a;
+  --navy:#111827;
+  --navySoft:#1f2937;
+  --accent:#7CAE2A;
+  --accentSoft:#bbf7d0;
   --muted:#6b7280;
+  --border:#e5e7eb;
+  --bg:#f3f4f6;
   --card:#ffffff;
-  --ring:#dbe6ff;
-  --shadow-lg:0 24px 48px rgba(16,24,40,.12);
-  --shadow:0 10px 18px rgba(0,0,0,.08);
+  --shadow-card:0 18px 40px rgba(15,23,42,0.10);
+  padding: 40px 0 80px;
+  background: radial-gradient(circle at top left, #e5f0ff 0, #f9fafb 42%, #eef2ff 100%);
 }
 .page-post *{box-sizing:border-box}
 
-/* ---------- HERO (left-aligned + long pill breadcrumb) ---------- */
-.pp-hero{
-  background:var(--navy); color:#fff; padding:78px 0 92px; position:relative;
-}
-.pp-hero .pp-hgroup{max-width:1100px;margin:0 auto;padding:0 12px}
-.pp-title{font-size:48px;line-height:1.08;font-weight:800;margin:0 0 10px}
-@media (min-width:992px){ .pp-title{font-size:56px} }
-.pp-hero h1,.pp-hero .pp-title,.pp-hero p,.pp-hero .pp-sub{color:#fff !important}
-.pp-sub{max-width:680px;font-size:15px;line-height:1.7;margin:0;opacity:.95}
-
-/* breadcrumb pill (identical behavior) */
-.pp-bread-wrap{position:absolute;left:0;right:0;bottom:-28px;display:flex;justify-content:center}
-.pp-bread{
-  width:min(1180px, calc(100% - 48px));
-  background:var(--sky); height:46px; border-radius:9999px;
-  display:flex; align-items:center; gap:18px; padding:0 22px;
-  font-weight:700; box-shadow:0 10px 18px rgba(3,102,140,.12);
-  color:#fff !important;
-}
-.pp-bread a,.pp-bread span{color:#fff !important}
-.pp-bread .sep{color:rgba(255,255,255,.85) !important}
-.pp-bread .home-ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
-  background:rgba(255,255,255,.22);color:#fff !important;font-size:12px}
-
-/* ---------- Article ---------- */
-.pp-wrap{padding:70px 0 40px}
-.article-wrap{max-width:980px;margin:0 auto}
-.article-card{
-  background:var(--card); border:1px solid #eef2f6; border-radius:18px;
-  box-shadow:var(--shadow); overflow:hidden;
-}
-.article-hero{position:relative; aspect-ratio: 16/9; background:#f3f5f7}
-.article-hero img{width:100%;height:100%;object-fit:cover;display:block}
-.badge-state{
-  position:absolute; top:12px; left:12px; padding:.35rem .6rem; border-radius:10px;
-  font-size:.8rem; background:rgba(0,0,0,.65); color:#fff; backdrop-filter: blur(4px);
-}
-.badge-draft{ background:#ffe08a; color:#222 }
-.article-body{ padding:1.5rem 1.25rem 1.75rem }
-@media (min-width:992px){ .article-body{ padding:2rem } }
-
-/* Typography */
-.prose{ color:#1f2937; line-height:1.75; font-size:1.05rem }
-.prose p{ margin-bottom:1rem }
-.prose h2, .prose h3{ margin-top:1.6rem; margin-bottom:.8rem; font-weight:700 }
-.prose h2{ font-size:1.5rem }
-.prose h3{ font-size:1.25rem }
-.prose ul, .prose ol{ padding-left:1.15rem; margin-bottom:1rem }
-.prose blockquote{
-  margin:1.25rem 0; padding:.9rem 1rem; background:#f8fafc;
-  border-left:4px solid var(--sky); border-radius:8px;
-}
-
-.meta{display:flex; flex-wrap:wrap; gap:.75rem 1.25rem; color:#6b7280; font-size:.95rem; margin-bottom:1rem}
-.divider{height:1px;background:#eef2f6;margin:1.25rem 0}
-
-/* Share + nav */
-.share-list{ display:flex; gap:.5rem; flex-wrap:wrap }
-.share-list .btn{ border-radius:12px }
-.nav-article a{
-  display:flex; gap:.75rem; align-items:center; padding:1rem; border-radius:14px;
-  border:1px solid #eef2f6; background:#fff; text-decoration:none;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.nav-article a:hover{ transform: translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.08) }
-
-/* Accent button (if you need on this page later) */
-.btn-accent{
-  background:var(--accent); color:#fff; border:none; font-weight:800;
-  padding:10px 16px; border-radius:14px; box-shadow:0 10px 18px rgba(255,107,53,.2);
-}
-.btn-accent:hover{ filter:brightness(.98) }
-/* HERO Post : bleu en haut, image dessous, pas d'effet */
-.pp-hero{
-  --navy:#242958;
-  position: relative;
-  background: var(--navy);
-  color: #fff;
-  padding: 78px 0 92px;     /* hauteur de la bande bleue */
-  overflow: visible;        /* pour laisser dépasser l'image */
-  z-index: 5;
-}
-
-/* Décrochage de l'image sous le bleu */
-.pp-hero--split{
-  --pp-img-drop: 160px;      /* ⇦ ajuste +/– pour monter/descendre l'image */
-  margin-bottom: var(--pp-img-drop);
-}
-
-.pp-hero__inner{ position: relative; z-index: 3; } /* texte au-dessus */
-.pp-title{ margin: 0 0 6px; font-weight: 800; font-size: clamp(32px,5vw,56px); }
-.pp-sub{ max-width: 720px; opacity: .95; }
-
-/* Couche bleue au-dessus de l'image mais sous le texte (pour un “cut” net) */
-.pp-hero::after{
-  content: "";
-  position: absolute; inset: 0;
-  background: var(--navy);
-  z-index: 2;
-  pointer-events: none;
-}
-/* Coins arrondis pour l'image du hero (post) */
-.pp-hero__media img{
-  border-radius: 18px !important; /* ajuste: 12px, 18px, 24px... */
-  box-shadow: none !important;    /* pas d'ombre, comme demandé */
-  filter: none !important;        /* aucun effet */
-  transform: none !important;
-}
-.pa-hero__media img,
-.sv-hero__media img,
-.pb-hero__media img,
-.pp-hero__media img{
-  border-radius: 18px !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
-}
-
-
-/* IMAGE : sous la couche bleue, dépasse vers le bas, SANS effets */
-.pp-hero__media{
-  position: absolute;
-  right: clamp(16px, 3vw, 40px);
-  bottom: calc(-1 * var(--pp-img-drop)); /* fait dépasser l'image sous le bleu */
-  width: min(360px, 52vw);
-  z-index: 1;                             /* sous la couche bleue */
-}
-.pp-hero__media img{
-  display: block;
-  width: 100%; height: auto;
-  border: 0; border-radius: 0 !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;            /* ZERO effet sur l'image */
-}
-
-/* Responsive */
-@media (max-width: 992px){
-  .pp-hero--split{ --pp-img-drop: 44px; }
-  .pp-hero__media{ width: min(640px, 88vw); right: 12px; }
-}
-/* ====== HERO Post : piloté par variables ====== */
-.pp-hero{
-  --navy:#242958;
-  position: relative;
-  background: var(--navy);
-  color: #fff;
-  padding: var(--pp-hero-pad, 180px) 0;   /* ← hauteur bandeau via variable */
-  overflow: visible;                      /* laisse dépasser l’image */
-  z-index: 5;
-}
-.pp-hero::after{
-  content:""; position:absolute; inset:0;
-  background: var(--navy); z-index:2; pointer-events:none;
-}
-.pp-hero--split{
-  --pp-img-drop: 270px !important;                   /* valeur par défaut (sera écrasée inline) */
-  margin-bottom: var(--pp-img-drop);      /* espace pour l’image qui déborde */
-}
-.pp-hero__inner{ position: relative; z-index: 3; }
-
-/* ----- FORCE la taille/position du cadre image avec variables ----- */
-.pp-hero__media{
-  position: absolute;
-  right: var(--pp-img-right, 24px) !important;
-  bottom: calc(-1 * var(--pp-img-drop, 160px)) !important;
-  width: var(--pp-img-w, 600px) !important;
-  height: var(--pp-img-h, 380px) !important;
-  border-radius: var(--pp-img-radius, 22px) !important;
-  overflow: hidden !important;
-  background: transparent;
-  z-index: 1;
-}
-.pp-hero__media img{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-
-  border: 0;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
-}
-
-/* Typo du hero (inchangée) */
-.pp-title{ margin:0 0 6px; font-weight:800; font-size: clamp(32px,5vw,56px); }
-.pp-sub{ max-width: 720px; opacity:.95; }
-
-/* Responsive presets */
-@media (min-width: 1400px){
-  .pp-hero__media{
-    width: var(--pp-img-w-xl, 720px) !important;
-    height: var(--pp-img-h-xl, 440px) !important;
-    right: var(--pp-img-right-xl, 40px) !important;
+/* ================== ANIMATIONS GLOBALES ================== */
+@keyframes fadeSlideUp {
+  from {
+    opacity:0;
+    transform:translateY(18px);
   }
-}
-@media (max-width: 992px){
-  .pp-hero--split{ --pp-img-drop: 40px; }
-  .pp-hero__media{
-    position: static !important; right:auto !important; bottom:auto !important;
-    width: 100% !important;
-    height: var(--pp-img-h-mobile, 280px) !important; /* hauteur fixe mobile */
-    margin-top: 18px;
-  }
-}
-/* Overrides ultra-spécifiques pour le hero du post */
-#postHero .pp-hero__media{
-  position: absolute !important;
-  left: auto !important;                 /* neutralise un éventuel 'left' conflictuel */
-  right: var(--pp-img-right, 24px) !important;
-  bottom: calc(-1 * var(--pp-img-drop, 160px)) !important;
-
-  width: var(--pp-img-w, 600px) !important;
-  height: var(--pp-img-h, 380px) !important;
-
-  border-radius: var(--pp-img-radius, 22px) !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  z-index: 1 !important;
-}
-
-#postHero .pp-hero__media img{
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;            /* casse tout 'img { max-width:100% }' global */
-  object-fit: cover !important;
-  object-position: center !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
-}
-
-/* XL */
-@media (min-width: 1400px){
-  #postHero .pp-hero__media{
-    width: var(--pp-img-w-xl, 720px) !important;
-    height: var(--pp-img-h-xl, 440px) !important;
-    right: var(--pp-img-right-xl, 40px) !important;
+  to {
+    opacity:1;
+    transform:translateY(0);
   }
 }
 
-/* Mobile */
-@media (max-width: 992px){
-  #postHero.pp-hero--split{ --pp-img-drop: 40px !important; }
-  #postHero .pp-hero__media{
-    position: static !important;
-    right: auto !important; bottom: auto !important; left: auto !important;
-    width: 100% !important;
-    height: var(--pp-img-h-mobile, 280px) !important;
-    margin-top: 18px !important;
+@keyframes fadeSlideUpSoft {
+  from {
+    opacity:0;
+    transform:translateY(10px);
   }
-}
-/* Post hero: ne toucher qu'à la taille et au placement horizontal */
-#postHero .pp-hero__media{
-  width: var(--pp-img-w, 600px) !important;   /* largeur image */
-  height: var(--pp-img-h, 380px) !important;  /* hauteur image */
-  right: var(--pp-img-right, 24px) !important;/* + grand = + à gauche, + petit = + à droite */
-  left: auto !important;                      /* évite tout conflit de "left:" */
-}
-/* Décaler le texte du hero un peu à gauche (desktop uniquement) */
-@media (min-width: 992px){
-  /* supprime le padding gauche du container dans le hero */
-  #postHero .pp-hgroup.container{
-    padding-left: 0 !important;
-  }
-  /* (GARDÉ) règle originale, mais on va l'écraser inline juste en dessous */
-  #postHero .pp-hero__copy{
-    position: relative;
-    left: -32px !important;
+  to {
+    opacity:1;
+    transform:translateY(0);
   }
 }
 
-/* =====================================================
-   📱 MOBILE — FIX ULTIME IMAGE + TEXTE
-   ===================================================== */
-@media (max-width: 575.98px) {
-
-    /* --------------------------------------------------
-       🔥 IMAGE — réduire et déplacer (force ultime)
-       -------------------------------------------------- */
-
-    /* réduire image fortement */
-    .pp-hgroup figure.pp-hero__media img {
-        width: 50% !important;            /* ⇦ التصغير */
-        max-width: 50% !important;
-        height: auto !important;
-        flex-shrink: 0 !important;
-        display: block !important;
-    }
-
-    /* déplacer الصورة لليسار بقوة */
-    .pp-hgroup figure.pp-hero__media {
-        position: relative !important;
-        left: -30px !important;           /* ⇦ حرك الصورة لليسار */
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-
-
-    /* --------------------------------------------------
-       🔥 TEXTE — réduire + déplacer إلى droite
-       -------------------------------------------------- */
-
-    /* تصغير حجم النص */
-    .pp-hgroup .pp-hero__copy .pp-title {
-        font-size: 1.1rem !important;     /* ⇦ حجم أصغر */
-        line-height: 1.2 !important;
-        transform: none !important;       /* تعطيل transform الأصلي */
-    }
-
-    /* تحريك النص نحو اليمين */
-    .pp-hgroup .pp-hero__copy {
-        position: relative !important;
-        left: 25px !important;            /* ⇦ يمين */
-    }
+@keyframes glowPulse {
+  0% {
+    opacity:.55;
+    transform:scale(1);
+  }
+  50% {
+    opacity:.95;
+    transform:scale(1.04);
+  }
+  100% {
+    opacity:.55;
+    transform:scale(1);
+  }
 }
 
+/* Layout global */
+.pp-shell{
+  padding-top: 10px;
+}
+.pp-grid{
+  /* une seule colonne pour que la carte prenne toute la largeur */
+  display:block;
+}
+
+/* =========================================================
+   COVER ARTICLE
+   ========================================================= */
+.pp-cover{
+  position:relative;
+  margin-bottom:28px;
+  border-radius:26px;
+  overflow:hidden;
+  background:#020617;
+  box-shadow:var(--shadow-card);
+  isolation:isolate;
+
+  /* animation d’entrée */
+  animation: fadeSlideUp 0.75s cubic-bezier(0.21,0.79,0.29,0.99) forwards;
+}
+.pp-cover-media{
+  position:relative;
+  min-height:260px;
+  max-height:420px;
+  overflow:hidden;
+}
+.pp-cover-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform:scale(1.02);
+  transition:transform .9s ease-out, filter .9s ease-out;
+}
+
+/* halo + glow animé */
+.pp-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg,
+      rgba(15,23,42,0.96) 0%,
+      rgba(15,23,42,0.86) 32%,
+      rgba(15,23,42,0.40) 65%,
+      rgba(15,23,42,0.10) 100%);
+  z-index:1;
+}
+.pp-cover::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(140% 160% at -6% 0%,
+      rgba(59,130,246,0.48) 0%,
+      transparent 60%),
+    radial-gradient(120% 140% at 115% 15%,
+      rgba(124,174,42,0.55) 0%,
+      transparent 55%);
+  mix-blend-mode:soft-light;
+  opacity:.9;
+  z-index:1;
+  pointer-events:none;
+
+  /* lueur douce qui flotte en continu */
+  animation: glowPulse 7s ease-in-out infinite alternate;
+}
+
+/* léger zoom/preview au survol */
+.pp-cover:hover .pp-cover-media img{
+  transform:scale(1.06) translateY(-4px);
+  filter:brightness(1.07);
+}
+
+.pp-cover-inner{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  padding:26px 30px;
+}
+.pp-cover-panel{
+  position:relative;
+  max-width:650px;
+  transform:translate(10px, -8px);
+}
+.pp-cover-panel::before{
+  content:"";
+  position:absolute;
+  inset:-22px -34px -24px -34px;
+  background:
+    linear-gradient(135deg,
+      rgba(15,23,42,0.96),
+      rgba(15,23,42,0.86));
+  border-radius:28px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 32px 90px rgba(15,23,42,0.80);
+  z-index:-1;
+}
+
+/* Tag / meta sur la cover */
+.pp-cover-kicker{
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:.75rem;
+  font-weight:700;
+  color:#bfdbfe;
+  margin-bottom:8px;
+}
+.pp-cover-title{
+  font-family:"Epilogue",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-size: clamp(30px, 4.2vw, 52px);
+  line-height:1.05;
+  font-weight:900;
+  color:#fff;
+  margin:0 0 14px;
+}
+.pp-cover-sub{
+  font-family:"Epilogue",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-size:clamp(15px,1.4vw,19px);
+  line-height:1.7;
+  color:#e5e7eb;
+  margin:0 0 10px;
+}
+.pp-cover-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  font-size:.82rem;
+  color:#cbd5f5;
+  margin-top:6px;
+}
+.pp-cover-meta .dot::before{
+  content:"•";
+  opacity:.6;
+  margin:0 6px;
+}
+
+/* =========================================================
+   ARTICLE (full width)
+   ========================================================= */
+.pp-article{
+  background:var(--card);
+  border-radius:22px;
+  padding:24px 26px 28px;
+  box-shadow:0 14px 38px rgba(15,23,42,0.09);
+  border:1px solid rgba(148,163,184,0.20);
+  width:100%;
+
+  /* animation d’entrée, légère */
+  animation: fadeSlideUpSoft 0.7s ease-out 0.1s both;
+}
+
+/* en-tête dans la carte */
+.pp-article-header h1{
+  font-size:1.65rem;
+  line-height:1.3;
+  font-weight:800;
+  color:var(--navy);
+  margin:0 0 6px;
+}
+.pp-article-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  font-size:.85rem;
+  color:var(--muted);
+}
+.pp-article-meta .dot::before{
+  content:"•";
+  opacity:.6;
+  margin:0 6px;
+}
+
+/* séparateurs */
+.pp-divider{
+  height:1px;
+  background:linear-gradient(90deg,
+    rgba(148,163,184,0.00) 0%,
+    rgba(148,163,184,0.70) 25%,
+    rgba(148,163,184,0.70) 75%,
+    rgba(148,163,184,0.00) 100%);
+  margin:18px 0 18px;
+}
+
+/* corps de l’article */
+.pp-prose{
+  font-size:1rem;
+  line-height:1.8;
+  color:#111827;
+}
+.pp-prose p{
+  margin-bottom:1.15em;
+}
+.pp-prose h2,
+.pp-prose h3{
+  margin-top:1.7em;
+  margin-bottom:.6em;
+  font-weight:700;
+  color:#0f172a;
+}
+.pp-prose ul,
+.pp-prose ol{
+  padding-left:1.2em;
+  margin-bottom:1.15em;
+}
+.pp-prose li{
+  margin-bottom:.35em;
+}
+
+/* =========================================================
+   FOOTER ARTICLE – partage + lien
+   ========================================================= */
+.pp-article-footer{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+}
+.pp-share-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.pp-share-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 12px;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.6);
+  background:#f9fafb;
+  font-size:.8rem;
+  font-weight:500;
+  color:#111827;
+  text-decoration:none;
+  transition:all .18s ease;
+}
+.pp-share-btn:hover{
+  background:#111827;
+  color:#f9fafb;
+  border-color:#111827;
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 10px 22px rgba(15,23,42,0.18);
+}
+.pp-link-small{
+  font-size:.8rem;
+  color:var(--muted);
+}
+.pp-link-small a{
+  color:#1d4ed8;
+  text-decoration:none;
+  word-break:break-all;
+}
+.pp-link-small a:hover{
+  text-decoration:underline;
+}
+
+/* =========================================================
+   SIDEBAR (en dessous, animée aussi)
+   ========================================================= */
+.pp-sidebar{
+  position:relative;
+  margin-top:24px;
+}
+.pp-sidebar-inner{
+  animation: fadeSlideUpSoft 0.7s ease-out 0.2s both;
+}
+.pp-card,
+.pp-nav-card{
+  background:var(--card);
+  border-radius:20px;
+  padding:18px 18px 16px;
+  border:1px solid rgba(148,163,184,0.28);
+  box-shadow:0 12px 32px rgba(15,23,42,0.06);
+  margin-bottom:18px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.pp-card:hover,
+.pp-nav-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 38px rgba(15,23,42,0.12);
+  border-color:rgba(129,140,248,0.85);
+}
+.pp-card-title,
+.pp-nav-card-title{
+  font-size:.95rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#6b7280;
+  margin-bottom:10px;
+}
+.pp-card-line{
+  font-size:.9rem;
+  color:#111827;
+  margin-bottom:8px;
+}
+.pp-card-line span{
+  font-size:.8rem;
+  color:#6b7280;
+}
+
+/* navigation précédent / suivant */
+.pp-nav-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.pp-nav-link{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:#f9fafb;
+  border:1px solid transparent;
+  text-decoration:none;
+  transition:all .18s ease;
+}
+.pp-nav-link span:last-child{
+  font-size:.9rem;
+  color:#111827;
+}
+.badge-dir{
+  display:inline-flex;
+  padding:3px 9px;
+  border-radius:999px;
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  background:#e5f2ff;
+  color:#1e3a8a;
+}
+.pp-nav-link:hover{
+  border-color:#93c5fd;
+  background:#eff6ff;
+  transform:translateY(-2px);
+}
+
+/* Responsif */
+@media (max-width: 575.98px){
+  .page-post{
+    padding:24px 0 48px;
+  }
+  .pp-article{
+    padding:18px 16px 22px;
+  }
+  .pp-cover-inner{
+    padding:20px 18px;
+  }
+  .pp-cover-panel::before{
+    inset:-16px -16px -16px -16px;
+  }
+}
 </style>
+
 
 <section class="page-post">
 
-@php
-  // Image héro = image de l'article, sinon fallback
-  $postHeroImg = !empty($blog->image)
-      ? asset('storage/' . ltrim($blog->image, '/'))
-      : asset('img/blog-post-hero.png'); // fallback
-@endphp
+  {{-- COVER AVEC L’IMAGE DE L’ARTICLE --}}
+  <div class="container">
+    <div class="pp-cover">
+      <div class="pp-cover-media">
+        <img src="{{ $postHeroImg }}" alt="{{ $blog->title }}">
+      </div>
+      <div class="pp-cover-inner">
+        <div class="pp-cover-panel">
+          <div class="pp-cover-kicker">Article de blog</div>
+          <h1 class="pp-cover-title">{{ $blog->title }}</h1>
 
-{{-- HERO (left-aligned) --}}
-<header id="postHero" class="pp-hero pp-hero--split"
-        style="
-          --pp-hero-pad: 200px;
-          --pp-img-drop: 270px;
-          --pp-img-right: 10px;
-          --pp-img-w: 600px;
-          --pp-img-h: 380px;
-          --pp-img-radius: 22px;
-          --pp-copy-x: -24px;   /* ← juste ceci : texte un peu plus à gauche */
-          --pp-copy-y: -8px;
-          --pp-img-h-mobile: 280px;
-          --pp-img-w-xl: 720px;
-          --pp-img-h-xl: 440px;
-          --pp-img-right-xl: 40px;
-          --pp-img-w: 600px;     /* ← largeur */
-          --pp-img-h: 360px;     /* ← hauteur */
-          --pp-img-right: -151px;  /* ← placement horizontal de l'image */
-        ">
-  <div class="pp-hgroup container pp-hero__inner">
-    <div class="pp-hero__copy" style="transform: translate(var(--pp-copy-x,0), var(--pp-copy-y,0));">
-      <h1 class="pp-title">{{ $blog->title }}</h1>
-    </div>
-
-    <figure class="pp-hero__media">
-      <img src="{{ $postHeroImg }}" alt="{{ $blog->title }}">
-    </figure>
-  </div>
-</header>
-
-
-  {{-- ARTICLE --}}
-  <div class="pp-wrap">
-    <div class="container">
-      <article class="article-wrap">
-        <div class="article-card">
-          @if($blog->image)
-            <figure class="article-hero">
-              <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ e($blog->title) }}" loading="lazy">
-              <figcaption class="visually-hidden">{{ e($blog->title) }}</figcaption>
-              <span class="badge-state {{ $publishedAt ? '' : 'badge-draft' }}">
-                {{ $publishedAt ? $publishedAt->translatedFormat('d MMM yyyy') : 'Brouillon' }}
-              </span>
-            </figure>
+          @if($blog->excerpt ?? false)
+            <p class="pp-cover-sub">{{ $blog->excerpt }}</p>
+          @else
+            <p class="pp-cover-sub">
+              Derniers articles, conseils et actualités autour de la relation client
+              et de l’efficacité opérationnelle.
+            </p>
           @endif
 
-          <div class="article-body">
-            <header class="mb-2">
-              <h1 class="h2 mb-3">{{ $blog->title }}</h1>
-              <div class="meta">
-                <div>
-                  @if($publishedAt)
-                    <span class="me-2">Publié le</span>
-                    <time datetime="{{ $publishedAt->toDateString() }}">{{ $publishedAt->isoFormat('DD/MM/YYYY') }}</time>
-                  @else
-                    <span class="text-warning">Non publié</span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- CONTENU + SIDEBAR --}}
+  <div class="pp-shell">
+    <div class="container">
+      <div class="pp-grid">
+
+        {{-- Colonne article --}}
+        <article class="pp-article">
+
+          {{-- petit header dans la carte (facultatif mais cohérent) --}}
+          <header class="pp-article-header">
+            <h1>{{ $blog->title }}</h1>
+
+            
+          </header>
+
+          <div class="pp-divider"></div>
+
+          {{-- Contenu de l’article 
+               ⚠️ Si ton contenu contient déjà du HTML, remplace par: {!! $blog->content !!} --}}
+          <div class="pp-prose">
+            {!! nl2br(e($blog->content)) !!}
+          </div>
+
+          <div class="pp-divider"></div>
+
+          {{-- Footer article : partage + lien canonique --}}
+          <div class="pp-article-footer">
+            <div class="pp-share-list">
+              <a class="pp-share-btn"
+                 href="https://www.facebook.com/sharer/sharer.php?u={{ $encodedUrl }}"
+                 target="_blank" rel="noopener">
+                <span>Facebook</span>
+              </a>
+              <a class="pp-share-btn"
+                 href="https://twitter.com/intent/tweet?url={{ $encodedUrl }}&text={{ $encodedTitle }}"
+                 target="_blank" rel="noopener">
+                <span>X / Twitter</span>
+              </a>
+              <a class="pp-share-btn"
+                 href="https://www.linkedin.com/sharing/share-offsite/?url={{ $encodedUrl }}"
+                 target="_blank" rel="noopener">
+                <span>LinkedIn</span>
+              </a>
+              <a class="pp-share-btn"
+                 href="https://api.whatsapp.com/send?text={{ $encodedTitle }}%20{{ $encodedUrl }}"
+                 target="_blank" rel="noopener">
+                <span>WhatsApp</span>
+              </a>
+            </div>
+
+           
+          </div>
+        </article>
+
+        {{-- SIDEBAR --}}
+        <aside class="pp-sidebar">
+          <div class="pp-sidebar-inner">
+
+           
+
+            {{-- Carte navigation précédent / suivant --}}
+            @if(!empty($prev) || !empty($next))
+              <div class="pp-nav-card">
+                <div class="pp-nav-card-title">Navigation</div>
+                <div class="pp-nav-list">
+                  @if(!empty($prev))
+                    <a href="{{ route('blog.show', $prev->slug) }}" class="pp-nav-link">
+                      <span class="badge-dir">Précédent</span>
+                      <span>{{ Str::limit($prev->title, 70) }}</span>
+                    </a>
+                  @endif
+
+                  @if(!empty($next))
+                    <a href="{{ route('blog.show', $next->slug) }}" class="pp-nav-link">
+                      <span class="badge-dir">Suivant</span>
+                      <span>{{ Str::limit($next->title, 70) }}</span>
+                    </a>
                   @endif
                 </div>
-                <div>•</div>
-                <div>{{ $readingMinutes }} min de lecture</div>
-                @isset($blog->author)
-                  <div>•</div>
-                  <div>Par <strong>{{ e($blog->author) }}</strong></div>
-                @endisset
               </div>
-            </header>
+            @endif
 
-            <div class="divider"></div>
-
-            <div class="prose">
-              {!! nl2br(e($blog->content)) !!}
-            </div>
-
-            <div class="divider"></div>
-
-            {{-- Partage --}}
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-              <div class="share-list">
-                <a class="btn btn-outline-primary btn-sm"
-                   href="https://www.facebook.com/sharer/sharer.php?u={{ $encodedUrl }}"
-                   target="_blank" rel="noopener">Facebook</a>
-                <a class="btn btn-outline-primary btn-sm"
-                   href="https://twitter.com/intent/tweet?url={{ $encodedUrl }}&text={{ $encodedTitle }}"
-                   target="_blank" rel="noopener">X / Twitter</a>
-                <a class="btn btn-outline-primary btn-sm"
-                   href="https://www.linkedin.com/sharing/share-offsite/?url={{ $encodedUrl }}"
-                   target="_blank" rel="noopener">LinkedIn</a>
-                <a class="btn btn-outline-primary btn-sm"
-                   href="https://api.whatsapp.com/send?text={{ $encodedTitle }}%20{{ $encodedUrl }}"
-                   target="_blank" rel="noopener">WhatsApp</a>
-              </div>
-
-              <div class="text-muted small">
-                <span class="me-1">Lien :</span>
-                <a href="{{ $canonicalUrl }}">{{ $canonicalUrl }}</a>
-              </div>
-            </div>
           </div>
-        </div>
+        </aside>
 
-        {{-- Navigation entre articles --}}
-        @if(!empty($prev) || !empty($next))
-          <div class="row g-3 mt-4 nav-article">
-            <div class="col-md-6">
-              @if(!empty($prev))
-                <a href="{{ route('blog.show', $prev->slug) }}" aria-label="Article précédent : {{ $prev->title }}">
-                  <span class="badge bg-light text-dark">← Précédent</span>
-                  <span class="fw-semibold">{{ Str::limit($prev->title, 60) }}</span>
-                </a>
-              @endif
-            </div>
-            <div class="col-md-6 text-md-end">
-              @if(!empty($next))
-                <a href="{{ route('blog.show', $next->slug) }}" aria-label="Article suivant : {{ $next->title }}" class="ms-md-auto">
-                  <span class="badge bg-light text-dark">Suivant →</span>
-                  <span class="fw-semibold">{{ Str::limit($next->title, 60) }}</span>
-                </a>
-              @endif
-            </div>
-          </div>
-        @endif
-
-      </article>
+      </div>
     </div>
   </div>
 

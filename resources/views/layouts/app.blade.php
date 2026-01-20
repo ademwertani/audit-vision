@@ -33,6 +33,8 @@
 <body>
   @include('partials.spinner')
   @include('partials.navbar')
+  @include('partials.page-header')
+
   <main>
     @yield('content')
   </main>

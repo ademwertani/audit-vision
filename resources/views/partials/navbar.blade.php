@@ -88,8 +88,8 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ url('/contact') }}" 
-               class="nav-link {{ Request::is('contact') ? 'active' : '' }}">Blog</a>
+            <a href="{{ url('/blog') }}" 
+               class="nav-link {{ Request::is('blog') ? 'active' : '' }}">Blog</a>
           </li>
 
         </ul>

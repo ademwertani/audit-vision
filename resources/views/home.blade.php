@@ -59,53 +59,7 @@
 @endphp
 
 {{-- ================= HERO BANDEAU (bannières dynamiques) ================= --}}
-@if($firstSlide)
-<section class="hero-av">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            {{-- Texte à gauche --}}
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h1 class="hero-av__title" id="heroTitle">
-                    {{ $firstSlide['title'] }}
-                </h1>
-                <p class="hero-av__summary" id="heroSummary">
-                    {{ $firstSlide['summary'] }}
-                </p>
 
-                <div class="hero-av__buttons mt-4 d-flex flex-wrap gap-3">
-                    <a href="{{ url('/contact') }}" class="btn hero-btn-primary">
-                        Contactez-nous
-                    </a>
-                    <a href="{{ url('/about') }}" class="btn hero-btn-outline">
-                        En savoir plus
-                    </a>
-                </div>
-            </div>
-
-            {{-- Bloc visuel à droite (image automatique + image insérée) --}}
-            <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                <div class="hero-av__visual">
-                    {{-- Image insérée (en dessous) --}}
-                    <div class="hero-extra-img">
-                        <img src="{{ asset('img/effect.png') }}" alt="Image supplémentaire">
-                    </div>
-
-                    {{-- Image automatique (au-dessus) --}}
-                    <div class="hero-av__circle">
-                        <img src="{{ $firstSlide['image'] }}" alt="Banner visuel" id="heroImage">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-@else
-    {{-- Fallback si aucune bannière --}}
-    <div class="top-banner">
-        <img src="{{ asset('img/green.png') }}" alt="Banner" class="top-banner-img">
-    </div>
-@endif
 
 {{-- =============== QUI SOMMES-NOUS ? =============== --}}
 <section class="qs-av py-5">
@@ -310,27 +264,192 @@
 
 {{-- =============== PARTENAIRES (NOS PARTENAIRES) =============== --}}
 @if($partners->isNotEmpty())
-<section class="partners-av py-5">
+<style>
+/* =========================================================
+   SECTION PARTENAIRES – Version blanche & clean
+   ========================================================= */
+
+.partners-av{
+    padding: 60px 0 70px;
+    background:#ffffff; /* SECTION BLANCHE */
+}
+
+/* Titre clean */
+.partners-title{
+    font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font-weight: 800;
+    font-size: clamp(24px, 3vw, 32px);
+    color: #0f172a;
+}
+
+/* Bande colorée sous le titre */
+.partners-title::after{
+    content:"";
+    display:block;
+    margin:10px auto 0;
+    width:60px;
+    height:3px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#7CAE2A,#4f46e5);
+}
+
+/* Orbit */
+.partners-orbit{
+    margin-top: 48px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:22px;
+    flex-wrap:wrap;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes partnerEnter {
+    from {
+        opacity:0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity:1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes partnerLogoFloat {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+.partner-card:hover{
+    transform: translateY(-5px) scale(1.03);
+}
+.partner-card{
+    background:#ffffff;
+    border-radius:26px;
+    overflow:hidden;
+    position:relative;
+
+    max-width: 280px;
+    width: 100%;
+    aspect-ratio: 4/3;
+
+    padding: 12px;   /* 🔥 image légèrement plus petite */
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    transform: translateY(20px) scale(0.9);
+    animation: partnerEnter 0.7s ease forwards;
+
+    transition: transform .25s ease;
+}
+
+/* Image légèrement plus petite */
+.partner-card img{
+    width:100%;
+    height:100%;
+    object-fit:contain;   /* 🔥 garde la taille plus petite */
+    border-radius:20px;   /* léger arrondi interne */
+    animation: partnerLogoFloat 4s ease-in-out infinite;
+}
+/* 4 cartes sur le premier rang + 4 sur le second */
+.partners-two-rows{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 🔥 4 في كل صف */
+    gap: 26px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Card blanche propre */
+.partner-card{
+    background: #ffffff;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+
+    aspect-ratio: 4/3; /* même taille pour tous */
+    padding: 18px;     /* الصورة أصغر داخل الكرت */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: transform .25s ease;
+}
+
+/* Hover léger */
+.partner-card:hover{
+    transform: scale(1.05);
+}
+
+/* Image plus petite à l'intérieur */
+.partner-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 🔥 الصورة تبقى petite */
+    border-radius: 20px;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+    .partners-two-rows{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 768px){
+    .partners-two-rows{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px){
+    .partners-two-rows{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* ========== ARC (positions) ========== */
+.partner-card.pos-center{ margin-top:0; z-index:3; }
+.partner-card.pos-l1,
+.partner-card.pos-r1{ margin-top:12px; z-index:2; }
+.partner-card.pos-l2,
+.partner-card.pos-r2{ margin-top:22px; z-index:1; }
+
+/* ========== Animation staggée ========== */
+.partners-orbit .partner-card:nth-child(1){ animation-delay:0s; }
+.partners-orbit .partner-card:nth-child(2){ animation-delay:.07s; }
+.partners-orbit .partner-card:nth-child(3){ animation-delay:.14s; }
+.partners-orbit .partner-card:nth-child(4){ animation-delay:.21s; }
+.partners-orbit .partner-card:nth-child(5){ animation-delay:.28s; }
+
+/* Responsive */
+@media(max-width:768px){
+    .partner-card{
+        max-width: 180px;
+    }
+}
+</style>
+
+
+
+<section class="partners-av py-5"> 
     <div class="container">
         <h2 class="partners-title text-center mb-5">Nos Partenaires</h2>
 
-        <div class="partners-orbit">
-            @foreach($partners->take(5) as $i => $partner)
-                @php
-                    // positions pour reproduire la forme en arc
-                    $posClasses = ['pos-l2', 'pos-l1', 'pos-center', 'pos-r1', 'pos-r2'];
-                    $pos = $posClasses[$i] ?? 'pos-center';
-                @endphp
-
-                <div class="partner-card {{ $pos }}">
-                    <img
-                        src="{{ asset('storage/' . ltrim($partner->logo, '/')) }}"
-                        alt="{{ $partner->name }}">
+        <div class="partners-two-rows">
+            @foreach($partners->take(8) as $partner)
+                <div class="partner-card">
+                    <img src="{{ asset('storage/' . ltrim($partner->logo, '/')) }}"
+                         alt="{{ $partner->name }}">
                 </div>
             @endforeach
         </div>
     </div>
 </section>
+
+
 @endif
 {{-- =============== NOS CERTIFICATIONS (PREMIÈRE CERTIF) =============== --}}
 @if(!empty($certificat))
@@ -1103,64 +1222,20 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 /* carte logo */
-.partner-card {
-    background: #e5e7eb;
-    border-radius: 26px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 20px;
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    animation: partnerEnter 0.7s ease forwards;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
 
-/* tailles pour recréer l'arc (centre plus grand) */
-.partner-card.pos-center {
-    width: 220px;
-    height: 130px;
-}
 
-.partner-card.pos-l1,
-.partner-card.pos-r1 {
-    width: 190px;
-    height: 115px;
-}
-
-.partner-card.pos-l2,
-.partner-card.pos-r2 {
-    width: 140px;
-    height: 95px;
-}
-
-/* animation de décalage (stagger) */
-.partners-orbit .partner-card:nth-child(1) { animation-delay: 0.05s; }
-.partners-orbit .partner-card:nth-child(2) { animation-delay: 0.12s; }
-.partners-orbit .partner-card:nth-child(3) { animation-delay: 0.2s;  }
-.partners-orbit .partner-card:nth-child(4) { animation-delay: 0.28s; }
-.partners-orbit .partner-card:nth-child(5) { animation-delay: 0.35s; }
 
 @keyframes partnerEnter {
     from { opacity: 0; transform: translateY(26px) scale(0.88); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* hover effet flottant */
-.partner-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 24px 45px rgba(15, 23, 42, 0.18);
-}
+/* 🔥 Carte partenaire */
 
-/* L'image remplira 100% du cadre */
-.partner-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;      /* remplit entièrement le cadre */
-    border-radius: 26px;
-    animation: partnerLogoFloat 4s ease-in-out infinite;
-}
+
+
+
+
 
 /* animation continue du logo */
 @keyframes partnerLogoFloat {
