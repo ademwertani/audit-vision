@@ -99,7 +99,89 @@
     </div>
 </section>
 
+{{-- =============== MÉTHODOLOGIES =============== --}}
+<section class="method-av py-5">
+    <div class="container">
+        <div class="method-inner mx-auto text-center">
 
+            <h2 class="method-title">Méthodologies</h2>
+            <p class="method-subtitle">
+                Notre approche rigoureuse garantit des audits fiables, objectifs et conformes aux standards réglementaires.
+            </p>
+
+            <div class="method-image-wrap">
+                <img 
+                    src="{{ asset('img/im.jpeg') }}" 
+                    alt="Méthodologies Audit Vision" 
+                    class="method-img">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- =============== BLOG (CARDS COMME LA MAQUETTE) =============== --}}
+@if($blogs->isNotEmpty())
+<section class="home-blog py-5">
+    <div class="container">
+        {{-- Titre + pill verte --}}
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+            <h2 class="home-blog-title mb-0">Blog</h2>
+            <a href="{{ route('blog.index') }}" class="home-blog-pill">
+                Voir tous les articles
+            </a>
+        </div>
+
+        <div class="row g-4">
+            @foreach($blogs as $blog)
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <article class="home-blog-card">
+                        {{-- Image --}}
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="home-blog-thumb-link">
+                            @if(!empty($blog->image))
+                                <div class="home-blog-thumb has-image">
+                                    <img src="{{ asset('storage/' . ltrim($blog->image, '/')) }}"
+                                         alt="{{ $blog->title }}">
+                                </div>
+                            @else
+                                <div class="home-blog-thumb placeholder"></div>
+                            @endif
+                        </a>
+
+                        {{-- Contenu carte --}}
+                        <div class="home-blog-body">
+                            <div class="home-blog-tag">LOREM IPSU</div>
+
+                            <h3 class="home-blog-card-title">
+                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                    {{ $blog->title }}
+                                </a>
+                            </h3>
+
+                            @php
+                                $excerpt = $blog->summary ?? $blog->excerpt ?? null;
+                                if (!$excerpt && !empty($blog->content)) {
+                                    $excerpt = \Illuminate\Support\Str::limit(strip_tags($blog->content), 80);
+                                } elseif ($excerpt) {
+                                    $excerpt = \Illuminate\Support\Str::limit($excerpt, 80);
+                                }
+                            @endphp
+
+                            @if(!empty($excerpt))
+                                <p class="home-blog-card-excerpt">{{ $excerpt }}</p>
+                            @endif
+
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="home-blog-more">
+                                Your More
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 {{-- =============== ACTUALITÉ (NOUVEAUTÉ DE DOMAINE) =============== --}}
 @if($videoSlides->isNotEmpty())
@@ -199,68 +281,6 @@
 </section>
 @endif
 
-{{-- =============== BLOG (CARDS COMME LA MAQUETTE) =============== --}}
-@if($blogs->isNotEmpty())
-<section class="home-blog py-5">
-    <div class="container">
-        {{-- Titre + pill verte --}}
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-            <h2 class="home-blog-title mb-0">Blog</h2>
-            <a href="{{ route('blog.index') }}" class="home-blog-pill">
-                Voir tous les articles
-            </a>
-        </div>
-
-        <div class="row g-4">
-            @foreach($blogs as $blog)
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <article class="home-blog-card">
-                        {{-- Image --}}
-                        <a href="{{ route('blog.show', $blog->slug) }}" class="home-blog-thumb-link">
-                            @if(!empty($blog->image))
-                                <div class="home-blog-thumb has-image">
-                                    <img src="{{ asset('storage/' . ltrim($blog->image, '/')) }}"
-                                         alt="{{ $blog->title }}">
-                                </div>
-                            @else
-                                <div class="home-blog-thumb placeholder"></div>
-                            @endif
-                        </a>
-
-                        {{-- Contenu carte --}}
-                        <div class="home-blog-body">
-                            <div class="home-blog-tag">LOREM IPSU</div>
-
-                            <h3 class="home-blog-card-title">
-                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                    {{ $blog->title }}
-                                </a>
-                            </h3>
-
-                            @php
-                                $excerpt = $blog->summary ?? $blog->excerpt ?? null;
-                                if (!$excerpt && !empty($blog->content)) {
-                                    $excerpt = \Illuminate\Support\Str::limit(strip_tags($blog->content), 80);
-                                } elseif ($excerpt) {
-                                    $excerpt = \Illuminate\Support\Str::limit($excerpt, 80);
-                                }
-                            @endphp
-
-                            @if(!empty($excerpt))
-                                <p class="home-blog-card-excerpt">{{ $excerpt }}</p>
-                            @endif
-
-                            <a href="{{ route('blog.show', $blog->slug) }}" class="home-blog-more">
-                                Your More
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
 
 {{-- =============== PARTENAIRES (NOS PARTENAIRES) =============== --}}
 @if($partners->isNotEmpty())
@@ -268,6 +288,50 @@
 /* =========================================================
    SECTION PARTENAIRES – Version blanche & clean
    ========================================================= */
+/* ===============================
+   MÉTHODOLOGIES – AuditVision
+   =============================== */
+.method-av {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.method-title {
+    font-size: 38px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #0b172f;
+}
+
+.method-subtitle {
+    font-size: 18px;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 40px;
+    color: #4a5568;
+}
+
+.method-image-wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.method-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+    transition: transform 0.6s ease;
+}
+
+/* Hover effect (subtle zoom) */
+.method-image-wrap:hover .method-img {
+    transform: scale(1.10);
+}
 
 .partners-av{
     padding: 60px 0 70px;
@@ -451,67 +515,31 @@
 
 
 @endif
-{{-- =============== NOS CERTIFICATIONS (PREMIÈRE CERTIF) =============== --}}
-@if(!empty($certificat))
-<section class="certif-av py-5">
-    <div class="container">
-        {{-- Titre centré --}}
-        <h2 class="certif-title text-center mb-5">Nos Certifications</h2>
-
-        <div class="row align-items-center">
-            {{-- Texte à gauche --}}
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <h3 class="certif-left-title">
-                    {{ $certificat->name ?? 'Notre Certification' }}
-                </h3>
-                <p class="certif-left-text">
-                    {{ $certificat->description ?? 'Découvrez notre certification et notre engagement en matière de qualité et de performance énergétique.' }}
-                </p>
-
-                @if($certificat->pdf_file)
-                    <a href="{{ $certificat->pdf_url }}"
-                       target="_blank"
-                       class="btn certif-left-btn">
-                        Notre Certification
-                    </a>
-                @endif
-            </div>
-
-            {{-- Carte certif à droite --}}
-            <div class="col-lg-8">
-                <div class="certif-card d-flex flex-column flex-md-row align-items-center gap-4">
-                    {{-- Image de la certif --}}
-                    <div class="certif-logo-wrap">
-                        <img src="{{ $certificat->image_url }}"
-                             alt="{{ $certificat->name }}"
-                             class="certif-logo-img">
-                    </div>
-
-                    {{-- Texte à droite dans la carte --}}
-                    <div class="certif-card-text">
-                        <h4 class="certif-card-title">
-                            {{ $certificat->name }}
-                        </h4>
-                        <p class="certif-card-desc">
-                            {{ $certificat->description }}
-                        </p>
-
-                        @if($certificat->pdf_file)
-                            <a href="{{ $certificat->pdf_url }}"
-                               target="_blank"
-                               class="certif-card-link">
-                                Voir le document de certification
-                            </a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    
+<section id="home-end">
+    {{-- contenu de fin de page : formulaire contact, CTA, etc. --}}
 </section>
-@endif
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Si on arrive sur la home avec l’ancre #home-end
+    if (window.location.hash === '#home-end') {
+        const target = document.getElementById('home-end');
+        if (!target) return;
+
+        // petit délai pour laisser le header / layout se charger
+        setTimeout(function () {
+            const headerOffset = 110; // hauteur de ton header sticky (à ajuster)
+            const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }, 300);
+    }
+});
+</script>
+
 {{-- =============== CONTACT & PLAN D'ACCÈS =============== --}}
 <section class="contact-map-av py-5" id="contact-map">
     <div class="container">
@@ -519,13 +547,11 @@
             {{-- Formulaire à gauche --}}
             <div class="col-lg-6">
                 <div class="contact-map-card h-100">
-                    <h2 class="contact-map-title">Contactez-nous</h2>
+                    <h2 class="contact-map-title">demande d'etude</h2>
                     <p class="contact-map-text">
                         AUDIT VISION – Bureau d’Études Énergétiques<br>
                         38 Avenue Villemain – 75014 Paris<br>
                         SIREN : 982 511 644<br>
-                        Assurance RC Pro : Markel Insurance SE, contrat conforme à la qualification OPQIBI 1911
-                        et aux normes NF EN 16247-1 et NF EN 16247-2.
                     </p>
 
                     {{-- Formulaire "dummy" (n’envoie rien pour le moment) --}}

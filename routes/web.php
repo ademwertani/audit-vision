@@ -28,6 +28,14 @@ use App\Http\Controllers\Admin\YoutubeVideoController;
 use App\Http\Controllers\Admin\CertificatController;  // Importer le contrôleur des certificats
 
 // ===================== PAGES PUBLIQUES =====================
+Route::get('/etude-eclairage', fn () => view('pages.etude-eclairage'))->name('lighting.study');
+Route::get('/bilan-carbone', fn () => view('pages.bilan-carbone'))->name('bilan-carbone');
+Route::get('/plan-reduction', fn () => view('pages.plan-reduction'))->name('plan-reduction');
+Route::get('/etude-thermique', fn () => view('pages.etude-thermique'))->name('etude-thermique');
+Route::get('/dimensionnement-destratificateurs', fn () => view('pages.dimensionnement-destratificateurs'))->name('dimensionnement-destratificateurs');
+Route::get('/audit-tertiaire', fn () => view('pages.audit-tertiaire'))->name('audit-tertiaire');
+Route::get('/audit-habitat-collectif', fn () => view('pages.audit-habitat-collectif'))->name('audit-habitat-collectif');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

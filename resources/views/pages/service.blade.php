@@ -192,30 +192,6 @@
 
 <section class="page-services">
 
-  {{-- HERO — même principe que Service details --}}
-  <header class="sx-hero sx-hero--split"
-          style="
-            --sx-hero-pad: 180px;   /* hauteur du bandeau */
-            --sx-img-drop: 240px;   /* dépassement vers le bas */
-            --sx-img-right: 24px;   /* plus grand => plus à gauche */
-            --sx-img-w: 620px;      /* largeur cadre image */
-            --sx-img-h: 380px;      /* hauteur cadre image */
-            --sx-img-radius: 22px;  /* arrondi 4 coins */
-            --sx-copy-x: 8px;       /* ajuste finement le texte en X */
-            --sx-copy-y: -8px;      /* ajuste finement le texte en Y */
-          ">
-    <div class="container sx-hero__inner">
-      <div class="sx-hero__copy">
-        <h1 class="sx-title">Services</h1>
-        <p class="sx-sub">Des services conçus spécifiquement pour votre entreprise.</p>
-      </div>
-
-      {{-- Image de header (taille/position figées + coins arrondis) --}}
-      <figure class="sx-hero__media">
-        <img src="{{ $heroBannerImg }}" alt="Image de couverture des services">
-      </figure>
-    </div>
-  </header>
 
   {{-- LISTE --}}
   <div class="sx-wrap">
