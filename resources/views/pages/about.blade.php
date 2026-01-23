@@ -764,51 +764,7 @@
 
   <section class="page-about">
 
-    {{-- HERO (split : texte à gauche, image à droite) --}}
-    @php
-      $heroBannerImg = $heroBannerImg
-        ?? (isset($banners) && $banners->count()
-          ? asset('storage/' . ltrim($banners->first()->image, '/'))
-          : asset('img/default-banner.jpg'));
-    @endphp
-
-    <header class="pa-hero pa-hero--split" style="
-            /* 1) Hauteur bandeau bleu */
-            --pa-hero-pad: 117px;
-
-            /* 2) Image : position verticale (plus grand = plus bas) */
-            --pa-img-drop: 170px;
-
-            /* 3) Image : décalage horizontal (plus petit = plus à droite) */
-            --pa-img-right: 16px;
-
-            /* 4) Image : taille du cadre (peu importe la photo) */
-            --pa-img-w: 600px;
-            --pa-img-h: 380px;
-            --pa-img-radius: 22px;
-
-            /* 5) Texte : micro-décalage */
-            --pa-copy-x: 8px;
-            --pa-copy-y: -8px;
-
-            /* 6) Mobile + XL (optionnel) */
-            --pa-img-h-mobile: 280px;
-            --pa-img-w-xl: 720px;
-            --pa-img-h-xl: 440px;
-            --pa-img-right-xl: 40px;
-          ">
-      <div class="container pa-hero__inner">
-        <div class="pa-hero__copy">
-          <h1 class="pa-title">{{ trim($about->heading ?? '') ?: 'À propos de nous' }}</h1>
-          <p class="pa-sub">
-            {{ trim($about->summary ?? '') ?: 'Nous créons du confort durable grâce à des solutions sur-mesure.' }}</p>
-        </div>
-        <figure class="pa-hero__media">
-          <img src="{{ $heroBannerImg }}" alt="Bannière principale">
-        </figure>
-      </div>
-    </header>
-
+ 
 
 
 
@@ -826,41 +782,54 @@
         <div class="row g-5 align-items-center">
           <div class="col-lg-5 col-md-6">
             <div class="about-imgs">
-              <img src="{{ asset('img/rect22.png') }}" alt="EcoCall" class="img-a">
-              <img src="{{ asset('img/rectt.png') }}" alt="Formation" class="img-b">
+              <img src="{{ asset('img/etude.jpeg') }}" alt="EcoCall" class="img-a">
+              <img src="{{ asset('img/man.jpeg') }}" alt="Formation" class="img-b">
             </div>
           </div>
           <div class="col-lg-7 col-md-6">
-    <div class="pa-kicker">
-        <span style="color: #7CAE2A;">Qui sommes‑nous&nbsp;?</span>
-    </div>
+  <div class="pa-kicker">
+      <span style="color: #7CAE2A;">Qui sommes‑nous&nbsp;?</span>
+  </div>
 
-    <h1 class="pa-h1">Audit vision, expert en isolation thermique</h1>
+  <h1 class="pa-h1">AuditVision, Bureau d’études en génie énergétique et stratégie bas-carbone</h1>
 
-    <p class="mt-3">
-        Audit vision accompagne les professionnels des secteurs tertiaire, industriel et agricole 
-        dans l’amélioration de la performance énergétique de leurs bâtiments. Notre objectif est clair : limiter durablement 
-        les déperditions de chaleur, optimiser le confort thermique et contribuer activement à la transition énergétique.
-    </p>
+  <p class="mt-3">
+      AuditVision est un bureau d’études indépendant en génie énergétique, implanté en France, dédié à l’accompagnement des acteurs du tertiaire, de l’habitat collectif, des collectivités territoriales et du secteur industriel.
+      Le cabinet intervient à chaque étape des projets d’amélioration de la performance énergétique, environnementale et économique des bâtiments et des procédés, en intégrant pleinement les exigences réglementaires, les contraintes techniques et les enjeux stratégiques liés à la transition énergétique et à la décarbonation.
+  </p>
 
-    <p class="mb-4">
-        Nous concevons et mettons en œuvre des solutions d’isolation sur mesure, fondées sur des matériaux performants 
-        et des techniques éprouvées. Ces solutions permettent de réaliser des économies d’énergie durables tout en 
-        respectant les exigences environnementales actuelles.  
-    </p>
+  <p class="mb-4">
+      L’approche d’AuditVision s’appuie sur :
+      <ul>
+          <li>Une expertise technique approfondie en génie énergétique,</li>
+          <li>Une parfaite maîtrise des cadres réglementaires français et européens,</li>
+          <li>Une vision globale orientée performance énergétique durable et réduction de l’empreinte carbone.</li>
+      </ul>
+  </p>
 
-    <p class="mb-4">
-        Nos travaux sont éligibles aux dispositifs de financement CEE, offrant à nos clients la possibilité 
-        de réduire significativement le coût de leurs projets d’isolation.
-    </p>
+  <p class="mb-4">
+      AuditVision se positionne comme un partenaire de confiance, capable de transformer les obligations réglementaires et énergétiques en véritables leviers de performance, de compétitivité et de durabilité pour ses clients.
+  </p>
 
-    <p class="mb-4">
-        Notre engagement : garantir une isolation efficace, un confort thermique optimal toute l’année 
-        et un accompagnement professionnel à chaque étape du projet.
-    </p>
+  <h2 class="pa-h1">Nos missions</h2>
+  <p class="mb-4">
+      AuditVision intervient sur l’ensemble du cycle de la performance énergétique et environnementale, depuis le diagnostic jusqu’à la définition de stratégies d’amélioration durable.
+      Voici quelques-unes de nos principales missions :
+  </p>
 
-    <a href="{{ url('/services') }}" class="btn btn-accent">Découvrir nos solutions</a>
+  <ul class="mb-4">
+      <li>La réalisation d’audits énergétiques des bâtiments d’habitat collectif,</li>
+      <li>La réalisation d’audits énergétiques des bâtiments tertiaires,</li>
+      <li>La conduite d’études thermiques spécialisées, en particulier sur les installations de chambres froides en secteurs tertiaire et industriel,</li>
+      <li>Le dimensionnement technique et le calepinage de systèmes de destratification d’air,</li>
+      <li>L’élaboration de bilans carbone,</li>
+      <li>La définition de plans d’actions visant à la réduction des émissions de CO₂,</li>
+      <li>La réalisation d’études d’éclairage intérieur et de dimensionnement des installations d’éclairage.</li>
+  </ul>
+
+  <a href="{{ url('/services') }}" class="btn btn-accent">Découvrir nos solutions</a>
 </div>
+
 
 
         </div>
@@ -881,46 +850,120 @@
 
     {{-- Image plus grande --}}
     <div class="values-image-wrap">
-      <img src="{{ asset('img/taa.png') }}" alt="Nos valeurs" class="values-img values-img--large">
+      <img src="{{ asset('img/taa.jpeg') }}" alt="Nos valeurs" class="values-img values-img--large">
     </div>
 
     {{-- Valeurs horizontales --}}
-    <div class="values-horizontal">
-      
-      {{-- Valeur 1 --}}
-      <div class="value-card">
-        <div class="value-ico">
-          <i class="fa-solid fa-seedling"></i>
-        </div>
-        <h4 class="value-title">Intégrité</h4>
-        <p class="value-text">
-          Nous agissons avec transparence, éthique et responsabilité à chaque étape de nos interventions. 
-        </p>
-      </div>
-
-      {{-- Valeur 2 --}}
-      <div class="value-card">
-        <div class="value-ico">
-          <i class="fa-solid fa-dollar-sign"></i>
-        </div>
-        <h4 class="value-title">Qualité</h4>
-        <p class="value-text">
-          Nous sélectionnons des matériaux certifiés et garantissons une mise en œuvre rigoureuse pour des performances durables.
-        </p>
-      </div>
-
-      {{-- Valeur 3 --}}
-      <div class="value-card">
-        <div class="value-ico">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <h4 class="value-title">Engagement</h4>
-        <p class="value-text">
-          Un engagement constant en faveur de la performance, de la sécurité et du respect de l’environnement. 
-        </p>
-      </div>
-
+<div class="values-horizontal">
+  {{-- Valeur 1 --}}
+  <div class="value-card">
+    <div class="value-ico">
+      <i class="fa-solid fa-handshake"></i>
     </div>
+    <h4 class="value-title">Transparence</h4>
+    <p class="value-text">
+      Nous priorisons la transparence dans toutes nos interactions, en fournissant à nos clients des informations claires, précises et accessibles à chaque étape de notre collaboration.
+    </p>
+  </div>
+
+  {{-- Valeur 2 --}}
+  <div class="value-card">
+    <div class="value-ico">
+      <i class="fa-solid fa-cogs"></i>
+    </div>
+    <h4 class="value-title">Innovation</h4>
+    <p class="value-text">
+      Nous nous engageons à utiliser des solutions innovantes et des technologies de pointe pour offrir des services qui respectent les normes les plus élevées de l'industrie.
+    </p>
+  </div>
+
+  {{-- Valeur 3 --}}
+  <div class="value-card">
+    <div class="value-ico">
+      <i class="fa-solid fa-leaf"></i>
+    </div>
+    <h4 class="value-title">Durabilité</h4>
+    <p class="value-text">
+      Nous nous engageons à promouvoir des pratiques durables en intégrant des solutions respectueuses de l'environnement dans tous nos projets et en réduisant constamment notre empreinte carbone.
+    </p>
+  </div>
+
+  {{-- Valeur 4 --}}
+  <div class="value-card">
+    <div class="value-ico">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <h4 class="value-title">Collaboration</h4>
+    <p class="value-text">
+      Nous croyons en la force de la collaboration et du travail d'équipe pour trouver les meilleures solutions, en impliquant toutes les parties prenantes dans chaque étape de nos projets.
+    </p>
+  </div>
+</div>
+
+<style>
+  .values-horizontal {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 40px 0;
+  }
+
+  .value-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .value-ico {
+    background: #f0f9ff;
+    padding: 20px;
+    border-radius: 50%;
+    color: #31b4eb;
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .value-title {
+    font-size: 1.2rem;
+    color: #333333;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .value-text {
+    color: #555555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .values-horizontal {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .values-horizontal {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+</style>
+
   </div>
 </section>
 

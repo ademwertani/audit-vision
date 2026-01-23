@@ -654,10 +654,11 @@
           </div>
 
           <div class="cb-hero-actions">
-            <a href="{{ url('contact') }}" class="cb-btn-primary">
-              Réaliser un bilan carbone
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <a href="{{ url('/') }}#home-end" class="cb-btn-primary">
+      Réaliser un bilan carbone
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+            
             <a href="#cb-method" class="cb-btn-ghost">
               Voir notre méthodologie
               <i class="fa-solid fa-circle-down"></i>

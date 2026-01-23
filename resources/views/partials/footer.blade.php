@@ -197,7 +197,6 @@
         <h4 class="section-title">Services</h4>
         <div class="mt-4 d-flex flex-column short-link">
           <a href="{{ url('/about') }}" class="mb-2 text-white"><i class="fas fa-angle-right me-2"></i>À propos</a>
-          <a href="{{ url('/formation') }}" class="mb-2 text-white"><i class="fas fa-angle-right me-2"></i>Nos formations</a>
           <a href="{{ url('/services') }}" class="mb-2 text-white"><i class="fas fa-angle-right me-2"></i>Nos services</a>
           <a href="{{ url('/contact') }}" class="mb-2 text-white"><i class="fas fa-angle-right me-2"></i>Contact</a>
         </div>
@@ -213,11 +212,11 @@
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-envelope"></i></span>
-            <a href="mailto:commercial@franceexpertisolation.fr">commercial@franceexpertisolation.fr</a>
+            <a href="mailto:administration@auditvision.fr">administration@auditvision.fr</a>
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-            <span>171 Route de Bezons, 78420 Carrières-sur-Seine, France</span>
+            <span>Bureau d’Études Énergétiques 38 Avenue Villemain – 75014 Paris | SIREN : 982 511 644</span>
           </li>
         </ul>
       </div>
@@ -242,7 +241,7 @@
       <!-- Bas de page -->
       <div class="row align-items-center gy-3">
         <div class="col-lg-6 text-center text-lg-start">
-          <span class="text-light">Copyright © 2025 Audit vision</span>
+          <span class="text-light">Copyright © 2026 Audit vision</span>
         </div>
       </div>
     </div>

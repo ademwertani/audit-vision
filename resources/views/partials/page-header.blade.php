@@ -2,7 +2,7 @@
     use App\Models\Banner;
     use Illuminate\Support\Str;
 
-    // Récupérer jusqu’à 4 bannières complètes (title / subtitle / image)
+    // Récupérer jusqu’à 4 bannières (title / image)
     $banners = Banner::orderByDesc('created_at')
         ->take(4)
         ->get();
@@ -11,9 +11,8 @@
     if ($banners->isEmpty()) {
         $banners = collect([
             (object)[
-                'title'    => 'Notre blog',
-                'subtitle' => "Derniers articles, conseils et actualités\nautour de la relation client.",
-                'image'    => 'img/placeholder-hero.png',
+                'title' => 'Notre blog',
+                'image' => 'img/placeholder-hero.png',
             ]
         ]);
     }
@@ -28,10 +27,8 @@
             : asset('storage/' . ltrim($firstBanner->image, '/')))
         : asset('img/placeholder-hero.png');
 
-    // Titre et sous-titre
+    // Titre
     $heroTitle = $firstBanner->title ?: 'Notre blog';
-    $heroSub   = $firstBanner->subtitle
-        ?: "Derniers articles, conseils et actualités\nautour de la relation client.";
 
     // Payload propre pour le JS
     $bannersPayload = $banners->map(function ($b) {
@@ -42,10 +39,8 @@
             : asset('img/placeholder-hero.png');
 
         return [
-            'title'    => $b->title ?: 'Notre blog',
-            'subtitle' => $b->subtitle
-                ?: "Derniers articles, conseils et actualités\nautour de la relation client.",
-            'image'    => $imgPath,
+            'title' => $b->title ?: 'Notre blog',
+            'image' => $imgPath,
         ];
     })->values();
 
@@ -117,8 +112,6 @@
 
   transition: background-image 1.2s ease-in-out;
 }
-
-
 
 /* --- halo global --- */
 .pb-hero::before{
@@ -252,11 +245,6 @@
     <div class="container pb-hero__inner">
       <div class="pb-hero__copy">
         <h1 class="pb-title">{{ $heroTitle }}</h1>
-        @if($heroSub)
-          <p class="pb-sub">
-            {!! nl2br(e($heroSub)) !!}
-          </p>
-        @endif
       </div>
     </div>
   </header>
@@ -271,9 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hero    = document.querySelector('.pb-hero');
     const titleEl = document.querySelector('.pb-title');
-    const subEl   = document.querySelector('.pb-sub');
 
-    if (!hero || !titleEl || !subEl) return;
+    if (!hero || !titleEl) return;
 
     let index = 0;
 
@@ -283,22 +270,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // animation texte (petit fade)
         titleEl.classList.add('pb-fade-out');
-        subEl.classList.add('pb-fade-out');
 
         setTimeout(() => {
             titleEl.textContent = b.title || 'Notre blog';
 
-            const safeSubtitle = (b.subtitle || '').replace(/\n/g, '<br>');
-            subEl.innerHTML = safeSubtitle;
-
             titleEl.classList.remove('pb-fade-out');
-            subEl.classList.remove('pb-fade-out');
             titleEl.classList.add('pb-fade-in');
-            subEl.classList.add('pb-fade-in');
 
             setTimeout(() => {
                 titleEl.classList.remove('pb-fade-in');
-                subEl.classList.remove('pb-fade-in');
             }, 400);
         }, 250);
     };

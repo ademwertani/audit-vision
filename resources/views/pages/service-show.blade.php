@@ -331,36 +331,6 @@
 
 <section class="page-service">
 
-@php
-  $serviceHeroImg = !empty($service->image)
-      ? asset('storage/' . ltrim($service->image, '/'))
-      : asset('img/placeholder-hero.png'); // fallback si besoin
-@endphp
-
-{{-- HERO --}}
-<header class="sv-hero sv-hero--split"
-  style="
-    --sv-img-drop: 280px;
-    --sv-img-right: -24px;
-    --sv-img-w: 660px;
-    --sv-hero-pad: 190px;
-    --sv-copy-x: 6px;
-    --sv-copy-y: -6px;
-  ">
-  <div class="container sv-hero__inner">
-    <div class="sv-hero__copy">
-      <h1 class="sv-title">{{ $service->name }}</h1>
-      @if(!empty($service->summary))
-        <p class="sv-sub">{{ $service->summary }}</p>
-      @endif
-    </div>
-
-    {{-- Image sous la zone verte, peut déborder en bas sur desktop --}}
-    <figure class="sv-hero__media">
-      <img src="{{ $serviceHeroImg }}" alt="{{ $service->name }}">
-    </figure>
-  </div>
-</header>
 
 {{-- DETAILS --}}
 <section class="sv-wrap">

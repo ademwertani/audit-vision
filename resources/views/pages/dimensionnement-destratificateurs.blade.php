@@ -171,8 +171,8 @@
 }
 .d-hero-orbit{
   position:relative;
-  width:280px;
-  height:280px;
+  width:350px;
+  height:350px;
 }
 .d-orbit-circle{
   position:absolute;
@@ -676,10 +676,10 @@
           </div>
 
           <div class="d-hero-actions">
-            <a href="{{ url('contact') }}" class="d-btn-primary">
-              Demander une étude destratificateurs
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <a href="{{ url('/') }}#home-end" class="d-btn-primary">
+      Demander une étude destratificateurs
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
             <a href="#section-method" class="d-btn-ghost">
               Découvrir la méthodologie
               <i class="fa-solid fa-circle-down"></i>

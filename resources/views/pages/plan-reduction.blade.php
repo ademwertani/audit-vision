@@ -780,10 +780,11 @@
           </div>
 
           <div class="p-hero-actions">
-            <a href="{{ url('contact') }}" class="p-btn-primary">
-              Construire votre stratégie bas-carbone
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            
+            <a href="{{ url('/') }}#home-end" class="p-btn-primary">
+      Construire votre stratégie bas-carbone
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
             <a href="#section-methodologie" class="p-btn-ghost">
               Découvrir la méthodologie
               <i class="fa-solid fa-circle-down"></i>

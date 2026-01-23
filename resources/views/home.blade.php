@@ -111,7 +111,7 @@
 
             <div class="method-image-wrap">
                 <img 
-                    src="{{ asset('img/im.jpeg') }}" 
+                    src="{{ asset('img/www.jpeg') }}" 
                     alt="Méthodologies Audit Vision" 
                     class="method-img">
             </div>

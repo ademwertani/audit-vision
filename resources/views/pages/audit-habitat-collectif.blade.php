@@ -628,7 +628,8 @@
           </div>
 
           <div class="hc-hero-actions">
-            <a href="{{ url('contact') }}" class="hc-btn-primary">
+
+            <a href="{{ url('/') }}#home-end" class="hc-btn-primary">
               Demander un audit habitat collectif
               <i class="fa-solid fa-arrow-right"></i>
             </a>

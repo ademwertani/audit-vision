@@ -663,10 +663,10 @@
           </div>
 
           <div class="t-hero-actions">
-            <a href="{{ url('contact') }}" class="t-btn-primary">
-              Demander un audit énergétique tertiaire
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <a href="{{ url('/') }}#home-end" class="t-btn-primary">
+      Demander un audit énergétique tertiaire
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
             <a href="#section-method" class="t-btn-ghost">
               Découvrir la méthodologie
               <i class="fa-solid fa-circle-down"></i>

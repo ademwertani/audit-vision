@@ -71,25 +71,38 @@
 
             <div class="contact-detail position-relative p-5">
                 <div class="row g-5 mb-5 justify-content-center">
-                    {{-- Adresse --}}
-                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s">
-                        <div class="d-flex bg-light p-3 rounded">
-                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle" style="width: 64px; height: 64px;">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h4 class="text-primary">Adresse</h4>
-                                <a href="https://www.google.com/maps/search/?api=1&query=38+Avenue+Villemain+75014+Paris"
-                                   target="_blank"
-                                   class="h5 d-block">
-                                    38 Avenue Villemain – 75014 Paris
-                                </a>
-                                <small class="text-muted d-block">
-                                    AUDIT VISION – Bureau d’Études Énergétiques
-                                </small>
-                            </div>
-                        </div>
-                    </div>
+{{-- MAP --}}
+<div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
+    <div class="p-5 h-100 rounded contact-map">
+        <iframe
+            class="rounded w-100 h-100"
+            src="https://www.google.com/maps?q=38+Avenue+Villemain+75014+Paris&output=embed"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
+{{-- Adresse --}}
+<div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">
+    <div class="d-flex bg-light p-3 rounded">
+        <div class="flex-shrink-0 btn-square bg-secondary rounded-circle" style="width: 64px; height: 64px;">
+            <i class="fas fa-map-marker-alt text-white"></i>
+        </div>
+        <div class="ms-3">
+            <h4 class="text-primary">Adresse</h4>
+            <p class="h5 d-block">
+                38 Avenue Villemain – 75014 Paris
+            </p>
+            <small class="text-muted d-block">
+                AUDIT VISION – Bureau d’Études Énergétiques
+            </small>
+        </div>
+    </div>
+</div>
+
 
                     {{-- Téléphone (à adapter) --}}
                     <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">

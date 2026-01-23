@@ -177,7 +177,7 @@
 
       <div class="cp-grid">
 
-        {{-- FORMULAIRE : champs alignés avec la table contacts (first_name, last_name, etc.) --}}
+        {{-- FORMULAIRE --}}
         <div class="cp-card">
           <form method="POST" action="{{ route('contact.store') }}" class="cp-form">
             @csrf
@@ -273,8 +273,7 @@
             <div class="cp-ico"><i class="fa fa-phone"></i></div>
             <div>
               <h5>Téléphone&nbsp;:</h5>
-              {{-- remplace par le vrai numéro si tu l'as --}}
-              <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+              <a href="tel:+33123456789">+33 01 84 80 81 24</a>
             </div>
           </div>
 
@@ -294,8 +293,7 @@
             <div class="cp-ico"><i class="fa fa-envelope"></i></div>
             <div>
               <h5>E-mail&nbsp;:</h5>
-              {{-- remplace par le vrai mail si besoin --}}
-              <a href="mailto:contact@auditvision.fr">contact@auditvision.fr</a>
+              <a href="mailto:contact@auditvision.fr">administration@auditvision.fr</a>
             </div>
           </div>
         </aside>
@@ -308,13 +306,6 @@
           38 Avenue Villemain, 75014 Paris, France<br>
           SIREN : 982 511 644 – Assurance RC Pro : Markel Insurance SE
         </p>
-
-        <a class="btn btn-outline-primary mb-3"
-           target="_blank"
-           rel="noopener"
-           href="https://www.google.com/maps?q=38%20Avenue%20Villemain%2075014%20Paris&output=embed">
-           Ouvrir dans Google Maps
-        </a>
 
         <iframe
           src="https://www.google.com/maps?q=38%20Avenue%20Villemain%2075014%20Paris&output=embed"

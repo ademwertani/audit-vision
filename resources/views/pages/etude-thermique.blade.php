@@ -671,10 +671,11 @@
           </div>
 
           <div class="t-hero-actions">
-            <a href="{{ url('contact') }}" class="t-btn-primary">
-              Demander une étude thermique
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <a href="{{ url('/') }}#home-end" class="t-btn-primary">
+      Demander une étude thermique
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+            
             <a href="#section-methodologie" class="t-btn-ghost">
               Voir la méthodologie
               <i class="fa-solid fa-circle-down"></i>
