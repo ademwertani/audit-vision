@@ -547,61 +547,60 @@ document.addEventListener('DOMContentLoaded', function () {
             {{-- Formulaire à gauche --}}
             <div class="col-lg-6">
                 <div class="contact-map-card h-100">
-                    <h2 class="contact-map-title">demande d'etude</h2>
+                    <h2 class="contact-map-title">Demande d'étude</h2>
                     <p class="contact-map-text">
                         AUDIT VISION – Bureau d’Études Énergétiques<br>
                         38 Avenue Villemain – 75014 Paris<br>
                         SIREN : 982 511 644<br>
                     </p>
 
-                    {{-- Formulaire "dummy" (n’envoie rien pour le moment) --}}
+                    {{-- Formulaire --}}
                     <form method="POST" action="{{ route('contact.store') }}">
-    @csrf
+                        @csrf
 
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <input type="text" name="first_name" class="form-control contact-input"
-                                       placeholder="Prénom" required>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="last_name" class="form-control contact-input"
-                                       placeholder="Nom" required>
+                            {{-- Raison Sociale --}}
+                            <div class="col-md-12">
+                                <input type="text" name="company_name" class="form-control contact-input"
+                                       placeholder="Raison Sociale" required>
                             </div>
 
+                            {{-- Numéro SIRET --}}
+                            <div class="col-md-12">
+                                <input type="text" name="siret" class="form-control contact-input"
+                                       placeholder="Numéro de SIRET (14 chiffres)" pattern="\d{14}" required>
+                            </div>
+
+                            {{-- E-mail --}}
                             <div class="col-md-6">
                                 <input type="email" name="email" class="form-control contact-input"
                                        placeholder="E-mail" required>
                             </div>
+                            {{-- Téléphone --}}
                             <div class="col-md-6">
                                 <input type="text" name="phone" class="form-control contact-input"
                                        placeholder="Téléphone">
                             </div>
 
+                            {{-- Sujet --}}
                             <div class="col-12">
                                 <select name="subject" class="form-select contact-input">
                                     <option value="">Sélectionnez un sujet</option>
-                                    <option value="audit_energetique">Audit énergétique</option>
-                                    <option value="accompagnement_tertiaire">Accompagnement tertiaire</option>
-                                    <option value="conseil_collectivites">Conseil collectivités</option>
-                                    <option value="autre">Autre demande</option>
+                                    <option value="etude_eclairage_interieur">Étude d'éclairage intérieur</option>
+                                    <option value="bilan_thermique_hp_flottante">Bilan thermique HP flottante</option>
+                                    <option value="etude_energetique_batiment_tertiaire">Étude énergétique bâtiment tertiaire</option>
+                                    <option value="visite_thermique_dimensionnement">Visite thermique sur dimensionnement</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
-                                <input type="text" name="company" class="form-control contact-input"
-                                       placeholder="Société (facultatif)">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="city" class="form-control contact-input"
-                                       placeholder="Ville (facultatif)">
-                            </div>
-
+                            {{-- Message --}}
                             <div class="col-12">
                                 <textarea name="message" rows="4"
                                           class="form-control contact-textarea"
                                           placeholder="Votre message..." required></textarea>
                             </div>
 
+                            {{-- Bouton d'envoi --}}
                             <div class="col-12 mt-2">
                                 <button type="submit" class="btn contact-map-btn">
                                     Envoyer
@@ -631,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 </section>
+
 
 {{-- ================== SCRIPTS ================== --}}
 <script>

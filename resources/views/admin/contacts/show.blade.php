@@ -21,8 +21,12 @@
     </div>
     <div class="card-body">
         <div class="mb-3">
-            <strong>Name:</strong>
-            <p>{{ $contact->name }}</p>
+            <strong>Company Name:</strong>
+            <p>{{ $contact->company_name }}</p>
+        </div>
+        <div class="mb-3">
+            <strong>SIRET:</strong>
+            <p>{{ $contact->siret }}</p>
         </div>
         <div class="mb-3">
             <strong>Email:</strong>

@@ -13,7 +13,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Company Name</th>
+                        <th>SIRET</th>
                         <th>Email</th>
                         <th>Subject</th>
                         <th>Received</th>
@@ -24,7 +25,8 @@
                     @foreach ($contacts as $contact)
                     <tr>
                         <td>{{ $contact->id }}</td>
-                        <td>{{ $contact->name }}</td>
+                        <td>{{ $contact->company_name }}</td>
+                        <td>{{ $contact->siret }}</td>
                         <td>{{ $contact->email }}</td>
                         <td>{{ Str::limit($contact->subject, 30) }}</td>
                         <td>{{ $contact->created_at->diffForHumans() }}</td>

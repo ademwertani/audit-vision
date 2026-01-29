@@ -4,10 +4,10 @@
   <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>@yield('title', 'France Isolation - Energize Society Reliable Energy')</title>
+  <title>@yield('title', 'Audit vision - Energize Society Reliable Energy')</title>
   <meta name="keywords" content="renewable energy, solar, electrical services, energy solutions">
   <meta name="description"
-    content="France Isolation - Leading renewable energy solutions provider revolutionizing sustainable energy sources worldwide.">
+    content="Audit vision - Leading renewable energy solutions provider revolutionizing sustainable energy sources worldwide.">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

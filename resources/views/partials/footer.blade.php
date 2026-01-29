@@ -13,6 +13,10 @@
     --muted: #BFC7FF;
     /* texte atténué */
   }
+.social-icons a {
+    pointer-events: none;
+    cursor: default;
+}
 
   .footer.footer-aisla {
     background: var(--footer-bg) !important;
@@ -163,34 +167,31 @@
     <div class="row g-5">
       <!-- Logo + présentation -->
       <div class="col-lg-4 col-md-6">
-        <a href="{{ url('/') }}">
-          <img src="{{ asset('img/logoo.png') }}" alt="Audit vision" class="logo-navbar">
-        </a>
-        <p class="about-text">
-          Chez Audit vision, nous croyons au <br>
-          pouvoir des énergies renouvelables pour <br>
-          construire un avenir plus durable.
-        </p>
+    <a>
+        <img src="{{ asset('img/logoo.png') }}" alt="Audit vision" class="logo-navbar">
+    </a>
+    <p class="about-text">
+        Chez Audit vision, nous croyons au <br>
+        pouvoir des énergies renouvelables pour <br>
+        construire un avenir plus durable.
+    </p>
 
-        <div class="social-icons mt-3">
-          <a href="https://www.facebook.com/profile.php?id=61582684408428" class="btn-square rounded-circle me-2" aria-label="Facebook"
-            target="_blank" rel="noopener">
+    <div class="social-icons mt-3">
+        <a class="btn-square rounded-circle me-2" aria-label="Facebook" style="pointer-events: none;">
             <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://www.instagram.com/tonprofil" class="btn-square rounded-circle me-2" aria-label="Instagram"
-            target="_blank" rel="noopener">
+        </a>
+        <a class="btn-square rounded-circle me-2" aria-label="Instagram" style="pointer-events: none;">
             <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.youtube.com/@ta-chaine" class="btn-square rounded-circle me-2" aria-label="YouTube"
-            target="_blank" rel="noopener">
+        </a>
+        <a class="btn-square rounded-circle me-2" aria-label="YouTube" style="pointer-events: none;">
             <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://www.linkedin.com/company/ta-page" class="btn-square rounded-circle" aria-label="LinkedIn"
-            target="_blank" rel="noopener">
+        </a>
+        <a class="btn-square rounded-circle" aria-label="LinkedIn" style="pointer-events: none;">
             <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-      </div>
+        </a>
+    </div>
+</div>
+
 
       <!-- Liens utiles -->
       <div class="col-lg-2 col-md-6">
@@ -208,7 +209,7 @@
         <ul class="contact-list mt-4">
           <li class="contact-item">
             <span class="icon"><i class="fas fa-phone"></i></span>
-            <a href="tel:+000000000">01 84 80 81 24</a>
+            <a href="tel:+000000000">+33745888791</a>
           </li>
           <li class="contact-item">
             <span class="icon"><i class="fas fa-envelope"></i></span>

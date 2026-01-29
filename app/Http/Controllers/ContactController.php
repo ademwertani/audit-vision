@@ -20,24 +20,23 @@ class ContactController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validation conforme au formulaire
-        $validated = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'email', 'max:255'],
-            'phone'      => ['nullable', 'string', 'max:255'],
-            'subject'    => ['nullable', 'string', 'max:255'],
-            'company'    => ['nullable', 'string', 'max:255'],
-            'city'       => ['nullable', 'string', 'max:255'],
-            'message'    => ['required', 'string'],
-        ]);
+{
+    // Validation conforme au formulaire
+    $validated = $request->validate([
+        'company_name' => ['required', 'string', 'max:255'],  // Validation pour la raison sociale
+        'siret' => ['required', 'digits:14'],  // Validation pour le numéro de SIRET (14 chiffres)
+        'email' => ['required', 'email', 'max:255'],
+        'phone' => ['nullable', 'string', 'max:255'],
+        'subject' => ['nullable', 'string', 'max:255'],
+        'message' => ['required', 'string'],
+    ]);
 
-        // Enregistrement en base
-        Contact::create($validated);
+    // Enregistrement en base
+    Contact::create($validated);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Votre message a été envoyé avec succès !');
-    }
+    return redirect()
+        ->back()
+        ->with('success', 'Votre message a été envoyé avec succès !');
+}
+
 }

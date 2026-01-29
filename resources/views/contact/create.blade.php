@@ -162,7 +162,7 @@
     <div class="container">
 
       <div class="cp-head">
-        <div class="cp-kicker">Demande de devis</div>
+        <div class="cp-kicker">Demande d'étude </div>
         <h2 class="cp-h1">
           Parlons de la façon dont nous pouvons vous aider
         </h2>
@@ -183,26 +183,30 @@
             @csrf
 
             <div class="row g-3">
-              <div class="col-md-6">
+              {{-- Raison Sociale --}}
+              <div class="col-md-12">
                 <input type="text"
-                       name="first_name"
-                       value="{{ old('first_name') }}"
-                       class="form-control @error('first_name') is-invalid @enderror"
-                       placeholder="Prénom"
+                       name="company_name"
+                       value="{{ old('company_name') }}"
+                       class="form-control @error('company_name') is-invalid @enderror"
+                       placeholder="Raison Sociale"
                        required>
-                @error('first_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                @error('company_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
-              <div class="col-md-6">
+              {{-- Numéro SIRET --}}
+              <div class="col-md-12">
                 <input type="text"
-                       name="last_name"
-                       value="{{ old('last_name') }}"
-                       class="form-control @error('last_name') is-invalid @enderror"
-                       placeholder="Nom"
+                       name="siret"
+                       value="{{ old('siret') }}"
+                       class="form-control @error('siret') is-invalid @enderror"
+                       placeholder="Numéro de SIRET (14 chiffres)"
+                       pattern="\d{14}"
                        required>
-                @error('last_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                @error('siret') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
+              {{-- E-mail --}}
               <div class="col-md-6">
                 <input type="email"
                        name="email"
@@ -213,6 +217,7 @@
                 @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
+              {{-- Téléphone --}}
               <div class="col-md-6">
                 <input type="text"
                        name="phone"
@@ -222,33 +227,19 @@
                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
-              <div class="col-md-6">
-                <input type="text"
-                       name="company"
-                       value="{{ old('company') }}"
-                       class="form-control @error('company') is-invalid @enderror"
-                       placeholder="Société (facultatif)">
-                @error('company') <div class="invalid-feedback">{{ $message }}</div> @enderror
-              </div>
-
-              <div class="col-md-6">
-                <input type="text"
-                       name="city"
-                       value="{{ old('city') }}"
-                       class="form-control @error('city') is-invalid @enderror"
-                       placeholder="Ville (facultatif)">
-                @error('city') <div class="invalid-feedback">{{ $message }}</div> @enderror
-              </div>
-
+              {{-- Sujet --}}
               <div class="col-12">
-                <input type="text"
-                       name="subject"
-                       value="{{ old('subject') }}"
-                       class="form-control @error('subject') is-invalid @enderror"
-                       placeholder="Objet de votre demande">
+                <select name="subject" class="form-select @error('subject') is-invalid @enderror" required>
+                  <option value="">Sélectionnez un sujet</option>
+                  <option value="etude_eclairage_interieur" {{ old('subject') == 'etude_eclairage_interieur' ? 'selected' : '' }}>Étude d'éclairage intérieur</option>
+                  <option value="bilan_thermique_hp_flottante" {{ old('subject') == 'bilan_thermique_hp_flottante' ? 'selected' : '' }}>Bilan thermique HP flottante</option>
+                  <option value="etude_energetique_batiment_tertiaire" {{ old('subject') == 'etude_energetique_batiment_tertiaire' ? 'selected' : '' }}>Étude énergétique bâtiment tertiaire</option>
+                  <option value="visite_thermique_dimensionnement" {{ old('subject') == 'visite_thermique_dimensionnement' ? 'selected' : '' }}>Visite thermique sur dimensionnement</option>
+                </select>
                 @error('subject') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
+              {{-- Message --}}
               <div class="col-12">
                 <textarea name="message"
                           class="form-control @error('message') is-invalid @enderror"
@@ -258,6 +249,7 @@
                 @error('message') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
 
+              {{-- Bouton d'envoi --}}
               <div class="col-12 mt-2">
                 <button type="submit" class="cp-btn">
                   <i class="fas fa-paper-plane me-2"></i> Envoyer le message
@@ -273,7 +265,7 @@
             <div class="cp-ico"><i class="fa fa-phone"></i></div>
             <div>
               <h5>Téléphone&nbsp;:</h5>
-              <a href="tel:+33123456789">+33 01 84 80 81 24</a>
+              <a href="tel:+33123456789">+33745888791</a>
             </div>
           </div>
 
@@ -319,4 +311,5 @@
   </div>
 
 </section>
+
 @endsection

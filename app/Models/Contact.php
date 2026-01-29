@@ -10,13 +10,11 @@ class Contact extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'company_name',  // Raison sociale
+        'siret',         // Numéro de SIRET
         'email',
         'phone',
         'subject',
-        'company',
-        'city',
         'message',
     ];
 }
