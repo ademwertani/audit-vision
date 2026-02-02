@@ -643,7 +643,7 @@
           <p class="l-hero-sub">
             Performance énergétique, confort visuel et conformité normative&nbsp;:
             nous concevons des solutions d’éclairage adaptées à vos usages
-            et aux exigences de la NF EN 12464-1.
+            et aux exigences de la NF EN 12464-1/NF EN 12464-2.
           </p>
 
           <div class="l-hero-badges">
@@ -702,7 +702,7 @@
               </div>
               <div class="l-metric">
                 <span class="l-pill-small">Uniformité</span>
-                <strong>0,7 U<sub>o</sub></strong>
+                <strong>0,6 U<sub>o</sub></strong>
               </div>
               <div class="l-metric">
                 <span class="l-pill-small">Scénario LED</span>
@@ -738,7 +738,7 @@
         <div class="l-intro-text l-animate">
           <p>
             Nous analysons vos installations existantes, vos usages et vos contraintes
-            (occupation, horaires, exigences métier) pour proposer des solutions d’éclairage
+            (maintenance, horaires, exigences métier) pour proposer des solutions d’éclairage
             <strong>efficaces, pérennes et adaptées</strong>.
           </p>
           <p>
@@ -800,9 +800,9 @@
       <div class="l-why-header l-animate">
         <h2>Un éclairage au service de l’énergie, du confort et de la sécurité</h2>
         <p>
-          Au-delà des kWh économisés, l’éclairage structure vos espaces de travail.
+          Au-delà des kWh cumac économisés, l’éclairage structure vos espaces de travail.
           Une étude d’éclairage permet de concilier <strong>performance énergétique</strong>,
-          <strong>confort visuel</strong> et <strong>sécurité des déplacements</strong>.
+          <strong>confort visuel</strong> , <strong>sécurité des déplacements</strong> et <strong>respect aux exigences européennes</strong>.
         </p>
       </div>
 
@@ -811,7 +811,7 @@
           <div class="l-why-icon">
             <i class="fa-solid fa-sun"></i>
           </div>
-          <div class="l-why-title">Confort &amp; santé visuelle</div>
+          <div class="l-why-title">Confort &amp;visuelle</div>
           <div class="l-why-text">
             Limitation de l’éblouissement, niveaux d’éclairement adaptés aux tâches,
             meilleure perception des contrastes et réduction de la fatigue visuelle.
@@ -824,8 +824,8 @@
           </div>
           <div class="l-why-title">Sécurité &amp; circulation</div>
           <div class="l-why-text">
-            Mise en lumière des zones de circulation, des escaliers, des issues de secours
-            et des zones à risque pour prévenir les accidents.
+            L'éclairage intérieur doit être conçu pour mettre en évidence les zones de circulation, 
+            les escaliers, les issues de secours et les zones à risque, afin de garantir la sécurité des occupants et prévenir les accidents.
           </div>
         </div>
 
@@ -835,8 +835,8 @@
           </div>
           <div class="l-why-title">Performance économique</div>
           <div class="l-why-text">
-            Réduction des consommations, allongement de la durée de vie des luminaires
-            et meilleure maîtrise des coûts de maintenance.
+            Réduction de la consommation électrique, 
+            augmentation de la durée de vie des installations d'éclairage et meilleure gestion des coûts de maintenance.
           </div>
         </div>
       </div>
@@ -851,7 +851,7 @@
       <div class="l-section-header l-animate">
         <div class="l-section-kicker">Méthodologie</div>
         <h2 class="l-section-title">
-          Une démarche structurée, de la mesure aux plans photométriques
+          Une démarche structurée pour l'installation d'un éclairage efficace et optimal, adapté à vos besoins.
         </h2>
         <p class="l-section-lead">
           Notre méthodologie couvre l’ensemble du cycle&nbsp;: état des lieux,
@@ -871,67 +871,64 @@
           <div class="l-method-intro">
             <p>
               L’étude d’éclairage est construite autour de <strong>mesures objectives</strong>,
-              de <strong>simulations photométriques</strong> (DIALux / Relux) et d’une
+              de <strong>simulations photométriques</strong> (DIALux evo) et d’une
               <strong>analyse économique complète</strong>. Chaque étape est documentée
               pour faciliter les décisions et le déploiement des travaux.
             </p>
           </div>
 
           <div class="l-steps">
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Collecte des données</div>
-              <div class="l-step-text">
-                Plans, inventaire des luminaires existants, caractéristiques techniques,
-                factures d’énergie, horaires d’occupation et usages des locaux.
-              </div>
-            </div>
+  <div class="l-steps">
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Collecte des données</div>
+    <div class="l-step-text">
+      Recueil des plans, inventaire des luminaires, caractéristiques techniques, factures d’énergie, horaires d'occupation et usages des espaces.
+    </div>
+  </div>
 
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Mesures sur site</div>
-              <div class="l-step-text">
-                Mesures de niveaux d’éclairement, d’uniformité, vérification de l’éblouissement
-                et des conditions réelles d’utilisation des systèmes d’éclairage.
-              </div>
-            </div>
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Mesures sur site</div>
+    <div class="l-step-text">
+      Évaluation des niveaux d’éclairement, uniformité, éblouissement et conditions réelles des systèmes d'éclairage existants.
+    </div>
+  </div>
 
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Diagnostic énergétique &amp; confort visuel</div>
-              <div class="l-step-text">
-                Analyse croisée des consommations, de la performance des luminaires,
-                de l’adéquation aux besoins, et des écarts vis-à-vis des exigences normatives.
-              </div>
-            </div>
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Diagnostic énergétique et confort visuel</div>
+    <div class="l-step-text">
+      Analyse du système d'éclairage selon les normes énergétiques et de confort visuel, pour identifier les axes d'amélioration.
+    </div>
+  </div>
 
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Modélisation &amp; simulations 3D</div>
-              <div class="l-step-text">
-                Modélisation des espaces dans DIALux / Relux, simulations de différents scénarios
-                d’éclairage (LED, variation, détection, zonage…).
-              </div>
-            </div>
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Modélisation et simulations 3D</div>
+    <div class="l-step-text">
+      Modélisation des espaces avec DIALux evo et simulations de scénarios d’éclairage (LED, variations, détection, zonage).
+    </div>
+  </div>
 
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Scénarios d’optimisation &amp; analyse économique</div>
-              <div class="l-step-text">
-                Définition de scénarios (rénovation globale ou par étapes), chiffrage des travaux,
-                calcul des gains énergétiques, des aides mobilisables (CEE…) et du temps de retour.
-              </div>
-            </div>
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Scénarios d’optimisation et analyse économique</div>
+    <div class="l-step-text">
+      Chiffrage des travaux, estimation des gains énergétiques et identification des aides financières (CEE).
+    </div>
+  </div>
 
-            <div class="l-step">
-              <div class="l-step-marker"></div>
-              <div class="l-step-title">Rapport final &amp; plans photométriques</div>
-              <div class="l-step-text">
-                Remise d’un rapport détaillé, des plans photométriques et des recommandations
-                prêtes à être présentées aux décideurs et aux instances (CSE, CA, etc.).
-              </div>
-            </div>
-          </div>
+  <div class="l-step">
+    <div class="l-step-marker"></div>
+    <div class="l-step-title">Rapport final et plans photométriques</div>
+    <div class="l-step-text">
+      Remise d’un rapport détaillé avec plans photométriques et recommandations à présenter aux décideurs.
+    </div>
+  </div>
+</div>
+</div>
+
         </div>
 
         {{-- colonne droite : blocs tertiaire / habitat --}}
@@ -960,7 +957,6 @@
                 <li>Réduction des charges liées à l’éclairage des parties communes.</li>
                 <li>Mise en sécurité des circulations, parkings, locaux techniques.</li>
                 <li>Scénarios LED + détection de présence pour limiter le fonctionnement inutile.</li>
-                <li>Intégration des résultats dans un Plan Pluriannuel de Travaux (PPT) ou un DPE collectif.</li>
               </ul>
             </div>
 
