@@ -709,7 +709,7 @@
                 </div>
                 <div class="cb-stat-card">
                   <div class="cb-stat-label">Vision</div>
-                  <div class="cb-stat-value">RSE &amp; climat</div>
+                  <div class="cb-stat-value">transition énergétique &amp; écologique</div>
                 </div>
               </div>
 
@@ -786,7 +786,7 @@
               <i class="fa-solid fa-hand-holding-dollar"></i>
             </div>
             <div>
-              <div class="cb-why-body-title">Améliorer la stratégie RSE &amp; accéder aux financements</div>
+              <div class="cb-why-body-title">Stratégie bas carbone &amp; accéder aux financements</div>
               <div class="cb-why-body-text">
                 Un bilan carbone structuré crédibilise vos engagements RSE, facilite le dialogue
                 avec les financeurs et ouvre l’accès à certaines aides ou dispositifs de soutien.
