@@ -596,6 +596,191 @@
   flex-wrap:wrap;
   gap:12px;
 }
+/* =========================================================
+   HERO GRAPH (2 courbes)
+   ========================================================= */
+.d-hero-chart{
+  width:min(720px,100%);
+  border-radius:26px;
+  padding:16px 16px 14px;
+  background:linear-gradient(135deg,rgba(2,6,23,.92),rgba(15,23,42,.86));
+  border:1px solid rgba(191,219,254,.18);
+  box-shadow:0 28px 90px rgba(15,23,42,.70);
+}
+
+.d-chart-head{
+  margin-bottom:10px;
+}
+.d-chart-title{
+  font-size:1.05rem;
+  font-weight:800;
+  color:#f9fafb;
+  margin-bottom:2px;
+}
+.d-chart-sub{
+  font-size:.86rem;
+  color:rgba(219,234,254,.86);
+  margin-bottom:10px;
+}
+
+.d-chart-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.d-leg{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(148,163,184,.22);
+  color:rgba(226,232,240,.92);
+  font-size:.82rem;
+}
+.d-leg i{
+  width:14px;
+  height:14px;
+  border-radius:999px;
+  display:inline-block;
+}
+.d-leg--high i{ background:rgba(251,191,36,.95); }
+.d-leg--low  i{ background:rgba(16,185,129,.95); }
+.d-leg--area i{ background:linear-gradient(135deg,rgba(16,185,129,.6),rgba(56,189,248,.35)); }
+
+.d-chart-wrap{
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(148,163,184,.20);
+  background:radial-gradient(120% 120% at 15% 0%, rgba(56,189,248,.14), transparent 60%),
+             radial-gradient(120% 120% at 100% 110%, rgba(16,185,129,.14), transparent 65%),
+             rgba(2,6,23,.42);
+}
+
+.d-chart-svg{
+  width:100%;
+  height:auto;
+  display:block;
+  min-height:420px; /* كبير */
+}
+
+/* curves style */
+.curve{
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-width:4.6;
+}
+.curve-high{ stroke:rgba(251,191,36,.95); filter:drop-shadow(0 10px 18px rgba(251,191,36,.18)); }
+.curve-low { stroke:rgba(16,185,129,.95); filter:drop-shadow(0 10px 18px rgba(16,185,129,.18)); }
+
+.area-savings{
+  opacity:.95;
+}
+/* =========================================================
+   HERO GRAPH (2 courbes) – styles
+   ========================================================= */
+.d-hero-chart{
+  width:min(720px,100%);
+  border-radius:26px;
+  padding:16px 16px 14px;
+  background:linear-gradient(135deg,rgba(2,6,23,.92),rgba(15,23,42,.86));
+  border:1px solid rgba(191,219,254,.18);
+  box-shadow:0 28px 90px rgba(15,23,42,.70);
+}
+
+.d-chart-head{ margin-bottom:10px; }
+.d-chart-title{
+  font-size:1.05rem;
+  font-weight:800;
+  color:#f9fafb;
+  margin-bottom:2px;
+}
+.d-chart-sub{
+  font-size:.86rem;
+  color:rgba(219,234,254,.86);
+  margin-bottom:10px;
+}
+
+.d-chart-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.d-leg{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(148,163,184,.22);
+  color:rgba(226,232,240,.92);
+  font-size:.82rem;
+}
+.d-leg i{
+  width:14px;
+  height:14px;
+  border-radius:999px;
+  display:inline-block;
+}
+.d-leg--high i{ background:rgba(251,191,36,.95); }
+.d-leg--low  i{ background:rgba(16,185,129,.95); }
+.d-leg--area i{ background:linear-gradient(135deg,rgba(16,185,129,.6),rgba(56,189,248,.35)); }
+
+.d-chart-wrap{
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(148,163,184,.20);
+  background:radial-gradient(120% 120% at 15% 0%, rgba(56,189,248,.14), transparent 60%),
+             radial-gradient(120% 120% at 100% 110%, rgba(16,185,129,.14), transparent 65%),
+             rgba(2,6,23,.42);
+}
+
+.d-chart-svg{
+  width:100%;
+  height:auto;
+  display:block;
+  min-height:420px;
+}
+
+.curve{
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-width:4.6;
+}
+.curve-high{
+  stroke:rgba(251,191,36,.95);
+  filter:drop-shadow(0 10px 18px rgba(251,191,36,.18));
+}
+.curve-low{
+  stroke:rgba(16,185,129,.95);
+  filter:drop-shadow(0 10px 18px rgba(16,185,129,.18));
+}
+.area-savings{ opacity:.95; }
+
+/* Arrow between curves */
+.d-gap-arrow line{
+  stroke:rgba(226,232,240,.85);
+  stroke-width:2.2;
+  stroke-dasharray:6 6;
+}
+.d-gap-arrow path{ fill:rgba(226,232,240,.90); }
+.d-gap-arrow text{
+  fill:rgba(226,232,240,.92);
+  font-size:14px;
+  font-weight:800;
+}
+
+@media (max-width: 575.98px){
+  .d-chart-svg{ min-height:360px; }
+}
+
+@media (max-width: 575.98px){
+  .d-chart-svg{ min-height:360px; }
+}
 
 /* RESPONSIVE */
 @media (max-width: 991.98px){
@@ -672,7 +857,7 @@
           <div class="d-hero-tags">
             <span class="d-tag-pill">Entrepôts, hangars, gymnases, GMS…</span>
             <span class="d-tag-pill">Réduction des écarts de température sol/toiture</span>
-            <span class="d-tag-pill">Étude technique &amp; calepinage sur plans</span>
+            <span class="d-tag-pill">Étude technique &amp; calepinage</span>
           </div>
 
           <div class="d-hero-actions">
@@ -687,42 +872,122 @@
           </div>
         </div>
 
-        {{-- Colonne visuel circulaire --}}
-        <div class="d-hero-visual d-animate">
-          <div class="d-hero-orbit">
-            <div class="d-orbit-circle">
-              <div class="d-orbit-ring"></div>
-              <div class="d-orbit-ring"></div>
+{{-- Colonne visuel : Graph 2 courbes --}}
+<div class="d-hero-visual d-animate">
+  <div class="d-hero-chart">
+    <div class="d-chart-head">
+      <div class="d-chart-title">Impact de la destratification</div>
+      <div class="d-chart-sub">ΔT (haut–bas) vs Consommation chauffage (kWh)</div>
 
-              {{-- couches de stratification thermique --}}
-              <div class="d-layer"></div>
-              <div class="d-layer"></div>
-              <div class="d-layer"></div>
-              <div class="d-layer"></div>
+      <div class="d-chart-legend">
+        <span class="d-leg d-leg--high">
+          <i></i> Sans destratificateur
+        </span>
+        <span class="d-leg d-leg--low">
+          <i></i> Avec destratificateur
+        </span>
+        <span class="d-leg d-leg--area">
+          <i></i> Économie d’énergie
+        </span>
+      </div>
+    </div>
 
-              {{-- destratificateurs --}}
-              <div class="d-fan-dot">
-                <i class="fa-solid fa-fan"></i>
-              </div>
-              <div class="d-fan-dot">
-                <i class="fa-solid fa-fan"></i>
-              </div>
-              <div class="d-fan-dot">
-                <i class="fa-solid fa-fan"></i>
-              </div>
-              <div class="d-fan-dot">
-                <i class="fa-solid fa-fan"></i>
-              </div>
+    <div class="d-chart-wrap" aria-label="Graph ΔT vs kWh">
+      <svg class="d-chart-svg" viewBox="0 0 900 560" role="img">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(148,163,184,.22)" stroke-width="1"/>
+          </pattern>
 
-              <div class="d-orbit-metric top">
-                Écart initial<br><strong>8 à 15&nbsp;°C</strong>
-              </div>
-              <div class="d-orbit-metric bottom">
-                Gains chauffage<br><strong>-20 à -40&nbsp;%</strong>
-              </div>
-            </div>
-          </div>
-        </div>
+          <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(16,185,129,.28)"/>
+            <stop offset="100%" stop-color="rgba(56,189,248,.08)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- plotting zone -->
+        <rect x="110" y="90" width="730" height="370" fill="url(#grid)" rx="18" />
+
+        <!-- axes -->
+        <path d="M110 460 L840 460" stroke="rgba(226,232,240,.9)" stroke-width="2.2" />
+        <path d="M110 460 L110 90"  stroke="rgba(226,232,240,.9)" stroke-width="2.2" />
+
+        <!-- axis labels -->
+        <text x="475" y="535" text-anchor="middle" fill="rgba(226,232,240,.92)" font-size="18" font-weight="700">
+          ΔT (haut – bas) (°C)
+        </text>
+        <text x="32" y="280" text-anchor="middle" fill="rgba(226,232,240,.92)" font-size="18" font-weight="700"
+              transform="rotate(-90 32 280)">
+          Consommation chauffage (kWh)
+        </text>
+
+        <!-- ticks X بدون أرقام -->
+        <g>
+          <line x1="110" y1="460" x2="110" y2="470" stroke="rgba(226,232,240,.55)" />
+          <line x1="256" y1="460" x2="256" y2="470" stroke="rgba(226,232,240,.25)" />
+          <line x1="402" y1="460" x2="402" y2="470" stroke="rgba(226,232,240,.25)" />
+          <line x1="548" y1="460" x2="548" y2="470" stroke="rgba(226,232,240,.25)" />
+          <line x1="694" y1="460" x2="694" y2="470" stroke="rgba(226,232,240,.25)" />
+        </g>
+
+        <!-- ticks Y بدون أرقام -->
+        <g>
+          <line x1="100" y1="460" x2="110" y2="460" stroke="rgba(226,232,240,.55)" />
+          <line x1="100" y1="386" x2="110" y2="386" stroke="rgba(226,232,240,.22)" />
+          <line x1="100" y1="312" x2="110" y2="312" stroke="rgba(226,232,240,.22)" />
+          <line x1="100" y1="238" x2="110" y2="238" stroke="rgba(226,232,240,.22)" />
+          <line x1="100" y1="164" x2="110" y2="164" stroke="rgba(226,232,240,.22)" />
+        </g>
+
+        <!-- Area = savings between curves (croissante + plateau) -->
+        <path class="area-savings"
+              d="M110 460
+                 C 220 420, 300 360, 380 300
+                 S 510 215, 560 200
+                 L 720 200
+                 C 780 200, 820 190, 840 180
+                 L840 290
+                 C 820 300, 780 310, 720 310
+                 L 560 310
+                 S 510 320, 380 370
+                 C 300 410, 220 440, 110 460
+                 Z"
+              fill="url(#areaFill)" />
+
+        <!-- High curve: Sans destratificateur (croissante ثم plateau) -->
+        <path class="curve curve-high"
+              d="M110 460
+                 C 220 420, 300 360, 380 300
+                 S 510 215, 560 200
+                 L 720 200
+                 C 780 200, 820 190, 840 180"
+              fill="none" />
+
+        <!-- Low curve: Avec destratificateur (croissante ثم plateau) -->
+        <path class="curve curve-low"
+              d="M110 460
+                 C 220 440, 300 410, 380 370
+                 S 510 320, 560 310
+                 L 720 310
+                 C 780 310, 820 300, 840 290"
+              fill="none" />
+
+        <!-- Arrow va-et-vient بين المنحنيين -->
+        <g class="d-gap-arrow">
+          <line x1="640" y1="200" x2="640" y2="310" />
+          <path d="M640 200 L632 210 L648 210 Z" />
+          <path d="M640 310 L632 300 L648 300 Z" />
+          <text x="655" y="260">ΔE(Économie d’énergie)</text>
+        </g>
+
+        <!-- origin dot -->
+        <circle cx="110" cy="460" r="5.5" fill="rgba(34,211,238,.95)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
 
       </div>
     </div>
@@ -741,8 +1006,8 @@
             <p>
               Le dimensionnement et le calepinage de destratificateurs consistent à
               <strong>concevoir</strong> et <strong>positionner</strong> de façon optimale des ventilateurs de
-              destratification dans des bâtiments à grand volume (entrepôts, hangars,
-              gymnases, supermarchés…).
+              destratification dans des bâtiments (entrepôts, hangars,
+              gymnases, supermarchés…) à grand hauteur(> 5 métres) .
             </p>
             <p>
               Ces appareils réduisent la <strong>stratification thermique</strong> en homogénéisant
@@ -765,15 +1030,15 @@
           <div class="d-def-metrics">
             <div class="d-def-metric">
               <span>Écart vertical constaté</span>
-              <strong>+8 à +15&nbsp;°C</strong>
+              <strong>+8 à +12&nbsp;°C</strong>
             </div>
             <div class="d-def-metric">
               <span>Réduction des besoins chauffage</span>
-              <strong>-20 à -40&nbsp;%</strong>
+              <strong>-20 à -30&nbsp;%</strong>
             </div>
             <div class="d-def-metric">
               <span>Confort thermique</span>
-              <strong>Température homogène</strong>
+              <strong>Température uniforme(d < 2 C°)</strong>
             </div>
             <div class="d-def-metric">
               <span>Impact climat</span>
@@ -796,7 +1061,7 @@
           Transformer un phénomène subi en levier d’économies
         </h2>
         <p class="d-section-lead">
-          La stratification thermique peut générer jusqu’à <strong>8 à 15&nbsp;°C d’écart</strong>
+          La stratification thermique peut générer jusqu’à <strong>8 à 12&nbsp;°C d’écart</strong>
           entre le sol et la toiture. Une étude dédiée permet d’agir sur ce phénomène
           en dimensionnant précisément les destratificateurs et leur implantation.
         </p>
@@ -809,7 +1074,7 @@
           </div>
           <div class="d-why-title">Limiter la stratification thermique</div>
           <div class="d-why-text">
-            La chaleur s’accumule en partie haute des bâtiments à grand volume,
+            La chaleur s’accumule en partie haute des bâtiments à grand hauteur (> 5 mètres),
             créant des écarts de température importants et des zones de travail
             insuffisamment chauffées.
           </div>
@@ -822,7 +1087,7 @@
           <div class="d-why-title">Réduire les consommations de chauffage</div>
           <div class="d-why-text">
             Une bonne destratification permet de réduire les besoins en chauffage
-            de <strong>20 à 40&nbsp;%</strong> selon les configurations et les usages.
+            de <strong>20 à 30&nbsp;%</strong> selon les configurations et les usages.
           </div>
         </div>
 
@@ -832,8 +1097,8 @@
           </div>
           <div class="d-why-title">Améliorer le confort thermique</div>
           <div class="d-why-text">
-            Température plus homogène dans les zones occupées, diminution des
-            “courants d’air froid” au sol et meilleure perception de confort
+            Température plus uniforme dans les zones occupées, diminution 
+            d'écart de température entre sol et la toiture et meilleure perception de confort
             pour les équipes.
           </div>
         </div>
@@ -857,8 +1122,7 @@
           <div class="d-why-title">Optimiser les investissements</div>
           <div class="d-why-text">
             Choix du type d’appareil, <strong>nombre</strong>, puissance,
-            emplacement et hauteur d’installation optimisés pour maximiser
-            le retour sur investissement.
+            emplacement et hauteur d’installation optimisés .
           </div>
         </div>
 
@@ -882,7 +1146,7 @@
     <div class="container d-method-shell">
 
       <div class="d-method-header d-animate">
-        <h2>Comment se déroule l’étude chez AuditVision&nbsp;?</h2>
+        <h2>Méthodologie de l’étude chez AuditVision&nbsp;?</h2>
         <p>
           AuditVision propose une étude technique complète, du relevé de terrain
           jusqu’au <strong>rapport final clé en main</strong>, intégrant scénarios
@@ -902,8 +1166,7 @@
             <div class="d-step-title">Plans, volumes et puissances installées</div>
             <div class="d-step-text">
               Récupération des plans, hauteurs sous plafond, volumes à traiter,
-              puissances de chauffage existantes, relevés de températures et
-              profils d’occupation des bâtiments.
+              puissances de chauffage existantes, relevés de températures.
             </div>
           </div>
         </div>
@@ -944,7 +1207,7 @@
             <div class="d-step-title">Choix du type d’appareil et du débit d’air</div>
             <div class="d-step-text">
               Définition du débit d’air par destratificateur, choix du type
-              d’appareil (hélicoïdal, Venturi, haute portée…), puissance moteur
+              d’appareil 
               et hauteur d’installation compatible avec la configuration du bâtiment.
             </div>
           </div>
@@ -957,9 +1220,8 @@
             <div class="d-step-label">Étape 5 – Calepinage optimisé</div>
             <div class="d-step-title">Positionnement exact sur plans</div>
             <div class="d-step-text">
-              Calepinage sur plans (orientation, espacement, alignement ou
-              implantation en quinconce) pour couvrir efficacement l’ensemble
-              des volumes, tout en limitant les zones “mortes”.
+              Calepinage sur plans (orientation, espacement et alignement ) pour couvrir efficacement l’ensemble
+              des volumes.
             </div>
           </div>
         </div>
@@ -972,8 +1234,7 @@
             <div class="d-step-title">Scénarios technico-économiques et accompagnement</div>
             <div class="d-step-text">
               Élaboration de scénarios avec coûts, économies annuelles,
-              aides financières mobilisables (CEE…) et temps de retour sur
-              investissement, complétés par un rapport final avec plans annotés,
+              aides financières mobilisables (CEE…) et complétés par un rapport final avec plans annotés,
               fiches techniques recommandées et recommandations d’installation
               et de maintenance.
             </div>

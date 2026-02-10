@@ -77,11 +77,11 @@
   letter-spacing:.16em;
   text-transform:uppercase;
   font-weight:600;
-  margin-bottom:12px;
+  margin-block-end:12px;
 }
 .t-hero-kicker span{
-  width:7px;
-  height:7px;
+  inline-size:7px;
+  block-size:7px;
   border-radius:999px;
   background:#22d3ee;
 }
@@ -91,14 +91,14 @@
   line-height:1.08;
   font-weight:800;
   color:var(--navySoft);
-  margin-bottom:10px;
+  margin-block-end:10px;
 }
 .t-hero-sub{
   font-size:1rem;
   line-height:1.8;
   color:var(--muted);
-  max-width:520px;
-  margin-bottom:18px;
+  max-inline-size:520px;
+  margin-block-end:18px;
 }
 
 /* Points clés hero */
@@ -106,7 +106,7 @@
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-bottom:22px;
+  margin-block-end:22px;
 }
 .t-hero-chip{
   display:inline-flex;
@@ -199,7 +199,7 @@
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
+  margin-block-end:10px;
   color:#e5e7eb;
   font-size:.8rem;
 }
@@ -224,7 +224,7 @@
   position:relative;
   border-radius:20px;
   background:radial-gradient(circle at 50% 0%,#e0f2fe 0,#0f172a 60%,#020617 100%);
-  height:210px;
+  block-size:210px;
   padding:12px;
   overflow:hidden;
 }
@@ -232,7 +232,7 @@
   display:grid;
   grid-template-columns:1.1fr 1fr;
   gap:10px;
-  height:100%;
+  block-size:100%;
 }
 
 /* jauge température */
@@ -257,16 +257,16 @@
   font-weight:700;
 }
 .t-temp-bar-wrap{
-  margin-top:6px;
-  width:100%;
-  height:7px;
+  margin-block-start:6px;
+  inline-size:100%;
+  block-size:7px;
   border-radius:999px;
   background:#0f172a;
   overflow:hidden;
 }
 .t-temp-bar{
-  width:78%;
-  height:100%;
+  inline-size:78%;
+  block-size:100%;
   border-radius:999px;
   background:linear-gradient(90deg,#22c55e,#eab308,#f97316);
 }
@@ -276,7 +276,7 @@
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:6px;
-  margin-top:6px;
+  margin-block-start:6px;
 }
 .t-mini{
   font-size:.72rem;
@@ -302,8 +302,8 @@
   color:#a5b4fc;
 }
 .t-curve-line{
-  margin-top:8px;
-  height:52px;
+  margin-block-start:8px;
+  block-size:52px;
   border-radius:10px;
   background:
     linear-gradient(135deg,rgba(8,47,73,0.85),rgba(15,23,42,0.95));
@@ -330,14 +330,14 @@
   100%{transform:translateX(-40%);}
 }
 .t-curve-note{
-  margin-top:5px;
+  margin-block-start:5px;
   font-size:.72rem;
   color:#cbd5f5;
 }
 
 /* bas du visuel */
 .t-cold-footer{
-  margin-top:10px;
+  margin-block-start:10px;
   display:flex;
   justify-content:space-between;
   gap:8px;
@@ -357,7 +357,7 @@
   padding:64px 0;
 }
 .t-section-header{
-  max-width:760px;
+  max-inline-size:760px;
   margin:0 auto 28px;
   text-align:center;
 }
@@ -367,13 +367,13 @@
   letter-spacing:.16em;
   color:#64748b;
   font-weight:600;
-  margin-bottom:4px;
+  margin-block-end:4px;
 }
 .t-section-title{
   font-size:1.8rem;
   font-weight:800;
   color:var(--navySoft);
-  margin-bottom:8px;
+  margin-block-end:8px;
 }
 .t-section-lead{
   font-size:.98rem;
@@ -405,7 +405,7 @@
   z-index:1;
 }
 .t-why-header{
-  max-width:760px;
+  max-inline-size:760px;
   margin:0 auto 26px;
   text-align:center;
 }
@@ -413,7 +413,7 @@
   font-size:1.9rem;
   font-weight:800;
   color:#f9fafb;
-  margin-bottom:8px;
+  margin-block-end:8px;
 }
 .t-why-header p{
   font-size:.96rem;
@@ -426,12 +426,12 @@
   display:flex;
   gap:18px;
   overflow-x:auto;
-  padding-bottom:8px;
+  padding-block-end:8px;
   scroll-snap-type:x mandatory;
 }
 .t-why-card{
-  min-width:240px;
-  max-width:280px;
+  min-inline-size:240px;
+  max-inline-size:280px;
   scroll-snap-align:start;
   background:rgba(15,23,42,0.95);
   border-radius:20px;
@@ -440,14 +440,14 @@
   box-shadow:0 16px 50px rgba(15,23,42,0.85);
 }
 .t-why-icon{
-  width:30px;
-  height:30px;
+  inline-size:30px;
+  block-size:30px;
   border-radius:999px;
   background:rgba(15,23,42,0.9);
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:8px;
+  margin-block-end:8px;
 }
 .t-why-icon i{
   color:#7dd3fc;
@@ -455,7 +455,7 @@
 .t-why-title{
   font-size:.94rem;
   font-weight:700;
-  margin-bottom:6px;
+  margin-block-end:6px;
 }
 .t-why-text{
   font-size:.84rem;
@@ -473,7 +473,7 @@
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:18px;
-  margin-top:20px;
+  margin-block-start:20px;
 }
 .t-result-card{
   border-radius:18px;
@@ -485,11 +485,11 @@
   gap:10px;
 }
 .t-result-dot{
-  width:10px;
-  height:10px;
+  inline-size:10px;
+  block-size:10px;
   border-radius:999px;
   background:linear-gradient(135deg,#0ea5e9,#22d3ee);
-  margin-top:4px;
+  margin-block-start:4px;
 }
 .t-result-text strong{
   font-size:.94rem;
@@ -508,7 +508,7 @@
   background:#e0f2fe;
 }
 .t-method-shell{
-  max-width:1040px;
+  max-inline-size:1040px;
   margin:0 auto;
 }
 .t-method-intro{
@@ -516,7 +516,7 @@
   color:#0f172a;
   line-height:1.8;
   text-align:center;
-  margin-bottom:20px;
+  margin-block-end:20px;
 }
 .t-steps{
   display:grid;
@@ -533,8 +533,8 @@
 }
 .t-step-num{
   position:absolute;
-  top:10px;
-  right:12px;
+  inset-block-start:10px;
+  inset-inline-end:12px;
   font-size:.76rem;
   text-transform:uppercase;
   letter-spacing:.16em;
@@ -549,7 +549,7 @@
   background:#eff6ff;
   font-size:.78rem;
   color:#0f172a;
-  margin-bottom:8px;
+  margin-block-end:8px;
 }
 .t-step-label i{
   color:#0284c7;
@@ -559,7 +559,7 @@
   font-size:.96rem;
   font-weight:700;
   color:#0f172a;
-  margin-bottom:4px;
+  margin-block-end:4px;
 }
 .t-step-text{
   font-size:.86rem;
@@ -576,7 +576,7 @@
   color:#e5e7eb;
 }
 .t-cta-card{
-  max-width:820px;
+  max-inline-size:820px;
   margin:0 auto;
   border-radius:26px;
   padding:26px 24px 22px;
@@ -588,13 +588,13 @@
 .t-cta-title{
   font-size:1.6rem;
   font-weight:800;
-  margin-bottom:8px;
+  margin-block-end:8px;
   color:#f9fafb;
 }
 .t-cta-text{
   font-size:.96rem;
   color:#dbeafe;
-  margin-bottom:18px;
+  margin-block-end:18px;
 }
 .t-cta-actions{
   display:flex;
@@ -647,7 +647,7 @@
             Étude thermique – chambres froides
           </div>
           <h1 class="t-hero-title">
-            Étude thermique des chambres froides
+            Étude thermique des chambres froides et amélioration des performances frigorifiques
           </h1>
           <p class="t-hero-sub">
             Analyse des performances frigorifiques, identification des apports de chaleur
@@ -658,11 +658,11 @@
           <div class="t-hero-points">
             <div class="t-hero-chip">
               <i class="fa-solid fa-snowflake"></i>
-              Jusqu’à 50&nbsp;% de la conso du site
+              Jusqu’à 20&nbsp;% de la conso du l'electricité
             </div>
             <div class="t-hero-chip">
               <i class="fa-solid fa-temperature-low"></i>
-              Sécuriser température &amp; produits
+              moins d'armortissement de température des produits
             </div>
             <div class="t-hero-chip">
               <i class="fa-solid fa-gauge-high"></i>
@@ -770,7 +770,7 @@
           <div class="t-why-icon">
             <i class="fa-solid fa-battery-half"></i>
           </div>
-          <div class="t-why-title">Jusqu’à 50&nbsp;% de la conso du site</div>
+          <div class="t-why-title">Jusqu’à 20 % de la conso du l'electricité</div>
           <div class="t-why-text">
             Les chambres froides positives et négatives sont des postes majeurs de
             consommation&nbsp;: leur optimisation a un impact direct sur la facture d’énergie.
@@ -836,7 +836,7 @@
         <div class="t-result-card t-animate">
           <div class="t-result-dot"></div>
           <div class="t-result-text">
-            <strong>Diminution des pertes thermiques</strong><br>
+            <strong>Identification des pertes thermiques</strong><br>
             Identification des ponts thermiques, défauts d’isolation et fuites d’air,
             avec chiffrage des gains liés aux améliorations proposées.
           </div>
@@ -872,8 +872,8 @@
         <div class="t-result-card t-animate">
           <div class="t-result-dot"></div>
           <div class="t-result-text">
-            <strong>Économies substantielles sur les coûts d’énergie</strong><br>
-            Réduction des kWh et accès possible aux <strong>aides CEE</strong>
+            <strong>Économies sur les coûts d’énergie</strong><br>
+            Réduction de la consommation de l'électricité et accès possible aux <strong>aides CEE</strong>
             (BAT-TH, IND-UT, etc.) pour financer une partie des travaux.
           </div>
         </div>

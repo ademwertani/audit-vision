@@ -93,7 +93,7 @@
             </p>
 
             <div class="qs-btn-wrap">
-                <a href="{{ url('/about') }}" class="btn qs-btn">Your More</a>
+                <a href="{{ url('/about') }}" class="btn qs-btn">Voir plus</a>
             </div>
         </div>
     </div>
